@@ -68,7 +68,7 @@
         color: #FFD133;
         font-size: 30px;
     }
-    .search2 {
+    .address2 {
         display: none;
     }
     #title-area {
@@ -173,7 +173,7 @@
                         <option>충청남도</option>
                         <option>충청북도</option>
                     </select>
-                    <select id="search2">
+                    <select id="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                     </select>
                     <select name="address2" class="address2">
@@ -263,7 +263,7 @@
                         <option>중구</option>
                         <option>해운대구</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>남구</option>
                         <option>동구</option>
@@ -271,16 +271,16 @@
                         <option>울주군</option>
                         <option>중구</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>세종특별자치시</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>서귀포시</option>
                         <option>제주시</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>강릉시</option>
                         <option>고성군</option>
@@ -301,7 +301,7 @@
                         <option>화천군</option>
                         <option>횡성군</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>가평군</option>
                         <option>고양시 덕양구</option>
@@ -349,7 +349,7 @@
                         <option>하남시</option>
                         <option>화성시</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>거제시</option>
                         <option>거창군</option>
@@ -370,7 +370,7 @@
                         <option>함양군</option>
                         <option>합천군</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>경산시</option>
                         <option>경주시</option>
@@ -396,7 +396,7 @@
                         <option>칠곡군</option>
                         <option>포항시</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>강진군</option>
                         <option>고흥군</option>
@@ -421,7 +421,7 @@
                         <option>해남군</option>
                         <option>화순군</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>고창군</option>
                         <option>군산시</option>
@@ -438,7 +438,7 @@
                         <option>정읍시</option>
                         <option>진안군</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>계룡시</option>
                         <option>공주시</option>
@@ -457,7 +457,7 @@
                         <option>태안군</option>
                         <option>홍성군</option>
                     </select>
-                    <select name="search2" class="search2">
+                    <select name="address2" class="address2">
                         <option value="" selected disabled hidden>시/구/군</option>
                         <option>괴산군</option>
                         <option>단양군</option>
@@ -479,26 +479,60 @@
                 </div>
                 <div id="filebox">
                     <label for="file" style="font-size: 13px;">파일선택</label>
-                    <input type="file" id="file">
+                    <input type="file" id="file" multiple>
                 </div>
                 <hr>
                 <h5>거래 희망 장소</h5>
                 <div id="map" style="width:100%; height:350px;">
 
                 </div>
+                <input type="text" hidden id="latitude" name="latitude">
+                <input type="text" hidden id="longitude" name="longitude">
             </form>
             <script>
                 $(function(){
-                    $(".search1").change(function(){
+                    $(".address1").change(function(){
                         for(let i= 1; i <= 17; i++){
-                            if($(".search1 option:selected").val() == $(".search1 option").eq(i).val()){
-                                $("#search2").css("display", "none");
-                                $(".search2").css("display", "none");
-                                $(".search2").eq(i-1).css("display", "inline");
+                            if($(".address1 option:selected").val() == $(".address1 option").eq(i).val()){
+                                $("#address2").css("display", "none");
+                                $(".address2").css("display", "none");
+                                $(".address2").eq(i-1).css("display", "inline");
                             }
                         }
                     });
                 });
+            </script>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae890d646304659e5b68c9a99be204bf"></script>
+            <script>
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                mapOption = { 
+                    center: new kakao.maps.LatLng(37.566535874777784, 126.97860140554657), // 지도의 중심좌표
+                    level: 8 // 지도의 확대 레벨
+                };
+            
+            var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+            
+            // 지도를 클릭한 위치에 표출할 마커입니다
+            var marker = new kakao.maps.Marker({ 
+                // 지도 중심좌표에 마커를 생성합니다 
+                position: map.getCenter() 
+            }); 
+            // 지도에 마커를 표시합니다
+            marker.setMap(map);
+            
+            // 지도에 클릭 이벤트를 등록합니다
+            // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+            kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+                
+                // 클릭한 위도, 경도 정보를 가져옵니다 
+                var latlng = mouseEvent.latLng; 
+                
+                // 마커 위치를 클릭한 위치로 옮깁니다
+                marker.setPosition(latlng);
+                
+                $("#latitude").val(latlng.getLat());
+                $("#longitude").val(latlng.getLng());
+            });
             </script>
       </div>
 </body>
