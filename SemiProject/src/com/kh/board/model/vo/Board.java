@@ -17,6 +17,8 @@ public class Board {
 	private double latitude; //	LATITUDE
 	private double longitude; //	LONGITUDE
 	private String status; //	STATUS
+	private int likeCount;
+	private Attachment at;
 	
 	public Board() {
 		super();
@@ -40,6 +42,19 @@ public class Board {
 		this.status = status;
 	}
 	
+	
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	public Attachment getAt() {
+		return at;
+	}
+	public void setAt(Attachment at) {
+		this.at = at;
+	}
 	public int getBoardNo() {
 		return boardNo;
 	}
