@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나눔&거래 글쓰기</title>
+<title>Insert title here</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
@@ -29,7 +29,6 @@
         height: auto;
         margin: auto;
         margin-top: 50px;
-        margin-bottom: 50px;
     }
     #page-title {
         text-align: center;
@@ -45,115 +44,140 @@
         font-size: 13px;
         margin-bottom: 30px;
     }
-
+    
+    #board-list {
+        border: 0.3px solid lightgray;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .search2 {
+        display: none;
+    }
     button:focus {
         border: none;
         outline: none;
     }
-    #button-area {
-        display: flex;
-        justify-content: space-between;
-    }
-    #button-area button {
+    #search-btn{
         border-radius: 7px;
         border: 0;
-        padding: 5px 15px;
-        font-size: 20px;
+        padding: 3px 10px;
+        background-color: rgb(0, 123, 255);
+        color: white;
     }
-    #register {
+    #search-area {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        margin-bottom: 30px;
+    }
+    #search-area>button {
+        border-radius: 7px;
+        border: 0;
+        padding: 3px 10px;
         background-color: rgb(230, 242, 255);
         color: rgb(0, 123, 255);
+        position: absolute;
+        right: 0;
     }
-    #title {
-        color: #FFD133;
-        font-size: 30px;
-    }
-    .address2 {
-        display: none;
-    }
-    #title-area {
-        display: flex;
-        justify-content: space-evenly;
-    }
-    #title-area select:focus {
+    #search-area select:focus {
         outline: none;
     }
-    #title-area select {
-        border: 2px solid rgb(204, 204, 204);
-        width: 150px;
-        height: 40px;
-        color: black;
-        font-size: 15px;
+    #search-area input:focus {
+        outline: none;
+    }
+    .paging-area {
         text-align: center;
-        border-radius: 5px;
     }
-    #title-area input:focus {
-        outline: none;
+    .paging-area button {
+        border: 0;
+        border-radius: 7px;
     }
-    #title-area input {
-        border: 2px solid rgb(204, 204, 204);
-        width: 888px;
-        height: 40px;
-        color: black;
-        font-size: 15px;
-        border-radius: 5px;
-    }
-    #content-area>textarea {
-        width: 100%;
-        height: 450px;
-        padding: 0 10px;
-        border: 2px solid #ccc;
-        border-radius: 5px;
-        resize: none;
-        /* margin: 0; */
-    }
-    #content-area>textarea:focus {
-    outline: none;}
-    #filebox label {
-        margin: 0;
-        display: inline-block;
-        padding: .3em .4em;
-        color: rgb(255, 255, 255);
-        font-size: inherit;
-        line-height: normal;
-        vertical-align: middle;
-        background-color: rgb(0, 123, 255);
-        cursor: pointer;
-        border: 1px solid #ebebeb;
-        border-bottom-color: #e2e2e2;
-        border-radius: .25em;
-    }
-    input[type="file"] {
-        width: 1px;
-        height: 1px;
-    }
-    h5 {
-        color: #FFD133;
+    .paging-area button:focus {
+        background-color: #FFD133;
     }
 </style>
 </head>
 <body>
 	<div id="contents">
-    		<div id="page-title">
-                <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/KakaoTalk_20230316_095326819_01.png" width="45px">
-                나눔&거래
-                <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/KakaoTalk_20230316_095326819_02.png" width="45px">
-            </div>
-            <hr>
-            <div id="page-description">
-                우리 아이가 좋아하지 않는 장난감, 옷, 사료 등을 팔고, <br>
-                필요한 물품들을 싸게 사보세요!
-            </div>
+        <div id="page-title">
+            <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/KakaoTalk_20230316_095326819_01.png" width="45px">
+            나눔&거래
+            <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/KakaoTalk_20230316_095326819_02.png" width="45px">
+        </div>
+        <hr>
+        <div id="page-description">
+            우리 아이가 좋아하지 않는 장난감, 옷, 사료 등을 팔고, <br>
+            필요한 물품들을 싸게 사보세요!
+        </div>
 
-            <div id="button-area">
-                <div id="title">글쓰기</div>
-                <div id="buttons">
-                    <button type="button" id="cancel" onclick="cancel()">취소</button>
-                    <button type="button" id="register" onclick="sendFile()">등록</button>
-                </div>
-            </div>
-            <div id="title-area">
-                <select name="address1" class="address1" required>
+        <table id="board-list" border="1">
+            <tr>
+                <th width="200"></th>
+                <th width="650">제목</th>
+                <th width="200">작성자</th>
+                <th width="100">조회수</th>
+                <th width="100">찜</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>안녕하세요. 관리자입니다.</td>
+                <td>관리자</td>
+                <td>30</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>안녕하세요. 관리자입니다.</td>
+                <td>관리자</td>
+                <td>30</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>안녕하세요. 관리자입니다.</td>
+                <td>관리자</td>
+                <td>30</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png" width="100px"></td>
+                <td>가격 내림, 새상품) 강아지 옷</td>
+                <td>정지연</td>
+                <td>13</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png" width="100px"></td>
+                <td>가격 내림, 새상품) 강아지 옷</td>
+                <td>정지연</td>
+                <td>13</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png" width="100px"></td>
+                <td>가격 내림, 새상품) 강아지 옷</td>
+                <td>정지연</td>
+                <td>13</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png" width="100px"></td>
+                <td>가격 내림, 새상품) 강아지 옷</td>
+                <td>정지연</td>
+                <td>13</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png" width="100px"></td>
+                <td>가격 내림, 새상품) 강아지 옷</td>
+                <td>정지연</td>
+                <td>13</td>
+                <td>2</td>
+            </tr>
+        </table>
+        <div id="search-area">
+            <form action="" method="get">
+                <select name="search1" class="search1">
                     <option value="" selected disabled hidden>광역시/도</option>
                     <option>서울특별시</option>
                     <option>인천광역시</option>
@@ -173,10 +197,10 @@
                     <option>충청남도</option>
                     <option>충청북도</option>
                 </select>
-                <select id="address2">
+                <select id="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>강남구</option>
                     <option>강동구</option>
@@ -204,7 +228,7 @@
                     <option>중구</option>
                     <option>중랑구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>강화군</option>
                     <option>계양구</option>
@@ -217,7 +241,7 @@
                     <option>옹진군</option>
                     <option>중구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>대덕구</option>
                     <option>동구</option>
@@ -225,7 +249,7 @@
                     <option>유성구</option>
                     <option>중구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>광산구</option>
                     <option>남구</option>
@@ -233,7 +257,7 @@
                     <option>북구</option>
                     <option>서구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>남구</option>
                     <option>달서구</option>
@@ -244,7 +268,7 @@
                     <option>수성구</option>
                     <option>중구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>강서구</option>
                     <option>금정구</option>
@@ -263,7 +287,7 @@
                     <option>중구</option>
                     <option>해운대구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>남구</option>
                     <option>동구</option>
@@ -271,16 +295,16 @@
                     <option>울주군</option>
                     <option>중구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>세종특별자치시</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>서귀포시</option>
                     <option>제주시</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>강릉시</option>
                     <option>고성군</option>
@@ -301,7 +325,7 @@
                     <option>화천군</option>
                     <option>횡성군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>가평군</option>
                     <option>고양시 덕양구</option>
@@ -349,7 +373,7 @@
                     <option>하남시</option>
                     <option>화성시</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>거제시</option>
                     <option>거창군</option>
@@ -370,7 +394,7 @@
                     <option>함양군</option>
                     <option>합천군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>경산시</option>
                     <option>경주시</option>
@@ -396,7 +420,7 @@
                     <option>칠곡군</option>
                     <option>포항시</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>강진군</option>
                     <option>고흥군</option>
@@ -421,7 +445,7 @@
                     <option>해남군</option>
                     <option>화순군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>고창군</option>
                     <option>군산시</option>
@@ -438,7 +462,7 @@
                     <option>정읍시</option>
                     <option>진안군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>계룡시</option>
                     <option>공주시</option>
@@ -457,7 +481,7 @@
                     <option>태안군</option>
                     <option>홍성군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="search2" class="search2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>괴산군</option>
                     <option>단양군</option>
@@ -472,124 +496,50 @@
                     <option>청주시</option>
                     <option>충주시</option>
                 </select>
-                <input type="text" name="title" id="content-title" size="100" placeholder="제목을 입력해주세요." required>
-            </div>
-            <div id="content-area">
-                <textarea name="content" id="content-main" placeholder="내용을 입력해주세요." required></textarea>
-            </div>
-            <div id="img-area">
-            
-            </div>
-            <div id="filebox">
-                <label for="file" style="font-size: 13px;">파일선택</label>
-                <input type="file" id="file" name="file" multiple onchange="loadImg(this)" required>
-            </div>
-            <hr>
-            <h5>거래 희망 장소</h5>
-            <div id="map" style="width:100%; height:350px;">
-
-            </div>
-            <input type="text" hidden id="latitude" name="latitude">
-            <input type="text" hidden id="longitude" name="longitude">
-           
+                <input type="text" name="search3" size="30" placeholder="제목/내용 검색">
+                <button type="submit" id="search-btn">검색</button>
+            </form>
+            <button type="button" id="write">글쓰기</button>
             <script>
                 $(function(){
-                    $(".address1").change(function(){
+                    $(".search1").change(function(){
+                        // 강사님 코드
+                        // let selectedValue = $(this).val();
+                        // $(".search1 option").each(function(index, ele){
+                        //     if($(ele).val() == selectedValue){
+                        //         $(".search2").css("display", "none");
+                        //         $(".search2").eq(index-1).css("display", "inline");
+                        //     }
+                        // });
+                        
+                        // 내 코드
                         for(let i= 1; i <= 17; i++){
-                            if($(".address1 option:selected").val() == $(".address1 option").eq(i).val()){
-                                $("#address2").css("display", "none");
-                                $(".address2").css("display", "none");
-                                $(".address2").eq(i-1).css("display", "inline");
+                            if($(".search1 option:selected").val() == $(".search1 option").eq(i).val()){
+                            	$("#search2").css("display", "none");
+                                $(".search2").css("display", "none");
+                                $(".search2").eq(i-1).css("display", "inline");
                             }
                         }
                     });
+                    
+                    $("#write").click(function(){
+                    	location.href= "<%= request.getContextPath() %>/insertBoard.sell";
+                    });
                 });
-                
-                function loadImg(inputFile) {
-                	// inputFile : 현재 변화가 생긴 input type="file"요소
-                	//console.log(inputFile.files.length);
-                	
-                	if(inputFile.files.length != 0){
-                		// 선택된 파일이 존재할 경우에 선택된 파일들을 읽어들여서 미리보기 생성
-					
-                		for(let i=0; i<inputFile.files.length; i++){
-	                		let reader = new FileReader();
-	                		
-                			reader.readAsDataURL(inputFile.files[i]);
-                			
-                			reader.onload = function(e){
-                				let url = e.target.result;
-                				$("<img id='contentImg"+i+"' width='150' height='120'>").appendTo("#img-area");
-                				$("#contentImg"+i).attr("src", url); 
-                			}
-                		}
-                	}else {
-                		$("#img-area").empty()
-                	}
-                }
-                
-                function sendFile() {
-                	let form = new FormData;
-                	let address1 = $(".address1").val();
-                	let address2 = $(".address2").val();
-                	let title = $("#content-title").val();
-                	let content = $("#content-main").val();
-                	let latitude = $("#latitude").val();
-                	let longitude = $("#longitude").val();
-                	
-                	$.each($("#file")[0].files, function(index, item){
-                		form.append("file"+index, item);
-                	});
-                	form.append("title", title );
-                	form.append("content", content);
-                	form.append("address1", address1);
-                	form.append("address2", address2);
-                	form.append("latitude", latitude);
-                	form.append("longitude", longitude);
-                	$.ajax({
-                		url : "<%= request.getContextPath() %>/insertBoard.sell",
-                		data : form,
-                		type : "post",
-                		processData : false,
-                		contentType : false, // 순수한 file형태로 보내기 위해서
-                		success : function(data){
-                			console.log("성공데스");
-                		}
-                	});
-                }
             </script>
-            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae890d646304659e5b68c9a99be204bf"></script>
-            <script>
-            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-                mapOption = { 
-                    center: new kakao.maps.LatLng(37.566535874777784, 126.97860140554657), // 지도의 중심좌표
-                    level: 8 // 지도의 확대 레벨
-                };
-            
-            var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-            
-            // 지도를 클릭한 위치에 표출할 마커입니다
-            var marker = new kakao.maps.Marker({ 
-                // 지도 중심좌표에 마커를 생성합니다 
-                position: map.getCenter() 
-            }); 
-            // 지도에 마커를 표시합니다
-            marker.setMap(map);
-            
-            // 지도에 클릭 이벤트를 등록합니다
-            // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-            kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-                
-                // 클릭한 위도, 경도 정보를 가져옵니다 
-                var latlng = mouseEvent.latLng; 
-                
-                // 마커 위치를 클릭한 위치로 옮깁니다
-                marker.setPosition(latlng);
-                
-                $("#latitude").val(latlng.getLat());
-                $("#longitude").val(latlng.getLng());
-            });
-            </script>
-      </div>
+        </div>
+        <div class="paging-area">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>10</button> 
+        </div>
+    </div>
 </body>
 </html>
