@@ -1,5 +1,6 @@
 package com.kh.board.sell.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -57,13 +58,17 @@ public class SellInsertController extends HttpServlet {
 			b.setBoardContent(multi.getParameter("content"));
 			//b.setBoardWriter(((Member)request.getSession().getAttribute("loginUser")).getUserNo()+"");
 			b.setAddress(multi.getParameter("address1")+","+multi.getParameter("address2"));
-			b.setLatitude(Double.parseDouble(multi.getParameter("latitude")));
-			b.setLongitude(Double.parseDouble(multi.getParameter("longitude")));
-			
+			if(multi.getParameter("latitude") != null) {
+				b.setLatitude(Double.parseDouble(multi.getParameter("latitude")));
+			}
+			if(multi.getParameter("longitude") != null) {
+				b.setLongitude(Double.parseDouble(multi.getParameter("longitude")));
+			}
 			
 			ArrayList<Attachment> list = new ArrayList<>();
 				
 			Enumeration e = multi.getFileNames(); // 전달된 파일들의 key값만 뽑아오기
+			int fileLevel = 1;
 			while(e.hasMoreElements()) {
 				String fileName = (String)e.nextElement();
 				String originName = multi.getOriginalFileName(fileName); // 넘어온 파일의 원본명
@@ -73,8 +78,11 @@ public class SellInsertController extends HttpServlet {
 				at.setOriginName(originName);
 				at.setChangeName(changeName);
 				at.setFilePath("/resources/sell_upfiles/");
+				at.setFileLevel(fileLevel++);
 				
 				list.add(at);
+				
+				System.out.println(originName);
 			}
 			
 			int result = new SellBoardService().insertSellBoard(b, list);
@@ -82,11 +90,13 @@ public class SellInsertController extends HttpServlet {
 			if(result>0) {
 				System.out.println("업로드성공");
 			}else {
+				if(!list.isEmpty()) {
+					for(Attachment a : list) {
+						new File(savePath+a.getChangeName()).delete();
+					}
+				}
 				System.out.println("업로드실패");
 			}
-			
-			
-			
 		}
 	}
 

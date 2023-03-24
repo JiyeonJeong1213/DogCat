@@ -53,15 +53,26 @@ public class SellBoardDao {
 		return result;
 	}
 	
-	public int insertAttachment(Connection conn, ArrayList<Attachment> list) {
+	public int insertAttachmentList(Connection conn, ArrayList<Attachment> list) {
 		int result = 1;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertAttachment");
+		String sql = prop.getProperty("insertAttachmentList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			for(Attachment at : list) {
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				pstmt.setInt(4, at.getFileLevel());
+				
+				result *= pstmt.executeUpdate();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
+		return result;
 	}
 }
