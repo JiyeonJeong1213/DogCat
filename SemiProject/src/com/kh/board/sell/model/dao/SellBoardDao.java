@@ -139,4 +139,31 @@ public class SellBoardDao {
 		}
 		return list;
 	}
+	
+	public ArrayList<Board> selectNoticeList(Connection conn){
+		ArrayList<Board> nList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectNoticeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Board n = new Board();
+				n.setBoardNo(rset.getInt("BOARD_NO"));
+				n.setBoardTitle(rset.getString("BOARD_TITLE"));
+				n.setBoardWriter(rset.getString("USER_ID"));
+				n.setCount(rset.getInt("COUNT"));
+				
+				nList.add(n);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return nList;
+	}
 }

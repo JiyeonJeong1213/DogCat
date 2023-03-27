@@ -123,6 +123,27 @@
             	</tr>
         	</thead>
             <tbody>
+            	<c:choose>
+	            	<c:when test="${empty nList }">
+	            		<tr>
+	            			<td></td>
+	            			<td colspan=4>조회된 공지사항이 없습니다.</td>
+	            		</tr>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<c:forEach var="n" items="${requestScope.nList }" varStatus="status">
+	            			<tr>
+	            				<input type="hidden" value="${n.boardNo }">
+	            				<td></td>
+	            				<td>${n.boardTitle } </td>
+	            				<td>${n.boardWriter } </td>
+	            				<td>${n.count } </td>
+	            				<td></td>
+	            			</tr>
+	            		</c:forEach>
+	            	</c:otherwise>
+	            </c:choose>
+            
 	            <c:choose>
 	            	<c:when test="${empty list }">
 	            		<tr>

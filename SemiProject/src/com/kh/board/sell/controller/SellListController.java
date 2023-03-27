@@ -55,9 +55,11 @@ public class SellListController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		ArrayList<Board> list = new SellBoardService().selectList(pi);
+		ArrayList<Board> nList = new SellBoardService().selectNoticeList();
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
+		request.setAttribute("nList", nList);
 		
 		request.getRequestDispatcher("views/board/sell/sellListView.jsp").forward(request, response);
 	}

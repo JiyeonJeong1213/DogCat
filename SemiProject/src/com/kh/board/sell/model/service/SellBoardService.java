@@ -48,4 +48,14 @@ public class SellBoardService {
 		
 		return list;
 	}
+	
+	public ArrayList<Board> selectNoticeList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> nList = new SellBoardDao().selectNoticeList(conn);
+		
+		close(conn);
+		
+		return nList;
+	}
 }

@@ -176,7 +176,7 @@
                 <select id="address2">
                     <option value="" selected disabled hidden>시/구/군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-1">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>강남구</option>
                     <option>강동구</option>
@@ -204,7 +204,7 @@
                     <option>중구</option>
                     <option>중랑구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-2">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>강화군</option>
                     <option>계양구</option>
@@ -217,7 +217,7 @@
                     <option>옹진군</option>
                     <option>중구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-3">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>대덕구</option>
                     <option>동구</option>
@@ -225,7 +225,7 @@
                     <option>유성구</option>
                     <option>중구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-4">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>광산구</option>
                     <option>남구</option>
@@ -233,7 +233,7 @@
                     <option>북구</option>
                     <option>서구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-5">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>남구</option>
                     <option>달서구</option>
@@ -244,7 +244,7 @@
                     <option>수성구</option>
                     <option>중구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-6">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>강서구</option>
                     <option>금정구</option>
@@ -263,7 +263,7 @@
                     <option>중구</option>
                     <option>해운대구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-7">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>남구</option>
                     <option>동구</option>
@@ -271,16 +271,16 @@
                     <option>울주군</option>
                     <option>중구</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-8">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>세종특별자치시</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-9">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>서귀포시</option>
                     <option>제주시</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-10">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>강릉시</option>
                     <option>고성군</option>
@@ -301,7 +301,7 @@
                     <option>화천군</option>
                     <option>횡성군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-11">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>가평군</option>
                     <option>고양시 덕양구</option>
@@ -349,7 +349,7 @@
                     <option>하남시</option>
                     <option>화성시</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-12">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>거제시</option>
                     <option>거창군</option>
@@ -370,7 +370,7 @@
                     <option>함양군</option>
                     <option>합천군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-13">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>경산시</option>
                     <option>경주시</option>
@@ -396,7 +396,7 @@
                     <option>칠곡군</option>
                     <option>포항시</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-14">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>강진군</option>
                     <option>고흥군</option>
@@ -421,7 +421,7 @@
                     <option>해남군</option>
                     <option>화순군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-15">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>고창군</option>
                     <option>군산시</option>
@@ -438,7 +438,7 @@
                     <option>정읍시</option>
                     <option>진안군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-16">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>계룡시</option>
                     <option>공주시</option>
@@ -457,7 +457,7 @@
                     <option>태안군</option>
                     <option>홍성군</option>
                 </select>
-                <select name="address2" class="address2">
+                <select name="address2" class="address2" id="address2-17">
                     <option value="" selected disabled hidden>시/구/군</option>
                     <option>괴산군</option>
                     <option>단양군</option>
@@ -500,6 +500,7 @@
                                 $("#address2").css("display", "none");
                                 $(".address2").css("display", "none");
                                 $(".address2").eq(i-1).css("display", "inline");
+                                $(".address2").eq(i-1).addClass("on");
                             }
                         }
                     });
@@ -531,13 +532,27 @@
                 function sendFile() {
                 	let form = new FormData;
                 	let address1 = $(".address1").val();
-                	let address2 = $(".address2").val();
+                	let address2 = $(".on").val();
                 	let title = $("#content-title").val();
                 	let content = $("#content-main").val();
                 	let latitude = $("#latitude").val();
                 	let longitude = $("#longitude").val();
                 	
-                	$.each($("#file")[0].files, function(index, item){
+                	/* for(let i=1; i<=17; i++){
+                		$("#address2-"+i+">option").each(function(){
+                			//console.log($(this).is(':selected'));
+                			//console.log($(this).filter(':selected').val());
+                			if($(this).is(':selected') && $(this).val() != ""){
+                				//console.log($(this).val());
+                				address2 = $(this).val();
+                			}
+                		})
+                	} */ 
+                	// 첨엔 위에 돌린 반복문으로 값을 불러왔는데 그냥 불러온 address2에 클래스를 하나 더 (on)줘서 그 클래스로 불러오면 더 간단함
+                	
+                	console.log(address2);
+                	
+                 	$.each($("#file")[0].files, function(index, item){
                 		form.append("file"+index, item);
                 	});
                 	form.append("title", title );
@@ -546,7 +561,7 @@
                 	form.append("address2", address2);
                 	form.append("latitude", latitude);
                 	form.append("longitude", longitude);
-                	$.ajax({
+                	 $.ajax({
                 		url : "<%= request.getContextPath() %>/insertBoard.sell",
                 		data : form,
                 		type : "post",
@@ -555,7 +570,7 @@
                 		success : function(data){
                 			console.log("성공데스");
                 		}
-                	});
+                	});  
                 }
             </script>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae890d646304659e5b68c9a99be204bf"></script>
