@@ -20,8 +20,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <style>
+  @font-face {
+		font-family: 'yg-jalnan';
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+    }
     *{
         font-family: 'Noto Sans KR', sans-serif;
+    }
+    .footer{
+    	margin-bottom: 30px;
     }
      .footer>div{
         display: inline-block;
