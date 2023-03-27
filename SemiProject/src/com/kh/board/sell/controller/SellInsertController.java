@@ -82,7 +82,7 @@ public class SellInsertController extends HttpServlet {
 				
 				list.add(at);
 				
-				System.out.println(originName);
+				//System.out.println(originName);
 			}
 			
 			int result = new SellBoardService().insertSellBoard(b, list);

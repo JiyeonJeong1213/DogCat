@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,6 +95,7 @@
     }
     .paging-area button:focus {
         background-color: #FFD133;
+        color: white;
     }
 </style>
 </head>
@@ -111,69 +113,66 @@
         </div>
 
         <table id="board-list" border="1">
-            <tr>
+        	<thead>
+        		<tr>
                 <th width="200"></th>
                 <th width="650">제목</th>
                 <th width="200">작성자</th>
                 <th width="100">조회수</th>
                 <th width="100">찜</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td>안녕하세요. 관리자입니다.</td>
-                <td>관리자</td>
-                <td>30</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>안녕하세요. 관리자입니다.</td>
-                <td>관리자</td>
-                <td>30</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>안녕하세요. 관리자입니다.</td>
-                <td>관리자</td>
-                <td>30</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png" width="100px"></td>
-                <td>가격 내림, 새상품) 강아지 옷</td>
-                <td>정지연</td>
-                <td>13</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png" width="100px"></td>
-                <td>가격 내림, 새상품) 강아지 옷</td>
-                <td>정지연</td>
-                <td>13</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png" width="100px"></td>
-                <td>가격 내림, 새상품) 강아지 옷</td>
-                <td>정지연</td>
-                <td>13</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png" width="100px"></td>
-                <td>가격 내림, 새상품) 강아지 옷</td>
-                <td>정지연</td>
-                <td>13</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png" width="100px"></td>
-                <td>가격 내림, 새상품) 강아지 옷</td>
-                <td>정지연</td>
-                <td>13</td>
-                <td>2</td>
-            </tr>
+            	</tr>
+        	</thead>
+            <tbody>
+            	<c:choose>
+	            	<c:when test="${empty nList }">
+	            		<tr>
+	            			<td></td>
+	            			<td colspan=4>조회된 공지사항이 없습니다.</td>
+	            		</tr>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<c:forEach var="n" items="${requestScope.nList }" varStatus="status">
+	            			<tr>
+	            				<input type="hidden" value="${n.boardNo }">
+	            				<td></td>
+	            				<td>${n.boardTitle } </td>
+	            				<td>${n.boardWriter } </td>
+	            				<td>${n.count } </td>
+	            				<td></td>
+	            			</tr>
+	            		</c:forEach>
+	            	</c:otherwise>
+	            </c:choose>
+            
+	            <c:choose>
+	            	<c:when test="${empty list }">
+	            		<tr>
+	            			<td></td>
+	            			<td colspan=4>조회된 게시글이 없습니다.</td>
+	            		</tr>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<c:forEach var="b" items="${requestScope.list }" varStatus="status">
+	            			<tr>
+	            				<input type="hidden" value="${b.boardNo }">
+	            				<c:choose>
+	            					<c:when test="${!empty b.at }">
+	            						<td><img src="<%= request.getContextPath() %>${b.at.filePath}${ b.at.changeName}" width="100px"></td>
+	            					</c:when>
+	            					<c:otherwise>
+	            						<td></td>
+	            					</c:otherwise>
+	            				</c:choose>
+	            				<td>${b.boardTitle } </td>
+	            				<td>${b.boardWriter } </td>
+	            				<td>${b.count } </td>
+	            				<td>${b.likeCount } </td>
+	            			</tr>
+	            		</c:forEach>
+	            	</c:otherwise>
+	            </c:choose>
+            </tbody>
+            
         </table>
         <div id="search-area">
             <form action="" method="get">
@@ -528,17 +527,32 @@
                 });
             </script>
         </div>
+       
+        <!-- 페이징바 영역 -->
+        <c:set var="currentPage" value="${requestScope.pi.currentPage }"/>
+        <c:set var="startPage" value="${requestScope.pi.startPage }"/>
+        <c:set var="endPage" value="${requestScope.pi.endPage }"/>
+        <c:set var="maxPage" value="${requestScope.pi.maxPage }"/>
+       
         <div class="paging-area">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button>10</button> 
+            <c:if test="${pageScope.currentPage != 1}">
+            	<button onclick="location.href='<%= request.getContextPath() %>/list.sell?currentPage=${pageScope.currentPage-1 }'">&lt;</button>
+            </c:if>
+           
+            <c:forEach var="i" begin="${startPage }" end="${endPage}">
+            	<c:choose>
+            		<c:when test="${i != currentPage }">
+            			<button onclick="location.href='<%= request.getContextPath() %>/list.sell?currentPage=${i}'">${i }</button>
+            		</c:when>
+            		<c:otherwise>
+            			<button disabled>${i }</button>
+            		</c:otherwise>
+            	</c:choose>
+            </c:forEach>
+            
+            <c:if test="${pageScope.currentPage != maxPage}">
+            	<button onclick="location.href='<%= request.getContextPath() %>/list.sell?currentPage=${pageScope.currentPage+1 }'">&gt;</button>
+            </c:if>
         </div>
     </div>
 </body>

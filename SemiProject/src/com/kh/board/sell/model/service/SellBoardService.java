@@ -1,6 +1,9 @@
 package com.kh.board.sell.model.service;
 
-import static com.kh.common.JDBCTemplate.*;
+import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
+import static com.kh.common.JDBCTemplate.getConnection;
+import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -8,6 +11,7 @@ import java.util.ArrayList;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.sell.model.dao.SellBoardDao;
+import com.kh.common.model.vo.PageInfo;
 
 public class SellBoardService {
 
@@ -23,5 +27,35 @@ public class SellBoardService {
 		}
 		close(conn);
 		return result * result2;
+	}
+	
+	public int selectListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new SellBoardDao().selectListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	public ArrayList<Board> selectList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new SellBoardDao().selectList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Board> selectNoticeList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> nList = new SellBoardDao().selectNoticeList(conn);
+		
+		close(conn);
+		
+		return nList;
 	}
 }
