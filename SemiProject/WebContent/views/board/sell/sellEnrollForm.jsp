@@ -133,6 +133,8 @@
 </style>
 </head>
 <body>
+	<%@ include file="../../common/menubar.jsp" %>
+	
 	<div id="contents">
     		<div id="page-title">
                 <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/KakaoTalk_20230316_095326819_01.png" width="45px">
@@ -529,6 +531,10 @@
                 	}
                 }
                 
+                function cancel() {
+                	location.href = "<%=contextPath%>/list.sell";
+                }
+                
                 function sendFile() {
                 	let form = new FormData;
                 	let address1 = $(".address1").val();
@@ -550,7 +556,7 @@
                 	} */ 
                 	// 첨엔 위에 돌린 반복문으로 값을 불러왔는데 그냥 불러온 address2에 클래스를 하나 더 (on)줘서 그 클래스로 불러오면 더 간단함
                 	
-                	console.log(address2);
+                	//console.log(address2);
                 	
                  	$.each($("#file")[0].files, function(index, item){
                 		form.append("file"+index, item);
@@ -606,5 +612,7 @@
             });
             </script>
       </div>
+      
+      <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

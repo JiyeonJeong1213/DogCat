@@ -5,7 +5,6 @@
 		INSERT INTO BOARD(BOARD_NO, BOARD_TYPE, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, SALE, ADDRESS, LATITUDE, LONGITUDE)
 		VALUES(SEQ_BNO.NEXTVAL, 3, ?, ?, 2, 'Y', ? ,?, ?)
 	</entry>
-	
 	<entry key="insertAttachmentList">
 		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
 		VALUES (SEQ_FNO.NEXTVAL, SEQ_BNO.CURRVAL, ?, ?, ?, ?)
@@ -17,7 +16,6 @@
 		WHERE STATUS = 'Y'
 		  AND BOARD_TYPE = '3'
 	</entry>
-	
 	<entry key="selectList">
 		SELECT *
 		FROM  (SELECT ROWNUM RNUM, A.*
@@ -39,7 +37,6 @@
 		                  )
 		WHERE RNUM BETWEEN ? AND ? 
 	</entry>
-	
 	<entry key="selectNoticeList">
 		SELECT BOARD_NO, BOARD_TITLE, USER_ID, COUNT
 		FROM BOARD B
@@ -47,5 +44,25 @@
 		WHERE BOARD_TYPE = 4
 		  AND B.STATUS = 'Y'
 		ORDER BY CREATE_DATE DESC, BOARD_NO DESC
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE BOARD
+		SET COUNT = COUNT+1
+		WHERE BOARD_NO = ?
+		  AND STATUS = 'Y'
+	</entry>
+	<entry key="selectBoard">
+		SELECT BOARD_NO, BOARD_TITLE, USER_ID, BOARD_CONTENT, CREATE_DATE, COUNT, LATITUDE, LONGITUDE, B.ADDRESS
+		FROM BOARD B
+		JOIN MEMBER ON (BOARD_WRITER = USER_NO)
+		WHERE BOARD_NO = ?
+		  AND B.STATUS = 'Y'
+	</entry>
+	<entry key="selectAttachment">
+		SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL
+		FROM ATTACHMENT
+		WHERE REF_BNO = ?
+		ORDER BY FILE_LEVEL
 	</entry>
 </properties>

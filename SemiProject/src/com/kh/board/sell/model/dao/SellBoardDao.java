@@ -54,7 +54,6 @@ public class SellBoardDao {
 		}
 		return result;
 	}
-	
 	public int insertAttachmentList(Connection conn, ArrayList<Attachment> list) {
 		int result = 1;
 		PreparedStatement pstmt = null;
@@ -77,7 +76,7 @@ public class SellBoardDao {
 		}
 		return result;
 	}
-	
+
 	public int selectListCount(Connection conn) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
@@ -99,7 +98,6 @@ public class SellBoardDao {
 		}
 		return listCount;
 	}
-	
 	public ArrayList<Board> selectList(Connection conn, PageInfo pi) {
 		ArrayList<Board> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -139,7 +137,6 @@ public class SellBoardDao {
 		}
 		return list;
 	}
-	
 	public ArrayList<Board> selectNoticeList(Connection conn){
 		ArrayList<Board> nList = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -165,5 +162,79 @@ public class SellBoardDao {
 			close(pstmt);
 		}
 		return nList;
+	}
+	
+	public int increseCount(Connection conn, int bno) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("increaseCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public Board selectBoard(Connection conn, int bno) {
+		Board b = new Board();
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectBoard");
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setBoardWriter(rset.getString("USER_ID"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));
+				b.setCount(rset.getInt("COUNT"));
+				b.setCreateDate(rset.getDate("CREATE_DATE"));
+				b.setLatitude(rset.getDouble("LATITUDE"));
+				b.setLongitude(rset.getDouble("LONGITUDE"));
+				b.setAddress(rset.getString("ADDRESS"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return b;
+	}
+	public ArrayList<Attachment> selectAttachmentList(Connection conn, int bno) {
+		ArrayList<Attachment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				
+				list.add(at);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 }

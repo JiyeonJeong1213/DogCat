@@ -38,7 +38,6 @@ public class SellBoardService {
 		
 		return listCount;
 	}
-	
 	public ArrayList<Board> selectList(PageInfo pi) {
 		Connection conn = getConnection();
 		
@@ -48,7 +47,6 @@ public class SellBoardService {
 		
 		return list;
 	}
-	
 	public ArrayList<Board> selectNoticeList() {
 		Connection conn = getConnection();
 		
@@ -57,5 +55,30 @@ public class SellBoardService {
 		close(conn);
 		
 		return nList;
+	}
+	
+	public int increaseCount(int bno) {
+		Connection conn = getConnection();
+		int result = new SellBoardDao().increseCount(conn, bno);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	public Board selectBoard(int bno) {
+		Connection conn = getConnection();
+		Board b = new SellBoardDao().selectBoard(conn, bno);
+		close(conn);
+		return b;
+	}
+	public ArrayList<Attachment> selectAttachmentList(int bno) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> list = new SellBoardDao().selectAttachmentList(conn, bno);
+		close(conn);
+		return list;
 	}
 }
