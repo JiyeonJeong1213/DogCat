@@ -62,7 +62,8 @@ public class MemberDao {
 						rset.getString("HOBBY"),
 						rset.getDate("ENROLL_DATE"),
 						rset.getDate("MODIFY_DATE"),
-						rset.getString("STATUS"));
+						rset.getString("STATUS"),
+						rset.getString("SPECIES"));
 			}
 			
 		} catch (SQLException e) {
@@ -140,7 +141,8 @@ public class MemberDao {
 						rset.getString("HOBBY"),
 						rset.getDate("ENROLL_DATE"),
 						rset.getDate("MODIFY_DATE"),
-						rset.getString("STATUS"));
+						rset.getString("STATUS"),
+						rset.getString("SPECIES"));
 			}
 			
 		} catch (SQLException e) {
