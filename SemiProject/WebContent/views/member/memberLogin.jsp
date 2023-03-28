@@ -75,24 +75,6 @@
             cursor: pointer;
         }
 
-        #login-form>input[type="checkbox"] {
-            display: none;
-        }
-
-        #login-form input[type="checkbox"]+label {
-            cursor: pointer;
-            padding-left: 26px;
-            background-image: url("checkbox.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
-
-        #login-form input[type="checkbox"]:checked+label {
-            background-image: url("checkbox-active.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
-
         #login-form button {
             margin-bottom: 13px;
             cursor: pointer;
@@ -129,6 +111,11 @@
         .login_footer{
             display: inline-flex;
         }
+        
+        input:focus {
+            outline: none;
+        }
+
 </style>
 </head>
 <body>
@@ -138,8 +125,8 @@
             <div class="login-wrapper">
                 <h2>로그인</h2>
                 <form method="post" action="<%= contextPath %>/login.me" id="login-form">
-                    <input type="text" name="userId" placeholder="아이디" required>
-                    <input type="password" name="userPwd" placeholder="비밀번호" required>
+                    <input type="text" name="userId" placeholder="아이디" autocomplete="off" required>
+                    <input type="password" name="userPwd" placeholder="비밀번호" autocomplete="off" required>
                     <label for="remember-check">
                         <input type="checkbox" id="remember-check" > 아이디 저장
                     </label>
@@ -156,7 +143,7 @@
                     </div>
                     
                     <div class="sign_btn" align="end">
-                        <button type="submit" onclick="enrollPage();">회원가입</button>
+                        <button type="button" onclick="enrollPage();">회원가입</button>
                 </form>
                     </div>
                 </div>

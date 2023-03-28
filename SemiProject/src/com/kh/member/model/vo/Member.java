@@ -37,6 +37,19 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
+	
+	public Member(String userId, String userPwd, String userName, String userNickname, String phone, String email,
+			String address, String hobby) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userNickname = userNickname;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.hobby = hobby;
+	}
 
 	public int getUserNo() {
 		return userNo;

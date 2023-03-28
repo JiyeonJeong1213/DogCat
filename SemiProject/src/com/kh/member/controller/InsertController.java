@@ -30,22 +30,42 @@ public class InsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
 		
 		String userId = request.getParameter("userId");
+		String userName = request.getParameter("userName");
 		String userNickname = request.getParameter("userNickname");
 		String userPwd = request.getParameter("userPwd");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
 		String address = request.getParameter("address");
+		String hobby = request.getParameter("hobby");
 		String species = request.getParameter("species");
 		String gender = request.getParameter("gender");
 		String petName = request.getParameter("petName");
 		
-		//email = AEScryptor.encrypt(email);
+		Member m = new Member();
+		m.setUserId(userId);
+		m.setUserName(userName);
+		m.setUserNickname(userNickname);
+		m.setUserPwd(userPwd);
+		m.setEmail(email);
+		m.setPhone(phone);
+		m.setAddress(address);
+		m.setHobby(hobby);
 		
-		Member m = new Member(userId, userNickname,userPwd,email,phone,address);
-		Pet p = new Pet(species,gender,petName);
+		Pet p = new Pet();
+		p.setSpecies(species);
+		p.setGender(gender);
+		p.setPetName(petName);
 	
 		int result = new MemberService().insertMember(m,p);
 		
@@ -59,14 +79,6 @@ public class InsertController extends HttpServlet {
 			
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

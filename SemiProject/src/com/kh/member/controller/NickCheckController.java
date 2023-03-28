@@ -7,17 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.member.model.service.MemberService;
+
 /**
- * Servlet implementation class EmailController
+ * Servlet implementation class NickCheckController
  */
-@WebServlet("/EmailController.me")
-public class EmailController extends HttpServlet {
+@WebServlet("/nickCheck.me")
+public class NickCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmailController() {
+    public NickCheckController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +28,13 @@ public class EmailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String userNickname = request.getParameter("userNickname");
+		int count1 = new MemberService().nickCheck(userNickname);
+		if(count1 > 0) { 
+			response.getWriter().print("NNNNNN");
+		}else {
+			response.getWriter().print("NNNNNY");
+		}
 	}
 
 	/**
