@@ -81,4 +81,26 @@ public class SellBoardService {
 		close(conn);
 		return list;
 	}
+	
+	public int updateBoard(Board b, ArrayList<Attachment> list, ArrayList<Integer> originFileNos) {
+		Connection conn = getConnection();
+		int result1 = new SellBoardDao().updateBoard(conn, b);
+		
+		int result2 = 1; // 애초에 insert나 update문이 실행되지 않을 경우를 대비해서 1로 초기화 해줌
+		int result3 = 1;
+		if(list.size() > 0) {
+			result2 = new SellBoardDao().updateAttachmentInsert(conn, list);
+			if(originFileNos != null) { // 기존에 첨부파일이 있었던 경우
+				result3 = new SellBoardDao().updateAttachmentDelete(conn, originFileNos);
+			}
+		}
+		
+		if(result1>0 && result2>0 && result3>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1*result2*result3;
+	}
 }

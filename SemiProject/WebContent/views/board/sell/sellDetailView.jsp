@@ -62,6 +62,10 @@
         background-color: rgb(230, 242, 255);
         color: rgb(0, 123, 255);
     }
+    #like {
+    	background-color: #FFD133;
+    	color: white;
+    }
     .search2 {
         display: none;
     }
@@ -138,6 +142,7 @@
 
         <div id="button-area">
         	<c:if test="${!empty loginUser and loginUser.userId ne b.boardWriter}">
+        		<button type="button" id="like">찜하기</button>
                 <button type="button" id="chatting">구매 문의 채팅</button>
             </c:if>
         </div>

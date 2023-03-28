@@ -17,6 +17,7 @@ import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.sell.model.service.SellBoardService;
 import com.kh.common.MyFileRenamePolicy;
+import com.kh.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -56,7 +57,7 @@ public class SellInsertController extends HttpServlet {
 			Board b = new Board();
 			b.setBoardTitle(multi.getParameter("title"));
 			b.setBoardContent(multi.getParameter("content"));
-			//b.setBoardWriter(((Member)request.getSession().getAttribute("loginUser")).getUserNo()+"");
+			b.setBoardWriter(((Member)request.getSession().getAttribute("loginUser")).getUserNo()+"");
 			b.setAddress(multi.getParameter("address1")+","+multi.getParameter("address2"));
 			if(multi.getParameter("latitude") != null) {
 				b.setLatitude(Double.parseDouble(multi.getParameter("latitude")));
@@ -68,7 +69,7 @@ public class SellInsertController extends HttpServlet {
 			ArrayList<Attachment> list = new ArrayList<>();
 				
 			Enumeration e = multi.getFileNames(); // 전달된 파일들의 key값만 뽑아오기
-			int fileLevel = 1;
+			int fileLevel = Integer.parseInt(multi.getParameter("fileLength"));
 			while(e.hasMoreElements()) {
 				String fileName = (String)e.nextElement();
 				String originName = multi.getOriginalFileName(fileName); // 넘어온 파일의 원본명
@@ -78,7 +79,7 @@ public class SellInsertController extends HttpServlet {
 				at.setOriginName(originName);
 				at.setChangeName(changeName);
 				at.setFilePath("/resources/sell_upfiles/");
-				at.setFileLevel(fileLevel++);
+				at.setFileLevel(fileLevel--);
 				
 				list.add(at);
 				
@@ -95,7 +96,8 @@ public class SellInsertController extends HttpServlet {
 						new File(savePath+a.getChangeName()).delete();
 					}
 				}
-				System.out.println("업로드실패");
+				request.setAttribute("errorMsg", "게시글 작성 실패");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}
 	}

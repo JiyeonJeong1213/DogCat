@@ -94,8 +94,10 @@
         border-radius: 7px;
     }
     .paging-area button:focus {
-        background-color: #FFD133;
-        color: white;
+        outline: none;
+    }
+    #write:focus {
+    	outline:none;
     }
 </style>
 </head>
@@ -560,7 +562,7 @@
             			<button onclick="location.href='<%= request.getContextPath() %>/list.sell?currentPage=${i}'">${i }</button>
             		</c:when>
             		<c:otherwise>
-            			<button disabled>${i }</button>
+            			<button disabled style="background-color: #FFD133; color: white;">${i }</button>
             		</c:otherwise>
             	</c:choose>
             </c:forEach>

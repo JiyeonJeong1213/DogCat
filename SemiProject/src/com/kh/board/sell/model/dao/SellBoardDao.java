@@ -42,9 +42,10 @@ public class SellBoardDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, b.getBoardTitle());
 			pstmt.setString(2, b.getBoardContent());
-			pstmt.setString(3, b.getAddress());
-			pstmt.setDouble(4, b.getLatitude());
-			pstmt.setDouble(5, b.getLongitude());
+			pstmt.setString(3, b.getBoardWriter());
+			pstmt.setString(4, b.getAddress());
+			pstmt.setDouble(5, b.getLatitude());
+			pstmt.setDouble(6, b.getLongitude());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -224,6 +225,7 @@ public class SellBoardDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Attachment at = new Attachment();
+				at.setFileNo(rset.getInt("FILE_NO"));
 				at.setFilePath(rset.getString("FILE_PATH"));
 				at.setChangeName(rset.getString("CHANGE_NAME"));
 				
@@ -236,5 +238,71 @@ public class SellBoardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int updateBoard(Connection conn, Board b) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setString(3, b.getAddress());
+			pstmt.setDouble(4, b.getLatitude());
+			pstmt.setDouble(5, b.getLongitude());
+			pstmt.setString(6, b.getSale());
+			pstmt.setInt(7, b.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateAttachmentInsert(Connection conn, ArrayList<Attachment> list) {
+		int result = 1;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAttachmentInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for(Attachment at : list) {
+				pstmt.setInt(1, at.getRefBno());
+				pstmt.setString(2, at.getOriginName());
+				pstmt.setString(3, at.getChangeName());
+				pstmt.setString(4, at.getFilePath());
+				pstmt.setInt(5, at.getFileLevel());
+				
+				result *= pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateAttachmentDelete(Connection conn, ArrayList<Integer> originFileNos) {
+		int result = 1;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAttachmentDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for(int no : originFileNos) {
+				pstmt.setInt(1, no);
+				
+				result *= pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

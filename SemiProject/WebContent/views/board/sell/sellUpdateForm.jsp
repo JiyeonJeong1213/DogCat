@@ -471,7 +471,12 @@
                 <option>청주시</option>
                 <option>충주시</option>
             </select>
-            <input type="text" name="title" id="content-title" size="100" required value=${b.boardTitle }>
+            <input type="text" name="title" id="content-title" size="100" required value="${b.boardTitle }">
+            <select name="sale" class="sale">
+            	<option value="Y">판매중</option>
+            	<option value="N">판매완료</option>
+            </select>
+            <input type="hidden" name="bno" value="${b.boardNo }">
         </div>
         <div id="content-area">
             <textarea name="content" id="content-main" required>${b.boardContent }</textarea>
@@ -486,14 +491,20 @@
         <div id="filebox">
             <label for="file" style="font-size: 13px;">파일선택</label>
             <input type="file" id="file" name="file" multiple onchange="loadImg(this)" required>
+            <c:if test="${!empty requestScope.list }">
+            	<c:forEach var="at" items="${requestScope.list }" varStatus="status">
+            		<input type="hidden" name="originFileNo${status.index }" value="${at.fileNo }">
+            		<input type="hidden" name="changeFileName${status.index }" value="${at.changeName }" multiple>
+            	</c:forEach>
+            </c:if>
         </div>
         <hr>
         <h5>거래 희망 장소</h5>
         <div id="map" style="width:100%; height:350px;">
 
         </div>
-        <input type="text" hidden id="latitude" name="latitude">
-        <input type="text" hidden id="longitude" name="longitude">
+        <input type="text" hidden id="latitude" name="latitude" value="${b.latitude }">
+        <input type="text" hidden id="longitude" name="longitude" value="${b.longitude }">
           
         <script>
             $(function(){
@@ -514,13 +525,24 @@
                     }
                 }
                 
-                
+                $(".address1").change(function(){
+                    for(let i= 1; i <= 17; i++){
+                        if($(".address1 option:selected").val() == $(".address1 option").eq(i).val()){
+                            $("#address2").css("display", "none");
+                            $(".address2").css("display", "none");
+                            $(".address2").eq(i-1).css("display", "inline");
+                            $(".address2").eq(i-1).addClass("on");
+                        }
+                    }
+                });
             });
             
             function loadImg(inputFile) {
             	// inputFile : 현재 변화가 생긴 input type="file"요소
             	//console.log(inputFile.files.length);
             	
+            	$("#img-area").empty(); // 새로 파일 선택시 원래 파일이미지 미리보기 비워주기
+            
             	if(inputFile.files.length != 0){
             		// 선택된 파일이 존재할 경우에 선택된 파일들을 읽어들여서 미리보기 생성
 	
@@ -552,6 +574,24 @@
             	let content = $("#content-main").val();
             	let latitude = $("#latitude").val();
             	let longitude = $("#longitude").val();
+            	let sale = $(".sale").val();
+            	let bno = $("input[name=bno]").val();
+            	
+            	let originFileNos = document.querySelectorAll("input[name^=originFileNo]");
+            	/* [].forEach.call(originFileNos , function(e , index ){
+            		form.append("originFileNo"+index, e.value);
+            	}) */
+            	for(let i=0; i<originFileNos.length; i++){
+            		form.append("originFileNo"+i, originFileNos[i].value);
+            	}
+            	
+            	let changeFileNames = document.querySelectorAll("input[name^=changeFileName]"); 
+            	/* [].forEach.call(changeFileNames , function(e , index ){
+            		form.append("changeFileName"+index, e.value);
+            	}) */
+            	for(let i=0; i<changeFileNames.length; i++){
+            		form.append("changeFileName"+i, changeFileNames[i].value);
+            	}
             	
             	/* for(let i=1; i<=17; i++){
             		$("#address2-"+i+">option").each(function(){
@@ -576,13 +616,16 @@
             	form.append("address2", address2);
             	form.append("latitude", latitude);
             	form.append("longitude", longitude);
+            	form.append("sale", sale);
+            	form.append("bno", bno);
             	 $.ajax({
-            		url : "<%= request.getContextPath() %>/insertBoard.sell",
+            		url : "<%= request.getContextPath() %>/update.sell",
             		data : form,
             		type : "post",
             		processData : false,
             		contentType : false, // 순수한 file형태로 보내기 위해서
             		success : function(data){
+            			location.href="<%= contextPath %>/detail.sell?bno="+bno;
             			console.log("성공데스");
             		}
             	});  
@@ -592,35 +635,35 @@
         </script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae890d646304659e5b68c9a99be204bf"></script>
         <script>
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-            mapOption = { 
-                center: new kakao.maps.LatLng(37.566535874777784, 126.97860140554657), // 지도의 중심좌표
-                level: 8 // 지도의 확대 레벨
-            };
-        
-        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-        
-        // 지도를 클릭한 위치에 표출할 마커입니다
-        var marker = new kakao.maps.Marker({ 
-            // 지도 중심좌표에 마커를 생성합니다 
-            position: map.getCenter() 
-        }); 
-        // 지도에 마커를 표시합니다
-        marker.setMap(map);
-        
-        // 지도에 클릭 이벤트를 등록합니다
-        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-            
-            // 클릭한 위도, 경도 정보를 가져옵니다 
-            var latlng = mouseEvent.latLng; 
-            
-            // 마커 위치를 클릭한 위치로 옮깁니다
-            marker.setPosition(latlng);
-            
-            $("#latitude").val(latlng.getLat());
-            $("#longitude").val(latlng.getLng());
-        });
+	        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	            mapOption = { 
+	                center: new kakao.maps.LatLng(37.566535874777784, 126.97860140554657), // 지도의 중심좌표
+	                level: 8 // 지도의 확대 레벨
+	            };
+	        
+	        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	        
+	        // 지도를 클릭한 위치에 표출할 마커입니다
+	        var marker = new kakao.maps.Marker({ 
+	            // 지도 중심좌표에 마커를 생성합니다 
+	            position: map.getCenter() 
+	        }); 
+	        // 지도에 마커를 표시합니다
+	        marker.setMap(map);
+	        
+	        // 지도에 클릭 이벤트를 등록합니다
+	        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+	        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+	            
+	            // 클릭한 위도, 경도 정보를 가져옵니다 
+	            var latlng = mouseEvent.latLng; 
+	            
+	            // 마커 위치를 클릭한 위치로 옮깁니다
+	            marker.setPosition(latlng);
+	            
+	            $("#latitude").val(latlng.getLat());
+	            $("#longitude").val(latlng.getLng());
+	        });
         </script>
      </div>
      

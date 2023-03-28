@@ -2,8 +2,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="insertSellBoard">
-		INSERT INTO BOARD(BOARD_NO, BOARD_TYPE, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, SALE, ADDRESS, LATITUDE, LONGITUDE)
-		VALUES(SEQ_BNO.NEXTVAL, 3, ?, ?, 2, 'Y', ? ,?, ?)
+		INSERT INTO BOARD(BOARD_NO, BOARD_TYPE, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, SALE, ADDRESS, LATITUDE, LONGITUDE, COUNT)
+		VALUES(SEQ_BNO.NEXTVAL, 3, ?, ?, ?, 'Y', ? ,?, ?, 0)
 	</entry>
 	<entry key="insertAttachmentList">
 		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
@@ -29,10 +29,12 @@
 	                        FILE_PATH
                 		 FROM BOARD B
                 		 JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
-		                 LEFT JOIN ATTACHMENT ON (B.BOARD_NO = REF_BNO)
+		                 LEFT JOIN ATTACHMENT A ON (B.BOARD_NO = REF_BNO)
 		                 WHERE BOARD_TYPE = 3
 		                   AND B.STATUS = 'Y'
 		                   AND FILE_LEVEL = 1
+		                   AND A.STATUS = 'Y'
+		                   AND B.SALE = 'Y'
 		                 ORDER BY CREATE_DATE DESC, BOARD_NO DESC)A
 		                  )
 		WHERE RNUM BETWEEN ? AND ? 
@@ -63,6 +65,29 @@
 		SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL
 		FROM ATTACHMENT
 		WHERE REF_BNO = ?
+		  AND STATUS = 'Y'
 		ORDER BY FILE_LEVEL
 	</entry>
+	
+	<entry key="updateBoard">
+		UPDATE BOARD
+		SET BOARD_TITLE = ?,
+			BOARD_CONTENT = ?,
+			ADDRESS = ?,
+			LATITUDE = ?,
+			LONGITUDE = ?,
+			SALE = ?
+		WHERE BOARD_NO = ?
+		  AND STATUS = 'Y'
+	</entry>
+	<entry key="updateAttachmentInsert">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
+		VALUES (SEQ_FNO.NEXTVAL, ?, ?, ?, ?, ?)
+	</entry>
+	<entry key="updateAttachmentDelete">
+		UPDATE ATTACHMENT
+		SET STATUS = 'N'
+		WHERE FILE_NO = ?
+	</entry>
+	
 </properties>

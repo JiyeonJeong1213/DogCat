@@ -60,6 +60,9 @@
         padding: 5px 15px;
         font-size: 20px;
     }
+    #button-area button:focus {
+    	outline:none;
+    }
     #register {
         background-color: rgb(230, 242, 255);
         color: rgb(0, 123, 255);
@@ -567,6 +570,7 @@
                 	form.append("address2", address2);
                 	form.append("latitude", latitude);
                 	form.append("longitude", longitude);
+                	form.append("fileLength", $("#file")[0].files.length);
                 	 $.ajax({
                 		url : "<%= request.getContextPath() %>/insertBoard.sell",
                 		data : form,
@@ -575,6 +579,7 @@
                 		contentType : false, // 순수한 file형태로 보내기 위해서
                 		success : function(data){
                 			console.log("성공데스");
+                			location.href="<%= contextPath %>/list.sell";
                 		}
                 	});  
                 }
