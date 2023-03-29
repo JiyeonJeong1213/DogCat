@@ -106,6 +106,7 @@
         <div class="item">
             <form class="master_update" action="<%=contextPath %>/adminProfile" method="post">
            		<input type="hidden" name="userNo" value="<%= userNo %>">
+           		<input type="hidden" name="oldPwd" value="<%= userPwd %>">
                 <h2>관리자님의 프로필</h2>
                 <br>
     	

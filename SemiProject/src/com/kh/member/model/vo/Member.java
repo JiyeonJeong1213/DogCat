@@ -16,6 +16,7 @@ public class Member {
 	private Date enrollDate;
 	private Date modifyDate;
 	private String status;
+	private String certification;
 	private String pet;
 	
 	public Member() {
@@ -37,6 +38,19 @@ public class Member {
 		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
 		this.status = status;
+	}
+	
+	public Member(String userId, String userPwd, String userName, String userNickname, String phone, String email,
+			String address, String hobby) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userNickname = userNickname;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.hobby = hobby;
 		this.pet = pet;
 	}
 

@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.vo.Member;
+import com.kh.pet.model.vo.Pet;
 
 public class MemberDao {
 
@@ -156,6 +157,118 @@ public class MemberDao {
 		
 	}
 	
+	public int idCheck(Connection conn, String userId) {
+		
+		// SELECT문 실행예정 -> 결과값은 무조건 한행
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null; 
+		
+		String sql = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return count;
+	}
 	
+	public int nickCheck(Connection conn, String userNickname) {
+		
+		// SELECT문 실행예정 -> 결과값은 무조건 한행
+		int count1 = 0 ;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null; 
+		
+		String sql = prop.getProperty("nickCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userNickname);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count1 = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return count1;
+	}
 	
+	public int insertMember(Connection conn, Member m) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserName());
+			pstmt.setString(3, m.getUserNickname());
+			pstmt.setString(4, m.getUserPwd());
+			pstmt.setString(5, m.getEmail());
+			pstmt.setString(6, m.getPhone());
+			pstmt.setString(7, m.getAddress());
+			pstmt.setString(8, m.getHobby());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertPet(Connection conn, Pet p) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertPet");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, p.getSpecies());
+			pstmt.setString(2, p.getGender());
+			pstmt.setString(3, p.getPetName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
 }
