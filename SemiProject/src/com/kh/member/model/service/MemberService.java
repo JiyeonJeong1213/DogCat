@@ -82,7 +82,6 @@ public class MemberService {
 		}
 		
 		if(result1 > 0 && result2 > 0) {
-			
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);

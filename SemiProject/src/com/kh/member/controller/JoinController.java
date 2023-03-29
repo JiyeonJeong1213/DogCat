@@ -15,13 +15,13 @@ import com.kh.pet.model.vo.Pet;
  * Servlet implementation class InsertController
  */
 @WebServlet("/insert.me")
-public class InsertController extends HttpServlet {
+public class JoinController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertController() {
+    public JoinController() {
         super();
         // TODO Auto-generated constructor stub
     }

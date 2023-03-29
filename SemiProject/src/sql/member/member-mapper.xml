@@ -80,12 +80,11 @@
 			 SPECIES,
 			 GENDER,
 			 PET_NAME)
-			 	VALUES (SEQ_UNO.NEXTVAL ,
+			 	VALUES (SEQ_UNO.CURRVAL ,
 				?,
                 ?,
                 ?
 				)
 	</entry>    
-	
 	
 </properties>

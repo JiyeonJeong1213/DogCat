@@ -205,7 +205,7 @@ input:focus {
 										<tr>
 											<th>닉네임</th>
 											<td><input type="text" name="userNickname" id="userNickname" autocomplete="off" maxlength ="10">
-											<input type="button" name="userNickname" value="중복확인" onclick="nickCheck(); return checks();"> 
+											<input type="button" name="userNickname" value="중복확인" onclick="nickCheck(); return checks2();"> 
 											<span> ※ 닉네임은 2~10자 이내로 입력해 주셔야 합니다. (특수문자 불가)<br> ※ 닉네임은 변경이 불가하니 신중하게 입력해 주시기 바랍니다.<br></span>
 											</td>
 										</tr>
@@ -230,7 +230,7 @@ input:focus {
 											</th>
 											<td>
 											<input type="email" name="email" id="email" size="15" autocomplete="off">
-											<input type="button" name="email" id="address_btn" value="인증번호 발송"> 
+											<input type="button" name="email" id="address_btn" value="인증번호 발송" onclick="mailCheck();"> 
 											<span> 
 											※ 메일 주소는 변경이 불가하며, 아이디/비번찾기 등에 사용됩니다.<br>
 											※ 최대 5분 정도 소요됩니다. 메일이 오지 않을 경우 스팸메일함을 확인부탁드립니다
@@ -241,8 +241,9 @@ input:focus {
 										<tr>
 											<th>이메일 인증 키</th>
 											<td>
+											<input type="hidden" name="hidden_key" id="hidden_key" value="">
 											<input type="text" name="email_key" id="email_key" autocomplete="off"> 
-											<input type="button" name="email_key" id="address_btn" value="확인" autocomplete="off">
+											<input type="button" name="email_key" id="email_key_btn" onclick="mailKeyCheck();" value="확인" autocomplete="off">
 											</td>
 										</tr>
 										
@@ -308,7 +309,7 @@ input:focus {
 	</article>
 	
 	<script>
-		function idCheck(){
+		function idCheck(){ // 아이디 체크
 			const $userId = $("#enroll-form [id=userId]");
 			
 			$.ajax({
@@ -320,7 +321,8 @@ input:focus {
 						$userId.focus();
 					}else{
 						if("..."){
-							$("#enroll-form :submit").removeAttr("disabled");			
+							alert("아이디 중복 체크 확인했습니다.")
+							$("#userName").focus();
 						}else{
 							$userId.val("");
 							$userId.focus();
@@ -328,17 +330,12 @@ input:focus {
 					}
 				},
 				error : function(){
-					console.log("아이디 중복체크 실패");
+					alert("아이디 중복체크에 실패했습니다.");
 				}
 			});
-			
-			
 		}
 		
-	</script>
-	
-		<script>
-		function nickCheck(){
+		function nickCheck(){ // 닉네임 체크
 			const $userNickname = $("#enroll-form [id=userNickname]");
 			
 			$.ajax({
@@ -346,11 +343,12 @@ input:focus {
 				data :{ userNickname : $userNickname.val() },
 				success : function(result){
 					if(result == 'NNNNNN'){
-						alert("이미 존재하거나 회원탈퇴한 닉네임입니다");
+						alert("현재 입력한 닉네임은 사용중입니다. 다른 닉네임을 입력해주세요.");
 						$userNickname.focus();
 					}else{
 						if("..."){
-							$("#enroll-form :submit").removeAttr("disabled");			
+							alert("닉네임 중복 체크 확인했습니다.")
+							$("#userPwd").focus();
 						}else{
 							$userNickname.val("");
 							$userNickname.focus();
@@ -358,27 +356,54 @@ input:focus {
 					}
 				},
 				error : function(){
-					console.log("아이디 중복체크 실패");
+					alert("닉네임 중복체크에 실패했습니다.");
 				}
 			});
-			
-			
 		}
 		
-	</script>
+		function mailCheck(){ // 이메일 전송
+			const $userMail = $("#enroll-form [id=email]");
+			const $hidden_key = $("#enroll-form [id=hidden_key]");
+			
+			$.ajax({
+				url : "<%=contextPath%>/mailCheck.me",
+				data :{ userMail : $userMail.val() },
+				method: "GET", 
+				success : function(result){
+					alert("해당 이메일을 전송했습니다.");
+					$hidden_key.val(result);
+					$("#enroll-form [id=email_key").focus();
+				},
+				error : function(){
+					alert("메일을 다시한번 확인해주세요.");
+				}
+			});
+		}
+		
+		function mailKeyCheck(){ // 이메일 인증
+			const $email_key = $("#enroll-form [id=email_key]");
+			const $hidden_key = $("#enroll-form [id=hidden_key]");
+			
+			console.log($hidden_key.val());
+			
+			if($email_key.val() === $hidden_key.val()){
+				alert("이메일 인증번호 확인했습니다.")
+				$("#enroll-form :submit").removeAttr("disabled");
+				$("#phone").focus();
+			}
+			else{
+				alert("이메일 인증번호를 다시 입력해주세요.")
+				$email_key.focus();
+			}
+		}
+		
+        link = "<%=contextPath%>";
 
-	<script type="text/javascript"> //뒤로가기
-
-            link = "<%=contextPath%>
-		";
-
-		function hrefLink() {
+		function hrefLink() { // 뒤로가기
 			location.href = link;
 		}
-	</script>
 
-	<script>
-		function sample6_execDaumPostcode() {
+		function sample6_execDaumPostcode() { // 다음 API 상세주소
 			new daum.Postcode(
 					{
 						oncomplete : function(data) {
@@ -431,10 +456,8 @@ input:focus {
 						}
 					}).open();
 		}
-	</script>
 
-	<script>
-		function checks() {
+		function checks() { // 정규화
 			var userIdCheck = RegExp(/^[A-Za-z0-9_\-]{4,12}$/); // 아이디
 			var userNameCheck = RegExp(/^[가-힣]{2,4}$/); // 이름
 			var nickNameCheck = RegExp(/^[가-힣a-zA-Z0-9]{2,10}$/); // 닉네임
@@ -571,10 +594,8 @@ input:focus {
 			}
 
 		}
-	</script>
 	
-	<script>
-	function checks1() {
+	function checks1() { // 아이디
 			var userIdCheck = RegExp(/^[A-Za-z0-9_\-]{4,12}$/); // 아이디
 
 			// 아이디 공백 확인
@@ -592,7 +613,27 @@ input:focus {
 				return false;
 			}
 	}
+	
+	function checks2() { // 닉네임
+		var nickNameCheck = RegExp(/^[가-힣a-zA-Z0-9]{2,10}$/); // 닉네임
+
+		// 닉네임 공백 검사
+		if ($("#userNickname").val() == "") {
+			alert("닉네임을 입력해주세요.");
+			$("#register_nick").focus();
+			return false;
+		}
+
+		// 닉네임 유효성 검사
+		if (!nickNameCheck.test($("#userNickname").val())) {
+			alert("닉네임은 2~8자 이내로 입력해 주셔야 합니다. (특수문자 불가)")
+			$("#userNickname").val("");
+			$("#userNickname").focus();
+			return false;
+		}
+	}
 	</script>
+	
 
 </body>
 </html>

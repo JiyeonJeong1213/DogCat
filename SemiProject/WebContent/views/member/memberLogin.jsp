@@ -36,7 +36,7 @@
             height: 200px;
             position: absolute;
             bottom: 348px;
-            left: 700px;
+            left: 649px;
         }
 
         .login-wrapper {
@@ -44,7 +44,7 @@
             height: 350px;
             padding: 60px;
             box-sizing: border-box;
-            margin-left: 600px;
+            margin-left: 550px;
             margin-top: 200px;
         }
 
