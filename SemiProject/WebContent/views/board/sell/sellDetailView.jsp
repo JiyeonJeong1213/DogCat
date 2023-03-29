@@ -193,7 +193,7 @@
 
         <div id="button-area">
         	<c:if test="${!empty loginUser and loginUser.userId ne b.boardWriter}">
-        		<button type="button" id="like">찜하기</button>
+        		<button type="button" id="like" onclick="like();">찜하기</button>
                 <button type="button" id="chatting">구매 문의 채팅</button>
             </c:if>
         </div>
@@ -261,6 +261,9 @@
         	}
         	function toDelete(){
         		$("#modal").css("display", "flex");
+        	}
+        	function like(){
+        		location.href="<%= contextPath %>/like.sell?bno=<%= b.getBoardNo() %>";
         	}
         </script>
     </div>

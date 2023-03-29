@@ -158,7 +158,7 @@ public class MemberDao {
 	}
 	
 	public int idCheck(Connection conn, String userId) {
-		
+		int count = 0;
 		// SELECT문 실행예정 -> 결과값은 무조건 한행
 		
 		PreparedStatement pstmt = null;

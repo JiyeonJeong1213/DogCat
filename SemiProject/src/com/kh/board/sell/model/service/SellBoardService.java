@@ -120,4 +120,33 @@ public class SellBoardService {
 		close(conn);
 		return result1 * result2;
 	}
+	
+	public int selectLike(int bno, int uno) {
+		Connection conn = getConnection();
+		int result = new SellBoardDao().selectLike(conn, bno, uno);
+		close(conn);
+		return result;
+	}
+	public int insertLike(int bno, int uno) {
+		Connection conn= getConnection();
+		int result = new SellBoardDao().insertLike(conn, bno, uno);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	public int deleteLike(int bno, int uno) {
+		Connection conn = getConnection();
+		int result = new SellBoardDao().deleteLike(conn, bno, uno);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 }

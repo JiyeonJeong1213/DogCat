@@ -102,4 +102,20 @@
 		WHERE REF_BNO = ?
 		  AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="selectLike">
+		SELECT COUNT(*) AS COUNT
+		FROM B_LIKE
+		WHERE BOARD_NO = ?
+		  AND USER_NO = ?
+	</entry>
+	<entry key="insertLike">
+		INSERT INTO B_LIKE (BOARD_NO, USER_NO)
+		VALUES (?, ?)
+	</entry>
+	<entry key="deleteLike">
+		DELETE FROM B_LIKE
+		WHERE BOARD_NO = ?
+		  AND USER_NO = ?
+	</entry>
 </properties>
