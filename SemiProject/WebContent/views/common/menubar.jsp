@@ -89,7 +89,7 @@
 		<% if (loginUser == null) { %>
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link" href="<%= contextPath %>/login.me">로그인</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">회원가입</a></li>
+				<li class="nav-item"><a class="nav-link" href="<%=contextPath%>/views/member/memberEnroll.jsp">회원가입</a></li>
 			</ul>
 			<!-- 로그인시 프로필창 -->
 			<div class="after-login">
@@ -110,6 +110,7 @@
 		<% } else { %>
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link" href="<%= contextPath %>/logout.me">로그아웃</a></li>
+				<li class="nav-item"><a class="nav-link">또오개냥입니다.</a></li>
 			</ul>
 			<!-- 로그인시 프로필창 -->
 			<div class="after-login">

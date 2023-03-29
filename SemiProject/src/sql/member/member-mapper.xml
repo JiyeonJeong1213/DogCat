@@ -3,7 +3,8 @@
 <properties>
 
 	<entry key="loginMember">
-		SELECT * FROM MEMBER
+		SELECT M.*, SPECIES FROM MEMBER M
+		JOIN PET P ON(M.USER_NO = P.USER_NO)
 		WHERE USER_ID = ?
 		  AND USER_PWD = ?
 		  AND STATUS = 1
@@ -29,6 +30,11 @@
 	
 	<entry key="selectMember">
 		SELECT * FROM MEMBER
+
+	
+	<entry key="selectMember">
+		SELECT M.*, SPECIES FROM MEMBER M
+		JOIN PET P ON(M.USER_NO = P.USER_NO)
 		WHERE USER_ID = ?
 		 AND STATUS = 1
 	</entry>
@@ -38,5 +44,53 @@
 		FROM PET
 		WHERE USER_NO = ?
 	</entry>
+	
+	<entry key="idCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="nickCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_NICKNAME = ?
+	</entry>
+	
+	<entry key="insertMember">
+	INSERT INTO MEMBER(USER_NO,
+				USER_ID,
+				USER_NAME,
+                USER_NICKNAME,
+				USER_PWD,
+				EMAIL,
+				PHONE,
+				ADDRESS,
+				HOBBY,
+                STATUS)
+					VALUES(SEQ_UNO.NEXTVAL ,
+				?,
+				?,
+                ?,
+				?,
+				?,
+				?,
+				?,
+				?,
+                1
+                )
+	</entry>
+	
+    <entry key="insertPet">
+	INSERT INTO PET(USER_NO,
+			 SPECIES,
+			 GENDER,
+			 PET_NAME)
+			 	VALUES (SEQ_UNO.CURRVAL ,
+				?,
+                ?,
+                ?
+				)
+	</entry>    
 	
 </properties>

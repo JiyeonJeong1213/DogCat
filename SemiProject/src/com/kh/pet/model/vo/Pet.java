@@ -18,6 +18,14 @@ public class Pet {
 		this.gender = gender;
 		this.petName = petName;
 	}
+	
+
+	public Pet(String species, String gender, String petName) {
+		super();
+		this.species = species;
+		this.gender = gender;
+		this.petName = petName;
+	}
 
 	public int getUserNo() {
 		return userNo;

@@ -1,5 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +51,7 @@
     <div class="nav-area" style="margin-bottom: 20px;">
         <ul class="nav justify-content-center">
             <li class="nav-item">
-              <a class="nav-link active" id="nav" aria-current="page" href="#">프로필</a>
+              <a class="nav-link active" id="nav" aria-current="page" href="<%= request.getContextPath()%>/adminProfile">프로필</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="nav" href="#">회원관리</a>
@@ -58,7 +60,7 @@
               <a class="nav-link" id="nav" href="#">게시판관리</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="nav" href="#">공지사항관리</a>
+              <a class="nav-link" id="nav" href="<%= request.getContextPath() %>/list.no">공지사항관리</a>
             </li>
         </ul>
     </div>
