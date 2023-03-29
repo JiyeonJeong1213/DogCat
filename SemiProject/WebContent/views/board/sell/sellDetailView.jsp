@@ -16,6 +16,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
 	div {
         box-sizing: border-box;
@@ -120,8 +121,58 @@
         outline: none;
     }
     #updateBtn {
+    	background-color: rgb(230, 242, 255);
+        color: rgb(0, 123, 255);
+    }
+    #deleteBtn {
     	background-color: #FFD133;
     	color : white;
+    }
+    
+    /* 모달 */
+    *{
+        font-family: 'Noto Sans KR', sans-serif;
+        /* border: 1px solid black; */
+    }
+    .container{
+        text-align: center;
+        padding: 10px;
+    }
+    
+    #modal.modal-overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+    #modal .modal-window {
+        background:   rgb(251, 246, 240);
+        box-shadow: 0 8px 32px 0 rgba(133, 133, 134, 0.37);
+        backdrop-filter: blur( 13.5px );
+        -webkit-backdrop-filter: blur( 13.5px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+        width: 500px;
+        position: relative;
+        top: -100px;
+        padding: 10px;
+    }
+    button {
+        margin-top: 20px;
+    }
+
+    #cancel {
+        background-color: lightgrey;
+    }
+    #delete {
+        background-color: #FFD133;
     }
 </style>
 </head>
@@ -176,28 +227,29 @@
         
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae890d646304659e5b68c9a99be204bf"></script>
         <script>
-        const lat = <%=b.getLatitude() %>;
-        const long = <%= b.getLongitude()%>;
-        
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-            mapOption = { 
-                center: new kakao.maps.LatLng(lat, long), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
-            };
-        
-        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-        
-        var marker = new kakao.maps.Marker({ 
-            // 지도 중심좌표에 마커를 생성합니다 
-            position: map.getCenter() 
-        }); 
-        // 지도에 마커를 표시합니다
-        marker.setMap(map);
+	        const lat = <%=b.getLatitude() %>;
+	        const long = <%= b.getLongitude()%>;
+	        
+	        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	            mapOption = { 
+	                center: new kakao.maps.LatLng(lat, long), // 지도의 중심좌표
+	                level: 3 // 지도의 확대 레벨
+	            };
+	        
+	        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	        
+	        var marker = new kakao.maps.Marker({ 
+	            // 지도 중심좌표에 마커를 생성합니다 
+	            position: map.getCenter() 
+	        }); 
+	        // 지도에 마커를 표시합니다
+	        marker.setMap(map);
         </script>
         <div id="under-button">
         	<button type="button" align="center" onclick="toList();">목록으로</button>
         	<c:if test="${!empty loginUser and loginUser.userId eq b.boardWriter}">
         		<button type="button" id="updateBtn" onclick="toUpdate();">수정하기</button>
+        		<button type="button" id="deleteBtn" onclick="toDelete();">삭제하기</button>
         	</c:if>
         </div>
         <script>
@@ -207,9 +259,41 @@
         	function toUpdate(){
         		location.href="<%=contextPath%>/update.sell?bno=<%=b.getBoardNo()%>";
         	}
+        	function toDelete(){
+        		$("#modal").css("display", "flex");
+        	}
         </script>
     </div>
 
 	<%@ include file="../../common/footer.jsp" %>
+	
+	<!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h3 class="modal-title" style="font-weight: bold;">나눔&거래</h3>
+                <div type="button" class="close">X</div>
+            </div>
+            <div class="modal-content">
+                <div class="container">
+                    <div>삭제하시겠습니까?</div> 
+                    
+                    <button type="button" id="delete" class="btn btn-sm">삭제</button>
+                    <button type="button" id="cancel" class="btn btn-sm">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function(){
+            $(".close, #cancel").click(function(){
+                $("#modal").css("display","none");
+            });
+            $("#delete").click(function(){
+            	location.href="<%= contextPath %>/delete.sell?bno=<%= b.getBoardNo() %>"
+            });
+        })
+    </script>
 </body>
 </html>

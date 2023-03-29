@@ -635,10 +635,13 @@
         </script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae890d646304659e5b68c9a99be204bf"></script>
         <script>
+	        const lat = <%=b.getLatitude() %>;
+	        const long = <%= b.getLongitude()%>;
+        
 	        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	            mapOption = { 
-	                center: new kakao.maps.LatLng(37.566535874777784, 126.97860140554657), // 지도의 중심좌표
-	                level: 8 // 지도의 확대 레벨
+	                center: new kakao.maps.LatLng(lat, long), // 지도의 중심좌표
+	                level: 3 // 지도의 확대 레벨
 	            };
 	        
 	        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다

@@ -103,4 +103,21 @@ public class SellBoardService {
 		close(conn);
 		return result1*result2*result3;
 	}
+	
+	public int deleteBoard(int bno, ArrayList<Attachment> list) {
+		Connection conn = getConnection();
+		int result1 = new SellBoardDao().deleteBoard(conn, bno);
+		int result2 = 1;
+		if(list != null) {
+			result2 = new SellBoardDao().deleteAttachment(conn, bno);
+		}
+		
+		if(result1>0 && result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1 * result2;
+	}
 }
