@@ -1,10 +1,11 @@
-<%@ page import="com.kh.member.model.vo.Member"%>
+<%@ page import="com.kh.member.model.vo.Member, com.kh.pet.model.vo.Pet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member) session.getAttribute("loginUser");
 	String alertMsg = (String) session.getAttribute("alertMsg");
+	Pet updatePet = (Pet) session.getAttribute("pet");
 %>
 <!DOCTYPE html>
 <html>
@@ -124,7 +125,7 @@
                     </tr>
                     <tr>
                         <td>신규 비밀번호</td>
-                        <td><input type="password" id="newPwd" name="newPwd"></td>
+                        <td><input type="password" id="newPwd" name="newPwd" value="<%= userPwd %>"></td>
                     </tr>
                     <tr>
                         <td>비밀번호 확인</td>
@@ -141,16 +142,17 @@
                     <tr>
                         <td>반려동물</td>
                         <td>
-                            <input type="checkbox" name="pet" id="dog">
+                            <input type="radio" name="pet" id="dog" value="dog">
                             <label for="dog">강아지</label>
-                            <input type="checkbox" name="pet" id="cat">
+                            <input type="radio" name="pet" id="cat" value="cat">
                             <label for="cat">고양이</label>
-                            <input type="checkbox" name="pet" id="etc">
+                            <input type="radio" name="pet" id="etc" value="etc">
                             <label for="etc">기타</label>
                         </td>
     
                     </tr>
                 </table>
+    
     
                 <br>
                 <div class="btn-area">
@@ -164,6 +166,21 @@
         </div>
        
     </div>
+    
+    <script>
+    	$(function(){
+    		let pet = "<%= loginUser.getPet() == null ? "" : loginUser.getPet()%>";
+    		
+    		$("input[name='pet']").each(function(){
+    			
+    			if(pet.search($(this).val()) >= 0 ){
+    				$(this).attr("checked", true);
+    			}
+    		})
+    		
+    	});	
+    
+    </script>
 
 
 </body>

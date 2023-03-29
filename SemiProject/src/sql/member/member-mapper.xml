@@ -3,7 +3,8 @@
 <properties>
 
 	<entry key="loginMember">
-		SELECT * FROM MEMBER
+		SELECT M.*, SPECIES FROM MEMBER M
+		JOIN PET P ON(M.USER_NO = P.USER_NO)
 		WHERE USER_ID = ?
 		  AND USER_PWD = ?
 		  AND STATUS = 1
@@ -29,6 +30,11 @@
 	
 	<entry key="selectMember">
 		SELECT * FROM MEMBER
+
+	
+	<entry key="selectMember">
+		SELECT M.*, SPECIES FROM MEMBER M
+		JOIN PET P ON(M.USER_NO = P.USER_NO)
 		WHERE USER_ID = ?
 		 AND STATUS = 1
 	</entry>

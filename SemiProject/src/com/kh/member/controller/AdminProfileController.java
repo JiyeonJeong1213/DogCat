@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
+import com.kh.pet.model.service.PetService;
 import com.kh.pet.model.vo.Pet;
 
 /**
@@ -31,6 +32,7 @@ public class AdminProfileController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.getRequestDispatcher("views/admin/adminProfile.jsp").forward(request, response);
 
 	}
@@ -45,15 +47,13 @@ public class AdminProfileController extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String userNickname = request.getParameter("userNickname");
 		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("oldPwd");
+		String userPwd = request.getParameter("newPwd");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
 		String pet = request.getParameter("pet");
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		
-		if(request.getParameter("newPwd") != null) {
-			userPwd = request.getParameter("newPwd");
-		}
+	
 		
 		Member m = new Member();
 		m.setUserName(userName);
@@ -68,6 +68,7 @@ public class AdminProfileController extends HttpServlet {
 		p.setUserNo(userNo);
 		p.setSpecies(pet);
 		
+		Pet updatePet = new PetService().updatePet(p);
 		Member updateMem = new MemberService().updateMember(m);
 		
 		if(updateMem == null) {
@@ -77,6 +78,7 @@ public class AdminProfileController extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", updateMem);
+			session.setAttribute("pet", updatePet);
 			session.setAttribute("alertMsg", "관리자정보 수정 성공");
 
 			response.sendRedirect(request.getContextPath());

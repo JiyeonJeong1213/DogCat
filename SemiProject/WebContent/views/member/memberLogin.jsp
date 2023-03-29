@@ -75,6 +75,24 @@
             cursor: pointer;
         }
 
+        #login-form>input[type="checkbox"] {
+            display: none;
+        }
+
+        #login-form input[type="checkbox"]+label {
+            cursor: pointer;
+            padding-left: 26px;
+            background-image: url("checkbox.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        #login-form input[type="checkbox"]:checked+label {
+            background-image: url("checkbox-active.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
         #login-form button {
             margin-bottom: 13px;
             cursor: pointer;

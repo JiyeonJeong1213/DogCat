@@ -63,7 +63,8 @@ public class MemberDao {
 						rset.getString("HOBBY"),
 						rset.getDate("ENROLL_DATE"),
 						rset.getDate("MODIFY_DATE"),
-						rset.getString("STATUS"));
+						rset.getString("STATUS"),
+						rset.getString("SPECIES"));
 			}
 			
 		} catch (SQLException e) {
@@ -141,7 +142,8 @@ public class MemberDao {
 						rset.getString("HOBBY"),
 						rset.getDate("ENROLL_DATE"),
 						rset.getDate("MODIFY_DATE"),
-						rset.getString("STATUS"));
+						rset.getString("STATUS"),
+						rset.getString("SPECIES"));
 			}
 			
 		} catch (SQLException e) {
@@ -158,7 +160,6 @@ public class MemberDao {
 	public int idCheck(Connection conn, String userId) {
 		
 		// SELECT문 실행예정 -> 결과값은 무조건 한행
-		int count = 0 ;
 		
 		PreparedStatement pstmt = null;
 		
@@ -269,5 +270,5 @@ public class MemberDao {
 		}
 		return result;
 	}
-	
+
 }

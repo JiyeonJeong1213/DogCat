@@ -17,13 +17,14 @@ public class Member {
 	private Date modifyDate;
 	private String status;
 	private String certification;
+	private String pet;
 	
 	public Member() {
 		super();
 	}
 
 	public Member(int userNo, String userId, String userPwd, String userName, String userNickname, String phone,
-			String email, String address, String hobby, Date enrollDate, Date modifyDate, String status) {
+			String email, String address, String hobby, Date enrollDate, Date modifyDate, String status, String pet) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -50,6 +51,16 @@ public class Member {
 		this.email = email;
 		this.address = address;
 		this.hobby = hobby;
+		this.pet = pet;
+	}
+
+	
+	public String getPet() {
+		return pet;
+	}
+
+	public void setPet(String pet) {
+		this.pet = pet;
 	}
 
 	public int getUserNo() {
