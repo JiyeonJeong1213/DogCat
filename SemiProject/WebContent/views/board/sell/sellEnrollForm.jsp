@@ -60,6 +60,9 @@
         padding: 5px 15px;
         font-size: 20px;
     }
+    #button-area button:focus {
+    	outline:none;
+    }
     #register {
         background-color: rgb(230, 242, 255);
         color: rgb(0, 123, 255);
@@ -133,6 +136,8 @@
 </style>
 </head>
 <body>
+	<%@ include file="../../common/menubar.jsp" %>
+	
 	<div id="contents">
     		<div id="page-title">
                 <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/KakaoTalk_20230316_095326819_01.png" width="45px">
@@ -529,6 +534,10 @@
                 	}
                 }
                 
+                function cancel() {
+                	location.href = "<%=contextPath%>/list.sell";
+                }
+                
                 function sendFile() {
                 	let form = new FormData;
                 	let address1 = $(".address1").val();
@@ -550,7 +559,7 @@
                 	} */ 
                 	// 첨엔 위에 돌린 반복문으로 값을 불러왔는데 그냥 불러온 address2에 클래스를 하나 더 (on)줘서 그 클래스로 불러오면 더 간단함
                 	
-                	console.log(address2);
+                	//console.log(address2);
                 	
                  	$.each($("#file")[0].files, function(index, item){
                 		form.append("file"+index, item);
@@ -561,6 +570,7 @@
                 	form.append("address2", address2);
                 	form.append("latitude", latitude);
                 	form.append("longitude", longitude);
+                	form.append("fileLength", $("#file")[0].files.length);
                 	 $.ajax({
                 		url : "<%= request.getContextPath() %>/insertBoard.sell",
                 		data : form,
@@ -569,6 +579,7 @@
                 		contentType : false, // 순수한 file형태로 보내기 위해서
                 		success : function(data){
                 			console.log("성공데스");
+                			location.href="<%= contextPath %>/list.sell";
                 		}
                 	});  
                 }
@@ -606,5 +617,7 @@
             });
             </script>
       </div>
+      
+      <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

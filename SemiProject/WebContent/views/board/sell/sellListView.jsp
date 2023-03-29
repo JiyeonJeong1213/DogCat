@@ -94,12 +94,16 @@
         border-radius: 7px;
     }
     .paging-area button:focus {
-        background-color: #FFD133;
-        color: white;
+        outline: none;
+    }
+    #write:focus {
+    	outline:none;
     }
 </style>
 </head>
 <body>
+	<%@ include file="../../common/menubar.jsp" %>
+
 	<div id="contents">
         <div id="page-title">
             <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/KakaoTalk_20230316_095326819_01.png" width="45px">
@@ -122,7 +126,7 @@
                 <th width="100">찜</th>
             	</tr>
         	</thead>
-            <tbody>
+            <tbody id="notice-area">
             	<c:choose>
 	            	<c:when test="${empty nList }">
 	            		<tr>
@@ -143,7 +147,8 @@
 	            		</c:forEach>
 	            	</c:otherwise>
 	            </c:choose>
-            
+            </tbody>
+            <tbody id="sell-area">
 	            <c:choose>
 	            	<c:when test="${empty list }">
 	            		<tr>
@@ -498,7 +503,10 @@
                 <input type="text" name="search3" size="30" placeholder="제목/내용 검색">
                 <button type="submit" id="search-btn">검색</button>
             </form>
-            <button type="button" id="write">글쓰기</button>
+            <c:if test="${!empty sessionScope.loginUser }">
+            	<button type="button" id="write">글쓰기</button>
+            </c:if>
+            
             <script>
                 $(function(){
                     $(".search1").change(function(){
@@ -524,6 +532,15 @@
                     $("#write").click(function(){
                     	location.href= "<%= request.getContextPath() %>/insertBoard.sell";
                     });
+                    
+                    $("table tr").hover(function(){
+                    	$(this).css("cursor", "pointer");
+                    });
+                    $("#sell-area>tr").click(function(){
+                    	let bno = $(this).children().eq(0).val();
+                    	
+                    	location.href="<%= contextPath %>/detail.sell?bno="+bno;
+                    });
                 });
             </script>
         </div>
@@ -545,7 +562,7 @@
             			<button onclick="location.href='<%= request.getContextPath() %>/list.sell?currentPage=${i}'">${i }</button>
             		</c:when>
             		<c:otherwise>
-            			<button disabled>${i }</button>
+            			<button disabled style="background-color: #FFD133; color: white;">${i }</button>
             		</c:otherwise>
             	</c:choose>
             </c:forEach>
@@ -555,5 +572,7 @@
             </c:if>
         </div>
     </div>
+    
+    <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>
