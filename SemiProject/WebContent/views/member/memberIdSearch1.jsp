@@ -42,7 +42,8 @@
 			margin-bottom: 20px;
             background-color: rgba(224, 224, 224, 0.34);
 		}
-		button {
+		
+		#btnLogin{
 			background-color: rgba(52, 152, 219, 0.84); /* 파란색 */
 			border: none;
 			color: #fff;
@@ -56,6 +57,21 @@
 			transition: background-color 0.3s;
             width: 100%;
 		}
+		
+		button {
+			background-color: rgba(52, 152, 219, 0.84); /* 파란색 */
+			border: none;
+			color: #fff;
+			padding: 12px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+            width: 40%;
+		}
 
         .search_logo{
             margin-left: 636px;
@@ -65,6 +81,11 @@
 
 		input:focus {
             outline: none;
+        }
+        
+        .found-login{
+        	display: flex;
+        	justify-content: space-around;
         }
 	</style>
 </head>
@@ -78,9 +99,9 @@ if (userId != "NNNNNN") {
 %>     
 		<div class = "container">
 			<div class = "found-success">
-				<h4>  회원님의 아이디는 </h4>  
-				<div class ="found-id"><%= userId %></div>
-				<h4>  입니다 </h4>
+				<h4 align="center">  회원님의 아이디는 </h4>  
+				<div class ="found-id" align="center"><%= userId %></div>
+				<h4 align="center">  입니다 </h4>
 			</div>
 			<div class = "found-login">
 				 <button type="button" id="btnLogin" onClick="goLogin()">로그인</button>
@@ -92,7 +113,7 @@ else {
 %>
 		<div class = "container">
 	      	<div class = "found-fail">
-		      	<h4>  등록된 정보가 없습니다 </h4>  
+		      	<h4 align="center">  등록된 정보가 없습니다 </h4>  
 		     </div>
 		     <div class = "found-login">
 	 		    <button type="button" id="btnback" onClick="history.back()">뒤로가기</button>

@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style>
 * {
 	margin: 0;
@@ -136,7 +140,6 @@ input {
 	width: 100px;
 	height: 35px;
 	line-height: 30px;
-	background-color: rgba(41, 128, 185, 0.46);
 	text-align: center;
 	font-size: .8rem;
 	border-radius: 10px;
@@ -158,7 +161,6 @@ input:focus {
 </style>
 </head>
 <body>
-	<%@ include file="../common/menubar.jsp"%>
 	<article id="sub">
 		<div class="sub_in">
 
@@ -190,7 +192,7 @@ input:focus {
 											<td>
 											<input type="text" name="userId" id="userId" autocomplete="off" maxlength ="12"> 
 											<input type="button" name="userId" value="중복확인" onclick="idCheck(); return checks1();">
-											<span>※ 아이디는 4~12자, 영문대소문자, 숫자만 입력해 주셔야 합니다.</span>
+											<span>※ 아이디는 4~12자, 영문대소문자, 숫자만 입력해 주셔야 바랍니다.</span>
 											</td>
 										</tr>
 										
@@ -198,7 +200,7 @@ input:focus {
 											<th>이름</th>
 											<td>
 											<input type="text" name="userName" id="userName" autocomplete="off" maxlength ="4"> 
-											<span>※ 이름은 2~4자, 한글만 입력해 주셔야 합니다.</span>
+											<span>※ 이름은 2~4자, 한글만 입력해 주셔야 바랍니다.</span>
 											</td>
 										</tr>
 										
@@ -214,7 +216,7 @@ input:focus {
 											<th>비밀번호</th>
 											<td>
 											<input type="password" name="userPwd" id="userPwd" autocomplete="off" maxlength ="20">
-											<span>※ 비밀번호는 8~20자 영문 대소문자, 숫자, 특수문자 혼합해서 입력해 주셔야 합니다.</span>
+											<span>※ 비밀번호는 8~20자 영문 대소문자, 숫자, 특수문자 혼합해서 입력해 주시기 바랍니다.</span>
 											</td>
 										</tr>
 										
@@ -229,11 +231,11 @@ input:focus {
 											<th>이메일 중복확인 및<br>인증번호 발송
 											</th>
 											<td>
-											<input type="email" name="email" id="email" size="15" autocomplete="off">
+											<input type="email" name="email" id="email" size="20" autocomplete="off">
 											<input type="button" name="email" id="address_btn" value="인증번호 발송" onclick="mailCheck();"> 
 											<span> 
 											※ 메일 주소는 변경이 불가하며, 아이디/비번찾기 등에 사용됩니다.<br>
-											※ 최대 5분 정도 소요됩니다. 메일이 오지 않을 경우 스팸메일함을 확인부탁드립니다
+											※ 최대 5분 정도 소요됩니다. 메일이 오지 않을 경우 스팸메일함을 확인해 주시기 바랍니다.
 											</span>
 											</td>
 										</tr>
@@ -242,7 +244,7 @@ input:focus {
 											<th>이메일 인증 키</th>
 											<td>
 											<input type="hidden" name="hidden_key" id="hidden_key" value="">
-											<input type="text" name="email_key" id="email_key" autocomplete="off"> 
+											<input type="text" name="email_key" id="email_key" autocomplete="off" maxlength ="6"> 
 											<input type="button" name="email_key" id="email_key_btn" onclick="mailKeyCheck();" value="확인" autocomplete="off">
 											</td>
 										</tr>
@@ -251,6 +253,7 @@ input:focus {
 											<th>핸드폰</th>
 											<td>
 											<input type="text" name="phone" id="phone" autocomplete="off" maxlength ="11">
+											<span>※ '-' 를 제외하고 입력해 주시기 바랍니다.</span>
 											</td>
 										</tr>
 										
@@ -317,7 +320,7 @@ input:focus {
 				data :{ userId : $userId.val() },
 				success : function(result){
 					if(result == 'NNNNN'){
-						alert("이미 존재하거나 회원탈퇴한 아이디입니다");
+						alert("이미 존재하거나 회원탈퇴한 아이디입니다. 다른 아이디를 입력해 주시기 바랍니다.");
 						$userId.focus();
 					}else{
 						if("..."){
@@ -343,7 +346,7 @@ input:focus {
 				data :{ userNickname : $userNickname.val() },
 				success : function(result){
 					if(result == 'NNNNNN'){
-						alert("현재 입력한 닉네임은 사용중입니다. 다른 닉네임을 입력해주세요.");
+						alert("현재 입력한 닉네임은 사용중입니다. 다른 닉네임을 입력해 주시기 바랍니다.");
 						$userNickname.focus();
 					}else{
 						if("..."){
@@ -375,7 +378,7 @@ input:focus {
 					$("#enroll-form [id=email_key").focus();
 				},
 				error : function(){
-					alert("메일을 다시한번 확인해주세요.");
+					alert("메일을 다시한번 확인해 주시기 바랍니다.");
 				}
 			});
 		}
@@ -389,17 +392,17 @@ input:focus {
 			if($email_key.val() === $hidden_key.val()){
 				alert("이메일 인증번호 확인했습니다.")
 				$("#enroll-form :submit").removeAttr("disabled");
+				$("#enroll-form :submit").css("background","rgba(41, 128, 185, 0.46)");
 				$("#phone").focus();
 			}
 			else{
-				alert("이메일 인증번호를 다시 입력해주세요.")
+				alert("이메일 인증번호를 다시 입력해 주시기 바랍니다.")
 				$email_key.focus();
 			}
 		}
-		
-        link = "<%=contextPath%>";
 
 		function hrefLink() { // 뒤로가기
+        	var link = "<%=contextPath%>";
 			location.href = link;
 		}
 
@@ -468,14 +471,14 @@ input:focus {
 
 			// 아이디 공백 확인
 			if ($("#userId").val() == "") {
-				alert("아이디를 입력해주세요.");
+				alert("아이디를 입력해 주시기 바랍니다.");
 				$("#userId").focus();
 				return false;
 			}
 
 			// 아이디 유효성검사
 			if (!userIdCheck.test($("#userId").val())) {
-				alert("아이디는 4~12자, 영문 대소문자, 숫자만 입력해 주셔야 합니다.");
+				alert("아이디는 4~12자, 영문 대소문자, 숫자만 입력해 주시기 바랍니다.");
 				$("#userId").val("");
 				$("#userId").focus();
 				return false;
@@ -483,14 +486,14 @@ input:focus {
 			
 			// 이름 공백 확인
 			if ($("#userName").val() == "") {
-				alert("아이디를 입력해주세요.");
+				alert("아이디를 입력해 주시기 바랍니다.");
 				$("#userName").focus();
 				return false;
 			}
 
 			// 이름 유효성검사
 			if (!userNameCheck.test($("#userName").val())) {
-				alert("이름은 2~4자, 한글만 입력해 주셔야 합니다.");
+				alert("이름은 2~4자, 한글만 입력해 주시기 바랍니다.");
 				$("#userName").val("");
 				$("#userName").focus();
 				return false;
@@ -498,14 +501,14 @@ input:focus {
 
 			// 닉네임 공백 검사
 			if ($("#userNickname").val() == "") {
-				alert("닉네임을 입력해주세요.");
+				alert("닉네임을 주시기 바랍니다.");
 				$("#register_nick").focus();
 				return false;
 			}
 
 			// 닉네임 유효성 검사
 			if (!nickNameCheck.test($("#userNickname").val())) {
-				alert("닉네임은 2~8자 이내로 입력해 주셔야 합니다. (특수문자 불가)")
+				alert("닉네임은 2~8자 이내로 입력해 주시기 바랍니다. (특수문자 불가)")
 				$("#userNickname").val("");
 				$("#userNickname").focus();
 				return false;
@@ -513,14 +516,14 @@ input:focus {
 
 			// 비밀번호 공백 확인
 			if ($("#userPwd").val() == "") {
-				alert("비밀번호를 입력해주세요.");
+				alert("비밀번호를 입력해 주시기 바랍니다.");
 				$("#userPwd").focus();
 				return false;
 			}
 
 			// 비밀번호 유효성검사
 			if (!passwdCheck.test($("#userPwd").val())) {
-				alert("비밀번호는 8~20자 영문 대소문자, 숫자, 특수문자 혼합해서 입력해 주셔야 합니다.");
+				alert("비밀번호는 8~20자 영문 대소문자, 숫자, 특수문자 혼합해서 입력해 주시기 바랍니다.");
 				$("#userPwd").val("");
 				$("#userPwd").focus();
 				return false;
@@ -528,14 +531,14 @@ input:focus {
 
 			// 비밀번호 확인란 공백 확인
 			if ($("#pw_check").val() == "") {
-				alert("비밀번호를 다시 입력해주세요.");
+				alert("비밀번호를 다시 입력해 주시기 바랍니다.");
 				$("#pw_check").focus();
 				return false;
 			}
 
 			// 비밀번호 확인
 			if ($("#userPwd").val() != $("#pw_check").val()) {
-				alert("비밀번호가 다릅니다. 다시 입력해주세요.");
+				alert("비밀번호가 다릅니다. 다시 입력해 주시기 바랍니다.");
 				$("#userPwd").val("");
 				$("#pw_check").val("");
 				$("#userPwd").focus();
@@ -544,21 +547,21 @@ input:focus {
 
 			// 이메일 공백 확인
 			if ($("#email").val() == "") {
-				alert("이메일을 입력해주세요.");
+				alert("이메일을 입력해 주시기 바랍니다.");
 				$("#email").focus();
 				return false;
 			}
 
 			// 이메일 키 공백 확인
 			if ($("#email_key").val() == "") {
-				alert("이메일 인증을 확인해주세요.");
+				alert("이메일 인증을 확인해 주시기 바랍니다.");
 				$("#email_key").focus();
 				return false;
 			}
 
 			// 이메일 유효성 검사
 			if (!emailCheck.test($("#email").val())) {
-				alert("이메일 형식에 맞게 입력해 주셔야 합니다.")
+				alert("이메일 형식에 맞게 입력해 주시기 바랍니다.")
 				$("#email").val("");
 				$("#email").focus();
 				return false;
@@ -566,14 +569,14 @@ input:focus {
 
 			// 폰번호 공백 확인
 			if ($("#phone").val() == "") {
-				alert("핸드폰 번호를 입력해주세요.");
+				alert("핸드폰 번호를 입력해 주시기 바랍니다.");
 				$("#phone").focus();
 				return false;
 			}
 
 			// 폰번호 유효성 검사
 			if (!phonNumberCheck.test($("#phone").val())) {
-				alert("핸드폰 번호를 형식에 맞게 입력해 주셔야 합니다.")
+				alert("핸드폰 번호를 형식에 맞게 입력해 주시기 바랍니다.")
 				$("#phone").val("");
 				$("#phone").focus();
 				return false;
@@ -581,14 +584,14 @@ input:focus {
 
 			// 주소 공백 확인
 			if ($("#sample6_detailAddress").val() == "") {
-				alert("상세주소를 입력해주세요.");
+				alert("상세주소를 입력해 주시기 바랍니다.");
 				$("#sample6_detailAddress").focus();
 				return false;
 			}
 
 			// 반려동물이름 공백 확인
 			if ($("#animal_name").val() == "") {
-				alert("반려동물 이름을 입력해주세요.");
+				alert("반려동물 이름을 입력해 주시기 바랍니다.");
 				$("#animal_name").focus();
 				return false;
 			}
@@ -600,14 +603,14 @@ input:focus {
 
 			// 아이디 공백 확인
 			if ($("#userId").val() == "") {
-				alert("아이디를 입력해주세요.");
+				alert("아이디를 입력해 주시기 바랍니다.");
 				$("#userId").focus();
 				return false;
 			}
 
 			// 아이디 유효성검사
 			if (!userIdCheck.test($("#userId").val())) {
-				alert("아이디는 4~12자, 영문 대소문자, 숫자만 입력해 주셔야 합니다.");
+				alert("아이디는 4~12자, 영문 대소문자, 숫자만 입력해 주시기 바랍니다.");
 				$("#userId").val("");
 				$("#userId").focus();
 				return false;
@@ -619,14 +622,14 @@ input:focus {
 
 		// 닉네임 공백 검사
 		if ($("#userNickname").val() == "") {
-			alert("닉네임을 입력해주세요.");
+			alert("닉네임을 입력해 주시기 바랍니다.");
 			$("#register_nick").focus();
 			return false;
 		}
 
 		// 닉네임 유효성 검사
 		if (!nickNameCheck.test($("#userNickname").val())) {
-			alert("닉네임은 2~8자 이내로 입력해 주셔야 합니다. (특수문자 불가)")
+			alert("닉네임은 2~8자 이내로 입력해 주시기 바랍니다. (특수문자 불가)")
 			$("#userNickname").val("");
 			$("#userNickname").focus();
 			return false;

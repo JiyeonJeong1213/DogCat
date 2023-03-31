@@ -89,14 +89,14 @@
 		
 		// 이름 공백 확인
 		if ($("#userName").val() == "") {
-			alert("아이디를 입력해주세요.");
+			alert("아이디를 입력해 주시기 바랍니다.");
 			$("#userName").focus();
 			return false;
 		}
 
 		// 이름 유효성검사
 		if (!userNameCheck.test($("#userName").val())) {
-			alert("이름은 2~4자, 한글만 입력해 주셔야 합니다.");
+			alert("이름은 2~4자, 한글만 입력해 주시기 바랍니다.");
 			$("#userName").val("");
 			$("#userName").focus();
 			return false;
@@ -104,14 +104,14 @@
 		
 		// 이메일 공백 확인
 		if ($("#email").val() == "") {
-			alert("이메일을 입력해주세요.");
+			alert("이메일을 입력해 주시기 바랍니다.");
 			$("#email").focus();
 			return false;
 		}
 		
 		// 이메일 유효성 검사
 		if (!emailCheck.test($("#email").val())) {
-			alert("이메일 형식에 맞게 입력해 주셔야 합니다.")
+			alert("이메일 형식에 맞게 입력해 주시기 바랍니다.")
 			$("#email").val("");
 			$("#email").focus();
 			return false;
