@@ -155,9 +155,9 @@
                 <div class="login_footer">
                 
                     <div class="id_search">
-                        <a href="">아이디 찾기</a>
+                        <a href="<%=contextPath%>/views/member/memberIdSearch.jsp">아이디 찾기</a>
                         <span>ㅣ</span>
-                        <a href="">비밀번호 찾기</a>
+                        <a href="<%=contextPath%>/views/member/memberPwdSearch.jsp">비밀번호 찾기</a>
                     </div>
                     
                     <div class="sign_btn" align="end">
