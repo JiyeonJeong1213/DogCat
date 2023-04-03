@@ -193,7 +193,7 @@
 
         <div id="button-area">
         	<c:if test="${!empty loginUser and loginUser.userId ne b.boardWriter}">
-        		<button type="button" id="like">찜하기</button>
+        		<button type="button" id="like" onclick="like();">찜하기</button>
                 <button type="button" id="chatting">구매 문의 채팅</button>
             </c:if>
         </div>
@@ -203,7 +203,7 @@
             <div class="content-title"><%= b.getBoardTitle() %></div>
         </div>
         <div id="title-area2">
-            <div class="title-detail"><%=b.getBoardWriter() %> || <%=b.getCreateDate() %> || <%= b.getCount() %></div>
+            <div class="title-detail"><%=b.getBoardWriter() %> || <%=b.getCreateDate() %> || 조회수 <%= b.getCount() %> || 찜 ${lCount }</div>
         </div>
         <div id="content-area">
             <div id="content-main">
@@ -261,6 +261,9 @@
         	}
         	function toDelete(){
         		$("#modal").css("display", "flex");
+        	}
+        	function like(){
+        		location.href="<%= contextPath %>/like.sell?bno=<%= b.getBoardNo() %>";
         	}
         </script>
     </div>
