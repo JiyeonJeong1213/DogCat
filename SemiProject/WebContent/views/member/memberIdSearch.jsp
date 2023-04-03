@@ -20,7 +20,7 @@
 			border-radius: 5px;
 			box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 			max-width: 500px;
-            margin-left: 500px;
+            margin-left: 565px;
 		}
 		h1 {
 			font-size: 24px;
@@ -56,7 +56,7 @@
 		}
 
         .search_logo{
-            margin-left: 636px;
+            margin-left: 695px;
             width: 300px;
             margin-bottom: 50px;
         }
@@ -70,7 +70,8 @@
 <body>
 
 	<div class="search_logo">
-    <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/logo.png" height="200" width="300" alt="">
+     <a href="<%= contextPath %>"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/logo.png" height="200" width="300" alt="">
+    </a>
     </div>
 	
 	<div class="search_Id_Container">

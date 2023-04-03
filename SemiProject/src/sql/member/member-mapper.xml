@@ -95,9 +95,15 @@
 	WHERE USER_NAME = ? AND EMAIL = ?
 	</entry> 
 	
-	<entry key="searchPwd">
-	SELECT USER_PWD, EMAIL
+	<entry key="searchMemberEmail">
+	SELECT EMAIL
 	FROM MEMBER
+	WHERE USER_ID = ? AND USER_NAME = ?
+	</entry>
+	
+	<entry key="UpdateMemberPwd">
+	UPDATE MEMBER 
+	SET USER_PWD = ? 
 	WHERE USER_ID = ? AND USER_NAME = ?
 	</entry>
 	
