@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	String contextPath = request.getContextPath();
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +20,7 @@
 
 #sub .sub_in #content {
 	position: relative;
-	width: 1150px;
+	width: 1350px;
 	margin: 0 auto;
 }
 
@@ -161,6 +159,7 @@ input:focus {
 </style>
 </head>
 <body>
+<%@ include file= "../common/menubar.jsp" %>
 	<article id="sub">
 		<div class="sub_in">
 
@@ -310,7 +309,7 @@ input:focus {
 			</section>
 		</div>
 	</article>
-	
+	<%@ include file= "../common/footer.jsp" %>
 	<script>
 		function idCheck(){ // 아이디 체크
 			const $userId = $("#enroll-form [id=userId]");
@@ -363,6 +362,30 @@ input:focus {
 				}
 			});
 		}
+		
+		<%-- function mailCheck1(){ // 이메일 체크
+			const $userMail = $("#enroll-form [id=email]");
+			
+			$.ajax({
+				url : "<%=contextPath%>/mailCheck1.me",
+				data :{ userMail : $userMail.val() },
+				success : function(result){
+					if(result == 'NNNNNN'){
+						alert("현재 입력한 이메일은 사용중입니다. 다른 이메일을 입력해 주시기 바랍니다.");
+						$userMail.focus();
+					}else{
+						if("..."){
+							alert("이메일 중복 체크 확인했습니다.")
+						}else{
+							$userMail.val("");
+						}
+					}
+				},
+				error : function(){
+					alert("이메일 중복체크에 실패했습니다.");
+				}
+			});
+		} --%>
 		
 		function mailCheck(){ // 이메일 전송
 			const $userMail = $("#enroll-form [id=email]");

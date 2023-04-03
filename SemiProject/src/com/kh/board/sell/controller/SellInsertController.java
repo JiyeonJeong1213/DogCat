@@ -52,7 +52,7 @@ public class SellInsertController extends HttpServlet {
 			
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/sell_upfiles/");
 			
-			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			MultipartRequest multi = new MultipartRequest(request , savePath, maxSize ,"UTF-8", new MyFileRenamePolicy());
 			
 			Board b = new Board();
 			b.setBoardTitle(multi.getParameter("title"));

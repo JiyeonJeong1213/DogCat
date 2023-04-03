@@ -31,12 +31,12 @@
             position: relative;
         }
 
-        .login_logo>img {
+        .login_logo img {
             width: 300px;
             height: 200px;
             position: absolute;
             bottom: 348px;
-            left: 649px;
+            left: 695px;
         }
 
         .login-wrapper {
@@ -44,7 +44,7 @@
             height: 350px;
             padding: 60px;
             box-sizing: border-box;
-            margin-left: 550px;
+            margin-left: 600px;
             margin-top: 200px;
         }
 
@@ -139,7 +139,7 @@
 <body>
   <div class="all">
         <div class="login_logo">
-            <img src="resources/logo.png" width="200px">
+            <a href="<%= contextPath %>"><img src="resources/logo.png" width="200px"></a>
             <div class="login-wrapper">
                 <h2>로그인</h2>
                 <form method="post" action="<%= contextPath %>/login.me" id="login-form">
@@ -165,6 +165,8 @@
                 </form>
                     </div>
                 </div>
+                
+                
                 <script>
          function enrollPage(){
             location.href = "<%= contextPath%>/views/member/memberEnroll.jsp"; 
