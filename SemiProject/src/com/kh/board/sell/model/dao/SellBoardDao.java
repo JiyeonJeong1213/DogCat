@@ -239,6 +239,28 @@ public class SellBoardDao {
 		}
 		return list;
 	}
+	public int selectLikeCount(Connection conn, int bno) {
+		int lCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLikeCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				lCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return lCount;
+	}
 	
 	public int updateBoard(Connection conn, Board b) {
 		int result = 0;
@@ -396,5 +418,207 @@ public class SellBoardDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int selectSearchListCount1(Connection conn, String s1, String s2) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchListCount1");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(s2.equals("")) {
+				pstmt.setString(1, s1);
+			}else {
+				pstmt.setString(1, s1+","+s2);
+			}
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	public int selectSearchListCount2(Connection conn, String s1, String s2, String s3) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchListCount2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if(s2 == "") {
+				pstmt.setString(1, s1);
+			}else {
+				pstmt.setString(1, s1+","+s2);
+			}
+			pstmt.setString(2, s3);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	public int selectSearchListCount3(Connection conn, String s3) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchListCount3");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, s3);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	public ArrayList<Board> selectSearchList1(Connection conn, PageInfo pi, String s1, String s2) {
+		ArrayList<Board> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchList1");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endRow = startRow+pi.getBoardLimit()-1;
+			
+			if(s2.equals("")) {
+				pstmt.setString(1, s1);
+			}else {
+				pstmt.setString(1, s1+","+s2);
+			}
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setBoardWriter(rset.getString("USER_ID"));
+				b.setCount(rset.getInt("COUNT"));
+				b.setLikeCount(rset.getInt("B_LIKE"));
+				
+				Attachment at = new Attachment();
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				b.setAt(at);
+				
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	public ArrayList<Board> selectSearchList2(Connection conn, PageInfo pi, String s1, String s2, String s3) {
+		ArrayList<Board> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchList2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endRow = startRow+pi.getBoardLimit()-1;
+			
+			if(s2 == "") {
+				pstmt.setString(1, s1);
+			}else {
+				pstmt.setString(1, s1+","+s2);
+			}
+			pstmt.setString(2, s3);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setBoardWriter(rset.getString("USER_ID"));
+				b.setCount(rset.getInt("COUNT"));
+				b.setLikeCount(rset.getInt("B_LIKE"));
+				
+				Attachment at = new Attachment();
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				b.setAt(at);
+				
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	public ArrayList<Board> selectSearchList3(Connection conn, PageInfo pi, String s3) {
+		ArrayList<Board> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchList3");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1)*pi.getBoardLimit()+1;
+			int endRow = startRow+pi.getBoardLimit()-1;
+			
+			pstmt.setString(1, s3);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setBoardWriter(rset.getString("USER_ID"));
+				b.setCount(rset.getInt("COUNT"));
+				b.setLikeCount(rset.getInt("B_LIKE"));
+				
+				Attachment at = new Attachment();
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				b.setAt(at);
+				
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 }

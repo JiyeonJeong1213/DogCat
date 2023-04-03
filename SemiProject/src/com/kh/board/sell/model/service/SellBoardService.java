@@ -81,6 +81,12 @@ public class SellBoardService {
 		close(conn);
 		return list;
 	}
+	public int selectLikeCount(int bno) {
+		Connection conn = getConnection();
+		int lCount = new SellBoardDao().selectLikeCount(conn, bno);
+		close(conn);
+		return lCount;
+	}
 	
 	public int updateBoard(Board b, ArrayList<Attachment> list, ArrayList<Integer> originFileNos) {
 		Connection conn = getConnection();
@@ -148,5 +154,36 @@ public class SellBoardService {
 		}
 		close(conn);
 		return result;
+	}
+	
+	public int selectSearchListCount(String s1, String s2, String s3) {
+		Connection conn = getConnection();
+		int listCount = 0;
+		if(s1 != null) {
+			if(s3.equals("")) {
+				listCount = new SellBoardDao().selectSearchListCount1(conn, s1, s2);
+			}else {
+				listCount = new SellBoardDao().selectSearchListCount2(conn, s1, s2, s3);
+			}
+		}else {
+			listCount = new SellBoardDao().selectSearchListCount3(conn, s3);
+		}
+		close(conn);
+		return listCount;
+	}
+	public ArrayList<Board> selectSearchList(PageInfo pi, String s1, String s2, String s3) {
+		Connection conn = getConnection();
+		ArrayList<Board> list = null;
+		if(s1 != null) {
+			if(s3.equals("")) {
+				list = new SellBoardDao().selectSearchList1(conn, pi, s1, s2);
+			}else {
+				list = new SellBoardDao().selectSearchList2(conn, pi, s1, s2, s3);
+			}
+		}else {
+			list = new SellBoardDao().selectSearchList3(conn, pi, s3);
+		}
+		close(conn);
+		return list;
 	}
 }

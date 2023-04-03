@@ -203,7 +203,7 @@
             <div class="content-title"><%= b.getBoardTitle() %></div>
         </div>
         <div id="title-area2">
-            <div class="title-detail"><%=b.getBoardWriter() %> || <%=b.getCreateDate() %> || <%= b.getCount() %></div>
+            <div class="title-detail"><%=b.getBoardWriter() %> || <%=b.getCreateDate() %> || 조회수 <%= b.getCount() %> || 찜 ${lCount }</div>
         </div>
         <div id="content-area">
             <div id="content-main">

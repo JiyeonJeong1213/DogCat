@@ -38,9 +38,11 @@ public class SellDetailController extends HttpServlet {
 		if(result>0) {
 			Board b = new SellBoardService().selectBoard(bno);
 			ArrayList<Attachment> list = new SellBoardService().selectAttachmentList(bno);
+			int lCount = new SellBoardService().selectLikeCount(bno);
 			
 			request.setAttribute("b", b);
 			request.setAttribute("list", list);
+			request.setAttribute("lCount", lCount);
 			request.getRequestDispatcher("views/board/sell/sellDetailView.jsp").forward(request, response);
 		}else {
 			System.out.println("게시글 조회 실패");
