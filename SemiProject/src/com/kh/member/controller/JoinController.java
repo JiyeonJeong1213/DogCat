@@ -72,7 +72,7 @@ public class JoinController extends HttpServlet {
 		if(result > 0) {
 			request.getSession().setAttribute("alertMsg", "회원가입에 성공했습니다");
 			
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath()+"/login.me");
 			
 		}else {
 			request.setAttribute("errorMsg", "회원가입에 실패했습니다");

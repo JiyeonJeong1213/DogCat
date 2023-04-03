@@ -87,6 +87,18 @@
                 ?,
                 ?
 				)
-	</entry>    
+	</entry>   
+	
+	<entry key="searchMemberId">
+	SELECT USER_ID
+	FROM MEMBER
+	WHERE USER_NAME = ? AND EMAIL = ?
+	</entry> 
+	
+	<entry key="searchPwd">
+	SELECT USER_PWD, EMAIL
+	FROM MEMBER
+	WHERE USER_ID = ? AND USER_NAME = ?
+	</entry>
 	
 </properties>

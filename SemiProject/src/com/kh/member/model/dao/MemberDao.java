@@ -158,8 +158,8 @@ public class MemberDao {
 	}
 	
 	public int idCheck(Connection conn, String userId) {
-		int count = 0;
-		// SELECT문 실행예정 -> 결과값은 무조건 한행
+		
+		int count = 0 ;
 		
 		PreparedStatement pstmt = null;
 		
@@ -189,7 +189,6 @@ public class MemberDao {
 	
 	public int nickCheck(Connection conn, String userNickname) {
 		
-		// SELECT문 실행예정 -> 결과값은 무조건 한행
 		int count1 = 0 ;
 		
 		PreparedStatement pstmt = null;
@@ -270,5 +269,38 @@ public class MemberDao {
 		}
 		return result;
 	}
-
+	
+	public String searchMemberId(String inputName, String inputEmail) {
+		String userId = "NNNNNN";
+		Connection conn = JDBCTemplate.getConnection();
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null; 
+        
+        String sql = prop.getProperty("searchMemberId");
+        
+        try {
+            pstmt = conn.prepareStatement(sql);
+            
+            pstmt.setString(1, inputName);
+            pstmt.setString(2, inputEmail);
+            
+            rset = pstmt.executeQuery();
+            
+            if (rset.next()){
+            	userId = rset.getString("USER_ID");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(conn);
+			
+        }
+        
+        return userId;
+    }
+	
 }
