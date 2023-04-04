@@ -71,6 +71,18 @@ public class MemberService {
 
 		return count1;
 	}
+	
+	// 이메일 중복체크
+	public int emailCheck(String email) {
+
+		Connection conn = JDBCTemplate.getConnection();
+
+		int count1 = new MemberDao().emailCheck(conn, email);
+
+		JDBCTemplate.close(conn);
+
+		return count1;
+	}
 
 	// 회원가입 멤버, 펫정보 삽입
 	public int insertMember(Member m, Pet p) {

@@ -16,13 +16,19 @@
 			background-color: #f2f2f2;
 			font-family: Arial, sans-serif;
 		}
+		
+		.all {
+			width: 1350px;
+			margin: 0 auto;
+        }
+        
 		.search_Id_Container {
 			padding: 30px;
 			background-color: #fff;
 			border-radius: 5px;
 			box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 			max-width: 500px;
-            margin-left: 565px;
+            margin-left: 404px;
 		}
 		h1 {
 			font-size: 24px;
@@ -74,7 +80,7 @@
 		}
 
         .search_logo{
-            margin-left: 695px;
+            margin-left: 536px;
             width: 300px;
             margin-bottom: 50px;
         }
@@ -90,6 +96,7 @@
 	</style>
 </head>
 <body>
+<div class="all">
 	<div class="search_logo">
     <a href="<%= contextPath %>"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/logo.png" height="200" width="300" alt="">
     </a>
@@ -125,6 +132,7 @@ else {
 }
 %>      
 	</div>
+</div>
 </body>
 <script>
 	function goLogin() {

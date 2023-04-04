@@ -219,6 +219,37 @@ public class MemberDao {
 		return count1;
 	}
 	
+	// 이메일 중복체크
+	public int emailCheck(Connection conn, String email) {
+			
+		int count1 = 0 ;
+			
+		PreparedStatement pstmt = null;
+			
+		ResultSet rset = null; 
+			
+		String sql = prop.getProperty("emailCheck");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+				
+			rset = pstmt.executeQuery();
+				
+			if(rset.next()) {
+				count1 = rset.getInt(1);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return count1;
+	}
+	
 	// 회원가입 멤버정보 삽입
 	public int insertMember(Connection conn, Member m) {
 		int result = 0;
