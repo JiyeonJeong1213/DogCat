@@ -53,6 +53,12 @@
 		WHERE USER_NICKNAME = ?
 	</entry>
 	
+	<entry key="emailCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE EMAIL = ?
+	</entry>
+	
 	<entry key="insertMember">
 	INSERT INTO MEMBER(USER_NO,
 				USER_ID,
