@@ -47,7 +47,8 @@ public class MemberService {
 		return updateMem;
 
 	}
-
+	
+	// 아이디 중복체크
 	public int idCheck(String userId) {
 
 		Connection conn = JDBCTemplate.getConnection();
@@ -59,6 +60,7 @@ public class MemberService {
 		return count;
 	}
 
+	// 닉네임 중복체크
 	public int nickCheck(String userNickname) {
 
 		Connection conn = JDBCTemplate.getConnection();
@@ -69,7 +71,20 @@ public class MemberService {
 
 		return count1;
 	}
+	
+	// 이메일 중복체크
+	public int emailCheck(String email) {
 
+		Connection conn = JDBCTemplate.getConnection();
+
+		int count1 = new MemberDao().emailCheck(conn, email);
+
+		JDBCTemplate.close(conn);
+
+		return count1;
+	}
+
+	// 회원가입 멤버, 펫정보 삽입
 	public int insertMember(Member m, Pet p) {
 
 		Connection conn = JDBCTemplate.getConnection();
@@ -93,9 +108,20 @@ public class MemberService {
 	}
 
 	MemberDao dao = new MemberDao();
-
-	public String searchMemberId(String inputName, String inputEmail) { // 이름,이메일로 찾기
+	
+	// 이름,이메일로 아이디 찾기
+	public String searchMemberId(String inputName, String inputEmail) { 
 		return dao.searchMemberId(inputName, inputEmail);
+	}
+	
+	// 아이디,이름으로 이메일 찾기
+	public String searchMemberEmail(String inputId, String inputName) { 
+		return dao.searchMemberEmail(inputId, inputName);
+	}
+	
+	// 비밀번호 업데이트
+	public int UpdateMemberPwd(Member member) { 
+		return dao.UpdateMemberPwd(member);
 	}
 
 }

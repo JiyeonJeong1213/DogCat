@@ -14,13 +14,18 @@
 			background-color: #f2f2f2;
 			font-family: Arial, sans-serif;
 		}
+		
+		.all {
+			width: 1350px;
+			margin: 0 auto;
+        }
 		.search_Id_Container {
 			padding: 30px;
 			background-color: #fff;
 			border-radius: 5px;
 			box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 			max-width: 500px;
-            margin-left: 500px;
+            margin-left: 404px;
 		}
 		h1 {
 			font-size: 24px;
@@ -56,7 +61,7 @@
 		}
 
         .search_logo{
-            margin-left: 636px;
+            margin-left: 536px;
             width: 300px;
             margin-bottom: 50px;
         }
@@ -68,9 +73,10 @@
 </head>
 
 <body>
-
+	<div class="all">
 	<div class="search_logo">
-    <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/logo.png" height="200" width="300" alt="">
+     <a href="<%= contextPath %>"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/logo.png" height="200" width="300" alt="">
+    </a>
     </div>
 	
 	<div class="search_Id_Container">
@@ -81,6 +87,7 @@
 				<button type="submit" id="searchBtn" onClick="return checks();">아이디찾기</button>
 		</form>
 	</div>
+	</div>
 	
 	<script>
 	function checks() {
@@ -89,14 +96,14 @@
 		
 		// 이름 공백 확인
 		if ($("#userName").val() == "") {
-			alert("아이디를 입력해 주시기 바랍니다.");
+			alert("이름를 입력해 주시기 바랍니다.");
 			$("#userName").focus();
 			return false;
 		}
 
 		// 이름 유효성검사
 		if (!userNameCheck.test($("#userName").val())) {
-			alert("이름은 2~4자, 한글만 입력해 주시기 바랍니다.");
+			alert("이름이 일치하지 않습니다.");
 			$("#userName").val("");
 			$("#userName").focus();
 			return false;
@@ -111,7 +118,7 @@
 		
 		// 이메일 유효성 검사
 		if (!emailCheck.test($("#email").val())) {
-			alert("이메일 형식에 맞게 입력해 주시기 바랍니다.")
+			alert("이메일이 일치하지 않습니다.")
 			$("#email").val("");
 			$("#email").focus();
 			return false;

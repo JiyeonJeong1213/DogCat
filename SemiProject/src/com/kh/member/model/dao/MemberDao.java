@@ -157,6 +157,7 @@ public class MemberDao {
 		
 	}
 	
+	// 아이디 중복체크
 	public int idCheck(Connection conn, String userId) {
 		
 		int count = 0 ;
@@ -187,6 +188,7 @@ public class MemberDao {
 		return count;
 	}
 	
+	// 닉네임 중복체크
 	public int nickCheck(Connection conn, String userNickname) {
 		
 		int count1 = 0 ;
@@ -217,6 +219,38 @@ public class MemberDao {
 		return count1;
 	}
 	
+	// 이메일 중복체크
+	public int emailCheck(Connection conn, String email) {
+			
+		int count1 = 0 ;
+			
+		PreparedStatement pstmt = null;
+			
+		ResultSet rset = null; 
+			
+		String sql = prop.getProperty("emailCheck");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+				
+			rset = pstmt.executeQuery();
+				
+			if(rset.next()) {
+				count1 = rset.getInt(1);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		
+		return count1;
+	}
+	
+	// 회원가입 멤버정보 삽입
 	public int insertMember(Connection conn, Member m) {
 		int result = 0;
 		
@@ -246,6 +280,7 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 회원가입 펫정보 삽입
 	public int insertPet(Connection conn, Pet p) {
 		int result = 0;
 		
@@ -270,6 +305,7 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 아이디 찾기
 	public String searchMemberId(String inputName, String inputEmail) {
 		String userId = "NNNNNN";
 		Connection conn = JDBCTemplate.getConnection();
@@ -302,5 +338,70 @@ public class MemberDao {
         
         return userId;
     }
+	
+	// 비밀번호 찾기 1-1 (이메일 찾기)
+	public String searchMemberEmail(String inputId, String inputName) {
+		String userEmail = "NNNNNN";
+		Connection conn = JDBCTemplate.getConnection();
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null; 
+        
+        String sql = prop.getProperty("searchMemberEmail");
+        
+        try {
+            pstmt = conn.prepareStatement(sql);
+            
+            pstmt.setString(1, inputId);
+            pstmt.setString(2, inputName);
+            
+            rset = pstmt.executeQuery();
+            
+            if (rset.next()){
+            	userEmail = rset.getString("EMAIL");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(conn);
+			
+        }
+        
+        return userEmail;
+    }
+	
+	// 비밀번호 찾기 1-2 (비밀번호 정보변경)
+	public int UpdateMemberPwd(Member member) {
+		
+		int result = 0;
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("UpdateMemberPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, member.getUserPwd());
+			pstmt.setString(2, member.getUserId());
+			pstmt.setString(3, member.getUserName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(conn);
+		}
+		
+		return result;
+		
+	}
 	
 }

@@ -3,7 +3,7 @@
 <%
 	String contextPath = request.getContextPath();
  	request.setCharacterEncoding("UTF-8");
-    String userId = request.getAttribute("userId").toString();
+ 	String alertMsg = request.getAttribute("alertMsg").toString();
 %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +22,7 @@
 			margin: 0 auto;
         }
         
-		.search_Id_Container {
+		.search_Pwd_Container {
 			padding: 30px;
 			background-color: #fff;
 			border-radius: 5px;
@@ -101,15 +101,14 @@
     <a href="<%= contextPath %>"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/logo.png" height="200" width="300" alt="">
     </a>
     </div>
-    <div class="search_Id_Container">
+    <div class="search_Pwd_Container">
 <%
-if (userId != "NNNNNN") {
+if (alertMsg == "success") {
 %>     
 		<div class = "container">
 			<div class = "found-success">
-				<h4 align="center">  회원님의 아이디는 </h4>  
-				<div class ="found-id" align="center"><%= userId %></div>
-				<h4 align="center">  입니다 </h4>
+				<h4 align="center"> 회원님의 임시 비밀번호가 이메일로 발송되었습니다. </h4>  
+				<h4 align="center"> 로그인 후 비밀번호를 수정해주세요. </h4>  
 			</div>
 			<div class = "found-login">
 				 <button type="button" id="btnLogin" onClick="goLogin()">로그인</button>

@@ -29,14 +29,16 @@
 
         .all {
             position: relative;
+			width: 1350px;
+			margin: 0 auto;
         }
 
-        .login_logo>img {
+        .login_logo img {
             width: 300px;
             height: 200px;
             position: absolute;
             bottom: 348px;
-            left: 649px;
+            left: 529px;
         }
 
         .login-wrapper {
@@ -44,7 +46,7 @@
             height: 350px;
             padding: 60px;
             box-sizing: border-box;
-            margin-left: 550px;
+            margin-left: 427px;
             margin-top: 200px;
         }
 
@@ -139,12 +141,12 @@
 <body>
   <div class="all">
         <div class="login_logo">
-            <img src="resources/logo.png" width="200px">
+            <a href="<%= contextPath %>"><img src="resources/logo.png" width="200px"></a>
             <div class="login-wrapper">
                 <h2>로그인</h2>
                 <form method="post" action="<%= contextPath %>/login.me" id="login-form">
-                    <input type="text" name="userId" placeholder="아이디" autocomplete="off" required>
-                    <input type="password" name="userPwd" placeholder="비밀번호" autocomplete="off" required>
+                    <input type="text" name="userId" id="userId" placeholder="아이디" autocomplete="off"> 
+                    <input type="password" name="userPwd" id="userPwd" placeholder="비밀번호" autocomplete="off">
                     <label for="remember-check">
                         <input type="checkbox" id="remember-check" > 아이디 저장
                     </label>
@@ -165,11 +167,45 @@
                 </form>
                     </div>
                 </div>
+                
+                
                 <script>
          function enrollPage(){
             location.href = "<%= contextPath%>/views/member/memberEnroll.jsp"; 
          }
+         
          function submitLogin(){
+        	 
+     			var userIdCheck = RegExp(/^[A-Za-z0-9_\-]{4,12}$/); // 아이디
+     			var passwdCheck = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/);
+     			
+     			// 아이디 공백 확인
+     			if ($("#userId").val() == "") {
+     				alert("아이디를 입력해 주시기 바랍니다.");
+     				$("#userId").focus();
+     				return false;
+     			}
+
+     			// 아이디 유효성검사
+     			if (!userIdCheck.test($("#userId").val())) {
+     				alert("아이디가 일치하지 않습니다.");
+     				$("#userId").focus();
+     				return false;
+     			}
+     			
+     		// 비밀번호 공백 확인
+    			if ($("#userPwd").val() == "") {
+    				alert("비밀번호를 입력해 주시기 바랍니다.");
+    				$("#userPwd").focus();
+    				return false;
+    			}
+
+    			// 비밀번호 유효성검사
+    			if (!passwdCheck.test($("#userPwd").val())) {
+    				alert("비밀번호가 일치하지 않습니다.");
+    				$("#userPwd").focus();
+    				return false;
+    			}
             
             let userId = $("#login-form input[name=userId]").val();
             

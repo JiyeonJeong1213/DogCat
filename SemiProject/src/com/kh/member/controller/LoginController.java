@@ -1,6 +1,7 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,11 +52,18 @@ public class LoginController extends HttpServlet {
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
 		if(loginUser == null) {
-			request.setAttribute("errorMsg", "로그인에 실패했습니다.");
 			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter out = response.getWriter();
+
+			out.print("<script>alert('로그인 실패');</script>");
 			
-			view.forward(request, response);
+			out.println("<script>location.href='login.me';</script>");
+			out.close();
+			
+			
 		} else {
 			HttpSession session = request.getSession();
 			

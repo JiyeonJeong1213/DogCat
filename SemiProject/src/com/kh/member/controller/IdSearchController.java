@@ -53,11 +53,10 @@ public class IdSearchController extends HttpServlet {
 			request.setAttribute("userId", result);
 			
 			request.getRequestDispatcher("views/member/memberIdSearch1.jsp").forward(request,response);
+			return;
 		}
 		
 		request.setAttribute("errorMsg", "아이디 찾기에 실패했습니다.");
-		request.setAttribute("userId", result);
-		
 		request.getRequestDispatcher("views/member/memberIdSearch1.jsp").forward(request, response);
 	}
 

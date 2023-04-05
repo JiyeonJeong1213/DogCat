@@ -53,6 +53,12 @@
 		WHERE USER_NICKNAME = ?
 	</entry>
 	
+	<entry key="emailCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE EMAIL = ?
+	</entry>
+	
 	<entry key="insertMember">
 	INSERT INTO MEMBER(USER_NO,
 				USER_ID,
@@ -95,9 +101,15 @@
 	WHERE USER_NAME = ? AND EMAIL = ?
 	</entry> 
 	
-	<entry key="searchPwd">
-	SELECT USER_PWD, EMAIL
+	<entry key="searchMemberEmail">
+	SELECT EMAIL
 	FROM MEMBER
+	WHERE USER_ID = ? AND USER_NAME = ?
+	</entry>
+	
+	<entry key="UpdateMemberPwd">
+	UPDATE MEMBER 
+	SET USER_PWD = ? 
 	WHERE USER_ID = ? AND USER_NAME = ?
 	</entry>
 	
