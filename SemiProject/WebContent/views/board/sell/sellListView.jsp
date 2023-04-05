@@ -500,7 +500,7 @@
                     <option>청주시</option>
                     <option>충주시</option>
                 </select>
-                <input type="text" name="search3" size="30" placeholder="제목/내용 검색">
+                <input type="text" name="search3" size="30" placeholder="제목 검색">
                 <button type="submit" id="search-btn">검색</button>
             </form>
             <c:if test="${!empty sessionScope.loginUser }">

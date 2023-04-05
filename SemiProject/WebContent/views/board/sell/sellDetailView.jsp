@@ -129,7 +129,7 @@
     	color : white;
     }
     
-    /* 모달 */
+    /* 삭제 모달 */
     *{
         font-family: 'Noto Sans KR', sans-serif;
         /* border: 1px solid black; */
@@ -173,6 +173,77 @@
     }
     #delete {
         background-color: #FFD133;
+    }
+    
+    /* 일대일채팅 모달 */
+    .chat-area{
+        border-radius: 20px;
+        border: 1px solid gray;
+        width: 500px;
+        display: none;
+        position: absolute;
+        top:50%; left:50%; transform:translate(-50%, -50%);
+    }
+    .chat-title {
+        background-color: white;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+    .btn-close{
+    	border: none;
+    	background-color: white;
+    }
+    .btn-close:focus{
+    	outline: none;
+    }
+    .chat-content{
+        background-color: rgb(251, 246, 240);
+        height: 550px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow-y:scroll;
+        border-radius: 10px;
+        width: 100%;
+    }
+    .chat-response{
+        width: 70%;
+        display: flex;
+        padding-top: 20px;
+    }
+    .chat-request{
+        display: flex;
+        padding-top: 20px;
+        justify-content: right;
+    }
+    .chat-request>img {
+        margin-left: 10px;
+    }
+    .chat-bubble{
+        background-color: rgb(255, 218, 119);
+        margin-left: 15px;
+        padding: 5px;
+    }
+    .chat-question {
+        display: flex;
+        justify-content: space-between;
+        height: 60px;
+    }
+    .chat-question>input{
+        /* width:100%; */
+        height: 60px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border: none;
+    }
+    .chat-question>button {
+        border: none;
+        border-radius: 20px;
+        width: 100px;
+        background-color: rgb(230, 242, 255);
+        color: rgb(0, 123, 255);
+    }
+    .chat-question>button:focus{
+    	outline: none;
     }
 </style>
 </head>
@@ -270,7 +341,7 @@
 
 	<%@ include file="../../common/footer.jsp" %>
 	
-	<!-- Modal -->
+	<!-- 삭제모달 -->
     <div class="modal-overlay" id="modal">
         <div class="modal-window">
             <div class="modal-header">
@@ -295,6 +366,46 @@
             });
             $("#delete").click(function(){
             	location.href="<%= contextPath %>/delete.sell?bno=<%= b.getBoardNo() %>"
+            });
+        })
+    </script>
+    
+    <!-- 일대일 채팅 모달 -->
+    <div class="chat-area">
+        <div class="chat-title">
+            <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/free-icon-chat-oval-speech-bubbles-symbol-55009.png" width="35px">
+            <span style="font-size: 29px; font-weight: bold;">1:1채팅</span>
+            <button type="button" class="btn-close" style="float: right; margin-right: 20px; font-size: 25px;">X</button>
+        </div>
+
+        <div class="chat-content" >
+            <div class="chat-response">
+                <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png" width="50px">
+                <div class="chat-bubble">
+                    안녕하세요! 또오개냥에 방문해주셔서 감사합니다:) 무엇을 도와 드릴까요?
+                </div>
+            </div>
+            <div class="chat-request" style="display: flex;">
+                <div class="chat-bubble">
+                    회원가입
+                </div>
+                <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png" width="50px">
+            </div>
+        </div>
+
+        <div class="chat-question">
+            <input type="text" placeholder="메세지를 입력하세요" >
+            <button onclick="sendMsg()">전송</button>
+        </div>
+    </div>
+
+    <script>
+       $(function(){
+            $("#chatting").click(function(){
+                $(".chat-area").css("display","block");
+            });
+            $(".btn-close").click(function(){
+                $(".chat-area").css("display","none");
             });
         })
     </script>
