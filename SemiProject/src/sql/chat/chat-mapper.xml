@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="checkChatroom">
+		SELECT COUNT(*) AS COUNT
+		FROM CHATROOM
+		WHERE BUYER = ?
+		  AND SELLER = (SELECT BOARD_WRITER
+		                FROM BOARD
+		                WHERE BOARD_NO = ?)
+	</entry>
+	<entry key="insertChatroom">
+		INSERT INTO CHATROOM (CR_NO, CREATE_DATE, STATUS, SELLER, BUYER)
+		VALUES (SEQ_CNO.NEXTVAL, SYSDATE, 'Y', (SELECT BOARD_WRITER
+								                FROM BOARD
+								                WHERE BOARD_NO = ?), ?)
+	</entry>
+	
+	<entry key="insertMessageFromBuyer">
+		INSERT INTO MESSAGE(MESSAGE_NO, CREATE_DATE, CR_NO, SENDER, RECEIVER, M_CONTENT)
+		VALUES (SEQ_MNO.NEXTVAL, SYSDATE, (SELECT CR_NO
+										   FROM CHATROOM
+										   WHERE SELLER = (SELECT BOARD_WRITER
+											               FROM BOARD
+											               WHERE BOARD_NO = ?)
+											 AND BUYER = ?), ?, (SELECT BOARD_WRITER
+											 					 FROM BOARD
+											 					 WHERE BOARD_NO = ?), ?)
+	</entry>
+	<entry key="readMessageForBuyer">
+		SELECT M_CONTENT, SENDER, RECEIVER
+		FROM MESSAGE
+		WHERE CR_NO = (SELECT CR_NO
+					   FROM CHATROOM
+					   WHERE SELLER = (SELECT BOARD_WRITER
+						               FROM BOARD
+						               WHERE BOARD_NO = ?))
+		  AND (SENDER = ? OR RECEIVER = ?)
+		ORDER BY CREATE_DATE 
+	</entry>
+</properties>
