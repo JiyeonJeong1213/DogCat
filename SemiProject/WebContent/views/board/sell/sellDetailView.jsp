@@ -1,4 +1,4 @@
-<%@ page import="java.util.ArrayList, com.kh.board.model.vo.*" %>
+<%@ page import="java.util.ArrayList, com.kh.board.model.vo.*, com.kh.chat.model.vo.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -219,9 +219,20 @@
         margin-left: 10px;
     }
     .chat-bubble{
+        width: 100%;
         background-color: rgb(255, 218, 119);
         margin-left: 15px;
         padding: 5px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+    .chat-bubble2{
+        width: 70%;
+        background-color: rgb(255, 218, 119);
+        margin-left: 15px;
+        padding: 5px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
     }
     .chat-question {
         display: flex;
@@ -229,11 +240,14 @@
         height: 60px;
     }
     .chat-question>input{
-        /* width:100%; */
+        width:100%; 
         height: 60px;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
         border: none;
+    }
+    .chat-question>input:focus {
+        outline: none;
     }
     .chat-question>button {
         border: none;
@@ -296,7 +310,7 @@
 
         </div>
         
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ae890d646304659e5b68c9a99be204bf"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=74c4595a346e879941f9b54bcb0a86f0"></script>
         <script>
 	        const lat = <%=b.getLatitude() %>;
 	        const long = <%= b.getLongitude()%>;
@@ -379,22 +393,11 @@
         </div>
 
         <div class="chat-content" >
-            <div class="chat-response">
-                <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png" width="50px">
-                <div class="chat-bubble">
-                    안녕하세요! 또오개냥에 방문해주셔서 감사합니다:) 무엇을 도와 드릴까요?
-                </div>
-            </div>
-            <div class="chat-request" style="display: flex;">
-                <div class="chat-bubble">
-                    회원가입
-                </div>
-                <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png" width="50px">
-            </div>
+            
         </div>
 
         <div class="chat-question">
-            <input type="text" placeholder="메세지를 입력하세요" >
+            <input type="text" id="msg-content" placeholder="메세지를 입력하세요" >
             <button onclick="sendMsg()">전송</button>
         </div>
     </div>
@@ -402,12 +405,127 @@
     <script>
        $(function(){
             $("#chatting").click(function(){
-                $(".chat-area").css("display","block");
+                $(".chat-area").css("display","block"); 
+                
+                // 새로고침 되지 않게 비동기 식으로 채팅방 생성 요청 보내기
+                $.ajax({
+                	url : '<%= contextPath %>/insertChatroom',
+                	type : 'get',
+                	data : {bno : <%= b.getBoardNo() %>, buyer : ${loginUser.userNo}},
+                	success : function(checkResult){ // 매개변수에는 서블릿으로부터 전달받은 응답데이터가 담겨있음
+                		if(checkResult == "N"){
+                			console.log("ajax통신 성공/채팅방생성");
+                		}else{
+                			console.log("ajax통신 성공/메세지 읽어오기");
+                			
+                			// 새로고침 되지 않게 비동기 식으로 채팅내역 불러오기
+                            $.ajax({
+                            	url : '<%= contextPath %>/readMessage',
+                            	type : 'get',
+                            	data : {bno : <%= b.getBoardNo() %>, reader : ${loginUser.userNo}},
+                            	success : function(mList){
+                            		console.log("메세지 읽어오기 성공");
+                            		if(mList!=null){
+                            			for(let i = 0; i<mList.length; i++){
+                                			if(mList[i].sender != ${loginUser.userNo}){ // 메세지 보낸이가 현재 리더가 아니면
+                                				let str = "<div class='chat-response'>"
+                                							+ "<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png' width='50px' height='50px'>"
+                                                			+ "<div class='chat-bubble'>"+mList[i].messageContent+"</div>"
+                                                		  +"</div>"
+                                			}else{ // 일치할 경우
+                                				let str = "<div class='chat-requeset'>"
+                        							+ "<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>"
+                                        			+ "<div class='chat-bubble2'>"+mList[i].messageContent+"</div>"
+                                        		  +"</div>"
+                                			}
+                                		}
+                            		}
+                            	},
+                            	error : function(){
+                            		console.log("메세지 읽어오기 실패");
+                            	}
+                            });
+                		}
+                	},
+                	error : function(){
+                		console.log("ajax통신 실패");
+                	}
+                });
+                
+                
             });
+            
             $(".btn-close").click(function(){
                 $(".chat-area").css("display","none");
             });
-        })
+            
+            /* // 모달창 드래그해서 위치 옮길 수 있게 하는 코드
+            $(".chat-area").draggable(); */
+        });
+        
+       // 웹소켓 서버에 연결하기
+       const socket = new WebSocket("ws://192.168.30.167:8081<%= contextPath %>/chattingServer");
+       
+       // socket 설정하기
+       // 1. 접속 후 실행되는 이벤트 핸들러
+       socket.onopen = function(e){
+    	   console.log("접속성공");
+    	   console.log(e);
+       }
+       
+       // 2. 채팅서버에서 sendText, sendObject메소드를 실행하면 실행되는 함수
+       socket.onmessage = function(e){
+    	   
+    	   // Object형태의 String데이터(JSONObject)를 객체로 변환해주기
+    	   let data = JSON.parse(e.data);
+    	   for (let i = 0; i<data.length; i++){
+    			if('${loginUser.userNo}'== data[i].sender){
+    				
+    				let msg = $("<div class='chat-request'>");
+    				let img = $("<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>");
+    				let msgContent = $("<div class='chat-bubble2'>");
+    				
+    				msgContent.append(data[i].msg);
+    				msg.append(msgContent);
+    				msg.append(img);
+    				$(".chat-content").append(msg);
+    				
+    			} else{
+    				
+    				let msg = $("<div class='chat-response'>");
+    				let img = $("<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>");
+    				let msgContent = $("<div class='chat-bubble'>");
+    				
+    				msgContent.append(data[i].msg);
+    				msg.append(img);
+    				msg.append(msgContent);
+    				$(".chatContent").append(msg);
+    					
+    			}
+    		}
+       }
+       
+       function sendMsg(){
+    	   let msg = $("#msg-content").val();
+    	   socket.send(msg);
+    	   
+    	   // 새로고침 되지 않게 비동기 식으로 메세지 저장 요청 보내기
+           $.ajax({
+           	url : '<%= contextPath %>/insertMessage',
+           	type : 'get',
+           	data : {bno : <%= b.getBoardNo() %>, buyer : ${loginUser.userNo}, msg : $("#msg-content").val()},
+           	success : function(){
+           		console.log("메세지 전송 ajax통신 성공");
+           	},
+           	error : function(){
+           		console.log("메세지 전송 ajax통신 실패");
+           	}
+           });
+    	   
+           $("#msg-content").val("");
+       }
+        
+        
     </script>
 </body>
 </html>
