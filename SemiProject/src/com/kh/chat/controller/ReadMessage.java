@@ -48,8 +48,15 @@ public class ReadMessage extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
+		int crNo = Integer.parseInt(request.getParameter("crNo"));
+		int reader = Integer.parseInt(request.getParameter("reader"));
+		ArrayList<Message> mList = new ChatService().readMessage2(crNo, reader);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		Gson gson = new Gson();
+		gson.toJson(mList, response.getWriter());
 	}
 
 }

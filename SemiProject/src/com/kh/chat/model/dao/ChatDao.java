@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.kh.chat.model.vo.Chatroom;
 import com.kh.chat.model.vo.Message;
 
 public class ChatDao {
@@ -40,7 +41,9 @@ public class ChatDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, buyerNo);
-			pstmt.setInt(2, bno);
+			pstmt.setInt(2, buyerNo);
+			pstmt.setInt(3, bno);
+			pstmt.setInt(4, bno);
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
@@ -83,7 +86,14 @@ public class ChatDao {
 			pstmt.setInt(2, senderNo);
 			pstmt.setInt(3, senderNo);
 			pstmt.setInt(4, bno);
-			pstmt.setString(5, msg);
+			pstmt.setInt(5, senderNo);
+			pstmt.setInt(6, senderNo);
+			pstmt.setInt(7, senderNo);
+			pstmt.setInt(8, bno);
+			pstmt.setInt(9, senderNo);
+			pstmt.setInt(10, senderNo);
+			pstmt.setInt(11, bno);
+			pstmt.setString(12, msg);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,19 +105,20 @@ public class ChatDao {
 	public ArrayList<Message> readMessageForBuyer(Connection conn, int bno, int reader) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Message> mList = null;
+		ArrayList<Message> mList = new ArrayList<>();
 		String sql = prop.getProperty("readMessageForBuyer");
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bno);
 			pstmt.setInt(2, reader);
 			pstmt.setInt(3, reader);
+			pstmt.setInt(4, bno);
+			pstmt.setInt(5, reader);
+			pstmt.setInt(6, reader);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				Message m = new Message(rset.getInt("SENDER"), rset.getInt("RECEIVER"), rset.getString("M_CONTENT"));
-				System.out.println(m);
 				mList.add(m);
 			}
 		} catch (SQLException e) {
@@ -119,4 +130,103 @@ public class ChatDao {
 		return mList;
 	}
 	
+	public ArrayList<Chatroom> selectChatList(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Chatroom> chatList = new ArrayList<>();
+		String sql = prop.getProperty("selectChatList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Chatroom croom = new Chatroom();
+				croom.setChatroomNo(rset.getInt("CR_NO"));
+				croom.setCreateDate(rset.getDate("CREATE_DATE"));
+				croom.setSeller(rset.getString("SELLER"));
+				croom.setBuyer(rset.getString("BUYER"));
+				
+				chatList.add(croom);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return chatList;
+	}
+	public ArrayList<String> selectRecentMsg(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> recentMsgs = new ArrayList<>();
+		String sql = prop.getProperty("selectRecentMsg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				String msg = rset.getString("M_CONTENT");
+				
+				recentMsgs.add(msg);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return recentMsgs;
+	}
+	public ArrayList<Message> readMessage2(Connection conn, int crNo, int reader){
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Message> mList = new ArrayList<>();
+		String sql = prop.getProperty("readMessage2");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, crNo);
+			pstmt.setInt(2, reader);
+			pstmt.setInt(3, reader);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Message m = new Message(rset.getInt("SENDER"), rset.getInt("RECEIVER"), rset.getString("M_CONTENT"));
+				mList.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mList;
+	}
+	public int insertMessage2(Connection conn, int crNo, int senderNo, String msg) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMessage2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, crNo);
+			pstmt.setInt(2, senderNo);
+			pstmt.setInt(3, senderNo);
+			pstmt.setInt(4, senderNo);
+			pstmt.setInt(5, crNo);
+			pstmt.setString(6, msg);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
 }

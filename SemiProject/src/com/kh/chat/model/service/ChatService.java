@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.chat.model.dao.ChatDao;
+import com.kh.chat.model.vo.Chatroom;
 import com.kh.chat.model.vo.Message;
 
 public class ChatService {
@@ -48,4 +49,35 @@ public class ChatService {
 		close(conn);
 		return mList;
 	}
+	
+	public ArrayList<Chatroom> selectChatList(int userNo) {
+		Connection conn = getConnection();
+		ArrayList<Chatroom> chatList = new ChatDao().selectChatList(conn, userNo);
+		close(conn);
+		return chatList;
+	}
+	public ArrayList<String> selectRecentMsg(int userNo) {
+		Connection conn = getConnection();
+		ArrayList<String> recentMsgs = new ChatDao().selectRecentMsg(conn, userNo);
+		close(conn);
+		return recentMsgs;
+	}
+	public ArrayList<Message> readMessage2(int crNo, int reader){
+		Connection conn = getConnection();
+		ArrayList<Message> mList = new ChatDao().readMessage2(conn, crNo, reader);
+		close(conn);
+		return mList;
+	}
+	public int insertMessage2(int crNo, int senderNo, String msg) {
+		Connection conn = getConnection();
+		int result = new ChatDao().insertMessage2(conn, crNo, senderNo, msg);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
 }
