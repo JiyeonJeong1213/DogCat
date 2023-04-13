@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="checkChatroom">
-		SELECT COUNT(*) AS COUNT
+		SELECT CR_NO
 		FROM CHATROOM
 		WHERE (BUYER = ? OR SELLER = ?)
 		  AND (SELLER = (SELECT BOARD_WRITER
@@ -64,11 +64,11 @@
 		WHERE (SELLER = ? OR BUYER = ?)
 		  AND C.STATUS = 'Y'
 	</entry>
-	<entry key="selectRecentMsg">
+	<entry key = "selectRecentMsg2">
 		SELECT M_CONTENT
 		FROM (SELECT M_CONTENT, ROW_NUMBER() OVER(PARTITION BY CR_NO ORDER BY CREATE_DATE DESC) AS RN
 		        FROM MESSAGE
-		      WHERE SENDER = ? OR RECEIVER = ?)
+		      WHERE CR_NO = ?)
 		WHERE RN = 1
 	</entry>
 	<entry key="readMessage2">

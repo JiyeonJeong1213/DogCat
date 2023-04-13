@@ -119,7 +119,7 @@ public class SellBoardDao {
 				Board b = new Board();
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setBoardWriter(rset.getString("USER_ID"));
+				b.setBoardWriter(rset.getString("USER_NICKNAME"));
 				b.setCount(rset.getInt("COUNT"));
 				b.setLikeCount(rset.getInt("B_LIKE"));
 				
@@ -151,7 +151,7 @@ public class SellBoardDao {
 				Board n = new Board();
 				n.setBoardNo(rset.getInt("BOARD_NO"));
 				n.setBoardTitle(rset.getString("BOARD_TITLE"));
-				n.setBoardWriter(rset.getString("USER_ID"));
+				n.setBoardWriter(rset.getString("USER_NICKNAME"));
 				n.setCount(rset.getInt("COUNT"));
 				
 				nList.add(n);
@@ -196,7 +196,7 @@ public class SellBoardDao {
 			if(rset.next()) {
 				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setBoardWriter(rset.getString("USER_ID"));
+				b.setBoardWriter(rset.getString("USER_NICKNAME"));
 				b.setBoardContent(rset.getString("BOARD_CONTENT"));
 				b.setCount(rset.getInt("COUNT"));
 				b.setCreateDate(rset.getDate("CREATE_DATE"));
