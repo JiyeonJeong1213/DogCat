@@ -103,7 +103,7 @@
 					</tr>
 					<tr>
 						<td><a href=""><img src="resources/notification.png" width="25px"></a></td>
-						<td><a href=""><img src="resources/chat-balloon.png" width="15px"></a></td>
+						<td id="chat-list-btn"><a href=""><img src="resources/chat-balloon.png" width="15px"></a></td>
 					</tr>
 				</table>
 			</div>
@@ -124,7 +124,7 @@
 					</tr>
 					<tr>
 						<td><a href=""><img src="resources/notification.png" width="25px"></a></td>
-						<td><a href=""><img src="resources/chat-balloon.png" width="15px"></a></td>
+						<td><a href="<%= contextPath %>/chatList.chat?userNo=${loginUser.userNo}"><img src="resources/chat-balloon.png" width="15px"></a></td>
 					</tr>
 				</table>
 			</div>

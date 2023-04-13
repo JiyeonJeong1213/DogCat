@@ -26,7 +26,7 @@ public class ChattingServer {
 	public void onConnect(Session session, EndpointConfig config) { 
 		this.hSession = (HttpSession)config.getUserProperties().get("hSession"); // 넣어놨던 HTTP Session을 꺼낸다.
 		clients.add(session);
-		System.out.println(hSession.getAttribute("loginUser")); // 세션 안의 키를 통해 값을 꺼낸다.
+//		System.out.println(hSession.getAttribute("loginUser")); // 세션 안의 키를 통해 값을 꺼낸다.
 	}
 	
 	@OnMessage
