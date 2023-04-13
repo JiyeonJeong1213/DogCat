@@ -22,7 +22,7 @@
     			 FROM  (SELECT 
 	                        BOARD_NO,
 	                        BOARD_TITLE,
-	                        USER_ID,
+	                        USER_NICKNAME,
 	                        COUNT,                
 	                        (SELECT COUNT(*) FROM B_LIKE L WHERE L.BOARD_NO = B.BOARD_NO )  AS B_LIKE,
 	                        CHANGE_NAME,
@@ -40,7 +40,7 @@
 		WHERE RNUM BETWEEN ? AND ? 
 	</entry>
 	<entry key="selectNoticeList">
-		SELECT BOARD_NO, BOARD_TITLE, USER_ID, COUNT
+		SELECT BOARD_NO, BOARD_TITLE, USER_NICKNAME, COUNT
 		FROM BOARD B
 		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
 		WHERE BOARD_TYPE = 4
@@ -55,7 +55,7 @@
 		  AND STATUS = 'Y'
 	</entry>
 	<entry key="selectBoard">
-		SELECT BOARD_NO, BOARD_TITLE, USER_ID, BOARD_CONTENT, CREATE_DATE, COUNT, LATITUDE, LONGITUDE, B.ADDRESS
+		SELECT BOARD_NO, BOARD_TITLE, USER_NICKNAME, BOARD_CONTENT, CREATE_DATE, COUNT, LATITUDE, LONGITUDE, B.ADDRESS
 		FROM BOARD B
 		JOIN MEMBER ON (BOARD_WRITER = USER_NO)
 		WHERE BOARD_NO = ?

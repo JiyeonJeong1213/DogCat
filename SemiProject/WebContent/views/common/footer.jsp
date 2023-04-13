@@ -88,8 +88,8 @@
         <div class="footer4">
             <div>
                 <li><a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/twitter.png" width="30px"></a></li>
-                <li><a href=""><img src="<%= request.getContextPath() %>/resources/facebook.png" width="25px"></a></li>   
-                <li><a href=""><img src="<%= request.getContextPath() %>/resources/instagram.png" width="30px"></a></li>               
+                <li><a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/facebook.png" width="25px"></a></li>   
+                <li><a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/instagram.png" width="30px"></a></li>               
             </div>
 
         </div>

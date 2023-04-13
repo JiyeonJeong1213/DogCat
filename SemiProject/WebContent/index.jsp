@@ -7,7 +7,7 @@
 <title>또오개냥 메인페이지</title>
 <style>
     .dog_land {
-        background-image:url('resources/dog_run.gif');
+        background-image:url('https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/dog_run.gif');
         background-position:center;
         background-repeat:repeat-x; /* 배경이미지 가로로 반복 */
         height: 400px;
@@ -54,7 +54,7 @@
     }
     .main1_img{
         width:100%;
-        background-image:url("resources/강아지들.png");
+        background-image:url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/%EA%B0%95%EC%95%84%EC%A7%80%EB%93%A4.png");
         height: 500px;
         background-position: center;
         background-size: cover;
@@ -97,7 +97,7 @@
         </div>
         
         <div class="chat_icon">
-            <a href="#"><img src="<%= request.getContextPath() %>/resources/chat_icon.png" width="50px"></a>
+            <a href="#"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/chat_icon.png" width="50px"></a>
         </div> 
 
 

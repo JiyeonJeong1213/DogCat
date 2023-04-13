@@ -47,7 +47,7 @@ public class ChatDao {
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				result = rset.getInt("COUNT");
+				result = rset.getInt("CR_NO");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -159,22 +159,19 @@ public class ChatDao {
 		}
 		return chatList;
 	}
-	public ArrayList<String> selectRecentMsg(Connection conn, int userNo) {
+	public String selectRecentMsg2(Connection conn, int crNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<String> recentMsgs = new ArrayList<>();
-		String sql = prop.getProperty("selectRecentMsg");
+		String recentMsg = null;
+		String sql = prop.getProperty("selectRecentMsg2");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userNo);
-			pstmt.setInt(2, userNo);
+			pstmt.setInt(1, crNo);
 			rset = pstmt.executeQuery();
 			
-			while(rset.next()) {
-				String msg = rset.getString("M_CONTENT");
-				
-				recentMsgs.add(msg);
+			if(rset.next()) {
+				recentMsg = rset.getString("M_CONTENT");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -182,7 +179,7 @@ public class ChatDao {
 			close(rset);
 			close(pstmt);
 		}
-		return recentMsgs;
+		return recentMsg;
 	}
 	public ArrayList<Message> readMessage2(Connection conn, int crNo, int reader){
 		PreparedStatement pstmt = null;

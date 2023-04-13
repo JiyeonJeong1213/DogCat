@@ -56,11 +56,11 @@ public class ChatService {
 		close(conn);
 		return chatList;
 	}
-	public ArrayList<String> selectRecentMsg(int userNo) {
+	public String selectRecentMsg2(int crNo) {
 		Connection conn = getConnection();
-		ArrayList<String> recentMsgs = new ChatDao().selectRecentMsg(conn, userNo);
+		String recentMsg = new ChatDao().selectRecentMsg2(conn, crNo);
 		close(conn);
-		return recentMsgs;
+		return recentMsg;
 	}
 	public ArrayList<Message> readMessage2(int crNo, int reader){
 		Connection conn = getConnection();

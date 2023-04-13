@@ -1,28 +1,23 @@
 package com.kh.chat.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.chat.model.service.ChatService;
-import com.kh.chat.model.vo.Chatroom;
-
 /**
- * Servlet implementation class ChattingListController
+ * Servlet implementation class RemoveSessionCrNo
  */
-@WebServlet("/chatList.chat")
-public class ChattingListController extends HttpServlet {
+@WebServlet("/removeSessionCrNo")
+public class RemoveSessionCrNo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChattingListController() {
+    public RemoveSessionCrNo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +26,7 @@ public class ChattingListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println("여기까지 옴");
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		ArrayList<Chatroom> chatList = new ChatService().selectChatList(userNo);
-		ArrayList<Integer> crNoList = new ArrayList<>();
-		ArrayList<String> recentMsgs = new ArrayList<>();
-		for(Chatroom cr : chatList) {
-			int crNo = cr.getChatroomNo();
-			String recentMsg = new ChatService().selectRecentMsg2(crNo);
-			recentMsgs.add(recentMsg);
-		}
-		
-		request.setAttribute("chatList", chatList);
-		request.setAttribute("recentMsgs", recentMsgs);
-		request.getRequestDispatcher("views/chat/chatList.jsp").forward(request, response);
+		request.getSession().removeAttribute("crNo");
 	}
 
 	/**

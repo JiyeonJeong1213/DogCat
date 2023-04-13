@@ -52,6 +52,8 @@ public class ReadMessage extends HttpServlet {
 		
 		int crNo = Integer.parseInt(request.getParameter("crNo"));
 		int reader = Integer.parseInt(request.getParameter("reader"));
+		
+		request.getSession().setAttribute("crNo", crNo);
 		ArrayList<Message> mList = new ChatService().readMessage2(crNo, reader);
 		
 		response.setContentType("application/json; charset=UTF-8");
