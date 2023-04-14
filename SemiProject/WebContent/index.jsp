@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>또오개냥 메인페이지</title>
 <style>
-<<<<<<< HEAD
+
 @font-face {
 	font-family: 'yg-jalnan';
 	src:
@@ -46,7 +46,7 @@
 
 .main1_img {
 	width: 100%;
-	background-image: url("resources/강아지들.png");
+	background-image: url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/%EA%B0%95%EC%95%84%EC%A7%80%EB%93%A4.png");
 	height: 500px;
 	background-position: center;
 	background-size: cover;
@@ -196,67 +196,102 @@ a {
 	text-decoration: none;
 	color: black;
 }
-=======
-    .dog_land {
-        background-image:url('https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/dog_run.gif');
-        background-position:center;
-        background-repeat:repeat-x; /* 배경이미지 가로로 반복 */
-        height: 400px;
-        width: 100%;
-    }
-    .main1, .main3{
-        width: 100%;
-        text-align: center;
-        padding-top: 40px;
-    }
-    .main1-text, .main3-text{
-        font-size: 45px;
-        font-family: 'yg-jalnan', verdana, tahoma;
-        color: #F7E3A5;
-        text-shadow: -2px 0 #4758A8, 0 2px #4758A8, 2px 0 #4758A8, 0 -2px #4758A8;
-    }
-    .video {
-        width: 100%;
-        max-width: 900px;
-        margin: 30px auto;
-        border-radius: 30px;
-        background-color: #f0f0f0;
-        padding: 40px;
-        box-sizing: border-box;
-        box-shadow: 0px 8px 33px #999;
-    }
-
-    .video-container {
-        position: relative;
-        width: 100%;
-        height: auto;
-        padding-top: 50%;
-    }
-    iframe {
-        z-index: 1;
-        top: 0;
-        left: 0;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
-    .main1_img{
-        width:100%;
-        background-image:url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/%EA%B0%95%EC%95%84%EC%A7%80%EB%93%A4.png");
-        height: 500px;
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-    .chat_icon{
-        width: 50px;
-        height: 50px;
-        float: right;
-        position: sticky;
-        bottom: 30px;
-        margin-right: 20px;
-    }
->>>>>>> main
+.chat-area{
+      border-radius: 20px;
+      border: 1px solid gray;
+      width: 500px;
+      display: none;
+      position: absolute;
+      top:60%; left:85%; transform:translate(-50%, -50%); 
+}
+.chat-title {
+    background-color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.btn-close{
+	border: none;
+	background-color: white;
+}
+.btn-close:focus{
+	outline: none;
+}
+.chat-content{
+  background-color: rgb(251, 246, 240);
+  height: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-y:scroll;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 100%;
+}
+.chat-response{
+    width: 70%;
+    display: flex;
+    padding-top: 20px;
+}
+.chat-request{
+    display: flex;
+    padding-top: 20px;
+    justify-content: right;
+}
+.chat-request>img {
+    margin-left: 10px;
+}
+.chat-bubble{
+    width: 100%;
+    background-color: rgb(255, 218, 119);
+    margin-left: 15px;
+    padding: 5px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+.chat-bubble2{
+    width: 70%;
+    background-color: rgb(255, 218, 119);
+    margin-left: 15px;
+    padding: 5px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+.chat-question {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+}
+.chat-question>input{
+    width:100%; 
+    height: 60px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: none;
+}
+.chat-question>input:focus {
+    outline: none;
+}
+.chat-question>button {
+    border: none;
+    border-radius: 20px;
+    width: 100px;
+    background-color: rgb(230, 242, 255);
+    color: rgb(0, 123, 255);
+}
+.chat-question>button:focus{
+	outline: none;
+}
+.chat-buttons{
+    align-items: center;
+    padding: 30px;
+    background-color: rgb(251, 246, 240);
+}
+.chat-button{
+    background-color: rgb(230, 242, 255);
+    border: none;
+    border-radius: 10px;
+    width: 200px;
+    margin: 5px;
+}
 </style>
 </head>
 <body>
@@ -375,11 +410,52 @@ a {
 				</ul>
 			</div>
 		</div>
-	</div>
 		<div class="chat_icon">
-			<a href="#"><img src="resources/chat_icon.png" width="50px"></a>
+			<a href="#"><img id="chatImg" src="resources/chat_icon.png" width="50px"></a>
 		</div>
+		<script>
+			$(function(){
+				$(".chat_icon").click(function({
+					 $(".chat-area").css("display","block");
+					 $(".chat_icon").css("display","none")
+				});
+			});
+		
+		
+		</script>
+		
+		<div class="chat-area">
+	        <div class="chat-title">
+	            <img src="resources/돋보기.png" width="50px">
+	            <span style="font-size: 29px; font-weight: bold;">또오개냥 문의하기</span>
+	            <button type="button" class="btn-close" aria-label="Close" style="float: right; margin-right: 20px; margin-top: 8px;"></button>
+	        </div>
 	
+	        <div class="chat-content" >
+	            <div class="chat-response">
+	                <img src="resources/chatbot.png" width="50px">
+	                <div class="chat-response-master">
+	                    안녕하세요! 또오개냥에 방문해주셔서 감사합니다:) 무엇을 도와 드릴까요?
+	                </div>
+	                
+	            </div>
+	        </div>
+	
+	        <div class="chat-buttons">
+	            <button class="chat-button">회원가입</button>
+	            <button class="chat-button">회원탈퇴</button>
+	            <button class="chat-button">나눔&거래 방식</button>
+	            <button class="chat-button">산책메이트 신청하기</button>
+	            <button class="chat-button">산책메이트 취소하기</button>
+	            <button class="chat-button">이용약관</button>
+	        </div>
+	
+	        <div class="chat-question">
+	            <input type="text" placeholder="궁금한 사항을 입력해 주세요" >
+	        </div>
+	    </div>
+	</div>
+		
 	<script>
 		AOS.init();
 
