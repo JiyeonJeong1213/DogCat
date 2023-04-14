@@ -225,10 +225,7 @@ a {
         box-sizing: border-box;
         box-shadow: 0px 8px 33px #999;
     }
-    .main2{
-        background-color: #E6F2FF;
-        height: 600px;
-    }
+
     .video-container {
         position: relative;
         width: 100%;
@@ -304,7 +301,6 @@ a {
 
 
 	<div class="main-content">
-<<<<<<< HEAD
 		<div class="main1">
 			<div class="main1-text" data-aos="fade-up">
 				집사들을 위한 <br>반려동물<br> 커뮤니케이션 사이트
@@ -379,43 +375,11 @@ a {
 				</ul>
 			</div>
 		</div>
-
+	</div>
 		<div class="chat_icon">
 			<a href="#"><img src="resources/chat_icon.png" width="50px"></a>
 		</div>
-=======
-        <div class="main1">
-            <div class="main1-text" data-aos="fade-up">
-                집사들을 위한 <br>반려동물<br> 커뮤니케이션 사이트
-            </div>    
-            <div class="main1_img" data-aos="fade-up"></div>
-        </div>
-        <div class="main2">
-            <h3>쓸말 없엉</h1>
-            <div class="video" data-aos="zoom-in">
-                <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/X1Ddj5PXfIo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                
-                </div>
-            </div>
-        </div>
-        
-        <div class="main3">
-            <div class="main3-text">
-                실시간 메이트들의<br>활동을<br>확인해보세요.
-            </div>
-            <div class="dog_land"></div>
-        </div>
-        
-        <div class="chat_icon">
-            <a href="#"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/chat_icon.png" width="50px"></a>
-        </div> 
->>>>>>> main
-
-
-	</div>
-
-
-
+	
 	<script>
 		AOS.init();
 

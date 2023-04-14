@@ -96,7 +96,7 @@ html, body {height: 100%;}
 				<li class="nav-item"><a class="nav-link" href="<%= contextPath %>/login.me">로그인</a></li>
 				<li class="nav-item"><a class="nav-link" href="<%=contextPath%>/views/member/memberEnroll.jsp">회원가입</a></li>
 			</ul>
-			<!-- 로그인시 프로필창 -->
+			<%-- <!-- 로그인시 프로필창 -->
 			<div class="after-login">
 				<table>
 					<tr>
@@ -111,7 +111,7 @@ html, body {height: 100%;}
 						<td id="chat-list-btn"><a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/chat-balloon.png" width="15px"></a></td>
 					</tr>
 				</table>
-			</div>
+			</div> --%>
 		<% } else { %>
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link" href="<%= contextPath %>/logout.me">로그아웃</a></li>
@@ -121,17 +121,13 @@ html, body {height: 100%;}
 			<div class="after-login">
 				<table>
 					<tr>
-<<<<<<< HEAD
 						<td rowspan="3" width="100px">
 							<%if(loginUser.getFileName() != null) { %>
 			            		<img id="profile_img" src="<%= request.getContextPath() %>/<%= loginUser.getFileName() %>">
 		            		<% } else {  %>
-		            			<img id="profile_img" src="resources/profile_basic.png">
+		            			<img id="profile_img" src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/profile_basic.png">
 		            		<% } %>	
 						</td>
-=======
-						<td rowspan="3" width="100px"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/profile_basic.png" width="80px"></td>
->>>>>>> main
 						<td colspan="2" width="50px" style="font-weight: bold; color: #FFD133;"><%= loginUser.getUserNickname() %>님</td>
 					</tr>
 					<tr>
