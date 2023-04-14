@@ -1,6 +1,7 @@
 package com.kh.chat.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,18 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.chat.model.service.ChatService;
+import com.kh.chat.model.vo.Chatroom;
 
 /**
- * Servlet implementation class InsertChatroom
+ * Servlet implementation class ChattingListController
  */
-@WebServlet("/insertChatroom")
-public class InsertChatroom extends HttpServlet {
+@WebServlet("/chatList.chat")
+public class ChattingListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertChatroom() {
+    public ChattingListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,28 +31,20 @@ public class InsertChatroom extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bno = Integer.parseInt(request.getParameter("bno"));
-		int buyerNo = Integer.parseInt(request.getParameter("buyer"));
-		int check = new ChatService().checkChatroom(bno, buyerNo);
-		String checkResult = null;
-		
-		if(check<=0) {
-			checkResult = "N";
-			int result = new ChatService().insertChatroom(bno, buyerNo);
-			int crNo = new ChatService().checkChatroom(bno, buyerNo);
-			request.getSession().setAttribute("crNo", crNo);
-			
-			if(result<=0) {
-				request.setAttribute("errorMsg", "채팅방 생성 실패");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			}
-		}else {
-			checkResult = "Y";
-			request.getSession().setAttribute("crNo", check);
+//		System.out.println("여기까지 옴");
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		ArrayList<Chatroom> chatList = new ChatService().selectChatList(userNo);
+		ArrayList<Integer> crNoList = new ArrayList<>();
+		ArrayList<String> recentMsgs = new ArrayList<>();
+		for(Chatroom cr : chatList) {
+			int crNo = cr.getChatroomNo();
+			String recentMsg = new ChatService().selectRecentMsg2(crNo);
+			recentMsgs.add(recentMsg);
 		}
 		
-		// JSP와의 통로를 열어두기 위해 PrintWriter객체 생성
-		response.getWriter().print(checkResult);
+		request.setAttribute("chatList", chatList);
+		request.setAttribute("recentMsgs", recentMsgs);
+		request.getRequestDispatcher("views/chat/chatList.jsp").forward(request, response);
 	}
 
 	/**

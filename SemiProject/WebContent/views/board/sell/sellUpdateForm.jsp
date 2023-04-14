@@ -491,7 +491,7 @@
         <div id="filebox">
             <label for="file" style="font-size: 13px;">파일선택</label>
             <input type="file" id="file" name="file" multiple onchange="loadImg(this)" required>
-            <c:if test="${!empty requestScope.list }">
+            <c:if test="${!empty requestScope.list }"> <!-- 원래 파일이 있었을 경우 -->
             	<c:forEach var="at" items="${requestScope.list }" varStatus="status">
             		<input type="hidden" name="originFileNo${status.index }" value="${at.fileNo }">
             		<input type="hidden" name="changeFileName${status.index }" value="${at.changeName }" multiple>

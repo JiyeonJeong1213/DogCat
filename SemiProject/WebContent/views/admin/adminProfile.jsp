@@ -52,6 +52,12 @@
         padding-right: 50px;
     }
     .profile_img{
+<<<<<<< HEAD
+=======
+        background-image: url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/chatbot.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+>>>>>>> main
         width: 80px;
         height: 80px;
         border-radius: 70%;

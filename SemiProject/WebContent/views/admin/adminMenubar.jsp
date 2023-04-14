@@ -84,7 +84,11 @@
 <body>
 
    <div class="logo">
+<<<<<<< HEAD
         <a href="<%= request.getContextPath() %>"><img src="resources/logo2.png" width="210px" ></a>
+=======
+        <a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/logo2.png" width="210px" ></a>
+>>>>>>> main
     </div>
         
     <div class="nav-area" style="margin-bottom: 20px;">

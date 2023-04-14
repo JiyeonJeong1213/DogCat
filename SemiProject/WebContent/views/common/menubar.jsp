@@ -100,15 +100,15 @@ html, body {height: 100%;}
 			<div class="after-login">
 				<table>
 					<tr>
-						<td rowspan="3" width="100px"><img src="resources/profile_basic.png" width="80px"></td>
+						<td rowspan="3" width="100px"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/profile_basic.png" width="80px"></td>
 						<td colspan="2" width="50px" style="font-weight: bold; color: #FFD133;"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><a href="<%= contextPath%>/mypageTest">마이페이지</a></td>
 					</tr>
 					<tr>
-						<td><a href=""><img src="resources/notification.png" width="25px"></a></td>
-						<td><a href=""><img src="resources/chat-balloon.png" width="15px"></a></td>
+						<td><a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/notification.png" width="25px"></a></td>
+						<td id="chat-list-btn"><a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/chat-balloon.png" width="15px"></a></td>
 					</tr>
 				</table>
 			</div>
@@ -121,6 +121,7 @@ html, body {height: 100%;}
 			<div class="after-login">
 				<table>
 					<tr>
+<<<<<<< HEAD
 						<td rowspan="3" width="100px">
 							<%if(loginUser.getFileName() != null) { %>
 			            		<img id="profile_img" src="<%= request.getContextPath() %>/<%= loginUser.getFileName() %>">
@@ -128,6 +129,9 @@ html, body {height: 100%;}
 		            			<img id="profile_img" src="resources/profile_basic.png">
 		            		<% } %>	
 						</td>
+=======
+						<td rowspan="3" width="100px"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/profile_basic.png" width="80px"></td>
+>>>>>>> main
 						<td colspan="2" width="50px" style="font-weight: bold; color: #FFD133;"><%= loginUser.getUserNickname() %>님</td>
 					</tr>
 					<tr>
@@ -138,8 +142,8 @@ html, body {height: 100%;}
 						<% } %>
 					</tr>
 					<tr>
-						<td><a href=""><img src="resources/notification.png" width="25px"></a></td>
-						<td><a href=""><img src="resources/chat-balloon.png" width="15px"></a></td>
+						<td><a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/notification.png" width="25px"></a></td>
+						<td><a href="<%= contextPath %>/chatList.chat?userNo=${loginUser.userNo}"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/chat-balloon.png" width="15px"></a></td>
 					</tr>
 				</table>
 			</div>
@@ -155,7 +159,7 @@ html, body {height: 100%;}
 	</script>
 
 	<div class="logo">
-		<a href=""><img src="resources/logo.png" width="200px"></a>
+		<a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/logo.png" width="200px"></a>
 	</div>
 
 	<div class="nav-area">

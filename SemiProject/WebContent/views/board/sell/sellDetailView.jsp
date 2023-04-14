@@ -426,19 +426,22 @@
                             	success : function(mList){
                             		console.log("메세지 읽어오기 성공");
                             		if(mList!=null){
+                            			
+                            			let str = "";
                             			for(let i = 0; i<mList.length; i++){
                                 			if(mList[i].sender != ${loginUser.userNo}){ // 메세지 보낸이가 현재 리더가 아니면
-                                				let str = "<div class='chat-response'>"
+                                				str += "<div class='chat-response'>"
                                 							+ "<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png' width='50px' height='50px'>"
                                                 			+ "<div class='chat-bubble'>"+mList[i].messageContent+"</div>"
-                                                		  +"</div>"
+                                                		  +"</div>";
                                 			}else{ // 일치할 경우
-                                				let str = "<div class='chat-requeset'>"
-                        							+ "<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>"
+                                				str += "<div class='chat-request'>"
                                         			+ "<div class='chat-bubble2'>"+mList[i].messageContent+"</div>"
-                                        		  +"</div>"
+                                        			+ "<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>"
+                                        		  +"</div>";                       
                                 			}
                                 		}
+                               			$(".chat-content").html(str);
                             		}
                             	},
                             	error : function(){
@@ -451,10 +454,12 @@
                 		console.log("ajax통신 실패");
                 	}
                 });
-                
+             	
+                websocket();
                 
             });
             
+         
             $(".btn-close").click(function(){
                 $(".chat-area").css("display","none");
             });
@@ -463,47 +468,55 @@
             $(".chat-area").draggable(); */
         });
         
-       // 웹소켓 서버에 연결하기
-       const socket = new WebSocket("ws://192.168.30.167:8081<%= contextPath %>/chattingServer");
+       let socket;
        
-       // socket 설정하기
-       // 1. 접속 후 실행되는 이벤트 핸들러
-       socket.onopen = function(e){
-    	   console.log("접속성공");
-    	   console.log(e);
+       function websocket(){
+    		// 웹소켓 서버에 연결하기
+           socket = new WebSocket("ws://192.168.30.167:8081<%= contextPath %>/chattingServer");
+        	
+       	   // socket 설정하기
+           // 1. 접속 후 실행되는 이벤트 핸들러
+           socket.onopen = function(e){
+        	   console.log("접속성공");
+           }
+           
+           // 2. 채팅서버에서 sendText, sendObject메소드를 실행하면 실행되는 함수
+           socket.onmessage = function(e){
+        	   
+        	   // Object형태의 String데이터(JSONObject)를 객체로 변환해주기
+        	   let data = JSON.parse(e.data);
+        	   for (let i = 0; i<data.length; i++){
+        			if('${loginUser.userNo}'== data[i].sender){
+        				
+        				let msg = $("<div class='chat-request'>");
+        				let img = $("<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>");
+        				let msgContent = $("<div class='chat-bubble2'>");
+        				
+        				msgContent.append(data[i].msg);
+        				msg.append(msgContent);
+        				msg.append(img);
+        				$(".chat-content").append(msg);
+        				
+        			} else{
+        				
+        				let msg = $("<div class='chat-response'>");
+        				let img = $("<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>");
+        				let msgContent = $("<div class='chat-bubble'>");
+        				
+        				msgContent.append(data[i].msg);
+        				msg.append(img);
+        				msg.append(msgContent);
+        				$(".chatContent").append(msg);
+        					
+        			}
+        		}
+           }
+           
+           socket.onclose = function(e){
+        	   console.log("접속해제");
+           }
        }
        
-       // 2. 채팅서버에서 sendText, sendObject메소드를 실행하면 실행되는 함수
-       socket.onmessage = function(e){
-    	   
-    	   // Object형태의 String데이터(JSONObject)를 객체로 변환해주기
-    	   let data = JSON.parse(e.data);
-    	   for (let i = 0; i<data.length; i++){
-    			if('${loginUser.userNo}'== data[i].sender){
-    				
-    				let msg = $("<div class='chat-request'>");
-    				let img = $("<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>");
-    				let msgContent = $("<div class='chat-bubble2'>");
-    				
-    				msgContent.append(data[i].msg);
-    				msg.append(msgContent);
-    				msg.append(img);
-    				$(".chat-content").append(msg);
-    				
-    			} else{
-    				
-    				let msg = $("<div class='chat-response'>");
-    				let img = $("<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>");
-    				let msgContent = $("<div class='chat-bubble'>");
-    				
-    				msgContent.append(data[i].msg);
-    				msg.append(img);
-    				msg.append(msgContent);
-    				$(".chatContent").append(msg);
-    					
-    			}
-    		}
-       }
        
        function sendMsg(){
     	   let msg = $("#msg-content").val();
@@ -524,8 +537,6 @@
     	   
            $("#msg-content").val("");
        }
-        
-        
     </script>
 </body>
 </html>
