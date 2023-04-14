@@ -77,11 +77,11 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 					<% if(loginUser != null) { %>
 						<!--  로그인이 되어있을 경우 -->
 						<tr>
-							<td style="border: 2px solid #ccc;">
+							<td colspan="1" style="border: 2px solid #ccc;">
                         		<textarea id="replyContent" cols="50" rows="3" style="resize:none;"></textarea>
                     		</td>
                     		<th style="text-align: center; border: none;">
-                    		<button style="width: 100%; height: 83px;" onclick="insertReply();"><b>댓글등록</b></button>
+                    		<button style="width: 150px; height: 83px;" onclick="insertReply();"><b>댓글등록</b></button>
                     		</th>
 						</tr>
 					<% } else { %>
@@ -104,20 +104,20 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 							<td class="main_td">
 							<span><b><%=r.getReplyContent() %></b></span><br>
 							
-							<span><%=r.getReplyWriter() %></span><br>
+							<pre><b><%=r.getReplyWriter() %></b></pre>
 							
-                    		<span class="td_date"><%=r.getCreateDate() %></span>
+                    		<span  class="td_date"><%=r.getCreateDate() %></span>
                     		
 							</td>
 							
 							<% if(loginUser != null && loginUser.getUserId().equals( r.getReplyContent())) {%>
-							<td class="button_td" valign="top" style="border: 2px solid #ccc; border-left: none;">
+							<td class="button_td" valign="top" align="right" style="border: 2px solid #ccc; border-left: none;">
 							<button class="reply_update" onclick="updateReply();">수정</button>
                         	
                    			<button class="reply_delete" onclick="deleteReply(<%= replyNo %>);">삭제</button>
 							</td>
 							<% } else { %>
-							<td class="button_td" valign="top" style="border: 2px solid #ccc; border-left: none;">
+							<td class="button_td" valign="top" align="right" style="border: 2px solid #ccc; border-left: none;">
 							</td>
 							<% } %>
 						</tr>
@@ -171,10 +171,10 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 						  result += "<tr>" +
 									"<td class=\"main_td\">"+
 									"<span><b>"+ i.replyContent + "</b></span><br>" +
-									"<span>"+ i.replyWriter +"</span><br>" +
+									"<pre><b>"+ i.replyWriter +"</b></pre>" +
 		                    		"<span class=\"td_date\">" + i.createDate + "</span>" +                    		
 									"</td>"+
-									"<td class=\"button_td\" valign=\"top\" style=\"border: 2px solid #ccc; border-left: none;\">" +
+									"<td class=\"button_td\" valign=\"top\" align=\"right\" style=\"border: 2px solid #ccc; border-left: none;\">" +
 									"<button class=\"reply_update\" onclick=\"updateReply();\">수정</button>" +                        	
 		                   			"<button class=\"reply_delete\" onclick=\"deleteReply();\">삭제</button>" +
 									"</td>" +
