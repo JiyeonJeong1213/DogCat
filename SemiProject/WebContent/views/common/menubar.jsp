@@ -162,7 +162,7 @@ html, body {height: 100%;}
 		<ul class="nav justify-content-center">
 			<li class="nav-item"><a class="nav-link" id="nav" href="#">같이걷개</a></li>
 			<li class="nav-item"><a class="nav-link" id="nav" href="#">멍냥수다</a></li>
-			<li class="nav-item"><a class="nav-link" id="nav" href="#">나눔&거래</a></li>
+			<li class="nav-item"><a class="nav-link" id="nav" href="<%=request.getContextPath()%>/list.sell">나눔&거래</a></li>
 			<li class="nav-item"><a class="nav-link" id="nav" href="<%=request.getContextPath()%>/dbti">DBTI</a></li>
 		</ul>
 	</div>
