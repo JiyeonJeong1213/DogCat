@@ -1,7 +1,7 @@
 <%@ page import="java.util.ArrayList, com.kh.board.free.model.vo.Reply, com.kh.board.model.vo.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	Board b = (Board) request.getAttribute("b");
+Board b = (Board) request.getAttribute("b");
 Attachment at = (Attachment) request.getAttribute("at");
 ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 %>
@@ -10,153 +10,12 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 <head>
 <meta charset="UTF-8">
 <title>자유게시판</title>
+<%@ include file="../../common/menubar.jsp"%>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-.free_detail_all button:focus, input:focus, textarea:focus, .free_content_main:focus {
-	outline: none;
-}
-
-.free_detail_all h1 {
-	color: rgb(255, 209, 51);
-	font-family: Arial, sans-serif;
-	border-bottom: 1px solid black;
-	line-height: 50px;
-}
-
-.free_header {
-	position: relative;
-	margin-top: 60px;
-}
-
-.free_img1 {
-	position: absolute;
-	bottom: 60px;
-	right: 274px;
-	left: 0;
-}
-
-.free_img2 {
-	position: absolute;
-	right: 0px;
-	left: 279px;
-	bottom: 61px;
-}
-
-.free_main {
-	max-width: 1460px;
-	margin: 0 auto;
-	padding: 20px;
-}
-
-.free_content_header>#free_content_header1 {
-	width: 900px;
-	height: 48px;
-	padding: 0 10px;
-	border: 2px solid #ccc;
-	border-radius: 5px;
-	color: rgb(94, 94, 94);
-	font-size: 20px;
-}
-
-.free_content_header>#free_content_header2 {
-	width: 900px;
-	height: 30px;
-	padding: 0 10px;
-	border: 2px solid #ccc;
-	border-radius: 5px;
-	color: rgb(94, 94, 94);
-}
-
-.free_content_main {
-	width: 900px;
-	height: auto;
-	min-height : 400px;
-	padding: 0 10px;
-	border: 2px solid #ccc;
-	border-radius: 5px;
-	margin-left: 260px;
-	color: rgb(94, 94, 94);
-	font-size: 14px;
-}
-
-.free_back {
-    background-color: rgb(230, 242, 255);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 1px 5px 3px 5px;
-}
-
-.free_retouch {
-    background-color: rgb(230, 242, 255);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 1px 5px 3px 5px;
-    
-}
-
-.free_delete {
-	background-color: rgb(255, 209, 51);
-	color: white;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
-
-
-.free_content_file{
-    margin-left: 258px;
-    margin-top: -3px;
-}
-
- #replyContent{
-            border: none;
-            outline: none;
-}
-
-.free_table {
-    border-spacing: 0 10px;
-    border: none;
-}
-
-.free_table tr th > button {
-    background-color: rgb(230, 242, 255);
-    color: rgb(0, 123, 255);
-    border: none;
-}
-
-.main_td{
-	border: 2px solid #ccc; 
-	border-right: none;
-}
-
-.main_td span{
-	font-size: 16px;
-}
-
-.td_date {
-	font-size: 11px; 
-	color: #ccc;
-}
-
-.reply_update{
-	background-color: rgb(230, 242, 255); 
-	color: rgb(0, 123, 255); 
-	border: none;
-}
-
-.reply_delete{
-	background-color: rgb(255, 209, 51);
-	color: white; 
-	border: none;
-}
-</style>
+<link href="<%= contextPath %>/resources/css/board/free/detail.css" rel="stylesheet" type="text/css">
 </head>
+
 <body class="free_detail_all">
-	<%@ include file="../../common/menubar.jsp"%>
     <div class="free_header" align="center">
         <div class="free_img1">
             <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png"
@@ -209,17 +68,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 				<button onclick="deleteBoard();" class="free_delete" >삭제하기</button>
 			<% } %>	
         </div>
-        <br><br><br><br><br>
-
-        <script>
-			function deleteBoard(){
-				if(!confirm("정말 삭제하시겠습니까?")){
-					return;
-				}
-				location.href = "<%= contextPath %>/delete.bf?bno=<%= b.getBoardNo() %>";
-			}
-		</script>
-		
+        <br><br><br><br>
     </div>
     
     	<div id="reply-area">
@@ -280,6 +129,14 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 	</div>
 
 	<script>
+		function deleteBoard(){
+			if(!confirm("정말 삭제하시겠습니까?")){
+				return;
+			}
+			location.href = "<%= contextPath %>/delete.bf?bno=<%= b.getBoardNo() %>";
+		}
+	
+	
 		function insertReply(){
 			$.ajax({
 				url : "<%= contextPath%>/rinsert.bf",
@@ -351,9 +208,6 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 		    });
 		}
 	</script>
-
 	<%@ include file="../../common/footer.jsp"%>
-
-	
 </body>
 </html>
