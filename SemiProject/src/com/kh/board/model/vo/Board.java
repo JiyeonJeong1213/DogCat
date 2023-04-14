@@ -41,8 +41,29 @@ public class Board {
 		this.longitude = longitude;
 		this.status = status;
 	}
+
+	public Board(int boardNo, String boardCategory, String boardTitle, String boardWriter, int count, Date createDate) {
+		super();
+		this.boardNo = boardNo;
+		this.boardCategory = boardCategory;
+		this.boardTitle = boardTitle;
+		this.boardWriter = boardWriter;
+		this.count = count;
+		this.createDate = createDate;
+	}
 	
 	
+	public Board(int boardNo, String boardCategory, String boardTitle, String boardContent, int count, String boardWriter,
+			Date createDate) {
+		super();
+		this.boardNo = boardNo;
+		this.boardCategory = boardCategory;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.count = count;
+		this.boardWriter = boardWriter;
+		this.createDate = createDate;
+	}
 	public int getLikeCount() {
 		return likeCount;
 	}
