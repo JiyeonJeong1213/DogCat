@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
-.free_detail_all button:focus, input:focus, textarea:focus, .free_content_main:focus {
+.free_detail_all button:focus, input:focus, textarea:focus,
+	.free_content_main:focus {
 	outline: none;
 }
 
@@ -58,7 +59,7 @@
 .free_content_main {
 	width: 900px;
 	height: auto;
-	min-height : 400px;
+	min-height: 400px;
 	padding: 0 10px;
 	border: 2px solid #ccc;
 	border-radius: 5px;
@@ -68,22 +69,21 @@
 }
 
 .free_back {
-    background-color: rgb(230, 242, 255);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 1px 5px 3px 5px;
+	background-color: rgb(230, 242, 255);
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	padding: 1px 5px 3px 5px;
 }
 
 .free_retouch {
-    background-color: rgb(230, 242, 255);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 1px 5px 3px 5px;
-    
+	background-color: rgb(230, 242, 255);
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	padding: 1px 5px 3px 5px;
 }
 
 .free_delete {
@@ -94,50 +94,48 @@
 	cursor: pointer;
 }
 
-
-.free_content_file{
-    margin-left: 258px;
-    margin-top: -3px;
+.free_content_file {
+	margin-left: 258px;
+	margin-top: -3px;
 }
 
- #replyContent{
-            border: none;
-            outline: none;
+#replyContent {
+	border: none;
+	outline: none;
 }
 
 .free_table {
-    border-spacing: 0 10px;
-    border: none;
+	border: none;
 }
 
-.free_table tr th > button {
-    background-color: rgb(230, 242, 255);
-    color: rgb(0, 123, 255);
-    border: none;
+.free_table tr th>button {
+	background-color: rgb(230, 242, 255);
+	color: rgb(0, 123, 255);
+	border: none;
 }
 
-.main_td{
-	border: 2px solid #ccc; 
+.main_td {
+	border: 2px solid #ccc;
 	border-right: none;
 }
 
-.main_td span{
+.main_td span {
 	font-size: 16px;
 }
 
 .td_date {
-	font-size: 11px; 
+	font-size: 11px;
 	color: #ccc;
 }
 
-.reply_update{
-	background-color: rgb(230, 242, 255); 
-	color: rgb(0, 123, 255); 
+.reply_update {
+	background-color: rgb(230, 242, 255);
+	color: rgb(0, 123, 255);
 	border: none;
 }
 
-.reply_delete{
+.reply_delete {
 	background-color: rgb(255, 209, 51);
-	color: white; 
+	color: white;
 	border: none;
 }
