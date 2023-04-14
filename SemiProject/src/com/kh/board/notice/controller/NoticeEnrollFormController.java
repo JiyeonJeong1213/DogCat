@@ -56,7 +56,7 @@ public class NoticeEnrollFormController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath()+"/detail.no?nno=" + result);
+			response.sendRedirect(request.getContextPath()+"/detail.no?bno=" + result);
 		} else {
 			session.setAttribute("alertMsg", "공지사항 등록 실패");
 			

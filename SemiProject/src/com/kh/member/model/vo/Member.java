@@ -17,6 +17,9 @@ public class Member {
 	private Date modifyDate;
 	private String status;
 	private String pet;
+	private String fileName;
+	
+	
 	
 	public Member() {
 		super();
@@ -40,7 +43,7 @@ public class Member {
 	}
 	
 	public Member(String userId, String userPwd, String userName, String userNickname, String phone, String email,
-			String address, String hobby) {
+			String address, String hobby, String pet) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -52,8 +55,49 @@ public class Member {
 		this.hobby = hobby;
 		this.pet = pet;
 	}
-
 	
+	public Member(int userNo, String userId, String userPwd, String userName, String userNickname, String phone,
+			String email, String address, String hobby, Date enrollDate, String status, String pet) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userNickname = userNickname;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.hobby = hobby;
+		this.enrollDate = enrollDate;
+		this.status = status;
+		this.pet = pet;
+	}
+	
+	
+	public Member(int userNo, String userId, String userPwd, String userName, String userNickname, String phone,
+			String hobby, Date enrollDate, Date modifyDate, String status, String pet) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userNickname = userNickname;
+		this.phone = phone;
+		this.hobby = hobby;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.pet = pet;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	public String getPet() {
 		return pet;
 	}
@@ -163,11 +207,9 @@ public class Member {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", userNickname=" + userNickname + ", phone=" + phone + ", email=" + email + ", address=" + address
 				+ ", hobby=" + hobby + ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status="
-				+ status + "]";
+				+ status + ", pet=" + pet + ", fileName=" + fileName + "]";
 	}
 
-	
-	
 	
 	
 }

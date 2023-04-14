@@ -35,7 +35,7 @@ public class NoticeUpdateController extends HttpServlet {
 		Board b = new NoticeService().selectNotice(bno);
 		
 		request.setAttribute("b", b);
-		request.getRequestDispatcher("views/board/notice/noticeUpdateForm.jsp");
+		request.getRequestDispatcher("views/board/notice/noticeUpdateForm.jsp").forward(request, response);;
 		
 		
 	}
@@ -44,8 +44,29 @@ public class NoticeUpdateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		Board b = new Board();
+		b.setBoardNo(bno);
+		b.setBoardTitle(title);
+		b.setBoardContent(content);
+		
+		int result = new NoticeService().updateNotice(b);
+		
+		if(result > 0) {
+			response.sendRedirect(request.getContextPath() + "/detail.no?bno="+bno);
+			
+		}else {
+			request.setAttribute("errorMsg", "수정실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
+		
+		
 	}
 
 }
