@@ -41,6 +41,9 @@ public class PwdSearchController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
+//		String title = "메일 제목";
+//		String content = "임시 비밀번호는 : ";
+		
 		// 받아온 파라미터 값 
 		String inputId = request.getParameter("userId");
 		String inputName = request.getParameter("userName");
@@ -57,13 +60,15 @@ public class PwdSearchController extends HttpServlet {
 		if( !(userEmail == "NNNNNN") ) {
 			// 패스워드 업데이트를 위한 패스워드 생성
 			String randomPwd = RandomPasswordUtil.getTempPassword();
+//			content += randomPwd;
 			// 받아온 패스워드를 member 객체에 저장
 			member.setUserPwd(randomPwd);
 			// 패스워드 업데이트
 			int result = new MemberService().UpdateMemberPwd(member);
 			if( result > 0 ) {
 				// 업데이트한 비밀번호를 메일로 전송한다.
-				MailUtil.sendMailToSearchPwdMember(userEmail, randomPwd);		
+				MailUtil.sendMailToSearchPwdMember(userEmail, randomPwd);	
+				//MailUtil.test(userEmail, title, content);
 			}
 			request.setAttribute("alertMsg", "success");
 			request.getRequestDispatcher("views/member/memberPwdSearch1.jsp").forward(request,response);

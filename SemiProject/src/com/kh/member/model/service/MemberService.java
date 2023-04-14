@@ -1,5 +1,7 @@
 package com.kh.member.model.service;
 
+import static com.kh.common.JDBCTemplate.*;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,11 +19,7 @@ public class MemberService {
 
 		Member m = new MemberDao().loginMember(conn, userId, userPwd);
 
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		close(conn);
 
 		return m;
 

@@ -116,6 +116,7 @@ class MyAuthentication extends Authenticator {
     PasswordAuthentication pwdAuth;
     public MyAuthentication(){
          
+    	//관리자 이메일
        //관리자 이메일
         String email = "ehd385@naver.com";  //이메일
         String pwd = "zhdkffk1!";        //비밀번호

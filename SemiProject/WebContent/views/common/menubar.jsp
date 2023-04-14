@@ -84,7 +84,6 @@ html, body {height: 100%;}
 #profile_img{
 	width:80px;
 }
-
 </style>
 </head>
 <body>
@@ -96,22 +95,22 @@ html, body {height: 100%;}
 				<li class="nav-item"><a class="nav-link" href="<%= contextPath %>/login.me">로그인</a></li>
 				<li class="nav-item"><a class="nav-link" href="<%=contextPath%>/views/member/memberEnroll.jsp">회원가입</a></li>
 			</ul>
-			 <!-- 로그인시 프로필창 -->
+			<!-- 로그인시 프로필창 -->
 			<div class="after-login">
 				<table>
 					<tr>
-						<td rowspan="3" width="100px"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/profile_basic.png" width="80px"></td>
+						<td rowspan="3" width="100px"><img src="resources/profile_basic.png" width="80px"></td>
 						<td colspan="2" width="50px" style="font-weight: bold; color: #FFD133;"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><a href="<%= contextPath%>/mypageTest">마이페이지</a></td>
 					</tr>
 					<tr>
-						<td><a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/notification.png" width="25px"></a></td>
-						<td id="chat-list-btn"><a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/chat-balloon.png" width="15px"></a></td>
+						<td><a href=""><img src="resources/notification.png" width="25px"></a></td>
+						<td><a href=""><img src="resources/chat-balloon.png" width="15px"></a></td>
 					</tr>
 				</table>
-			</div> 
+			</div>
 		<% } else { %>
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="nav-link" href="<%= contextPath %>/logout.me">로그아웃</a></li>
@@ -155,13 +154,13 @@ html, body {height: 100%;}
 	</script>
 
 	<div class="logo">
-		<a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/logo.png" width="200px"></a>
+		<a href="<%=request.getContextPath()%>"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/logo.png" width="200px"></a>
 	</div>
 
 	<div class="nav-area">
 		<ul class="nav justify-content-center">
 			<li class="nav-item"><a class="nav-link" id="nav" href="#">같이걷개</a></li>
-			<li class="nav-item"><a class="nav-link" id="nav" href="#">멍냥수다</a></li>
+			<li class="nav-item"><a class="nav-link" id="nav" href="<%=request.getContextPath()%>/list.bf">멍냥수다</a></li>
 			<li class="nav-item"><a class="nav-link" id="nav" href="<%=request.getContextPath()%>/list.sell">나눔&거래</a></li>
 			<li class="nav-item"><a class="nav-link" id="nav" href="<%=request.getContextPath()%>/dbti">DBTI</a></li>
 		</ul>
