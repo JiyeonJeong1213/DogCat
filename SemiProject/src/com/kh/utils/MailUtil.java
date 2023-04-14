@@ -36,7 +36,7 @@ public class MailUtil {
             //편지보낸시간
             msg.setSentDate(new Date());
             InternetAddress from = new InternetAddress() ;
-            from = new InternetAddress("ehd7217@naver.com"); //관리자 아이디
+            from = new InternetAddress("ehd385@naver.com"); //관리자 아이디
             // 이메일 발신자
             msg.setFrom(from);
             // 이메일 수신자
@@ -83,7 +83,7 @@ public class MailUtil {
             //편지보낸시간
             msg.setSentDate(new Date());
             InternetAddress from = new InternetAddress() ;
-            from = new InternetAddress("ehd7217@naver.com"); //관리자 아이디
+            from = new InternetAddress("ehd385@naver.com"); //관리자 아이디
             // 이메일 발신자
             msg.setFrom(from);
             // 이메일 수신자
@@ -109,6 +109,7 @@ public class MailUtil {
     }
 }
 
+
 //관리자 권한 설정 클래스 
 class MyAuthentication extends Authenticator {
       
@@ -116,8 +117,8 @@ class MyAuthentication extends Authenticator {
     public MyAuthentication(){
          
     	//관리자 이메일
-        String email = "ehd7217@naver.com";  //이메일
-        String pwd = "zhdkffk!1@#";        //비밀번호
+        String email = "ehd385@naver.com";  //이메일
+        String pwd = "zhdkffk1!";        //비밀번호
  
         // ID와 비밀번호를 입력한다.
         pwdAuth = new PasswordAuthentication(email, pwd);

@@ -146,7 +146,7 @@
 	<div class="nav-area">
 		<ul class="nav justify-content-center">
 			<li class="nav-item"><a class="nav-link" id="nav" href="#">같이걷개</a></li>
-			<li class="nav-item"><a class="nav-link" id="nav" href="#">멍냥수다</a></li>
+			<li class="nav-item"><a class="nav-link" id="nav" href="<%= contextPath %>/list.bf">멍냥수다</a></li>
 			<li class="nav-item"><a class="nav-link" id="nav" href="#">나눔&거래</a></li>
 			
 			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
