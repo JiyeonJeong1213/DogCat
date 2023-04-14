@@ -28,6 +28,7 @@
 * {
 	font-family: 'Noto Sans KR', sans-serif;
 }
+html, body {height: 100%;}
 
 .nav-area {
 	background-color: #E6F2FF;
@@ -80,10 +81,14 @@
 	text-decoration : none;
 	color : black;
 }
+#profile_img{
+	width:80px;
+}
 
 </style>
 </head>
 <body>
+
 
 	<div class="login-area">
 		<% if (loginUser == null) { %>
@@ -99,7 +104,7 @@
 						<td colspan="2" width="50px" style="font-weight: bold; color: #FFD133;"></td>
 					</tr>
 					<tr>
-						<td colspan="2">마이페이지</td>
+						<td colspan="2"><a href="<%= contextPath%>/mypageTest">마이페이지</a></td>
 					</tr>
 					<tr>
 						<td><a href=""><img src="resources/notification.png" width="25px"></a></td>
@@ -116,11 +121,21 @@
 			<div class="after-login">
 				<table>
 					<tr>
-						<td rowspan="3" width="100px"><img src="resources/profile_basic.png" width="80px"></td>
+						<td rowspan="3" width="100px">
+							<%if(loginUser.getFileName() != null) { %>
+			            		<img id="profile_img" src="<%= request.getContextPath() %>/<%= loginUser.getFileName() %>">
+		            		<% } else {  %>
+		            			<img id="profile_img" src="resources/profile_basic.png">
+		            		<% } %>	
+						</td>
 						<td colspan="2" width="50px" style="font-weight: bold; color: #FFD133;"><%= loginUser.getUserNickname() %>님</td>
 					</tr>
 					<tr>
-						<td colspan="2"><a href="">마이페이지</a></td>
+						<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
+							<td colspan="2"><a href="<%=contextPath%>/adminProfile">마이페이지</a></td>
+						<% }else{ %>
+							<td colspan="2"><a href="<%=request.getContextPath()%>/Mypage.me">마이페이지</a></td>
+						<% } %>
 					</tr>
 					<tr>
 						<td><a href=""><img src="resources/notification.png" width="25px"></a></td>
@@ -131,7 +146,7 @@
 		<% } %>
 	</div>
 	<script>
-		<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
+		<% if(loginUser != null) { %>
 			$(function(){
 				$('.after-login').css("visibility","visible");
 			});
@@ -147,16 +162,10 @@
 		<ul class="nav justify-content-center">
 			<li class="nav-item"><a class="nav-link" id="nav" href="#">같이걷개</a></li>
 			<li class="nav-item"><a class="nav-link" id="nav" href="#">멍냥수다</a></li>
-			<li class="nav-item"><a class="nav-link" id="nav" href="<%= contextPath %>/list.sell">나눔&거래</a></li>
-			
-			<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
-			<li class="nav-item"><a class="nav-link" id="nav" href="<%=contextPath%>/adminProfile">대빵용</a></li>
-			<% } else { %>
-			<li class="nav-item"><a class="nav-link disabled" id="nav" style="color: gray;">대빵용</a></li>
-			<% } %>
+			<li class="nav-item"><a class="nav-link" id="nav" href="#">나눔&거래</a></li>
+			<li class="nav-item"><a class="nav-link" id="nav" href="<%=request.getContextPath()%>/dbti">DBTI</a></li>
 		</ul>
 	</div>
-	
 	
 </body>
 </html>
