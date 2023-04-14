@@ -94,12 +94,16 @@
         border-radius: 7px;
     }
     .paging-area button:focus {
-        background-color: #FFD133;
-        color: white;
+        outline: none;
+    }
+    #write:focus {
+    	outline:none;
     }
 </style>
 </head>
 <body>
+	<%@ include file="../../common/menubar.jsp" %>
+
 	<div id="contents">
         <div id="page-title">
             <img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%A0%95%EC%A7%80%EC%97%B0/KakaoTalk_20230316_095326819_01.png" width="45px">
@@ -122,7 +126,7 @@
                 <th width="100">찜</th>
             	</tr>
         	</thead>
-            <tbody>
+            <tbody id="notice-area">
             	<c:choose>
 	            	<c:when test="${empty nList }">
 	            		<tr>
@@ -143,7 +147,8 @@
 	            		</c:forEach>
 	            	</c:otherwise>
 	            </c:choose>
-            
+            </tbody>
+            <tbody id="sell-area">
 	            <c:choose>
 	            	<c:when test="${empty list }">
 	            		<tr>
@@ -175,7 +180,7 @@
             
         </table>
         <div id="search-area">
-            <form action="" method="get">
+            <form action="<%= contextPath %>/search.sell" method="get">
                 <select name="search1" class="search1">
                     <option value="" selected disabled hidden>광역시/도</option>
                     <option>서울특별시</option>
@@ -200,7 +205,7 @@
                     <option value="" selected disabled hidden>시/구/군</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>강남구</option>
                     <option>강동구</option>
                     <option>강북구</option>
@@ -228,7 +233,7 @@
                     <option>중랑구</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>강화군</option>
                     <option>계양구</option>
                     <option>남동구</option>
@@ -241,7 +246,7 @@
                     <option>중구</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>대덕구</option>
                     <option>동구</option>
                     <option>서구</option>
@@ -249,7 +254,7 @@
                     <option>중구</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>광산구</option>
                     <option>남구</option>
                     <option>동구</option>
@@ -257,7 +262,7 @@
                     <option>서구</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>남구</option>
                     <option>달서구</option>
                     <option>달성군</option>
@@ -268,7 +273,7 @@
                     <option>중구</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>강서구</option>
                     <option>금정구</option>
                     <option>기장군</option>
@@ -287,7 +292,7 @@
                     <option>해운대구</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>남구</option>
                     <option>동구</option>
                     <option>북구</option>
@@ -295,16 +300,16 @@
                     <option>중구</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>세종특별자치시</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>서귀포시</option>
                     <option>제주시</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>강릉시</option>
                     <option>고성군</option>
                     <option>동해시</option>
@@ -325,7 +330,7 @@
                     <option>횡성군</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>가평군</option>
                     <option>고양시 덕양구</option>
                     <option>고양시 일산동구</option>
@@ -373,7 +378,7 @@
                     <option>화성시</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>거제시</option>
                     <option>거창군</option>
                     <option>고성시</option>
@@ -394,7 +399,7 @@
                     <option>합천군</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>경산시</option>
                     <option>경주시</option>
                     <option>고령군</option>
@@ -420,7 +425,7 @@
                     <option>포항시</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>강진군</option>
                     <option>고흥군</option>
                     <option>곡성군</option>
@@ -445,7 +450,7 @@
                     <option>화순군</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>고창군</option>
                     <option>군산시</option>
                     <option>김제시</option>
@@ -462,7 +467,7 @@
                     <option>진안군</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>계룡시</option>
                     <option>공주시</option>
                     <option>금산군</option>
@@ -481,7 +486,7 @@
                     <option>홍성군</option>
                 </select>
                 <select name="search2" class="search2">
-                    <option value="" selected disabled hidden>시/구/군</option>
+                	<option value="" hidden>시/구/군</option>
                     <option>괴산군</option>
                     <option>단양군</option>
                     <option>보은군</option>
@@ -495,10 +500,13 @@
                     <option>청주시</option>
                     <option>충주시</option>
                 </select>
-                <input type="text" name="search3" size="30" placeholder="제목/내용 검색">
+                <input type="text" name="search3" size="30" placeholder="제목 검색">
                 <button type="submit" id="search-btn">검색</button>
             </form>
-            <button type="button" id="write">글쓰기</button>
+            <c:if test="${!empty sessionScope.loginUser }">
+            	<button type="button" id="write">글쓰기</button>
+            </c:if>
+            
             <script>
                 $(function(){
                     $(".search1").change(function(){
@@ -524,6 +532,15 @@
                     $("#write").click(function(){
                     	location.href= "<%= request.getContextPath() %>/insertBoard.sell";
                     });
+                    
+                    $("table tr").hover(function(){
+                    	$(this).css("cursor", "pointer");
+                    });
+                    $("#sell-area>tr").click(function(){
+                    	let bno = $(this).children().eq(0).val();
+                    	
+                    	location.href="<%= contextPath %>/detail.sell?bno="+bno;
+                    });
                 });
             </script>
         </div>
@@ -545,7 +562,7 @@
             			<button onclick="location.href='<%= request.getContextPath() %>/list.sell?currentPage=${i}'">${i }</button>
             		</c:when>
             		<c:otherwise>
-            			<button disabled>${i }</button>
+            			<button disabled style="background-color: #FFD133; color: white;">${i }</button>
             		</c:otherwise>
             	</c:choose>
             </c:forEach>
@@ -555,5 +572,7 @@
             </c:if>
         </div>
     </div>
+    
+    <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

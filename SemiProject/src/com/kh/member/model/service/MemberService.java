@@ -4,7 +4,10 @@ import static com.kh.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import com.kh.board.model.vo.Attachment;
+import static com.kh.common.JDBCTemplate.*;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
 import com.kh.pet.model.vo.Pet;
@@ -103,22 +106,89 @@ public class MemberService {
 
 		return result1 * result2;
 	}
-
-	MemberDao dao = new MemberDao();
 	
-	// 이름,이메일로 아이디 찾기
-	public String searchMemberId(String inputName, String inputEmail) { 
-		return dao.searchMemberId(inputName, inputEmail);
+	// 프로필 이미지 삽입 메소드
+	public int insertProfileImg(int userNo, Attachment at) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertProfileImg(conn, userNo, at);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
 	}
 	
-	// 아이디,이름으로 이메일 찾기
-	public String searchMemberEmail(String inputId, String inputName) { 
-		return dao.searchMemberEmail(inputId, inputName);
+	public ArrayList<Attachment> selectProfileImg(int userNo){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> list = new MemberDao().selectProfileImg(conn, userNo);
+		
+		close(conn);
+		
+		return list;
+		
 	}
 	
-	// 비밀번호 업데이트
-	public int UpdateMemberPwd(Member member) { 
-		return dao.UpdateMemberPwd(member);
+	public ArrayList<Member> selectMemberList(){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectMemberList(conn);
+		
+		close(conn);
+		
+		return list;
+		
+		
 	}
+	
+	public Member memberListDetail(String userId) {
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().memberListDetail(conn, userId);
+		
+		close(conn);
+		
+		return m;
+	}
+	
+	public Attachment memberListImg(String userId){
+		Connection conn = getConnection();
+		
+		Attachment at = new MemberDao().memberListImg(conn, userId);
+		
+		close(conn);
+		
+		return at;
+	}
+	
+	public String updateStatusM(String status, String userId) {
+		Connection conn = getConnection();
+		
+		
+		int result =  new MemberDao().updateStatusM(conn, userId, status);
+		
+		String updateStatus = null;
+		
+		if(result > 0) {
+			commit(conn);
+			
+			updateStatus = new MemberDao().selectStatus(conn, userId);
+			
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return updateStatus;
+	}
+	
 
 }
