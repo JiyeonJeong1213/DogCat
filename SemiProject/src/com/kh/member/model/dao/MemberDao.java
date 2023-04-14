@@ -626,7 +626,6 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(m);
 		return m;
 		
 		
