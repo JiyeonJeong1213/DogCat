@@ -7,12 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.board.free.model.service.FreeService;
 import com.kh.member.model.service.MemberService;
 
 /**
  * Servlet implementation class ReplyListUpdateController
  */
-@WebServlet("/ReplyListUpdateController")
+@WebServlet("/rupdate.bf")
 public class ReplyListUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,6 +30,18 @@ public class ReplyListUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
+		String content = request.getParameter("content");
+		
+		int result = new FreeService().updateReply(replyNo, content);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다");
+			response.getWriter().print(result);
+		}else { 
+			request.setAttribute("errorMsg", "게시글 수정에 실패했습니다");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

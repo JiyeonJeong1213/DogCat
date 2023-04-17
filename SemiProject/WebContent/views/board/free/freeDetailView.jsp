@@ -102,9 +102,10 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 					%>
 						<tr id="replyTr_<%= replyNo %>">
 							<td class="main_td">
+							
 							<span><b><%=r.getReplyContent() %></b></span><br>
 							
-							<pre><b><%=r.getReplyWriter() %></b></pre>
+							<pre><b id="replyTd_<%= replyNo %>"><%=r.getReplyWriter() %></b></pre>
 							
                     		<span  class="td_date"><%=r.getCreateDate() %></span>
                     		
@@ -112,7 +113,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 							
 							<% if(loginUser != null && loginUser.getUserId().equals( r.getReplyContent())) {%>
 							<td class="button_td" valign="top" align="right" style="border: 2px solid #ccc; border-left: none;">
-							<button class="reply_update" onclick="updateReply();">수정</button>
+							<button class="reply_update" onclick="rewriteReply(<%= replyNo %>);">수정</button>
                         	
                    			<button class="reply_delete" onclick="deleteReply(<%= replyNo %>);">삭제</button>
 							</td>
@@ -145,50 +146,41 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 					bno     : "<%= b.getBoardNo() %>"
 				}, 
 				success : function(result){
-					
 					if(result > 0){
-						
-						selectReplyList();
-						
-						$("#replyContent").val("");
+						location.href = '<%= contextPath%>/detail.bf?bno=<%= b.getBoardNo() %>';
 					}
-					
 				}, error : function(){
 					console.log("댓글작성실패")
 				}
 			})
 		}
 		
-		function selectReplyList(){
+		function rewriteReply(replyNo){
+			$("#replyTd_"+replyNo).contents().remove();
+			$("#replyTd_"+replyNo).append('<textarea name="rewriteContent" rows="2" cols=55"></textarea>');
+			$(".reply_update").attr('id', 'updateBtn').attr('onclick', 'updateReply(' + replyNo + ')');
+		}
+		
+		function updateReply(replyNo){			
+			var newContent =  $("textarea[name=rewriteContent]").val();
 			
 			$.ajax({
-				url : "<%= contextPath %>/rlist.bf",
-				data : {bno : "<%= b.getBoardNo() %>"},
-				success : function(list){
-					
-					let result  = "";
-					for(let i of list){
-						  result += "<tr>" +
-									"<td class=\"main_td\">"+
-									"<span><b>"+ i.replyContent + "</b></span><br>" +
-									"<pre><b>"+ i.replyWriter +"</b></pre>" +
-		                    		"<span class=\"td_date\">" + i.createDate + "</span>" +                    		
-									"</td>"+
-									"<td class=\"button_td\" valign=\"top\" align=\"right\" style=\"border: 2px solid #ccc; border-left: none;\">" +
-									"<button class=\"reply_update\" onclick=\"updateReply();\">수정</button>" +                        	
-		                   			"<button class=\"reply_delete\" onclick=\"deleteReply();\">삭제</button>" +
-									"</td>" +
-									"</tr>"	
-						
-					}
-					
-					$("#reply-area tbody").html(result);
-				},
-				error : function(){
-					console.log("게시글 목록조회 실패")
-				}
-			});
+		        url: "<%= contextPath %>/rupdate.bf",
+		        data: { replyNo : replyNo,
+		        		content : newContent
+		        		
+		        },
+		        success: function(result){
+		        	if(result > 0){
+		        		alert("수정되었습니다.");
+		        		location.href = '<%= contextPath%>/detail.bf?bno=<%= b.getBoardNo() %>';
+		            } else{
+		                alert("댓글수정실패");
+		            }
+		        }
+		    });
 		}
+		
 		
 		function deleteReply(replyNo){
 			if (!confirm("삭제하시겠습니까?")) {
