@@ -21,7 +21,7 @@ String contextPath = (String) request.getContextPath();
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
-<link href="resources/css/board/mateboard/03_mateDetail.css?afterlike" rel="stylesheet">
+<link href="resources/css/board/mateboard/03_mateDetail.css?after" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
@@ -100,6 +100,7 @@ String contextPath = (String) request.getContextPath();
 	margin-top:80px;
 	
 }
+
 </style>
 </head>
 

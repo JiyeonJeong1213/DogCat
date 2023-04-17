@@ -17,7 +17,7 @@
 <head>
 <meta charset="UTF-8">
 <title>메이트 게시판 수정하기</title>
-<link href="resources/css/board/mateboard/04_mateUpdate.css?after" rel="stylesheet">
+<link href="resources/css/board/mateboard/04_mateUpdate.css?afterlike" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
@@ -113,8 +113,8 @@
             
           </div>
           <div class="btn-div">
-            <button type="button" class="btn-upload" onclick="reupload();">수정하기</button>
-            <button type="reset" class="btn-reset"><a href="<%=contextPath%>/list.mate?currentPage=1">목록가기</a></button>
+            <button type="button" class="btn btn-upload" onclick="reupload();" style="color: rgb(106, 171, 240);">수정하기</button>
+            <button type="reset" class="btn btn-list"><a href="<%=contextPath%>/list.mate?currentPage=1" style="text-decoration:none; color:gray;">목록가기</a></button>
           </div>
         <!-- </form> -->
       </div>

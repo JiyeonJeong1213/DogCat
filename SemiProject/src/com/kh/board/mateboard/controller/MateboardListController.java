@@ -43,11 +43,8 @@ public class MateboardListController extends HttpServlet {
 		int maxPage;
 		int startPage;
 		int endPage;
+		
 		listCount = new mateBoardService().selectListCount(); 
-	
-		
-		//�ѰԽñ��� ���� -> Board���̺� ����Ǿ��ִ� ���� ����
-		
 		currentPage = Integer.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
 		pageLimit = 10;
 		boardLimit = 12;

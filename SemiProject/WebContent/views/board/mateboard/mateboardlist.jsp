@@ -4,16 +4,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-   	String contextPath = request.getContextPath();
    	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	Member loginUser = (Member)session.getAttribute("loginUser");
 	Attachment at =(Attachment)request.getAttribute("at");
 	
-	
-	/* int index = address.indexOf(",");
-	String address1 = address.substring(0, index);
-	String address2 = address.substring(index+1); */
+
  	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -34,7 +29,7 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<link href="<%=contextPath%>/resources/css/board/mateboard/01.css?afterlike" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/board/mateboard/01.css?a=<%=System.currentTimeMillis() %>" rel="stylesheet">
 <style>
 .boardNo, .count, .create-date {
 	display: none;
@@ -67,11 +62,12 @@
 	font-weight: 900;
 	border: 3px solid rgb(106, 171, 240);
 }
+
 </style>
 </head>
 <body>
 
-	<%-- <%@ include file="../common/menubar.jsp" %> --%>
+	<%@ include file="../../common/menubar.jsp" %>
 
 	<div class="content1">
 		<div class="content_name">
@@ -130,9 +126,7 @@
 
 		<%if(loginUser != null){ %>
 		<button type="button" id="mate_write">
-			<a href="<%=contextPath%>/insert.mate"
-				style="text-decoration: none; color: rgb(106, 171, 240);">게시판
-				글쓰기</a>
+			<a href="<%=contextPath%>/insert.mate" style="text-decoration: none; color: rgb(106, 171, 240);">게시판 글쓰기</a>
 		</button>
 		<%} %>
 	</div>
@@ -146,15 +140,15 @@
 			<%}else{ %>
 				<% for(Board b : list){%>
 				<div class="card" id="card">
-					<div class="card-body">
-						<span class="boardNo" style="font-size: x-small;" name="boardNo"><%=b.getBoardNo() %></span>
+					<div class="card-body" id="card-body">
+						<span class="boardNo" id="boardNo" style="font-size: x-small;" name="boardNo"><%=b.getBoardNo() %></span>
 					
 						<%if(at == null){ %>
-							<img class="card-img" src="<%=contextPath %>/resources/분홍발자국.png">
+							<img class="card-img" id="mateCardImg" src="<%=contextPath %>/resources/분홍발자국.png">
 						<%}else{ %>
 							<img src="<%=contextPath+at.getChangeName()+at.getFilePath()%>">
 						<%} %>
-						<span class="card-title" name="boardWriter"><%=b.getBoardWriter() %></span> 
+						<span class="card-title" id="card-title" name="boardWriter"><%=b.getBoardWriter() %></span> 
 						<span class="card-subtitle mb-2 text-muted"><%=b.getBoardTitle() %></span>
 						<hr>
 						<div class="card-content">
@@ -162,7 +156,7 @@
 							<p><%=b.getBoardContent() %></p>
 						</div>
 					</div>
-					<div class="card-footer">
+					<div class="card-footer" id="card-footer">
 						<img class="card-thumb" src="<%=contextPath %>/resources/빈 추천.png" onclick="recommend();">
 						<input type="hidden" class="bno" name="bno" value="<%=b.getBoardNo() %>">
 						<span class="thumb-number"><%=b.getLcount() %></span> 
@@ -210,6 +204,7 @@
 			<%} %>
 		</ul>
 	</nav>
+	
 	<script>
          	 $(function(){
          		$(".card-thumb").click(function(){
@@ -287,7 +282,8 @@
 	        }
         </script>
 
-
+	
+	<%@ include file="../../common/footer.jsp" %>
 
 
 
