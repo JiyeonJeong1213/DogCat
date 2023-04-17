@@ -9,9 +9,7 @@
 
 @font-face {
 	font-family: 'yg-jalnan';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
-		format('woff');
+	src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -40,10 +38,8 @@
 	font-size: 45px;
 	font-family: 'yg-jalnan', verdana, tahoma;
 	color: #F7E3A5;
-	text-shadow: -2px 0 #4758A8, 0 2px #4758A8, 2px 0 #4758A8, 0 -2px
-		#4758A8;
+	text-shadow: -2px 0 #4758A8, 0 2px #4758A8, 2px 0 #4758A8, 0 -2px #4758A8;
 }
-
 .main1_img {
 	width: 100%;
 	background-image: url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/%EA%B0%95%EC%95%84%EC%A7%80%EB%93%A4.png");
@@ -197,12 +193,12 @@ a {
 	color: black;
 }
 .chat-area{
-      border-radius: 20px;
-      border: 1px solid gray;
-      width: 500px;
-      display: none;
-      position: absolute;
-      top:60%; left:85%; transform:translate(-50%, -50%); 
+    border-radius: 20px;
+    border: 1px solid gray;
+    width: 500px;
+   	display: none;
+   position: absolute;
+   top:60%; left:85%; transform:translate(-50%, -50%); 
 }
 .chat-title {
     background-color: white;
@@ -291,6 +287,24 @@ a {
     border-radius: 10px;
     width: 200px;
     margin: 5px;
+}
+ .chat-question {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+}
+.chat-question>input:focus {
+    outline: none;
+}
+.chat-question>button {
+    border: none;
+    border-radius: 20px;
+    width: 100px;
+    background-color: rgb(230, 242, 255);
+    color: rgb(0, 123, 255);
+}
+.chat-question>button:focus{
+	outline: none;
 }
 </style>
 </head>
@@ -451,7 +465,8 @@ a {
 	        </div>
 	
 	        <div class="chat-question">
-	            <input type="text" placeholder="궁금한 사항을 입력해 주세요" >
+	            <input type="text" id="msg-content" placeholder="메세지를 입력하세요" >
+	            <button onclick="sendMsg()">전송</button>
 	        </div>
 	    </div>
 	</div>

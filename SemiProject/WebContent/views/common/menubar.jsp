@@ -137,8 +137,16 @@ html, body {height: 100%;}
 						<% } %>
 					</tr>
 					<tr>
-						<td><a href=""><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/notification.png" width="25px"></a></td>
-						<td><a href="<%= contextPath %>/chatList.chat?userNo=${loginUser.userNo}"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/chat-balloon.png" width="15px"></a></td>
+						<td>
+							<a href="">
+								<img id="notiImg" src="" width="25px">
+							</a>
+						</td>
+						<td>
+							<a href="<%= contextPath %>/chatList.chat?userNo=${loginUser.userNo}">
+								<img id="chatAlarmImg" src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/chat-balloon.png" width="15px">
+							</a>
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -148,11 +156,25 @@ html, body {height: 100%;}
 		<% if(loginUser != null) { %>
 			$(function(){
 				$('.after-login').css("visibility","visible");
+				$.ajax({
+					url:"<%= request.getContextPath() %>/countUser",
+					type:'get',
+					data:{userNo : <%= loginUser.getUserNo()%>},
+					success:(result) =>{
+						if(result>0){
+							$("#notiImg").attr('src','resources/notificationA.png');
+						}else{
+							$("#notiImg").attr('src','resources/notification.png');
+						}
+					}
+				});	
 			});
 		
 		<% } %>
+	
+			
 	</script>
-
+	
 	<div class="logo">
 		<a href="<%=request.getContextPath()%>"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/logo.png" width="200px"></a>
 	</div>

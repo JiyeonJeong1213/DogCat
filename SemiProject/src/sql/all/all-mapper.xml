@@ -46,4 +46,10 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="countMate">
+		SELECT COUNT(USER_NO) AS COUNT
+		FROM MATE
+		WHERE USER_NO = ?
+	</entry>
+	
 </properties>
