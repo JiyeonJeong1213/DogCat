@@ -199,6 +199,7 @@
 	        </div>
         </div>
         
+<<<<<<< Updated upstream
       	<script>
 			$(function(){
 				$(".allBoard_list>tbody>tr").click(function(){
@@ -210,6 +211,26 @@
 		
 	
 		</script>
+=======
+       	<script>
+			$(function(){
+				$(".allBoard_list>tbody>tr").click(function(){
+					let bno = $(this).children().eq(0).text();
+					let bType = $(this).children().eq(1).text();
+					
+					if(bType == "같이걷개"){
+						location.href = "<%= request.getContextPath()%>/detail.mate?bno="+bno;
+					} else if(bType == "멍냥수다"){
+						location.href = "<%= request.getContextPath()%>/detail.bf?bno="+bno;
+					} else if(bType == "나눔&거래"){
+						location.href = "<%= request.getContextPath()%>/detail.sell?bno="+bno;
+					}
+					
+				});
+			});
+		</script>
+      
+>>>>>>> Stashed changes
         
         
         
