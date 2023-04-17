@@ -519,19 +519,18 @@ public class FreeDao {
 		return result;
 	}
 
-	public int updateReply(Connection conn, Reply r) {
+	public int updateReply(Connection conn, int replyNo, String content) {
 	
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("updateReply");
-		
+		String sql = prop.getProperty("updateReply");	
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, r.getReplyContent());
-			pstmt.setInt(2, r.getReplyNo() );
+			pstmt.setString(1, content);
+			pstmt.setInt(2, replyNo);
 			
 			result = pstmt.executeUpdate();
 			

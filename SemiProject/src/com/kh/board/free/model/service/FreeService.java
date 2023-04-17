@@ -181,11 +181,11 @@ public class FreeService {
 		return list;
 	}
 
-	public int updateReply(Reply r) {
+	public int updateReply(int replyNo, String content) {
 
 		Connection conn = getConnection();
 
-		int result = new FreeDao().updateReply(conn, r);
+		int result = new FreeDao().updateReply(conn, replyNo, content);
 
 		if (result > 0) {
 			commit(conn);
