@@ -199,7 +199,17 @@
 	        </div>
         </div>
         
-      
+      	<script>
+			$(function(){
+				$(".allBoard_list>tbody>tr").click(function(){
+					let bno = $(this).children().eq(0).text();
+					
+					location.href = "<%= request.getContextPath()%>/detail.no?bno="+bno;
+				});
+			});
+		
+	
+		</script>
         
         
         
