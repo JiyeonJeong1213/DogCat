@@ -181,3 +181,21 @@
 	height:300px;
 
 }
+/*버튼*/
+.btn {
+	width: 100px;
+	height: 40px;
+	border-radius: 10px;
+	font-size: medium;
+	font-weight: 900;
+	background-color: white;
+}
+
+.btn-upload {
+	border: 2px solid rgb(106, 171, 240);
+	color :  rgb(106, 171, 240);
+}
+
+.btn-list{
+	border: 2px solid gray;
+}
