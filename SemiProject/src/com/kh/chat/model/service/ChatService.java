@@ -80,4 +80,47 @@ public class ChatService {
 		return result;
 	}
 	
+	// 문의하기(챗봇) 채팅	
+	public int selectChatroom (int buyerNo) {
+		Connection conn = getConnection();
+		int result = new ChatDao().selectChatroom(conn, buyerNo);
+		close(conn);
+		return result;
+		
+	}
+	
+	public int insertChatBot (int buyerNo) {
+		Connection conn = getConnection();
+		int result = new ChatDao().insertChatBot(conn, buyerNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
+	public ArrayList<Message> readChatbot(int reader){
+		
+		Connection conn = getConnection();
+		ArrayList<Message> mList = new ChatDao().readChatbot(conn, reader);
+		close(conn);
+		return mList;
+	}
+	
+	public int insertChatMessage(int senderNo, String msg) {
+		Connection conn = getConnection();
+		int result = new ChatDao().insertChatMessage(conn, senderNo, msg);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
+	
+	
+	
 }

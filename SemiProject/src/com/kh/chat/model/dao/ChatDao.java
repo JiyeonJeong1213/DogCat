@@ -226,4 +226,104 @@ public class ChatDao {
 		}
 		return result;
 	}
+	
+	// 챗봇용	
+	public int selectChatroom(Connection conn, int buyerNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectChatroom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, buyerNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("CR_NO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public int insertChatBot(Connection conn, int buyerNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertChatBot");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, buyerNo);
+			pstmt.setInt(2, buyerNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public ArrayList<Message> readChatbot(Connection conn, int reader){
+		ArrayList<Message> mList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("readChatbot");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reader);
+			pstmt.setInt(2, reader);
+			pstmt.setInt(3, reader);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Message m = new Message(rset.getInt("SENDER"), 
+										rset.getInt("RECEIVER"), 
+										rset.getString("M_CONTENT"));
+				mList.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mList;
+		
+	}
+	
+	public int insertChatMessage(Connection conn, int senderNo, String msg) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertChatMessage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, senderNo);
+			pstmt.setInt(2, senderNo);
+			pstmt.setInt(3, senderNo);
+			pstmt.setString(4, msg);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 }

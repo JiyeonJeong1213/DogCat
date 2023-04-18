@@ -199,7 +199,7 @@
 	        </div>
         </div>
         
-<<<<<<< Updated upstream
+
       	<script>
 			$(function(){
 				$(".allBoard_list>tbody>tr").click(function(){
@@ -211,7 +211,7 @@
 		
 	
 		</script>
-=======
+
        	<script>
 			$(function(){
 				$(".allBoard_list>tbody>tr").click(function(){
@@ -230,20 +230,20 @@
 			});
 		</script>
       
->>>>>>> Stashed changes
-        
-        
-        
     </div>
 
     <!-- 페이징바 영역  -->
     <div class="pagingArea">
 		
-		
-		<button onclick="location.href='<%=request.getContextPath()%>/allB?currentPage=<%= currentPage - 1%>'">
-			<img class="pagaeBtn prev" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
-		</button>
-		
+		<% if(currentPage != 1) { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/allB?currentPage=<%= currentPage - 1%>'">
+				<img class="pagaeBtn prev" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+			</button>
+		<% } else { %>
+			<button disabled>
+				<img class="pagaeBtn prev" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+			</button>
+		<% } %>
 		
 		<% for(int i = startPage; i<=endPage; i++) { %>
 			
@@ -254,10 +254,16 @@
 			<% } %>
 		<% } %>
 		
+		<% if(currentPage != maxPage) { %>
+			<button onclick="location.href='<%= request.getContextPath()%>/allB?currentPage=<%= currentPage + 1%>'">
+				<img class="pagaeBtn next" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+			</button>
+		<% } else { %>
+			<button disabled>
+				<img class="pagaeBtn next" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+			</button>
+		<% } %>
 		
-		<button onclick="location.href='<%= request.getContextPath()%>/allB?currentPage=<%= currentPage + 1%>'">
-			<img class="pagaeBtn next" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
-		</button>
 		
 	</div>
 

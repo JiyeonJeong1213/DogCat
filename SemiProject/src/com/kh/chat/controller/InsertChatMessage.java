@@ -1,30 +1,25 @@
-package com.kh.main.controller;
+package com.kh.chat.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.board.model.vo.Attachment;
-import com.kh.board.model.vo.Board;
-import com.kh.board.notice.model.service.NoticeService;
+import com.kh.chat.model.service.ChatService;
 
 /**
- * Servlet implementation class MainBoardController
+ * Servlet implementation class InsertChatMessage
  */
-@WebServlet("/main.bo")
-public class MainBoardController extends HttpServlet {
+@WebServlet("/insertChatMessage")
+public class InsertChatMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainBoardController() {
+    public InsertChatMessage() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,13 +28,18 @@ public class MainBoardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+	
+		int senderNo = Integer.parseInt(request.getParameter("buyer"));
+		String msg = request.getParameter("msg");
+		int result = new ChatService().insertChatMessage(senderNo, msg);
 		
-		ArrayList<Attachment> list = new NoticeService().selectMainBoard();
+		if(result<=0) {
+			request.setAttribute("errorMsg","실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 		
-		response.setContentType("application/json; charset=UTF-8");
 		
-		new Gson().toJson(list, response.getWriter());
+		
 		
 		
 	}

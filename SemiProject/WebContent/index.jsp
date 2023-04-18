@@ -1,3 +1,4 @@
+<%@ page import="java.util.ArrayList, com.kh.board.model.vo.*, com.kh.chat.model.vo.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -306,6 +307,9 @@ a {
 .chat-question>button:focus{
 	outline: none;
 }
+#chatImg:hover{
+	cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -425,24 +429,137 @@ a {
 			</div>
 		</div>
 		<div class="chat_icon">
-			<a href="#"><img id="chatImg" src="resources/chat_icon.png" width="50px"></a>
+			<img id="chatImg" src="resources/chat_icon.png" width="50px">
 		</div>
+		
+		
+		
 		<script>
 			$(function(){
-				$(".chat_icon").click(function({
+				$("#chatImg").click(function(){
 					 $(".chat-area").css("display","block");
 					 $(".chat_icon").css("display","none")
+					 
+					<%--  $.ajax({
+						 url:'<%= contextPath%>/InsertChattBot',
+						 type:'get',
+						 data:{buyer : ${loginUser.userNo}},
+						 success : function(checkResult){
+							 if(checkResult == 'N'){
+								 console.log("성공/채팅방생성");
+							 }else{
+								 console.log("성공/메세지 읽어오기");
+								 
+								 $.ajax({
+									 url:'<%=contextPath%>/ReadChatbot',
+									 type:'get',
+									 data:{reader:${loginUser.userNo}},
+									 success:function(mList){
+										 console.log("메시지 읽어오기 성공");
+										 if(mList!=null){
+											 let str = "";
+											 for(let i = 0; i<mList.length; i++){
+												 if(mList[i].sender != ${loginUser.userNo}){
+													 str += "<div class='chat-response'>"
+													 	+"<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png'width='50px' height='50px'>"
+												 		+"<div class='chat-bubble'>"+mList[i].messageContent+"</div>"
+												 		 +"</div>";
+												 }else{
+													 str += "<div class='chat-request'>"
+		                                        			+ "<div class='chat-bubble2'>"+mList[i].messageContent+"</div>"
+		                                        			+ "<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>"
+		                                        		  +"</div>"; 
+												 }
+											 }
+											 $(".chat-content").html(str);
+										 }
+									 },
+									 error:function(){
+										 console.log("메세지 읽어오기 실패");
+									 }
+								 });
+							 }
+						 },
+						error:function(){
+							console.log("ajax통신실패");
+						}
+					 });
+					 websocket(); --%>
 				});
+				
+			     $(".btn-close").click(function(){
+	                $(".chat-area").css("display","none");
+	                $(".chat_icon").css("display","block")
+	            });
+	            
 			});
-		
-		
+			
+			<%-- let socket;
+			
+			function websocket(){
+				socket = new WebScocket("ws://192.168.30.167:8081<%= contextPath %>/chattingServer")
+				
+				socket.onopen = function(e){
+					console.log("접속성공");
+				}
+				socket.onmessage = function(e){
+					
+					let data = JSON.parse(e.data);
+					for(let i = 0; i<data.length; i++){
+						if('${loginUser.userNo}' == data[i].sender){
+							let msg = $("<div class='chat-request'>");
+							let img = $("<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>");
+							let msgContent = $("<div class='chat-bubble2'>");
+							
+							msgContent.append(data[i].msg);
+							msg.append(msgContent);
+							msg.append(img);
+							$(".chat-content").append(msg);
+						}else{
+							let msg = $("<div class='chat-response'>");
+	        				let img = $("<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>");
+	        				let msgContent = $("<div class='chat-bubble'>");
+	        				
+	        				msgContent.append(data[i].msg);
+	        				msg.append(img);
+	        				msg.append(msgContent);
+	        				$(".chatContent").append(msg);
+						}
+					}
+				}
+				socket.onclose = function(e){
+					console.log("접속해제");
+				}
+				
+			}
+			
+			function sendMsg(){
+				let msg = $("#msg-content").val();
+				socket.send(msg);
+				
+				$.ajax({
+					url:'<%= contextPath%>/insertChatMessage',
+					type:'get',
+					data:{ buyer : ${loginUser.userNo}, msg : $("#msg-content").val()},
+					success:function(){
+						console.log("메시지 전송 성공");
+					},
+					error: function(){
+						console.log("메시지 전송 실패");
+					}
+				});
+				$("#msg-content").val("");
+			} --%>
 		</script>
 		
+		
+		
+		<!-- 채팅/문의영역  -->
 		<div class="chat-area">
 	        <div class="chat-title">
 	            <img src="resources/돋보기.png" width="50px">
 	            <span style="font-size: 29px; font-weight: bold;">또오개냥 문의하기</span>
-	            <button type="button" class="btn-close" aria-label="Close" style="float: right; margin-right: 20px; margin-top: 8px;"></button>
+	            <button type="button" class="btn-close" aria-label="Close" style="font-size:23px; float: right; margin-right: 20px; margin-top: 8px;">X</button>
 	        </div>
 	
 	        <div class="chat-content" >
@@ -470,7 +587,7 @@ a {
 	        </div>
 	    </div>
 	</div>
-		
+	
 	<script>
 		AOS.init();
 
