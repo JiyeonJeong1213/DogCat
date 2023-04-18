@@ -236,4 +236,12 @@ public class mateBoardService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<Board> searchMateList(String searchType, String address, String searchText) {
+		Connection conn = getConnection();
+		ArrayList<Board> list = new mateBoardDao().searchMateList(conn, searchType, address, searchText);
+		close(conn);
+		return list;
+		
+	}
 }

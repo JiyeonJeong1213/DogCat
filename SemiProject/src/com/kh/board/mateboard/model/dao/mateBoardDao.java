@@ -601,5 +601,45 @@ public class mateBoardDao {
 		}
 		return result;
 	}
+	
+	public ArrayList<Board> searchMateList(Connection conn, String searchType, String address, String searchText){
+		ArrayList<Board> list= new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchMateList");
+		
+		String type= "";
+		
+		switch(searchType){
+		case "1" : type = "BOARD_TITLE"; break;
+		case "2" : type="BOARD_CONTENT"; break;
+		case "3" : type="USER_ID"; break;
+		default : type= "BOARD_TITLE";
+		}
+		
+		sql = sql.replace("@", type);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, "ADDRESS");
+			pstmt.setString(2, "%"+searchText+"%");
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b=new Board();
+				b.setAddress(rset.getString(1));
+				b.setBoardContent(rset.getString(2));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }
 

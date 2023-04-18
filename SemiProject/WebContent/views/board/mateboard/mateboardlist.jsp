@@ -90,9 +90,9 @@
 	</div>
 
 	<div class="content3">
-		<form action="" method="get" class="location">
+		 <form action="<%=contextPath%>/mateSearch" method="get" class="location">
 			<div class="search_box">
-				<select name="address1" id="" onchange="categoryChange(this)"
+				<select name="address1" id="address1" onchange="categoryChange(this)"
 					class="address1">
 					<option>광역시/도 선택</option>
 					<option value="강원도">강원도</option>
@@ -119,8 +119,8 @@
 				</select>
 			</div>
 			<input type="text" size="30" placeholder="제목/내용 검색"
-				class="search-text">
-			<button type="submit" id="search-btn">검색</button>
+				class="search-text" name="searchText">
+			<button class="search-btn" id="search-btn">검색</button>
 		</form>
 		<div class="content3-block" style="width: 3%;"></div>
 
@@ -280,6 +280,8 @@
 	                        state.appendChild(opt);
 	                    }
 	        }
+	        
+	       
         </script>
 
 	
