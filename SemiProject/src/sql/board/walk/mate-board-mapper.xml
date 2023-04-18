@@ -150,4 +150,10 @@
 		INSERT INTO MATE(USER_NO, BOARD_NO, STATUS)
 		VALUES(?,?,1)
 	</entry>
+	<entry key="searchMateList">
+		SELECT BOARD_TITLE
+		FROM BOARD B
+		JOIN MEMBER M ON(B.BOARD_WRITER = M.USER_NO)
+		WHERE B.STATUS = 'Y' AND ADDRESS=? @ AND  LIKE ? ;
+	</entry>
 </properties>
