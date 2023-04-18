@@ -47,21 +47,15 @@ public class MateBoardDetailController extends HttpServlet {
 			request.setAttribute("atList", atList);
 			request.setAttribute("list", list);
 			
-			System.out.println(b);
-			System.out.println(atList);
+		
 			request.getRequestDispatcher("views/board/mateboard/mateboardDetail.jsp").forward(request, response);
 			
 		
 		}else {
-			request.setAttribute("errorMsg", "�Խñ� ��ȸ ����");
+			request.setAttribute("errorMsg", "게시글 조회 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
-	
-	
-	
-	
-	
 	
 	
 	

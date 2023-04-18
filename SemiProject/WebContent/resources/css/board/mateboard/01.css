@@ -1,5 +1,7 @@
 @charset "utf-8";
-
+.content1{
+	margin-top: 50px;
+}
 .content_name{
     display: flex;
     align-items: center;
@@ -10,6 +12,7 @@
     text-align: center;
 }
 /*지역선택 select style*/
+
 .content3{
 	margin-top : 50px;
     display: flex;
@@ -19,7 +22,7 @@
     display: flex;
 }
 
-.search1, .search2,.search-text{
+.address1, .address2{
    height: 3rem;
    border-radius: 7px;
    border: 1px solid lightblue;
@@ -38,7 +41,7 @@
     justify-content: center;
     margin-bottom: 100px;
 }
-.card{
+#card{
     margin-right: 100px;
     border-radius: 30px;
     background-color: rgb(230, 242, 255);
@@ -46,13 +49,13 @@
     box-shadow: 2.5px 4px 6px 0px;
    
 }
-.card-img{
+#mateCardImg{
     width: 15%;
     height: 15%;
     border-radius:50px;
         
 }
-.card-title{
+#card-title{
     margin-left: 10px;
     font-size: 150%;
 }
@@ -85,7 +88,7 @@
     height: 10%;
     cursor: pointer
 }
-.card-footer{
+#card-footer{
     background-color: rgb(230, 242, 255);
     border: none;
     display: flex;

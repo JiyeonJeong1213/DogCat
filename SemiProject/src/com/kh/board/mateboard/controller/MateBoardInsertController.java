@@ -68,6 +68,8 @@ public class MateBoardInsertController extends HttpServlet {
 			b.setAddress(multi.getParameter("address1")+","+multi.getParameter("address2"));
 			if(multi.getParameter("latitude") != null) {
 				b.setLatitude(Double.parseDouble(multi.getParameter("latitude")));
+			}else {
+				
 			}
 			if(multi.getParameter("longitude") != null) {
 				b.setLongitude(Double.parseDouble(multi.getParameter("longitude")));

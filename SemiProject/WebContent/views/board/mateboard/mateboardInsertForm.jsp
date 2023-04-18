@@ -2,9 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-  String contextPath = request.getContextPath();
-  String alertMsg = (String)session.getAttribute("alertMsg");
-  Member loginUser = (Member)session.getAttribute("loginUser");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -12,7 +10,7 @@
 <meta charset="UTF-8">
 <title>산책메이트 게시판 글쓰기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<!-- <link href="resources/css/02_mateWrite.css?after" rel="stylesheet"> -->
+<!-- <link href="resources/css/02_mateWrite.css?afterlike" rel="stylesheet"> -->
 <style>
 .wrap{
     /* position: relative; */
@@ -31,13 +29,12 @@
   .walk-write{
     /* position: absolute; */
     margin: 0 auto;
-    border: 1px solid black;
+    border: 1px solid gray;
     width: 70%;
   
     left: 13.5%;
   }
   .walk-name{
-    border: 1px solid red;
     width: 95%;
     display: inline-flex;
     margin : 8px 0px 0px 12px;
@@ -50,7 +47,8 @@
     display: flex;
 }
 .address1, .address2{
-   height: 1.5rem;
+   height: 2rem;
+   width : 8rem;
    border-radius: 7px;
    border: 1px solid lightblue;
 }
@@ -72,11 +70,7 @@
     margin: 0 auto;
   }
 
- .write-info{
- 	margin : 15px 0px 10px 10px;
- }
-
-  textarea{
+  .walk-content{
     border-radius: 15px;
     margin-left: 10px;
     padding : 20px 20px;
@@ -219,6 +213,7 @@
 </head>
 <body>
 	
+	<%@ include file="../../common/menubar.jsp" %>
 	 <div class="wrap">
       	 <div class="content1">
           <div class="content_name">
@@ -269,7 +264,7 @@
                     <option>군/구 선택</option>
                 </select>
             </div>
-              <input type="text" class="title" name="title" placeholder="게시글 제목을 입력하세요" required>
+              <input type="text" class="title" name="title" placeholder="게시글 제목을 입력하세요" size="120" required >
             </div>
             
             <hr>
@@ -278,8 +273,7 @@
 
             <img src="<%=contextPath %>/resources/메이트소개글쓰기.png" height="65">
             <div class="write-content">
-             <div class="write-info"><span> 한 줄 소개글 : </span> <input type="text" placeholder="산책메이트를 위한 한 줄 소개글을 입력해주세요" size="140"></div>
-             <textarea class="walk content" cols="168" rows="15" style="resize:none;" name="content"></textarea>
+             <textarea class="walk-content" cols="146" rows="10" style="resize:none;" name="content" placeholder="산책을 함께 하는 반려견을 소개하거나, 유의사항을 작성해주세요"></textarea>
             </div>
            
             <img src="<%=contextPath %>/resources/메이트 위치 정하기.png" height="68">
@@ -489,6 +483,6 @@
 			
 		}
 	</script>
-  
+  <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

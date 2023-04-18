@@ -277,7 +277,7 @@
         </div>
 
         <div id="button-area">
-        	<c:if test="${!empty loginUser and loginUser.userId ne b.boardWriter}">
+        	<c:if test="${!empty loginUser and loginUser.userNickname ne b.boardWriter}">
         		<button type="button" id="like" onclick="like();">찜하기</button>
                 <button type="button" id="chatting">구매 문의 채팅</button>
             </c:if>
@@ -332,7 +332,7 @@
         </script>
         <div id="under-button">
         	<button type="button" align="center" onclick="toList();">목록으로</button>
-        	<c:if test="${!empty loginUser and loginUser.userId eq b.boardWriter}">
+        	<c:if test="${!empty loginUser and loginUser.userNickname eq b.boardWriter}">
         		<button type="button" id="updateBtn" onclick="toUpdate();">수정하기</button>
         		<button type="button" id="deleteBtn" onclick="toDelete();">삭제하기</button>
         	</c:if>
