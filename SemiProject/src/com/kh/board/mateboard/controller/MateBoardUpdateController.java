@@ -41,11 +41,12 @@ public class MateBoardUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
+		
 		Board b = new mateBoardService().selectBoard(boardNo);
 		ArrayList<Attachment> atList = new mateBoardService().selectAttachment(boardNo);
+		
 		request.setAttribute("b", b);
 		request.setAttribute("atList", atList);
-		
 		
 		request.getRequestDispatcher("views/board/mateboard/mateboardUpdate.jsp").forward(request, response);
 		
@@ -75,7 +76,7 @@ public class MateBoardUpdateController extends HttpServlet {
 			b.setLongitude(Double.parseDouble(multi.getParameter("longitude")));
 		}
 		
-		System.out.println(b);
+		//System.out.println(b);
 		
 		ArrayList<Attachment> atList = new ArrayList<>();
 		if(multi.getFileNames() != null) {
@@ -99,6 +100,7 @@ public class MateBoardUpdateController extends HttpServlet {
 			int index  =0;
 			while(true) {
 				String changeFileName = multi.getParameter("changeFileName"+index++);
+				//System.out.println(changeFileName);
 				if(changeFileName == null) {
 					break;
 				}else {
@@ -111,7 +113,7 @@ public class MateBoardUpdateController extends HttpServlet {
 		int index2 = 0;
 		while(true) {
 			String originFileNo = multi.getParameter("originFileNo"+index2++);
-			//System.out.println(originFileNo);
+			System.out.println(originFileNo);
 			
 			if(originFileNo == null) {
 				break;
@@ -121,6 +123,7 @@ public class MateBoardUpdateController extends HttpServlet {
 		}
 		
 		int result = new mateBoardService().updateMate(b, atList, originFileNos);
+		System.out.println(result);
 		
 		if(result > 0) {
 			System.out.println("업뎃성공");
@@ -132,7 +135,6 @@ public class MateBoardUpdateController extends HttpServlet {
 			}
 			System.out.println("업뎃 실패");
 		}
-		
 		
 	}
 

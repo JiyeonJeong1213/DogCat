@@ -6,7 +6,7 @@
 <%
    	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	Attachment at =(Attachment)request.getAttribute("at");
+
 	
 
  	int currentPage = pi.getCurrentPage();
@@ -34,6 +34,7 @@
 .boardNo, .count, .create-date {
 	display: none;
 }
+
 .list {
 	border: 1px solid black;
 	flex-wrap: wrap;
@@ -42,18 +43,22 @@
 	margin: 0 auto;
 	padding-left: 90px;
 }
+
 #card {
 	width: 300px;
 	height: 400px;
 	margin-bottom: 50px;
 }
+
 #search-btn {
 	width: 4rem;
 	height: 3rem;
 }
+
 #mate_writer {
 	width: 8rem;
 }
+
 #search-btn, #mate_write {
 	border-radius: 7px;
 	background-color: white;
@@ -63,10 +68,37 @@
 	border: 3px solid rgb(106, 171, 240);
 }
 
+.pagaeBtn {
+	overflow-clip-margin: content-box;
+	overflow: clip;
+	width: 26px;
+	height: 26px;
+	background-color: transparent;
+	border: none;
+}
+
+.prev {
+	transform: rotate(180deg);
+}
+
+.pagingArea {
+	margin: 25px auto 0px;
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	column-gap: 30px;
+	justify-content: center;
+}
+
+.pagingArea>button {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+}
 </style>
 </head>
 <body>
-
 	<%@ include file="../../common/menubar.jsp" %>
 
 	<div class="content1">
@@ -78,17 +110,14 @@
 				style="width: 40px; height: 40px;">
 		</div>
 	</div>
-
 	<hr>
 	<br>
-
 	<div class="content2">
 		<p>
 			산책메이트와 함께 특별한 시간을 만들어보세요 <br> 반려인도 반려동물도 내가 원하는 동네의 다양한 친구들을 만날
 			수 있어요
 		</p>
 	</div>
-
 	<div class="content3">
 		 <form action="<%=contextPath%>/mateSearch" method="get" class="location">
 			<div class="search_box">
@@ -118,9 +147,7 @@
 					<option>군/구 선택</option>
 				</select>
 			</div>
-			<input type="text" size="30" placeholder="제목/내용 검색"
-				class="search-text" name="searchText">
-			<button class="search-btn" id="search-btn">검색</button>
+			<button type="submit" class="search-btn" id="search-btn">검색</button>
 		</form>
 		<div class="content3-block" style="width: 3%;"></div>
 
@@ -142,12 +169,7 @@
 				<div class="card" id="card">
 					<div class="card-body" id="card-body">
 						<span class="boardNo" id="boardNo" style="font-size: x-small;" name="boardNo"><%=b.getBoardNo() %></span>
-					
-						<%if(at == null){ %>
 							<img class="card-img" id="mateCardImg" src="<%=contextPath %>/resources/분홍발자국.png">
-						<%}else{ %>
-							<img src="<%=contextPath+at.getChangeName()+at.getFilePath()%>">
-						<%} %>
 						<span class="card-title" id="card-title" name="boardWriter"><%=b.getBoardWriter() %></span> 
 						<span class="card-subtitle mb-2 text-muted"><%=b.getBoardTitle() %></span>
 						<hr>
@@ -179,31 +201,45 @@
 					})
 				})
 	</script>
-	<!-- 페이징바 영역 -->
-	<nav aria-label="Page navigation example">
-		<ul class="pagination">
-			<% if(currentPage != 1) { %>
-				<li class="page-item"><a class="page-link"
-					href="<%=contextPath %>/list.mate?currentPage=<%=currentPage -1 %>"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-				</a></li>
-			<%} %>
-			<%for(int i = startPage; i<=endPage; i++) { %>
-				<%if( i!= currentPage) { %>
-				<li class="page-item"><a class="page-link"
-					href="<%=contextPath%>/list.mate?currentPage=<%=i%>"><%=i %></a></li>
-				<%}else{ %>
-				<li class="page-item"><%=i %></li>
-				<%} %>
-			<%} %>
-			<%if(currentPage != maxPage){ %>
-				<li class="page-item"><a class="page-link"
-					href="<%=contextPath %>/list.mate?currentPage=<%=currentPage+1 %>"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
-			<%} %>
-		</ul>
-	</nav>
+
+	
+    <!--유진스 페이징바 영역  -->
+    <div class="pagingArea">
+		
+		<%if(currentPage!=1) {%>
+		<button onclick="location.href='<%=request.getContextPath()%>/list.mate?currentPage=<%= currentPage - 1%>'">
+			<img class="pagaeBtn prev" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+		</button>
+		<%}else{ %>
+		<button disabled>
+			<img class="pagaeBtn prev" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+		</button>
+		<%} %>
+		
+		<% for(int i = startPage; i<=endPage; i++) { %>
+			
+			<% if(i != currentPage) { %>
+				<button onclick="location.href='<%=request.getContextPath()%>/list.mate?currentPage=<%= i %>';"><%= i %></button>
+			<% } else {%>
+				<button disabled><%= i %></button>
+			<% } %>
+		<% } %>
+		
+		<%if(currentPage!=maxPage){ %>
+		<button onclick="location.href='<%= request.getContextPath()%>/list.mate?currentPage=<%= currentPage + 1%>'">
+			<img class="pagaeBtn next" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+		</button>
+		<%}else{ %>
+		<button disabled>
+			<img class="pagaeBtn next" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+		</button>
+		<%} %>
+	</div>
+	
+	
+	
+	
+	
 	
 	<script>
          	 $(function(){
