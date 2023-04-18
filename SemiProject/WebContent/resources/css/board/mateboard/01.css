@@ -22,7 +22,7 @@
     display: flex;
 }
 
-.address1, .address2, .search-text{
+.address1, .address2{
    height: 3rem;
    border-radius: 7px;
    border: 1px solid lightblue;

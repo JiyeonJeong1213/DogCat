@@ -36,14 +36,13 @@ public class ReplyDeleteController extends HttpServlet {
 		
 		int rno = Integer.parseInt(request.getParameter("rno"));
 
-		System.out.println(rno);
 		int result = new mateBoardService().deleteDetailReply(rno);
 		
 		if(result>0) {
 					
 			response.sendRedirect(request.getContextPath());
 		}else {
-			request.setAttribute("errorMsg", "´ñ±Û »èÁ¦ ½ÇÆÐ");
+			request.setAttribute("errorMsg", "ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
