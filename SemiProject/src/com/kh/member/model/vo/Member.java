@@ -20,11 +20,30 @@ public class Member {
 	private String fileName;
 	
 	
-	
+
 	public Member() {
 		super();
 	}
 
+	public Member(int userNo, String userId, String userPwd, String userName, String userNickname, String phone,
+			String email, String address, String hobby, Date enrollDate, Date modifyDate, String status, String pet, String fileName) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userNickname = userNickname;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.hobby = hobby;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.pet = pet;
+		this.fileName = fileName;
+	}
+	
 	public Member(int userNo, String userId, String userPwd, String userName, String userNickname, String phone,
 			String email, String address, String hobby, Date enrollDate, Date modifyDate, String status, String pet) {
 		super();
@@ -40,8 +59,27 @@ public class Member {
 		this.enrollDate = enrollDate;
 		this.modifyDate = modifyDate;
 		this.status = status;
+		this.pet=pet;
 	}
 	
+	
+	public Member(int userNo, String userId, String userPwd, String userName, String userNickname, String phone,
+			String email, String address, String hobby, Date enrollDate, Date modifyDate, String status) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userNickname = userNickname;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.hobby = hobby;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+	}
+
 	public Member(String userId, String userPwd, String userName, String userNickname, String phone, String email,
 			String address, String hobby, String pet) {
 		super();
@@ -54,8 +92,14 @@ public class Member {
 		this.address = address;
 		this.hobby = hobby;
 		this.pet = pet;
-	}
 	
+	}
+
+	public Member(String userPwd, String address) {
+		super();
+		this.userPwd=userPwd;
+		this.address=address;
+	}
 	public Member(int userNo, String userId, String userPwd, String userName, String userNickname, String phone,
 			String email, String address, String hobby, Date enrollDate, String status, String pet) {
 		super();
@@ -89,7 +133,6 @@ public class Member {
 		this.status = status;
 		this.pet = pet;
 	}
-
 	public String getFileName() {
 		return fileName;
 	}
@@ -97,6 +140,8 @@ public class Member {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	
+
 
 	public String getPet() {
 		return pet;
