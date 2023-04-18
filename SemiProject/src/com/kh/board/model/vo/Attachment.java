@@ -13,6 +13,7 @@ public class Attachment {
 	private Date uploadDate; //	UPLOAD_DATE
 	private int fileLevel; //	FILE_LEVEL
 	private String status; //	STATUS
+	private int boardNo;
 	
 	public Attachment() {
 		super();
@@ -85,12 +86,11 @@ public class Attachment {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	@Override
-	public String toString() {
-		return "Attachment [fileNo=" + fileNo + ", refBno=" + refBno + ", ref_Mno=" + ref_Mno + ", originName="
-				+ originName + ", changeName=" + changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate
-				+ ", fileLevel=" + fileLevel + ", status=" + status + "]";
+	public int getBoardNo() {
+		return boardNo;
 	}
-	
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
+	}
 	
 }

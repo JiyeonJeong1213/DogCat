@@ -5,7 +5,6 @@
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member) session.getAttribute("loginUser");
 	String alertMsg = (String) session.getAttribute("alertMsg");
-	Pet updatePet = (Pet) session.getAttribute("pet");
 %>
 <!DOCTYPE html>
 <html>
@@ -21,9 +20,8 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
- 	
 	.container>form{
-        display: flex;
+     	display: flex;
         justify-content: space-evenly;
         align-items: flex-start;
         padding: 10px;
@@ -50,7 +48,6 @@
     th, td{
         padding-top: 0px;
         padding-bottom: 20px;
-       /*  padding-left: 20px; */
         padding-right: 50px;
     }
     .profile_img{
@@ -73,7 +70,6 @@
         padding: 5px 30px 5px 30px;
     }
     h2{
-       border-bottom: #FFD133 solid;
        width: 260px;
        font-weight: bold;
     }
@@ -82,7 +78,6 @@
     }
     #admin_profile_title{
     	font-weight: bold;
-    	text-align: center;
     }
    	.check-danger{
 		color:#721c24;

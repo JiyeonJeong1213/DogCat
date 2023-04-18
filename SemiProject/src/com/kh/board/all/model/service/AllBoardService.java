@@ -31,7 +31,29 @@ public class AllBoardService {
 		close(conn);
 		return list;
 	}
-
 	
+	public int selectTypeListCount(int type) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new AllBoardDao().selectTypeListCount(conn,type);
+		
+		close(conn);
+		
+		return listCount;
+		
+		
+	}
+	public ArrayList<Board> selectTypeBoardList(int type, PageInfo pi){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new AllBoardDao().selectTypeBoardList(conn, type, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
 
 }

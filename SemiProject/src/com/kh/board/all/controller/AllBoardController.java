@@ -67,6 +67,7 @@ public class AllBoardController extends HttpServlet {
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		
+		
 		request.getRequestDispatcher("views/admin/allBoard.jsp").forward(request, response);
 		
 	}

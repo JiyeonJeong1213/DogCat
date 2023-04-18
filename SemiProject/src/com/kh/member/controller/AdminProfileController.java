@@ -88,12 +88,15 @@ public class AdminProfileController extends HttpServlet {
 			m.setEmail(email);
 			m.setAddress(address);
 			m.setUserPwd(userPwd);
+			m.setPet(pet);
 			
-			Pet p = new Pet();
-			p.setUserNo(userNo);
-			p.setSpecies(pet);
+			if(pet != null) {
+				Pet p = new Pet();
+				p.setUserNo(userNo);
+				p.setSpecies(pet);
+				Pet updatePet = new PetService().updatePet(p);
+			}
 			
-			Pet updatePet = new PetService().updatePet(p);
 			Member updateMem = new MemberService().updateMember(m);
 			
 			int result = 1;
@@ -113,7 +116,6 @@ public class AdminProfileController extends HttpServlet {
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", updateMem);
-				session.setAttribute("pet", updatePet);
 				
 				request.getRequestDispatcher("views/admin/adminProfile.jsp").forward(request, response);
 				

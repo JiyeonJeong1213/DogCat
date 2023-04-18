@@ -1,4 +1,4 @@
-package com.kh.member.model.dao;
+spackage com.kh.member.model.dao;
 
 import java.io.FileInputStream;  
 import java.io.FileNotFoundException;
@@ -11,11 +11,10 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.kh.board.model.vo.Attachment;
-import com.kh.board.model.vo.Board;
-import com.kh.chat.model.vo.Chatroom;
 
 import static com.kh.common.JDBCTemplate.*;
+
+import com.kh.board.model.vo.Attachment;
 import com.kh.member.model.vo.Member;
 import com.kh.pet.model.vo.Pet;
 
@@ -67,7 +66,6 @@ public class MemberDao {
 						rset.getString("ADDRESS"),
 						rset.getString("HOBBY"),
 						rset.getDate("ENROLL_DATE"),
-						rset.getDate("MODIFY_DATE"),
 						rset.getString("STATUS"),
 						rset.getString("SPECIES"));
 			}
@@ -83,7 +81,7 @@ public class MemberDao {
 			}
 			
 		}
-		
+	
 		return m;
 		
 	}
@@ -151,7 +149,6 @@ public class MemberDao {
 						rset.getString("ADDRESS"),
 						rset.getString("HOBBY"),
 						rset.getDate("ENROLL_DATE"),
-						rset.getDate("MODIFY_DATE"),
 						rset.getString("STATUS"),
 						rset.getString("SPECIES"));
 			}
@@ -162,7 +159,7 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return m;
 		
 	}
@@ -464,7 +461,11 @@ public class MemberDao {
 				close(pstmt);
 			}
 			
-			return count;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		// 닉네임 중복체크
@@ -495,7 +496,11 @@ public class MemberDao {
 				close(pstmt);
 			}
 			
-			return count1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		// 이메일 중복체크
@@ -565,23 +570,11 @@ public class MemberDao {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
-				pstmt.setString(1, m.getUserId());
-				pstmt.setString(2, m.getUserName());
-				pstmt.setString(3, m.getUserNickname());
-				pstmt.setString(4, m.getUserPwd());
-				pstmt.setString(5, m.getEmail());
-				pstmt.setString(6, m.getPhone());
-				pstmt.setString(7, m.getAddress());
-				pstmt.setString(8, m.getHobby());
-				
-				result = pstmt.executeUpdate();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(pstmt);
-			}
-			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		// 회원가입 펫정보 삽입
@@ -592,21 +585,132 @@ public class MemberDao {
 			
 			String sql = prop.getProperty("insertPet");
 			
-			try {
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setString(1, p.getSpecies());
-				pstmt.setString(2, p.getGender());
-				pstmt.setString(3, p.getPetName());
-				
-				result = pstmt.executeUpdate();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(pstmt);
-			}
-			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 회원가입 펫정보 삽입
+	public int insertPet(Connection conn, Pet p) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertPet");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, p.getSpecies());
+			pstmt.setString(2, p.getGender());
+			pstmt.setString(3, p.getPetName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 아이디 찾기
+	public String searchMemberId(String inputName, String inputEmail) {
+		String userId = "NNNNNN";
+		Connection conn = getConnection();
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null; 
+        
+        String sql = prop.getProperty("searchMemberId");
+        
+        try {
+            pstmt = conn.prepareStatement(sql);
+            
+            pstmt.setString(1, inputName);
+            pstmt.setString(2, inputEmail);
+            
+            rset = pstmt.executeQuery();
+            
+            if (rset.next()){
+            	userId = rset.getString("USER_ID");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	close(rset);
+			close(pstmt);
+			close(conn);
+			
+        }
+        
+        return userId;
+    }
+	
+	// 비밀번호 찾기 1-1 (이메일 찾기)
+	public String searchMemberEmail(String inputId, String inputName) {
+		String userEmail = "NNNNNN";
+		Connection conn = getConnection();
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null; 
+        
+        String sql = prop.getProperty("searchMemberEmail");
+        
+        try {
+            pstmt = conn.prepareStatement(sql);
+            
+            pstmt.setString(1, inputId);
+            pstmt.setString(2, inputName);
+            
+            rset = pstmt.executeQuery();
+            
+            if (rset.next()){
+            	userEmail = rset.getString("EMAIL");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	close(rset);
+			close(pstmt);
+			close(conn);
+			
+        }
+        
+        return userEmail;
+    }
+	
+	// 비밀번호 찾기 1-2 (비밀번호 정보변경)
+	public int UpdateMemberPwd(Member member) {
+		
+		int result = 0;
+		
+		Connection conn = getConnection();
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("UpdateMemberPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, member.getUserPwd());
+			pstmt.setString(2, member.getUserId());
+			pstmt.setString(3, member.getUserName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(conn);
 		}
 		
 		// 아이디 찾기
@@ -708,5 +812,228 @@ public class MemberDao {
 			
 		}
 	
+	
+
+	public int insertProfileImg(Connection conn, int userNo, Attachment at) {
 		
+		int result = 1;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertProfileImg");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public ArrayList<Attachment> selectProfileImg(Connection conn, int userNo){
+		
+		ArrayList<Attachment> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectProfileImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				Attachment at = new Attachment();
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				
+				list.add(at);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<Member> selectMemberList(Connection conn){
+		
+		ArrayList<Member> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMemberList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Member m = new Member(rset.getInt("USER_NO"),
+						              rset.getString("USER_ID"),
+						              rset.getString("USER_PWD"),
+						              rset.getString("USER_NAME"),
+						              rset.getString("USER_NICKNAME"),
+						              rset.getString("PHONE"),
+						              rset.getString("EMAIL"),
+						              rset.getString("ADDRESS"),
+						              rset.getString("HOBBY"),
+						              rset.getDate("ENROLL_DATE"),
+						              rset.getDate("MODIFY_DATE"),
+						              rset.getString("STATUS"),
+						              rset.getString("SPECIES"));
+				
+				list.add(m);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public Attachment memberListImg(Connection conn, String userId) {
+		
+		Attachment at = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("memberListImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				at = new Attachment();
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return at;
+		
+	}
+	
+	public int updateStatusM(Connection conn, String userId, String status) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateStatusM");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, status);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
+	public String selectStatus(Connection conn, String userId) {
+		
+		String updateStatus = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				updateStatus = rset.getString("STATUS");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return updateStatus;
+	}
+	
+	public Member memberListDetail(Connection conn, String userId) {
+		
+		Member m = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("memberListDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member();
+				m.setUserName(rset.getString("USER_NAME"));
+				m.setStatus(rset.getString("STATUS"));
+				m.setUserId(rset.getString("USER_ID"));
+				m.setAddress(rset.getString("ADDRESS"));
+				m.setPet(rset.getString("SPECIES"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+		
+		
+	}
+	
 }

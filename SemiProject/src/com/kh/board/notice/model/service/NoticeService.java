@@ -5,20 +5,32 @@ import java.util.ArrayList;
 
 import com.kh.board.model.vo.Board;
 import com.kh.board.notice.model.dao.NoticeDao;
+import com.kh.common.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
 
 public class NoticeService {
 
-	public ArrayList<Board> selectNoticeList(){
+	public ArrayList<Board> selectNoticeList(PageInfo pi){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new NoticeDao().selectNoticeList(conn);
+		ArrayList<Board> list = new NoticeDao().selectNoticeList(conn, pi);
 		
 		close(conn);
 		
 		return list;
+		
+	}
+	
+	public int selectNoticeListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new NoticeDao().selectNoticeListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
 		
 	}
 	
@@ -103,5 +115,30 @@ public class NoticeService {
 		return result;
 		
 	}
+	
+	public ArrayList<Board> selectMainNotice(){
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new NoticeDao().selectMainNotice(conn);
+		
+		close(conn);
+		
+		return list;
+		
+	}
+	
+
+	public ArrayList<Board> selectMainBoard(){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new NoticeDao().selectMainBoard(conn);
+		
+		close(conn);
+		
+		return list;
+		
+	} 
+	
 
 }

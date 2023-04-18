@@ -100,41 +100,40 @@
     		background-color: rgb(83, 193, 243);
     		color: white;
     	}
+    	.allBoard_list>tbody>tr:hover{
+  			cursor:pointer;
+  		}
 </style>
 </head>
 <body>
 
 <%@ include file= "adminMenubar.jsp" %>
+	<script>
+	    $(document).ready(function() {
+	        if(location.href.indexOf('<%=request.getContextPath()%>/typeB?type=3') > -1){ 
+	            $('#categorySell').addClass('current');
+	        }
+	        if(location.href.indexOf('<%=request.getContextPath()%>/typeB?type=2') > -1){ 
+	            $('#categoryFree').addClass('current');
+	        }   
+	        if(location.href.indexOf('<%=request.getContextPath()%>/typeB?type=1') > -1){ 
+	        	$('#categoryMate').addClass('current');
+	        }   
+	        if(location.href.indexOf('<%=request.getContextPath()%>/allB') > -1){
+	            $('#categoryAll').addClass('current');
+	        }   
+	    });
+    </script>		
 	
-	  <script>
-        	$(function(){
-        		var cp = $(location).attr('search');
-        		var clist = $("button[name='category']");
-        		
-        		if(cp == '?type=3'){
-        			clist[3].addClass("current");
-        		} else if(cp == '?type=2' ){
-        			clist[2].addClass("current");
-        		} else if(cp == '?type=1' ){
-        			clist[1].addClass("current");
-        		}else{
-        			clist[0].addClass("current");
-        		}
-        	});
-        
-        </script>
-	
-	
-		
   <div class="container">
         <div class="item mt-3">
 	        <div class="serach_area">
 	            <h2 class="allBoard_title">게시판 관리</h2>
 	            <div class="category_swipperWrap mt-5">
-	            	<div class="category_swiper"><button class="category_button" type="button" name="category" value="4">전체보기</button></div>
-	            	<div class="category_swiper"><button class="category_button" type="button" name="category" value="1">같이걷개</button></div>
-	            	<div class="category_swiper"><button class="category_button" type="button" name="category" value="2">멍냥수다</button></div>
-	            	<div class="category_swiper"><button class="category_button" type="button" name="category" value="3">나눔&거래</button></div>
+	            	<div class="category_swiper"><button class="category_button" type="button" id="categoryAll" name="category" value="4">전체보기</button></div>
+	            	<div class="category_swiper"><button class="category_button" type="button" id="categoryMate" name="category" value="1">같이걷개</button></div>
+	            	<div class="category_swiper"><button class="category_button" type="button" id="categoryFree" name="category" value="2">멍냥수다</button></div>
+	            	<div class="category_swiper"><button class="category_button" type="button" id="categorySell" name="category" value="3">나눔&거래</button></div>
 	            </div>
 	        </div>
 	       
@@ -148,6 +147,7 @@
 	       				}
 	       			});
 	       		});
+	       		
 	       	</script>
 	       
 	       

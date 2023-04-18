@@ -14,237 +14,38 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="resources/css/member/login.css" rel="stylesheet" type="text/css">
+<script src="<%= contextPath %>/resources/js/member/login.js"></script>
+<script src="<%= contextPath %>/resources/js/member/link.js"></script>
 <title>로그인 페이지</title>
-<style>
-     * {
-            padding: 0;
-            margin: 0;
-            border: 1px;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        body {
-            font-size: 14px;
-        }
-
-        .all {
-            position: relative;
-			width: 1350px;
-			margin: 0 auto;
-        }
-
-        .login_logo img {
-            width: 300px;
-            height: 200px;
-            position: absolute;
-            bottom: 348px;
-            left: 529px;
-        }
-
-        .login-wrapper {
-            width: 500px;
-            height: 350px;
-            padding: 60px;
-            box-sizing: border-box;
-            margin-left: 427px;
-            margin-top: 200px;
-        }
-
-        .login-wrapper>h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        #login-form>input {
-            width: 100%;
-            height: 48px;
-            padding: 0 10px;
-            box-sizing: border-box;
-            margin-bottom: 16px;
-            border-radius: 6px;
-            background-color: rgba(224, 224, 224, 0.34);
-        }
-
-        #login-form>input::placeholder {
-            color: rgb(158, 158, 158);
-        }
-
-        #login-form>input[type="submit"] {
-            color: #fff;
-            font-size: 16px;
-            background-color: rgba(52, 152, 219, 0.84);
-            margin-top: 20px;
-            cursor: pointer;
-        }
-
-        #login-form>input[type="checkbox"] {
-            display: none;
-        }
-
-        #login-form input[type="checkbox"]+label {
-            cursor: pointer;
-            padding-left: 26px;
-            background-image: url("checkbox.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
-
-        #login-form input[type="checkbox"]:checked+label {
-            background-image: url("checkbox-active.png");
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
-
-        #login-form button {
-            margin-bottom: 13px;
-            cursor: pointer;
-        }
-
-        .separator {
-            border-top: 1px solid #777;
-            margin-top: 12px;
-            margin-bottom: 20px;
-        }
-
-        .sign_btn>button {
-            color: rgba(51, 51, 51, 0.76);
-            background-color: rgba(224, 224, 224, 0.34);
-            width: 90px;
-            height: 30px;
-            cursor: pointer;
-        }
-
-        .sign_btn{
-            margin-left: 115px;
-        }
-
-        .id_search * {
-            text-decoration: none;
-            font-size: 13px;
-            color: rgba(51, 51, 51, 0.76)
-        }
-
-        .id_search{
-            margin-top: 6px;
-        }
-
-        .login_footer{
-            display: inline-flex;
-        }
-        
-        input:focus {
-            outline: none;
-        }
-
-</style>
 </head>
-<body>
-  <div class="all">
+<body class="login_star">
+  	<div class="login_all">
         <div class="login_logo">
             <a href="<%= contextPath %>"><img src="resources/logo.png" width="200px"></a>
-            <div class="login-wrapper">
+            <div class="login_wrapper">
                 <h2>로그인</h2>
                 <form method="post" action="<%= contextPath %>/login.me" id="login-form">
                     <input type="text" name="userId" id="userId" placeholder="아이디" autocomplete="off"> 
                     <input type="password" name="userPwd" id="userPwd" placeholder="비밀번호" autocomplete="off">
-                    <label for="remember-check">
-                        <input type="checkbox" id="remember-check" > 아이디 저장
-                    </label>
-                    <a href="<%=contextPath%>/Mypage.me"><input type="submit" onclick="submitLogin();" value="로그인" ></a>
-
+                    <label for="remember-check"> <input type="checkbox" id="remember-check" > 아이디 저장 </label> &nbsp;
+                    <label for="keepLogin"> <input type="checkbox" name="keepLogin" value="keep" id="keepLogin"> 자동 로그인 </label>
+                    <input type="submit" onclick="submitLogin();" value="로그인" >
                 <div class="separator"></div>
-                
                 <div class="login_footer">
-                
                     <div class="id_search">
                         <a href="<%=contextPath%>/views/member/memberIdSearch.jsp">아이디 찾기</a>
                         <span>ㅣ</span>
                         <a href="<%=contextPath%>/views/member/memberPwdSearch.jsp">비밀번호 찾기</a>
                     </div>
-                    
                     <div class="sign_btn" align="end">
                         <button type="button" onclick="enrollPage();">회원가입</button>
-                </form>
-                    </div>
+                	</div>
                 </div>
-                
-                
-                <script>
-         function enrollPage(){
-            location.href = "<%= contextPath%>/views/member/memberEnroll.jsp"; 
-         }
-         
-         function submitLogin(){
-        	 
-     			var userIdCheck = RegExp(/^[A-Za-z0-9_\-]{4,12}$/); // 아이디
-     			var passwdCheck = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]).{8,16}$/);
-     			
-     			// 아이디 공백 확인
-     			if ($("#userId").val() == "") {
-     				alert("아이디를 입력해 주시기 바랍니다.");
-     				$("#userId").focus();
-     				return false;
-     			}
-
-     			// 아이디 유효성검사
-     			if (!userIdCheck.test($("#userId").val())) {
-     				alert("아이디가 일치하지 않습니다.");
-     				$("#userId").focus();
-     				return false;
-     			}
-     			
-     		// 비밀번호 공백 확인
-    			if ($("#userPwd").val() == "") {
-    				alert("비밀번호를 입력해 주시기 바랍니다.");
-    				$("#userPwd").focus();
-    				return false;
-    			}
-
-    			// 비밀번호 유효성검사
-    			if (!passwdCheck.test($("#userPwd").val())) {
-    				alert("비밀번호가 일치하지 않습니다.");
-    				$("#userPwd").focus();
-    				return false;
-    			}
-            
-            let userId = $("#login-form input[name=userId]").val();
-            
-            if($("#remember-check").is(":checked") ) {
-             document.cookie = "remember-check="+userId+"; path=/; max-age="+60*60*24;     
-            }else{
-               document.cookie = "remember-check=; path=/; max-age=0;"
-            }
-            
-            
-            $("#login-form").submit();
-            
-         }
-         
-         function getCookie(){
-            let value = "";
-            if(document.cookie.length > 0){
-               let index = document.cookie.indexOf("remember-check=");
-               if(index != -1){ 
-                  index += "remember-check=".length;
-                  let end = document.cookie.indexOf(";",index);
-                  
-                  if(end == -1){
-                     value = document.cookie.substring(index);
-                  }else{
-                     value = document.cookie.substring(index,end );
-                  }
-                  $("#login-form input[name=userId]").val(value);
-                  $("#remember-check").attr("checked",true);
-               }
-               
-            }
-         }
-         $(function(){
-            getCookie();
-         });
-      </script>
+                </form>    
             </div>
-        </div>
+       	</div>
     </div>
 </body>
 </html>

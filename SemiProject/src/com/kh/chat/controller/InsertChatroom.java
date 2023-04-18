@@ -37,12 +37,16 @@ public class InsertChatroom extends HttpServlet {
 		if(check<=0) {
 			checkResult = "N";
 			int result = new ChatService().insertChatroom(bno, buyerNo);
+			int crNo = new ChatService().checkChatroom(bno, buyerNo);
+			request.getSession().setAttribute("crNo", crNo);
+			
 			if(result<=0) {
 				request.setAttribute("errorMsg", "채팅방 생성 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}else {
 			checkResult = "Y";
+			request.getSession().setAttribute("crNo", check);
 		}
 		
 		// JSP와의 통로를 열어두기 위해 PrintWriter객체 생성

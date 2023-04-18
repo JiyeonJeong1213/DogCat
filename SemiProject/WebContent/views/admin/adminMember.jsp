@@ -11,112 +11,94 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-		.container {
-       		display: flex;
-            justify-content: space-evenly;
-            align-items: flex-start;
-            padding: 10px;
-            width: 1000px;
-        }
+  	.container {
+           display: flex;
+           justify-content: space-evenly;
+           margin-top: 10px;
+     }
+	.master_member_title {
+         width: 250px;
+         font-weight: bold;
+         text-align: left;
+     }
 
-        .master_profile {
-            text-align: center;
-        }
+     .member_table {
+        width: 1200px;
+        padding: 0px 10px 0px 10px;
+        margin-top: 20px;
+        border-top: 2px solid rgb(83, 193, 243);
 
-        .master_profile_img {
-            background-image: url(resources/chatbot.png);
-            background-size: contain;
-            background-repeat: no-repeat;
-            width: 80px;
-            height: 80px;
-            border-radius: 100%;
-            margin: 0 auto;
-        }
-        .master_member_title {
-            border-bottom: #FFD133 solid;
-            width: 180px;
-            font-weight: bold;
-        }
-        .member_table {
-            width: 700px;
-            padding: 0px 10px 0px 10px;
-
-        }
-        .member_table th, .member_table td, .member_table tr{
-            text-align: center;
-            border: 1px solid gray;
-
-        }
-        .modal_container{
-            background-color: rgb(251, 246, 240);
-            display: flex;
-            justify-content: space-evenly;
-            align-items: flex-start;
-            padding: 10px;
-          
-        }
-        .modal_profile{
-            text-align: center;
-        }
-        .modal_profile_img{
-            width: 60px;
-            height: 60px;
-            border-radius: 100%;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        #modal.modal-overlay {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(1.5px);
-            -webkit-backdrop-filter: blur(1.5px);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-        #modal .modal-window {
-            background:   rgb(251, 246, 240);
-            box-shadow: 0 8px 32px 0 rgba(133, 133, 134, 0.37);
-            backdrop-filter: blur( 13.5px );
-            -webkit-backdrop-filter: blur( 13.5px );
-            border-radius: 10px;
-            border: 1px solid rgba( 255, 255, 255, 0.18 );
-            width: 500px;
-            height: 350px;
-            position: relative;
-            top: -100px;
-            padding: 10px;
-        }
-        .modal_btn-area{
-            text-align: center;
-            padding-right: 25px;
-        }
-       
-        .profile_table input{
-            width: 150px;
-            margin-left: 50px;
-        }
+      }
+      .modal_container{
+          background-color: rgb(251, 246, 240);
+          display: flex;
+          justify-content: space-evenly;
+          align-items: flex-start;
+          padding: 10px;
         
-        #modal_profile_img{
-	    	width: 100%;
-	    	height: 100%;
-	   		object-fit: cover;
-	   		margin: 0 auto;
-    	}
-    	.member_table>tbody>tr:hover{
-    		cursor:pointer;
-    	}
-    	.close:hover{
-    		cursor:pointer;
-    	}
+      }
+      .modal_profile{
+          text-align: center;
+      }
+      .modal_profile_img{
+          width: 60px;
+          height: 60px;
+          border-radius: 100%;
+          margin: 0 auto;
+          overflow: hidden;
+      }
+      #modal.modal-overlay {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          display: none;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.25);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+          backdrop-filter: blur(1.5px);
+          -webkit-backdrop-filter: blur(1.5px);
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+      #modal .modal-window {
+          background:   rgb(251, 246, 240);
+          box-shadow: 0 8px 32px 0 rgba(133, 133, 134, 0.37);
+          backdrop-filter: blur( 13.5px );
+          -webkit-backdrop-filter: blur( 13.5px );
+          border-radius: 10px;
+          border: 1px solid rgba( 255, 255, 255, 0.18 );
+          width: 500px;
+          height: 350px;
+          position: relative;
+          top: -100px;
+          padding: 10px;
+      }
+      .modal_btn-area{
+          text-align: center;
+          padding-right: 25px;
+      }
+     
+    .profile_table input{
+         width: 150px;
+         margin-left: 50px;
+     }
+      
+    #modal_profile_img{
+	   	width: 100%;
+	   	height: 100%;
+  		object-fit: cover;
+  		margin: 0 auto;
+  	}
+  	.member_table>tbody>tr:hover{
+  		cursor:pointer;
+  	}
+  	.close:hover{
+  		cursor:pointer;
+  	}
 
 </style>
 </head>
@@ -129,29 +111,29 @@
 
         <main id="container">
             <div class="container">
-                <div class="item">
-                    <h2 class="master_member_title" style="text-align: center;">회원관리</h2>
-                    <table class="member_table">
+                <div class="item mt-3" style="width:1000px;">
+                    <h2 class="master_member_title">회원관리</h2>
+                    <table class="member_table table table-hover">
                         <thead>
-                            <tr style="background-color: rgb(190, 187, 187);">
-                                <th width="100px">아이디</th>
-                                <th width="100px">이름</th>
-                                <th width="100px">닉네임</th>
-                                <th width="150px">가입날짜</th>
-                                <th width="100px">회원상태</th>
+                            <tr>
+                                <th scope="col">아이디</th>
+                                <th scope="col">이름</th>
+                                <th scope="col">닉네임</th>
+                                <th scope="col">가입날짜</th>
+                                <th scope="col">회원상태</th>
                             </tr>
                         </thead>
                         <tbody>
                         	<c:choose>
                         		<c:when test="${ empty list }">
                         			<tr>
-                            			<td colspan="5">조회된 리스트가 없습니다.</td>
+                            			<td scope="row" colspan="5">조회된 리스트가 없습니다.</td>
                             		</tr>
                         		</c:when>
                         		<c:otherwise>
                         			<c:forEach var="m" items="${ requestScope.list }" varStatus="status">
 	                        			<tr>
-	                            			<td>${ m.userId }</td>
+	                            			<td scope="row">${ m.userId }</td>
 	                            			<td>${ m.userName }</td>
 	                            			<td>${ m.userNickname }</td>
 	                            			<td>${ m.enrollDate }</td>
@@ -201,15 +183,24 @@
 	        				$("#listUserName").val(result.userName);
 	        				if((result.status) == 1){
 	        					$("#listUserStatus").val("가입");
+	        					$("#approveBtn").attr("disabled","disabled");
+	        					$("#refuseBtn").attr("disabled","disabled");
+	        					$("#quitBtn").removeAttr("disabled","disabled");
 	        				}else if((result.status) == 2){
 	        					$("#listUserStatus").val("탈퇴");
+	        					$("#quitBtn").attr("disabled","disabled");
+	        					$("#approveBtn").attr("disabled","disabled");
+	        					$("#refuseBtn").attr("disabled","disabled");
 	        				}else if((result.status) == 3){
 	        					$("#listUserStatus").val("대기");
+	        					$("#quitBtn").attr("disabled","disabled");
+	        					$("#approveBtn").removeAttr("disabled","disabled");
+	        					$("#refuseBtn").removeAttr("disabled","disabled");
 	        				}else if((result.status) == 4){
 	        					$("#listUserStatus").val("거절");
 	        				}
 	        				$("#listUserId").val(result.userId);
-	        				$("#lsitAddress").val(result.address);
+	        				$("#listAddress").val(result.address);
 	        				if((result.pet) == "dog" ){
 	        					$("#listUserPet").val("강아지");
 	        				}else if((result.pet) == "cat"){
@@ -270,9 +261,9 @@
 		                        </table>
 		                        <br>
 		                        <div class="modal_btn-area">
-		                            <button type="submit" name ="status" value="2" class="btn btn-primary btn-sm" >회원탈퇴</button>
-		                            <button type="submit" name ="status" value="1" class="btn btn-primary btn-sm">가입승인</button>
-		                            <button type="submit" name ="status" value="4" class="btn btn-primary btn-sm">가입거절</button>
+		                            <button type="submit" name ="status" value="2" class="btn btn-primary btn-sm" id="quitBtn">회원탈퇴</button>
+		                            <button type="submit" name ="status" value="1" class="btn btn-primary btn-sm" id="approveBtn">가입승인</button>
+		                            <button type="submit" name ="status" value="4" class="btn btn-primary btn-sm" id="refuseBtn">가입거절</button>
 		                        </div>
 	                        </form>
                         </div>

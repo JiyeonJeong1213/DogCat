@@ -9,94 +9,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<style>
-		body {
-			background-color: #f2f2f2;
-			font-family: Arial, sans-serif;
-		}
-		
-		.all {
-			width: 1350px;
-			margin: 0 auto;
-        }
-        
-		.search_Pwd_Container {
-			padding: 30px;
-			background-color: #fff;
-			border-radius: 5px;
-			box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-			max-width: 500px;
-            margin-left: 404px;
-		}
-		h1 {
-			font-size: 24px;
-			margin: 0 0 20px;
-			text-align: start;
-		}
-		label {
-			display: block;
-			margin-bottom: 10px;
-			font-weight: bold;
-		}
-		input[type="text"], input[type="password"] {
-			padding: 10px;
-			border-radius: 5px;
-			border: 1px solid rgba(224, 224, 224, 0.34);
-			width: 95%;
-			margin-bottom: 20px;
-            background-color: rgba(224, 224, 224, 0.34);
-		}
-		
-		#btnLogin{
-			background-color: rgba(52, 152, 219, 0.84); /* 파란색 */
-			border: none;
-			color: #fff;
-			padding: 12px 20px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			border-radius: 5px;
-			cursor: pointer;
-			transition: background-color 0.3s;
-            width: 100%;
-		}
-		
-		button {
-			background-color: rgba(52, 152, 219, 0.84); /* 파란색 */
-			border: none;
-			color: #fff;
-			padding: 12px 20px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			border-radius: 5px;
-			cursor: pointer;
-			transition: background-color 0.3s;
-            width: 40%;
-		}
+<link href="<%= contextPath %>/resources/css/member/pwdsearch.css" rel="stylesheet" type="text/css">
+<script src="<%= contextPath %>/resources/js/member/link.js"></script>
+<title>비밀번호 찾기</title>
 
-        .search_logo{
-            margin-left: 536px;
-            width: 300px;
-            margin-bottom: 50px;
-        }
-
-		input:focus {
-            outline: none;
-        }
-        
-        .found-login{
-        	display: flex;
-        	justify-content: space-around;
-        }
-	</style>
 </head>
-<body>
-<div class="all">
+<body class="all">
+<div class="search_Pwd_all">
 	<div class="search_logo">
     <a href="<%= contextPath %>"><img src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/logo.png" height="200" width="300" alt="">
     </a>
@@ -133,15 +53,4 @@ else {
 	</div>
 </div>
 </body>
-<script>
-	function goLogin() {
-		var link = '<%= contextPath %>/login.me';
-		location.href = link;
-	}
-	
-	function goEnroll() {
-		var link = '<%=contextPath%>/views/member/memberEnroll.jsp';
-			location.href = link;
-	}
-</script>
 </html>

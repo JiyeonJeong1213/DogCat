@@ -25,7 +25,49 @@
 	
 	<entry key="selectMember">
 		SELECT M.*, SPECIES FROM MEMBER M
+		JOIN PET P ON(M.USER_NO = P.USER_NO)
+		WHERE USER_ID = ?
+		 AND STATUS = 1
+	</entry>
+	
+	<entry key="idCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="insertProfileImg">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_MNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE, STATUS)
+		VALUES(SEQ_FNO.NEXTVAL, ?,?,?,?,SYSDATE,'Y')
+	</entry>
+	
+	<entry key="selectProfileImg">
+		SELECT REF_MNO, FILE_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH
+		FROM ATTACHMENT
+		WHERE REF_MNO = ? AND REF_BNO IS NULL
+		ORDER BY FILE_NO DESC
+	</entry>
+	
+	<entry key="selectMemberList">
+		SELECT M.*, SPECIES FROM MEMBER M
 		LEFT JOIN PET P ON(M.USER_NO = P.USER_NO)
+	</entry>
+	
+	<entry key="memberListImg">
+		SELECT FILE_PATH, CHANGE_NAME, REF_MNO
+		            FROM ATTACHMENT
+		            WHERE REF_MNO = (
+		                SELECT USER_NO
+		                FROM MEMBER
+		                WHERE USER_ID = ?
+		            ) AND ROWNUM = '1'
+		            ORDER BY FILE_NO DESC
+	</entry>
+	
+	<entry key="updateStatusM">
+		UPDATE MEMBER
+		SET STATUS = ?,
+			MODIFY_DATE = SYSDATE 
 		WHERE USER_ID = ?
 	</entry>
 	
@@ -70,19 +112,11 @@
 		WHERE USER_ID = ?
 	</entry>
 	
-	<entry key="myPageBoardList">
-		SELECT BOARD_NO, BOARD_TITLE, USER_NICKNAME, CREATE_DATE, COUNT
-		FROM BOARD B
-		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
-		WHERE BOARD_WRITER = ? AND B.STATUS = 'Y'
-		ORDER BY CREATE_DATE DESC
+	<entry key="memberListDetail">
+		SELECT M.*, SPECIES 
+		FROM MEMBER M
+		LEFT JOIN PET P ON(M.USER_NO = P.USER_NO)
+		WHERE USER_ID = ?
 	</entry>
 	
-	<entry key="myPageChatList">
-  	  SELECT CR_NO, CR_NAME, USER_NICKNAME, CREATE_DATE
-      FROM CHATROOM C
-      JOIN MEMBER M ON(C.BUYER = M.USER_NO)
-      WHERE SELLER = ?  AND C.STATUS='Y'
-      ORDER BY CREATE_DATE DESC
-	</entry>
 </properties>

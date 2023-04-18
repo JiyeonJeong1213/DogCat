@@ -12,6 +12,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.board.model.vo.Board;
+import com.kh.common.model.vo.PageInfo;
 
 public class NoticeDao {
 	
@@ -33,7 +34,7 @@ public class NoticeDao {
 		
 	}
 	
-	public ArrayList<Board> selectNoticeList(Connection conn){
+	public ArrayList<Board> selectNoticeList(Connection conn, PageInfo pi){
 		
 		ArrayList<Board> list = new ArrayList<>();
 		
@@ -45,6 +46,12 @@ public class NoticeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() -1) * pi.getBoardLimit()+1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -64,11 +71,39 @@ public class NoticeDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
 		return list;
 	}
-
+	
+	
+	public int selectNoticeListCount(Connection conn) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectNoticeListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	
+	
+	
 	public int insertNotice(Connection conn, Board b) {
 		
 		int result = 0;
@@ -226,4 +261,75 @@ public class NoticeDao {
 		
 		return result;
 	}
+	
+	public ArrayList<Board> selectMainNotice(Connection conn){
+		
+		ArrayList<Board> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMainNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setCreateDate(rset.getDate("CREATE_DATE"));
+				
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<Board> selectMainBoard(Connection conn){
+		
+		ArrayList<Board> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMainBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setBoardWriter(rset.getString("USER_NICKNAME"));
+				
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	
+	
+	
 }
