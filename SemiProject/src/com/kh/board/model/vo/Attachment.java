@@ -85,4 +85,12 @@ public class Attachment {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	@Override
+	public String toString() {
+		return "Attachment [fileNo=" + fileNo + ", refBno=" + refBno + ", ref_Mno=" + ref_Mno + ", originName="
+				+ originName + ", changeName=" + changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate
+				+ ", fileLevel=" + fileLevel + ", status=" + status + "]";
+	}
+	
+	
 }

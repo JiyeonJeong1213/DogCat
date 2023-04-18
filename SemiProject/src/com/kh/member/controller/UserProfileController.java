@@ -21,16 +21,16 @@ import com.kh.pet.model.vo.Pet;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class AdminProfileController
+ * Servlet implementation class UserProfileController
  */
-@WebServlet("/adminProfile")
-public class AdminProfileController extends HttpServlet {
+@WebServlet("/userprofileupdate")
+public class UserProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminProfileController() {
+    public UserProfileController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,14 +49,18 @@ public class AdminProfileController extends HttpServlet {
 			loginUser.setFileName(at.getFilePath() + at.getChangeName());
 		}
 		
-		request.getRequestDispatcher("views/admin/adminProfile.jsp").forward(request, response);
+		request.getRequestDispatcher("views/member/Mypage.jsp").forward(request, response);
 	}
+		
+		
+		
+		
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			int maxSize = 10*1024*1024;
@@ -65,64 +69,31 @@ public class AdminProfileController extends HttpServlet {
 			
 			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+			HttpSession session = request.getSession();
+			
+			Member loginUser = (Member) session.getAttribute("loginUser");
 			String key = "file";
 			int userNo = Integer.parseInt(multi.getParameter("userNo"));
-			String userName = multi.getParameter("userName");
-			String userNickname = multi.getParameter("userNickname");
-			String userId = multi.getParameter("userId");
-			String email = multi.getParameter("email");
-			String address = multi.getParameter("address");
-			String pet = multi.getParameter("pet");
 			String fileName = multi.getParameter("fileName");
-			String userPwd = "";
-			if(multi.getParameter("newPwd").equals("")) {
-				userPwd = multi.getParameter("originPwd");
-			}else {
-				userPwd = multi.getParameter("newPwd");
-			}
-			
-			Member m = new Member();
-			m.setUserName(userName);
-			m.setUserNickname(userNickname);
-			m.setUserId(userId);
-			m.setEmail(email);
-			m.setAddress(address);
-			m.setUserPwd(userPwd);
-			
-			Pet p = new Pet();
-			p.setUserNo(userNo);
-			p.setSpecies(pet);
-			
-			Pet updatePet = new PetService().updatePet(p);
-			Member updateMem = new MemberService().updateMember(m);
-			
-			int result = 1;
+	
 			Attachment at = new Attachment();
 			at.setOriginName(multi.getOriginalFileName(key));
 			at.setChangeName(multi.getFilesystemName(key));
 			at.setFilePath("/resources/profile_upfiles/");
 			
-			if(multi.getOriginalFileName(key) != null) {
-				result = new MemberService().insertProfileImg(userNo, at);
-				updateMem.setFileName(at.getFilePath()+at.getChangeName());
-			} else {
-				updateMem.setFileName(fileName);
-			}
+			int result = new MemberService().insertProfileImg(userNo,at);
 			
-			if(result > 0) {
+			if(result>0) {
+				loginUser.setFileName(at.getFilePath()+at.getChangeName());
 				
-				HttpSession session = request.getSession();
-				session.setAttribute("loginUser", updateMem);
-				session.setAttribute("pet", updatePet);
-				
-				request.getRequestDispatcher("views/admin/adminProfile.jsp").forward(request, response);
-				
+				session.setAttribute("loginUser", loginUser);
+				request.getRequestDispatcher("views/member/Mypage.jsp").forward(request, response);
 			} else {
-				
-				request.setAttribute("errorMsg", "관리자정보 수정 실패");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				loginUser.setFileName(fileName);
 			}
+	
 		}
 	}
+	}
 
-}
+

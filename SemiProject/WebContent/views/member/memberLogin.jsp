@@ -150,7 +150,7 @@
                     <label for="remember-check">
                         <input type="checkbox" id="remember-check" > 아이디 저장
                     </label>
-                    <input type="submit" onclick="submitLogin();" value="로그인" >
+                    <a href="<%=contextPath%>/Mypage.me"><input type="submit" onclick="submitLogin();" value="로그인" ></a>
 
                 <div class="separator"></div>
                 
