@@ -1,16 +1,16 @@
 <%@ page import="com.kh.board.mateboard.model.vo.Board, com.kh.board.model.vo.Attachment, com.kh.member.model.vo.Member, java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%
 	Board b = (Board)request.getAttribute("b");
 	ArrayList<Attachment> atList = (ArrayList<Attachment>)request.getAttribute("atList");
-	Member loginUser =  (Member)session.getAttribute("loginUser");
-	String contextPath = (String)request.getContextPath();
-	
+
 	String address= b.getAddress();
 	int index = address.indexOf(",");
 	String address1 = address.substring(0, index);
 	String address2 = address.substring(index+1);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +21,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
-
+	
+	<%@ include file="../../common/menubar.jsp" %>
 	
 	 <div class="wrap">
       	 <div class="content1">
@@ -81,8 +82,8 @@
 
             <img src="<%=contextPath %>/resources/메이트소개글쓰기.png" height="65">
             <div class="write-content">
-             <div class="write-info"><span> 한 줄 소개글 : </span> <input type="text" placeholder="산책메이트를 위한 한 줄 소개글을 입력해주세요" size="140"></div>
-             <textarea class="walk" cols="168" rows="15" style="resize:none;" name="content" ><%=b.getBoardContent()%></textarea>
+             <div class="write-info"><span> 한 줄 소개글 : </span> <input type="text" placeholder="산책메이트를 위한 한 줄 소개글을 입력해주세요" size="140" name="content1"></div>
+             <textarea class="walk" cols="168" rows="15" style="resize:none;" name="content" ><%=b.getBoardContent() %></textarea>
             </div>
            
             <img src="<%=contextPath %>/resources/메이트 위치 정하기.png" height="68">
@@ -97,17 +98,30 @@
                 <div class="items">
                   <div class="item active">
                     <div class="picture">
-                    	<%if(atList != null){ %>
+               <%--      	<%if(atList != null){ %>
 							<%for(Attachment a : atList){ %>
 								<img src="<%=contextPath +a.getFilePath()+a.getChangeName()%>">
 							<%} %>
 						<%} %>
+						 --%>
+						<c:if test="${!empty requestScope.atList }">
+						 	<c:forEach var="a" items="${requestScope.atList }" varStatus="status">
+						 		<img src="<%=contextPath %>${a.changeName}${a.filePath }">
+						 	</c:forEach>
+						</c:if>
                     </div>
                   </div>
                 </div>
                <div class="next btn-pic"></div>
             </div>
             <input type="file" id="file" accept="image/*" onchange="loadImg(this);" name="file" multiple/>
+           <c:if test="${!empty requestScope.atList }"> <!-- 원래 파일이 있었을 경우 -->
+            	<c:forEach var="a" items="${requestScope.atList }" varStatus="status">
+            		<input type="hidden" name="originFileNo${status.index }" value="${a.fileNo}">
+            		<input type="hidden" name="changeFileName${status.index }" value="${a.changeName}" multiple>
+            	</c:forEach>
+            </c:if>
+           
             <br>
             <div class="block" style="height: 10px;"></div>
             
@@ -223,8 +237,8 @@
 	        function loadImg(inputFile) {
 	          	// inputFile : 현재 변화가 생긴 input type="file"요소
 	          	//console.log(inputFile.files.length);
-	          	
-	    		let fileLength = inputFile.files.length;
+		        	  	
+	        	$(".picture").empty();     
 	    	
 	          	if(inputFile.files.length != 0){
 	          		// 선택된 파일이 존재할 경우에 선택된 파일들을 읽어들여서 미리보기 생성
@@ -274,7 +288,7 @@
             	
 				$.each($("#file")[0].files, function(index, item){
 					form.append("file"+index, item);
-				})
+				});
 				
 				form.append("title",title);
 				form.append("content", content);
@@ -292,13 +306,15 @@
 					contentType:false,
 					success :function(data){
 						console.log("업데이트성공");
+						console.log(data);
 						location.href="<%=contextPath%>/detail.mate?bno="+bno;
 					}
 				})
 				
 			}
 		</script>
-
+	
+	<%@ include file="../../common/footer.jsp" %>
 
 </body>
 </html>

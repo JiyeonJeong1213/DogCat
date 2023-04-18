@@ -113,39 +113,11 @@ public class mateBoardDao {
 		
 	}
 	
-	public Attachment selectMateProfile(Connection conn, int boardWriter) {
-		Attachment at = new Attachment();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		System.out.println(at);
-		String sql = prop.getProperty("seleteMateProfile");
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, boardWriter);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				at.setRef_Mno(rset.getInt("REF_MNO"));
-				at.setFileNo(rset.getInt("FILE_NO"));
-				at.setOriginName(rset.getString("ORIGIN_NAME"));
-				at.setChangeName(rset.getString("CHANGE_NAME"));
-				at.setFilePath(rset.getString("FILE_PATH"));
-				at.setBoardNo(rset.getInt("BOARD_NO"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}return at;
-		
-	}
-	
 	public int insertMateBoard(Connection conn, Board b) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
-		System.out.println(b);
+		
 		
 		String sql = prop.getProperty("insertMateBoard");
 		
@@ -171,19 +143,12 @@ public class mateBoardDao {
 	}
 	
 	public int insertAttachment(Connection conn, ArrayList<Attachment> atList) {
-		
-		
 		int result = 1;
-		
 		PreparedStatement pstmt = null;
-		
 		String sql = prop.getProperty("insertAttachment");
 		
-		
 		try {
-		
 			pstmt = conn.prepareStatement(sql);
-			
 			for(Attachment atImg : atList) {
 				pstmt.setString(1, atImg.getOriginName());
 				pstmt.setString(2, atImg.getChangeName());
@@ -192,18 +157,12 @@ public class mateBoardDao {
 				
 				result *= pstmt.executeUpdate();
 			}
-				
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
-		
-		
 		return result;
-		
-		
 	}
 	
 	public int increaseCount(Connection conn, int boardNo) {
@@ -225,8 +184,6 @@ public class mateBoardDao {
 		}finally {
 			close(pstmt);
 		}return result;
-		
-		
 	}
 	
 	
@@ -273,11 +230,8 @@ public class mateBoardDao {
 		
 		try {
 			pstmt =conn.prepareStatement(sql);
-			
 			pstmt.setInt(1, boardNo);
-			
 			rset = pstmt.executeQuery();
-			
 			while(rset.next()) {
 			Attachment atImg = new Attachment();
 				atImg.setRefBno(rset.getInt("REF_BNO"));
@@ -602,37 +556,34 @@ public class mateBoardDao {
 		return result;
 	}
 	
-	public ArrayList<Board> searchMateList(Connection conn, String searchType, String address, String searchText){
+	public ArrayList<Board> searchMateList(Connection conn, String address){
 		ArrayList<Board> list= new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("searchMateList");
 		
-		String type= "";
-		
-		switch(searchType){
-		case "1" : type = "BOARD_TITLE"; break;
-		case "2" : type="BOARD_CONTENT"; break;
-		case "3" : type="USER_ID"; break;
-		default : type= "BOARD_TITLE";
-		}
-		
-		sql = sql.replace("@", type);
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, "ADDRESS");
-			pstmt.setString(2, "%"+searchText+"%");
-			
+			pstmt.setString(1, address);
+					
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Board b=new Board();
-				b.setAddress(rset.getString(1));
-				b.setBoardContent(rset.getString(2));
+				Board b = new Board();
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));
+				b.setBoardWriter(rset.getString("USER_NICKNAME"));
+				b.setCount(rset.getInt("COUNT"));
+				b.setCreateDate(rset.getDate("CREATE_DATE"));
+				b.setAddress(rset.getString("ADDRESS"));
+				b.setLcount(rset.getInt("B_LIKE"));
+				
 				list.add(b);
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
