@@ -21,15 +21,36 @@
 		    MODIFY_DATE = SYSDATE
 		WHERE USER_ID = ?
 	</entry>
-
 	
+	<entry key="updateUser">
+		UPDATE MEMBER
+		SET USER_PWD = ?,
+		    ADDRESS = ?,
+		    STATUS = 1,
+		    MODIFY_DATE = SYSDATE
+		WHERE USER_ID =?
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE MEMBER SET
+		STATUS = '2' ,
+		MODIFY_DATE = SYSDATE
+		WHERE USER_ID = ?
+		  AND USER_PWD = ?
+	</entry>
+
 	<entry key="selectMember">
 		SELECT M.*, SPECIES FROM MEMBER M
 		JOIN PET P ON(M.USER_NO = P.USER_NO)
 		WHERE USER_ID = ?
 		 AND STATUS = 1
 	</entry>
-	
+	<entry key="selectUser">
+		SELECT M.*, SPECIES FROM MEMBER M
+		JOIN PET P ON(M.USER_NO = P.USER_NO)
+		WHERE USER_ID = ?
+		 AND STATUS = 1
+	</entry>
 	<entry key="idCheck">
 		SELECT COUNT(*)
 		FROM MEMBER
@@ -117,6 +138,45 @@
 		FROM MEMBER M
 		LEFT JOIN PET P ON(M.USER_NO = P.USER_NO)
 		WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="myPageBoardList">
+		SELECT BOARD_NO, BOARD_TITLE, USER_NICKNAME, CREATE_DATE, COUNT
+		FROM BOARD B
+		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
+		WHERE BOARD_WRITER = ? AND B.STATUS = 'Y'
+		ORDER BY CREATE_DATE DESC
+	</entry> 
+	
+	<entry key="myPageMBoardList">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_TYPE, USER_NICKNAME, CREATE_DATE
+		FROM BOARD B
+		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
+		WHERE BOARD_WRITER = ? AND BOARD_TYPE = 1
+		ORDER BY CREATE_DATE DESC
+	</entry> 
+	
+	<entry key="myPageChatList">
+  	  SELECT CR_NO, CR_NAME, USER_NICKNAME, CREATE_DATE
+      FROM CHATROOM C
+      JOIN MEMBER M ON(C.BUYER = M.USER_NO)
+      WHERE SELLER = ?  AND C.STATUS='Y'
+      ORDER BY CREATE_DATE DESC
+	</entry>
+	
+	<entry key="mySaveList">
+  	  SELECT S.USER_NO, B.BOARD_NO, B.BOARD_TITLE, B.SALE, B.BOARD_CONTENT
+		FROM SAVE S
+		JOIN BOARD B ON(S.USER_NO = B.BOARD_WRITER)
+		WHERE USER_NO = ? AND BOARD_TYPE = 3
+	</entry>
+	
+	<entry key="myReplyList">
+  	  SELECT REPLY_NO, REF_BNO, REPLY_WRITER, REPLY_CONTENT, CREATE_DATE
+		FROM REPLY R
+		JOIN MEMBER M ON(M.USER_NO = R.REPLY_WRITER)
+		WHERE USER_NO = ? AND R.STATUS='Y'
+		ORDER BY CREATE_DATE DESC
 	</entry>
 	
 </properties>

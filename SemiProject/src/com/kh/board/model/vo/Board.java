@@ -17,6 +17,8 @@ public class Board {
 	private double latitude; //	LATITUDE
 	private double longitude; //	LONGITUDE
 	private String status; //	STATUS
+	private int likeCount;
+	private Attachment at;
 	
 	public Board() {
 		super();

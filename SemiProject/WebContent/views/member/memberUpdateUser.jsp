@@ -2,10 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%
-   String contextPath = request.getContextPath();
-   Member loginUser = (Member) session.getAttribute("loginUser");
-   //String fileName = loginUser.getFileName();
-   
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -36,48 +33,15 @@
    
 </head>
 <style>
-* {
-   font-family: 'Noto Sans KR', sans-serif;
-}
 
-.nav-area {
-   background-color: #E6F2FF;
-   align-items: center;
-   margin: auto;
-}
-
-.menu {
-   display: table-cell;
-   height: 80px;
-   width: 250px;
-}
-
-#nav {
-   color: #FFD133;
-   font-size: 20px;
-}
-
-.menu a:hover {
-   font-weight: bold;
-}
-
-.logo {
+.Updateuser{
    display: flex;
    justify-content: center;
-}
-
-.mypage {
    margin-top: 50px;
-   height: 15%;
-   display:flex;
-   justify-content: center
 }
 
-.mypage>h1 {
-   text-align: center;
-   height: 20%;
-   margin-top: 20px;
-   /* font-size: 20px; */
+.Updateuser>h1{
+   font-weight: 900;
 }
 
 #board {
@@ -93,14 +57,15 @@
    /* margin-left: 120px; */
 }
 
-.content_2, .content_4, .content_5 {
+.content_2{
    width: 60%;
    height: 15rem;
-   border: 1px solid black;
+   border: 0px solid black;
 }
 
+
 .myprofile_img {
-   border: 1px solid black;
+   border: 0px solid black;
    height: 10rem;
    width: 30%;
    display: flex;
@@ -110,24 +75,12 @@
    border-bottom-left-radius: 30px;
 }
 
-.myprofile {
-   width: 50%;
-   height: 10rem;
-   border: 1px solid black;
-   border-top-right-radius: 30px;
-   border-bottom-right-radius: 30px;
-}
-
 .img {
-   width: 60%;
-   height: 10rem;
-   /* border: 0px solid black; */
-   border-radius: 55%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
+   width: 200px;
+   height: 195px;
+   border-radius: 50%;
    background-color: rgba(52, 152, 219, 0.52);
-   margin: 20px;
+   margin-left: 900px;
 }
 
 #profilechange, #rset {
@@ -149,25 +102,14 @@ button:hover {
    margin: 0px 0px 0px 115px; 
 }
 
-#span1 {
-   border: 1px solid black;
-   width: 350px;
-   margin-right: 0px;
-}
-
 #tt {
    background-color:  rgb(230, 242, 255);
 }
 
 #bb {
    background-color: white;
-   width: 500px;
+   width: 400px;
    padding-left: 30px;
-}
-
-table td {
-   height: 60px;
-   align: center;
 }
 
 #btn {
@@ -189,222 +131,340 @@ table td {
    margin-top: 10px;
 }
 
-.table {
-   margin-bottom: 140px;
-   border:2px solid gray;
 
+
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: inherit;
+    border-top: 1px solid #dee2e6;
 }
-
-/* @font-face {
-   font-family: 'yg-jalnan';
-   src:
-      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
-      format('woff');
-   font-weight: normal;
-   font-style: normal;
-} */
 
 .btn-div {
    display: flex;
-   justify-content: center;
+   flex-direction: row;
+   align-items: center;
+   flex-wrap: wrap;
+   justify-content: space-evenly;
+   margin-left: 50px;
+   margin-top: 50px;
+   
+}
+
+#updatebtn, #backbtn, #deletebtn {
+   height: 40px;
+   padding: 5px 10px;
+   border-radius: 15px;
+   text-align: center;
+   width: 120px;
+   border: 3px solid #FFD133;
+   color: #FFD133;
+   margin-right: 30px;
 }
 
 .update {
    margin-right: 50px;
 }
 
-
-.footer {
-   margin-bottom: 30px;
-}
-
-.footer>div {
-   display: inline-block;
-   vertical-align: middle;
-   color: rgb(158, 158, 158);
-   margin: 10px;
-}
-
-.footer2>div>li, .footer4>div>li {
-   list-style-type: none;
-   display: inline;
+/*alert창*/
+.alert {
+   background-color: rgba(249, 219, 99, 0.4);
+   padding: 20px;
+   border: 1px solid black;
+   width: 500px;
    margin: auto;
-   text-decoration: none;
+   margin-top: -300px;
+   text-align: center;
+   font-size: 20px;
+   font-weight: bold;
+   box-shadow: 5px 5px 5px grey;
+   color: black;
+   z-index:1;
+   display:none;
+}
+.last-alert {
+   background-color: rgba(249, 219, 99, 0.4);
+   padding: 20px;
+   border: 1px solid black;
+   width: 500px;
+   margin: auto;
+   margin-top: -300px;
+   text-align: center;
+   font-size: 20px;
+   font-weight: bold;
+   box-shadow: 5px 5px 5px grey;
+   color: black;
+   position:relative;
+   z-index:1;
+   display:none;
 }
 
-.footer4 {
-   float: right;
-   margin: 30px;
+/* 버튼 스타일 */
+.alert-btn{
+   margin-top: 5px; /* 버튼 간격 조정 */
+   margin-right: 70px; /* 버튼 간격 조정 */
+   margin-left: 70px;
+   padding: 10px;
+   border-radius: 10px;
+   background-color: rgba(52, 152, 219, 0.84);
+   color: black;
+   font-size: 15px;
+   border: none;
+   cursor: pointer;
 }
 
-.footer2>div>li a {
-   color: rgb(158, 158, 158);
-   padding-right: 20px;
+.alert-btn:hover {
+   background-color: gray;
 }
 
-.footer4>div>li a {
-   padding-right: 9px;
+#profileImg {
+   width: 80%;
+    height: 90%;
+    object-fit: cover;
+    margin-left: 17px;
+    margin-top: 10px;
 }
+
+#userIdlabel{
+   margin-left:145px;
+}
+
+#userNicknamelabel{
+	margin-left:145px;
+}
+
+#email{
+	margin-left:20px;
+}
+
+
 </style>
 <body>
-
-<% 		
-		String userId = loginUser.getUserId();
-		String userName = loginUser.getUserName();
-		String userNickname = loginUser.getUserNickname();
-		String userPwd = loginUser.getUserPwd();
-		String phone = loginUser.getPhone();
-		String email = loginUser.getEmail();
-		String address = loginUser.getAddress();
-		int userNo =  loginUser.getUserNo();
-		String userPet = loginUser.getPet();
+<%@ include file="../common/menubar.jsp" %>
+<%       
+      String userId = loginUser.getUserId();
+      String userName = loginUser.getUserName();
+      String userNickname = loginUser.getUserNickname();
+      String userPwd = loginUser.getUserPwd();
+      String phone = loginUser.getPhone();
+      String email = loginUser.getEmail();
+      String address = loginUser.getAddress();
+      int userNo =  loginUser.getUserNo();
+      String userPet = loginUser.getPet();
 %>
+  <div class="Updateuser">
+     <h1 style="color: cornflowerblue; font-size: 60px;" onclick="">바꾸개냥?</h1>
+     <img src="<%=contextPath %>/resources/돋보기.png" width="50px" height="50px">
+</div>
 
+<div class="content">
 
-   <div class="login-area">
-      <ul class="nav justify-content-end">
-         <li class="nav-item"><a class="nav-link active"
-            aria-current="page" href="#">로그인</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">회원가입</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">공지사항</a></li>
-         <li class="nav-item"><a class="nav-link disabled">이용규칙</a></li>
-      </ul>
-   </div>
+   <form action="<%= contextPath%>/userprofileupdate" method="post"
+      enctype="multipart/form-data">
 
-   <div class="logo">
-      <a href=""><img src="또오개냥/logo.png" width="200px"></a>
-   </div>
-
-
-
-   <div class="nav-area">
-      <ul class="nav justify-content-center">
-         <li class="nav-item"><a class="nav-link active" id="nav"
-            aria-current="page" href="#">같이걷개</a></li>
-         <li class="nav-item"><a class="nav-link" id="nav" href="#">멍냥수다</a>
-         </li>
-         <li class="nav-item"><a class="nav-link" id="nav" href="#">나눔&거래</a>
-         </li>
-         <li class="nav-item"><a class="nav-link disabled" id="nav"
-            style="color: gray;">대빵용</a></li>
-      </ul>
-   </div>
-
-   <div class="mypage">
-      <img src="resources/mypageUpdate.png" width="50px" height="50px">
-      <h1 style="font-size: 3rem; color:gray;">정보 수정</h1>
-   </div>
-
-   <div class="content">
       <div class="content_2">
          <div class="myprofile_img">
+            <input type="hidden" name="userNo"
+               value="<%= loginUser.getUserNo() %>">
             <div class="img">
-               <img src="또오개냥/프로필 사진.png" style="height: 70px;">
+               <%if(loginUser.getFileName() != null){ %>
+               <img id="profileImg" src="<%=request.getContextPath() %>/<%=loginUser.getFileName() %>">
+               <%}else{ %>
+               <img id="profileImg" src="<%=request.getContextPath() %>/resources/profile_basic.png">
+               <%} %>
             </div>
          </div>
-         <div class="myprofile">
-            <input type="submit" value="프로필 수정" id="profilechange">
-            <input type="reset" value="기본이미지 변경" id="rset"> <br>
-
-         </div>
       </div>
+   </form>   
       <div class="content_3">
          <form action="<%=contextPath %>/updateuser.me" method="post">
             <div class="user">
                <div class="ID" id="ID">
-                  <table class="table" border="1">
+                  <table class="table" border="2">
                      <tbody id="tt">
                         <tr>
                            <td align="center" width="345">ID</td>
-                           <td id="bb"><input type="text" name="userId" value="<%= userId %>">
-                           <!--<label style="font-size: x-small;">※ 아이디 변경 불가</label> --></td>
+                           <td id="bb" ><input type="text" name="userId" value="<%=userId %>" readonly>
+                           <label style="font-size: x-small;" id="userIdlabel">※ 아이디 변경 불가</label></td>
                         </tr>
                         <tr>
-	                  		<input type="hidden" name="userName" value="<%= userName %>">
+                           <input type="hidden" name="userName" value="<%= userName %>">
                            <td align="center">닉네임</td>
-                           <td id="bb"><input type="text" name="userNickname" value="<%= userNickname %>">
-                           <!--<label style="font-size: x-small;">※ 닉네임 변경 불가</label> --></td>
+                           <td id="bb"><!--<input type="text" name="userNickname" value="--><%= userNickname %>
+                           <label style="font-size: x-small;" id="userNicknamelabel">※ 닉네임 변경 불가</label></td>
                         </tr>
                         <tr>
-                           <td align="center">신규비밀번호</td>
-                           <td id="bb"><input type="text" name="userPwd"></td>
-                        </tr>
-                        <tr>
-                           <td align="center">신규비밀번호 확인</td>
-                           <td id="bb"><input type="text"></td>
-                        </tr>
+                    <td align="center" style="vertical-align: inherit;">신규비밀번호</td>
+                    <td id="bb">
+                      <input type="password" name="userPwd" id="userPwd" required onkeyup="checkPassword()"><br>
+                      <label style="font-size: x-small;">※ 비밀번호는 8~20자 영문 대소문자, 숫자, 특수문자 혼합해서 입력해 주시기 바랍니다.</label>
+                      <p id="passwordError" style="color: red;"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center">신규비밀번호 확인</td>
+                    <td id="bb">
+                      <input type="password" name="pw_check"id="pw_check" required><br>
+                      <p id="passwordMatchError" style="color: red;"></p>
+                    </td>
+                  </tr>
                         <tr>
                            <td align="center">이메일</td>
-                           <td id="bb"><input type="text" name="email" value="<%= email%>">
-                           <label style="font-size: x-small;">※ 이메일 변경 불가</label></td>
+                           <td id="bb"><!--<input type="text" name="email" value="--><%= email%>
+                           <label style="font-size: x-small;" id="email">※ 이메일 변경 불가</label></td>
                         </tr>
                         <tr>
-                           <td align="center">주소</td>
-                           <td id="bb"><input type="text" name="address"> <button id="btn2" style="font-weight: lighter;" value="우편번호 검색"></button><br><br>
-                                  <input type="text" size="50" placeholder="※ 상세주소를 입력해주세요.">
-                           </td>
-                        </tr>
-                        <tr>
-                           <td align="center">펫정보</td>
+                           <td align="center" style="vertical-align: inherit;">주소</td>
                            <td id="bb">
-                              <input type="checkbox" name="pet" value="DOG"><label for="DOG">강아지</label>
-                              <input type="checkbox" name="pet" value="CAT"><label for="CAT">고양이</label>
-                              <input type="checkbox" name="pet" value="ECT"><label for="ECT">기타</label>
+                           	 <input type="text"  name="address" id="sample6_postcode" size="10" style="text-align: center;" autocomplete="off"> 
+		                     <input type="button" name="address" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"> <br>
+		                     <input type="text" name="address" id="sample6_address" size="40" autocomplete="off"> 
+		                     <input type="text" name="address" id="sample6_extraAddress" size="20" autocomplete="off"> <br>
+		                     <input type="text" name="address" id="sample6_detailAddress" size="40" autocomplete="off">
                            </td>
                         </tr>
                         <tr>
                            <td align="center">취미</td>
                            <td id="bb"><%=loginUser.getHobby() %></td>
+                           <input type="hidden" name="pet" vlaue=<%=userPet %>>
                         </tr>
                      </tbody>
                   </table>
                </div>
             </div>
             <div class="btn-div">
-               <button type="submit" class="update">수정하기</button>
-               <button class="reset">돌아가기</button>
+               <button type="submit" class="update" id="updatebtn">수정하기</button>
+               <button type="button" class="back" id="backbtn"><a href="<%=contextPath%>/Mypage.me" style= "text-decoration: none;">돌아가기</a></button>
+            <button class="delete" id="deletebtn">회원탈퇴</button>
             </div>
          </form>
       </div>
-
+   
    </div>
-
-   <div class="footer">
-      <div class="footer1">
-         <img
-            src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/logo3.png"
-            width="200px">
-      </div>
-
-      <div class="footer2">
-         <div>
-            <li><a href="">개인정보취급방침</a></li>
-            <li><a href="">청소년보호정책</a></li>
-            <li><a href="">이용약관</a></li>
+   
+    <!-- 알림창 -->
+   <div class="alert">
+      <p>회원탈퇴를 하시겠습니까?</p>
+      <button class="deleteMemer alert-btn" >확인</button>
+      <button class="cansleMember alert-btn" >취소</button>
+   </div>
+   
+   <!-- 최종알림창 -->
+   <div class="last-alert">
+      <p>회원탈퇴</p>
+      <form action="<%=contextPath%>/deleteMem" method="post">
+         <div class="alert-box">
+            <span style="padding: 10px;" >비밀번호</span>
+            <input type="password" name="userPwd" placeholder="비밀번호를 입력하세요." style="padding: 10px; width: 200px; margin-right: 50px;"></td><br>               
          </div>
-         <div>문의 : ddoogaenang.naver.com</div>
-         <div>Copyrightⓒ 2023 ddooganang all rights reserved</div>
-      </div>
-
-      <div class="footer3"></div>
-
-
-      <div class="footer4">
-         <div>
-            <li><a href=""><img
-                  src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/twitter.png"
-                  width="30px"></a></li>
-            <li><a href=""><img
-                  src="<%= request.getContextPath() %>/resources/facebook.png"
-                  width="25px"></a></li>
-            <li><a href=""><img
-                  src="<%= request.getContextPath() %>/resources/instagram.png"
-                  width="30px"></a></li>
-         </div>
-      </div>
+         <label style="font-size: 10px; color: gray; margin-left: 10px;">※ 비밀번호 입력 후 탈퇴하기를 눌러주세요.</label><br><br>
+         <button type="sumbit" class="alert-btn" id="submitBtn">확인</button>
+         <button type ="reset" class="alert-btn" >취소</button>
+      </form>
    </div>
+   
 
 
-   </div>
+   <!--<%@ include file= "../common/footer.jsp" %>-->
+   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+   <script>
+      //비밀번호 유효성 검사
+   function checkPassword() {
+     var passwordInput = document.getElementById("userPwd");
+     var password = passwordInput.value;
+     var passwordError = document.getElementById("passwordError");
+     var passwordMatchError = document.getElementById("passwordMatchError");
+     var submitBtn = document.getElementById("submitBtn");
+     var passwordCheck = document.getElementById("pw_check").value;
+   
+     var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+   
+     if (!passwordPattern.test(password)) {
+       passwordError.innerHTML = "비밀번호는 8~20자 영문 대소문자, 숫자, 특수문자 혼합해서 입력해 주시기 바랍니다.";
+       submitBtn.disabled = true; // 수정하기 버튼 비활성화
+     } else {
+       passwordError.innerHTML = "";
+       if (password !== passwordCheck) {
+         passwordMatchError.innerHTML = "비밀번호가 일치하지 않습니다.";
+         submitBtn.disabled = true; // 수정하기 버튼 비활성화
+       } else {
+         passwordMatchError.innerHTML = "";
+         submitBtn.disabled = false; // 수정하기 버튼 활성화
+       }
+     }
+   }
+         
+   $(function(){
+      //탈퇴 창 보이게
+      $(".delete").click(function(){
+         $(".alert").css("display","block");
+      })
+      //탈퇴 창 취소
+      $(".cansle").click(function(){
+         $(".alert").css("display","none");
+      })
+      
+      //최종탈퇴로 넘어가기
+      $(".deleteMemer").click(function(){
+         $(".alert").css("display","none");
+         $(".last-alert").css("display","block");
+      })
+   })
+   
+   //주소 가져오기
+   
+   function sample6_execDaumPostcode() { // 다음 API 상세주소
+      new daum.Postcode(
+            {
+               oncomplete : function(data) {
+                  // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                  // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                  // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                  var addr = ''; // 주소 변수
+                  var extraAddr = ''; // 참고항목 변수
+
+                  //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                  if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                     addr = data.roadAddress;
+                  } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                     addr = data.jibunAddress;
+                  }
+
+                  // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                  if (data.userSelectedType === 'R') {
+                     // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                     // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                     if (data.bname !== ''
+                           && /[동|로|가]$/g.test(data.bname)) {
+                        extraAddr += data.bname;
+                     }
+                     // 건물명이 있고, 공동주택일 경우 추가한다.
+                     if (data.buildingName !== ''
+                           && data.apartment === 'Y') {
+                        extraAddr += (extraAddr !== '' ? ', '
+                              + data.buildingName
+                              : data.buildingName);
+                     }
+                     // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                     if (extraAddr !== '') {
+                        extraAddr = ' (' + extraAddr + ')';
+                     }
+                     // 조합된 참고항목을 해당 필드에 넣는다.
+                     document.getElementById("sample6_extraAddress").value = extraAddr;
+
+                  } else {
+                     document.getElementById("sample6_extraAddress").value = '';
+                  }
+
+                  // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                  document.getElementById('sample6_postcode').value = data.zonecode;
+                  document.getElementById("sample6_address").value = addr;
+                  // 커서를 상세주소 필드로 이동한다.
+                  document.getElementById("sample6_detailAddress")
+                        .focus();
+               }
+            }).open();
+   }
+   </script>
 </body>
 </html>

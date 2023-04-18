@@ -14,6 +14,8 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.board.model.vo.Attachment;
 import com.kh.common.MyFileRenamePolicy;
+import com.kh.count.model.service.CountService;
+import com.kh.count.model.vo.Count;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 import com.kh.pet.model.service.PetService;
@@ -82,10 +84,11 @@ public class UserProfileController extends HttpServlet {
 			at.setFilePath("/resources/profile_upfiles/");
 			
 			int result = new MemberService().insertProfileImg(userNo,at);
+			Count count = new CountService().selectCount(loginUser.getUserNo());
 			
 			if(result>0) {
 				loginUser.setFileName(at.getFilePath()+at.getChangeName());
-				
+				request.setAttribute("count", count);
 				session.setAttribute("loginUser", loginUser);
 				request.getRequestDispatcher("views/member/Mypage.jsp").forward(request, response);
 			} else {
