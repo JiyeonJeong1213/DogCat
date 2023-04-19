@@ -8,8 +8,6 @@
 //Attachment at = (Attachment)request.getAttribute("at"); 
 ArrayList<Attachment> atList = (ArrayList) request.getAttribute("atList");
 ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
-Member loginUser = (Member) session.getAttribute("loginUser");
-String contextPath = (String) request.getContextPath();
 %>
 <!DOCTYPE html>
 <html>
@@ -21,12 +19,11 @@ String contextPath = (String) request.getContextPath();
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
-<link href="resources/css/board/mateboard/03_mateDetail.css?afterlike" rel="stylesheet">
+<link href="resources/css/board/mateboard/03_mateDetail.css?after" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
 <style>
-
 .btn {
 	width: 100px;
 	height: 40px;
@@ -48,63 +45,69 @@ String contextPath = (String) request.getContextPath();
 	border: 2px solid #FF8AAE;
 	color: #FF8AAE;
 }
-.moadl-container{
-            display: flex;
-            justify-content: space-evenly;
-            align-items: flex-start;
-            padding: 10px;
-        }
-        #modal.modal-overlay {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(1.5px);
-            -webkit-backdrop-filter: blur(1.5px);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            display:none;
-        }
-        #modal .modal-window {
-            background:   rgb(251, 246, 240);
-            box-shadow: 0 8px 32px 0 rgba(133, 133, 134, 0.37);
-            backdrop-filter: blur( 13.5px );
-            -webkit-backdrop-filter: blur( 13.5px );
-            border-radius: 10px;
-            border: 1px solid rgba( 255, 255, 255, 0.18 );
-            width: 500px;
-            height: 200px;
-            position: relative;
-            top: -100px;
-            padding: 10px;
-        }
-        .btn-area{
-            text-align: center;
-            padding-right: 25px;
-            margin-top: 25px;
-        }
-.user-reply{
+
+.moadl-container {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: flex-start;
+	padding: 10px;
+}
+
+#modal.modal-overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255, 255, 255, 0.25);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(1.5px);
+	-webkit-backdrop-filter: blur(1.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	display: none;
+}
+
+#modal .modal-window {
+	background: rgb(251, 246, 240);
+	box-shadow: 0 8px 32px 0 rgba(133, 133, 134, 0.37);
+	backdrop-filter: blur(13.5px);
+	-webkit-backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	width: 500px;
+	height: 200px;
+	position: relative;
+	top: -100px;
+	padding: 10px;
+}
+
+.btn-area {
+	text-align: center;
+	padding-right: 25px;
+	margin-top: 25px;
+}
+
+.user-reply {
 	display: flex;
 }
-.delete-reply{
-	width:70px;
-	height:20px;
+
+.delete-reply {
+	width: 70px;
+	height: 20px;
 	font-size: x-small;
-	margin-top:80px;
-	
+	margin-top: 80px;
 }
 </style>
 </head>
 
 <body>
 
+<%@ include file="../../common/menubar.jsp" %>
 
 	<div class="wrap">
 		<div class="content1">
@@ -391,5 +394,6 @@ String contextPath = (String) request.getContextPath();
         })
     </script>
 
+<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

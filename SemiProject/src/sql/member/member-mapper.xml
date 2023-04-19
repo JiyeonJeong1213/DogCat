@@ -18,93 +18,78 @@
 		    EMAIL = ?,
 		    ADDRESS = ?,
 		    STATUS = 1,
-		    ENROLL_DATE = SYSDATE
+		    MODIFY_DATE = SYSDATE
 		WHERE USER_ID = ?
 	</entry>
 	
-	<entry key="udpatePet">
-		UPDATE PET
-		SET SPECIES
-		WHERE USER_NO = ?
+	<entry key="updateUser">
+		UPDATE MEMBER
+		SET USER_PWD = ?,
+		    ADDRESS = ?,
+		    STATUS = 1,
+		    MODIFY_DATE = SYSDATE
+		WHERE USER_ID =?
 	</entry>
 	
+	<entry key="deleteMember">
+		UPDATE MEMBER SET
+		STATUS = '2' ,
+		MODIFY_DATE = SYSDATE
+		WHERE USER_ID = ?
+		  AND USER_PWD = ?
+	</entry>
+
 	<entry key="selectMember">
 		SELECT M.*, SPECIES FROM MEMBER M
 		JOIN PET P ON(M.USER_NO = P.USER_NO)
 		WHERE USER_ID = ?
 		 AND STATUS = 1
 	</entry>
-	
+	<entry key="selectUser">
+		SELECT M.*, SPECIES FROM MEMBER M
+		JOIN PET P ON(M.USER_NO = P.USER_NO)
+		WHERE USER_ID = ?
+		 AND STATUS = 1
+	</entry>
 	<entry key="idCheck">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE USER_ID = ?
 	</entry>
 	
-	<entry key="nickCheck">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE USER_NICKNAME = ?
+	<entry key="insertProfileImg">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_MNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE, STATUS)
+		VALUES(SEQ_FNO.NEXTVAL, ?,?,?,?,SYSDATE,'Y')
 	</entry>
 	
-	<entry key="emailCheck">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE EMAIL = ?
+	<entry key="selectProfileImg">
+		SELECT REF_MNO, FILE_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH
+		FROM ATTACHMENT
+		WHERE REF_MNO = ? AND REF_BNO IS NULL
+		ORDER BY FILE_NO DESC
 	</entry>
 	
-	<entry key="insertMember">
-	INSERT INTO MEMBER(USER_NO,
-				USER_ID,
-				USER_NAME,
-                USER_NICKNAME,
-				USER_PWD,
-				EMAIL,
-				PHONE,
-				ADDRESS,
-				HOBBY,
-                STATUS)
-					VALUES(SEQ_UNO.NEXTVAL ,
-				?,
-				?,
-                ?,
-				?,
-				?,
-				?,
-				?,
-				?,
-                1
-                )
+	<entry key="selectMemberList">
+		SELECT M.*, SPECIES FROM MEMBER M
+		LEFT JOIN PET P ON(M.USER_NO = P.USER_NO)
 	</entry>
 	
-    <entry key="insertPet">
-	INSERT INTO PET(USER_NO,
-			 SPECIES,
-			 GENDER,
-			 PET_NAME)
-			 	VALUES (SEQ_UNO.CURRVAL ,
-				?,
-                ?,
-                ?
-				)
-	</entry>   
-	
-	<entry key="searchMemberId">
-	SELECT USER_ID
-	FROM MEMBER
-	WHERE USER_NAME = ? AND EMAIL = ?
-	</entry> 
-	
-	<entry key="searchMemberEmail">
-	SELECT EMAIL
-	FROM MEMBER
-	WHERE USER_ID = ? AND USER_NAME = ?
+	<entry key="memberListImg">
+		SELECT FILE_PATH, CHANGE_NAME, REF_MNO
+		            FROM ATTACHMENT
+		            WHERE REF_MNO = (
+		                SELECT USER_NO
+		                FROM MEMBER
+		                WHERE USER_ID = ?
+		            ) AND ROWNUM = '1'
+		            ORDER BY FILE_NO DESC
 	</entry>
 	
-	<entry key="UpdateMemberPwd">
-	UPDATE MEMBER 
-	SET USER_PWD = ? 
-	WHERE USER_ID = ? AND USER_NAME = ?
+	<entry key="updateStatusM">
+		UPDATE MEMBER
+		SET STATUS = ?,
+			MODIFY_DATE = SYSDATE 
+		WHERE USER_ID = ?
 	</entry>
 	
 	<entry key="insertProfileImg">
@@ -153,6 +138,45 @@
 		FROM MEMBER M
 		LEFT JOIN PET P ON(M.USER_NO = P.USER_NO)
 		WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="myPageBoardList">
+		SELECT BOARD_NO, BOARD_TITLE, USER_NICKNAME, CREATE_DATE, COUNT
+		FROM BOARD B
+		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
+		WHERE BOARD_WRITER = ? AND B.STATUS = 'Y'
+		ORDER BY CREATE_DATE DESC
+	</entry> 
+	
+	<entry key="myPageMBoardList">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_TYPE, USER_NICKNAME, CREATE_DATE
+		FROM BOARD B
+		JOIN MEMBER M ON (B.BOARD_WRITER = M.USER_NO)
+		WHERE BOARD_WRITER = ? AND BOARD_TYPE = 1
+		ORDER BY CREATE_DATE DESC
+	</entry> 
+	
+	<entry key="myPageChatList">
+  	  SELECT CR_NO, CR_NAME, USER_NICKNAME, CREATE_DATE
+      FROM CHATROOM C
+      JOIN MEMBER M ON(C.BUYER = M.USER_NO)
+      WHERE SELLER = ?  AND C.STATUS='Y'
+      ORDER BY CREATE_DATE DESC
+	</entry>
+	
+	<entry key="mySaveList">
+  	  SELECT S.USER_NO, B.BOARD_NO, B.BOARD_TITLE, B.SALE, B.BOARD_CONTENT
+		FROM SAVE S
+		JOIN BOARD B ON(S.USER_NO = B.BOARD_WRITER)
+		WHERE USER_NO = ? AND BOARD_TYPE = 3
+	</entry>
+	
+	<entry key="myReplyList">
+  	  SELECT REPLY_NO, REF_BNO, REPLY_WRITER, REPLY_CONTENT, CREATE_DATE
+		FROM REPLY R
+		JOIN MEMBER M ON(M.USER_NO = R.REPLY_WRITER)
+		WHERE USER_NO = ? AND R.STATUS='Y'
+		ORDER BY CREATE_DATE DESC
 	</entry>
 	
 </properties>

@@ -56,16 +56,7 @@ public class mateBoardService {
 		
 		
 	}
-	
-	public Attachment selectMateProfile(int boardWriter) {
-		Connection conn = getConnection();
-		
-		Attachment at = new mateBoardDao().selectMateProfile(conn, boardWriter);
-		
-		close(conn);
-		return at;
-	}
-	
+
 	public int increaseCount(int boardNo) {
 		Connection conn = getConnection();
 		
@@ -111,11 +102,10 @@ public class mateBoardService {
 		
 		if(atList.size()>0) {
 			result2 = new mateBoardDao().updateAttachment(conn, atList);
-			if(originFileNos != null) {
+			if(!originFileNos.isEmpty()) {
 				result3 = new mateBoardDao().updateAttachmentDelete(conn, originFileNos);
 			}
 		}
-		
 		if(result1>0 && result2>0 &&result3>0) {
 			commit(conn);
 		}else {
@@ -124,7 +114,7 @@ public class mateBoardService {
 		
 		close(conn);
 		
-		return result1 * result2 *result3;
+		return result1*result2*result3;
 	}
 	
 	public int insertReply(Reply r) {
@@ -194,7 +184,7 @@ public class mateBoardService {
 		int result = new mateBoardDao().deleteMate(conn, boardNo, userNo);
 		int result1 =1;
 		int result2 = 1;
-		System.out.println(list);
+		
 		
 		if(!atList.isEmpty()) {
 			result1 = new mateBoardDao().deleteAttachment(conn, boardNo);
@@ -235,5 +225,13 @@ public class mateBoardService {
 		}
 		close(conn);
 		return result;
+	}
+	
+	public ArrayList<Board> searchMateList(String address) {
+		Connection conn = getConnection();
+		ArrayList<Board> list = new mateBoardDao().searchMateList(conn, address);
+		close(conn);
+		return list;
+		
 	}
 }

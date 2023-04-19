@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectBCount">
+		SELECT COUNT(BOARD_WRITER) AS BCOUNT
+		FROM BOARD
+		WHERE BOARD_WRITER = ?
+		GROUP BY  BOARD_WRITER
+	</entry>
+	
+	<entry key="selectSCount">
+		SELECT COUNT(USER_NO) AS SCOUNT
+		FROM SAVE
+		WHERE USER_NO = ?
+		GROUP BY USER_NO
+	</entry>
+	
+	<entry key="selectCCount">
+		SELECT COUNT(SELLER) AS CCOUNT
+		FROM CHATROOM
+		WHERE SELLER = ?
+		GROUP BY SELLER
+	</entry>
+	
+	<entry key="selectMCount">
+		SELECT COUNT(USER_NO) AS MCOUNT
+		FROM MATE
+		WHERE USER_NO = ?
+		GROUP BY USER_NO
+	</entry>
+	
+
+
+
+</properties>

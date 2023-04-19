@@ -4,16 +4,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-   	String contextPath = request.getContextPath();
    	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	Member loginUser = (Member)session.getAttribute("loginUser");
-	Attachment at =(Attachment)request.getAttribute("at");
+
 	
-	
-	/* int index = address.indexOf(",");
-	String address1 = address.substring(0, index);
-	String address2 = address.substring(index+1); */
+
  	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -34,11 +29,12 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<link href="<%=contextPath%>/resources/css/board/mateboard/01.css?afterlike" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/board/mateboard/01.css?a=<%=System.currentTimeMillis() %>" rel="stylesheet">
 <style>
 .boardNo, .count, .create-date {
 	display: none;
 }
+
 .list {
 	border: 1px solid black;
 	flex-wrap: wrap;
@@ -47,18 +43,22 @@
 	margin: 0 auto;
 	padding-left: 90px;
 }
+
 #card {
 	width: 300px;
 	height: 400px;
 	margin-bottom: 50px;
 }
+
 #search-btn {
 	width: 4rem;
 	height: 3rem;
 }
+
 #mate_writer {
 	width: 8rem;
 }
+
 #search-btn, #mate_write {
 	border-radius: 7px;
 	background-color: white;
@@ -67,11 +67,39 @@
 	font-weight: 900;
 	border: 3px solid rgb(106, 171, 240);
 }
+
+.pagaeBtn {
+	overflow-clip-margin: content-box;
+	overflow: clip;
+	width: 26px;
+	height: 26px;
+	background-color: transparent;
+	border: none;
+}
+
+.prev {
+	transform: rotate(180deg);
+}
+
+.pagingArea {
+	margin: 25px auto 0px;
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	column-gap: 30px;
+	justify-content: center;
+}
+
+.pagingArea>button {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+}
 </style>
 </head>
 <body>
-
-	<%-- <%@ include file="../common/menubar.jsp" %> --%>
+	<%@ include file="../../common/menubar.jsp" %>
 
 	<div class="content1">
 		<div class="content_name">
@@ -82,21 +110,18 @@
 				style="width: 40px; height: 40px;">
 		</div>
 	</div>
-
 	<hr>
 	<br>
-
 	<div class="content2">
 		<p>
 			산책메이트와 함께 특별한 시간을 만들어보세요 <br> 반려인도 반려동물도 내가 원하는 동네의 다양한 친구들을 만날
 			수 있어요
 		</p>
 	</div>
-
 	<div class="content3">
-		<form action="" method="get" class="location">
+		 <form action="<%=contextPath%>/mateSearch" method="get" class="location">
 			<div class="search_box">
-				<select name="address1" id="" onchange="categoryChange(this)"
+				<select name="address1" id="address1" onchange="categoryChange(this)"
 					class="address1">
 					<option>광역시/도 선택</option>
 					<option value="강원도">강원도</option>
@@ -122,17 +147,13 @@
 					<option>군/구 선택</option>
 				</select>
 			</div>
-			<input type="text" size="30" placeholder="제목/내용 검색"
-				class="search-text">
-			<button type="submit" id="search-btn">검색</button>
+			<button type="submit" class="search-btn" id="search-btn">검색</button>
 		</form>
 		<div class="content3-block" style="width: 3%;"></div>
 
 		<%if(loginUser != null){ %>
 		<button type="button" id="mate_write">
-			<a href="<%=contextPath%>/insert.mate"
-				style="text-decoration: none; color: rgb(106, 171, 240);">게시판
-				글쓰기</a>
+			<a href="<%=contextPath%>/insert.mate" style="text-decoration: none; color: rgb(106, 171, 240);">게시판 글쓰기</a>
 		</button>
 		<%} %>
 	</div>
@@ -146,15 +167,10 @@
 			<%}else{ %>
 				<% for(Board b : list){%>
 				<div class="card" id="card">
-					<div class="card-body">
-						<span class="boardNo" style="font-size: x-small;" name="boardNo"><%=b.getBoardNo() %></span>
-					
-						<%if(at == null){ %>
-							<img class="card-img" src="<%=contextPath %>/resources/분홍발자국.png">
-						<%}else{ %>
-							<img src="<%=contextPath+at.getChangeName()+at.getFilePath()%>">
-						<%} %>
-						<span class="card-title" name="boardWriter"><%=b.getBoardWriter() %></span> 
+					<div class="card-body" id="card-body">
+						<span class="boardNo" id="boardNo" style="font-size: x-small;" name="boardNo"><%=b.getBoardNo() %></span>
+							<img class="card-img" id="mateCardImg" src="<%=contextPath %>/resources/분홍발자국.png">
+						<span class="card-title" id="card-title" name="boardWriter"><%=b.getBoardWriter() %></span> 
 						<span class="card-subtitle mb-2 text-muted"><%=b.getBoardTitle() %></span>
 						<hr>
 						<div class="card-content">
@@ -162,7 +178,7 @@
 							<p><%=b.getBoardContent() %></p>
 						</div>
 					</div>
-					<div class="card-footer">
+					<div class="card-footer" id="card-footer">
 						<img class="card-thumb" src="<%=contextPath %>/resources/빈 추천.png" onclick="recommend();">
 						<input type="hidden" class="bno" name="bno" value="<%=b.getBoardNo() %>">
 						<span class="thumb-number"><%=b.getLcount() %></span> 
@@ -185,31 +201,46 @@
 					})
 				})
 	</script>
-	<!-- 페이징바 영역 -->
-	<nav aria-label="Page navigation example">
-		<ul class="pagination">
-			<% if(currentPage != 1) { %>
-				<li class="page-item"><a class="page-link"
-					href="<%=contextPath %>/list.mate?currentPage=<%=currentPage -1 %>"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-				</a></li>
-			<%} %>
-			<%for(int i = startPage; i<=endPage; i++) { %>
-				<%if( i!= currentPage) { %>
-				<li class="page-item"><a class="page-link"
-					href="<%=contextPath%>/list.mate?currentPage=<%=i%>"><%=i %></a></li>
-				<%}else{ %>
-				<li class="page-item"><%=i %></li>
-				<%} %>
-			<%} %>
-			<%if(currentPage != maxPage){ %>
-				<li class="page-item"><a class="page-link"
-					href="<%=contextPath %>/list.mate?currentPage=<%=currentPage+1 %>"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
-			<%} %>
-		</ul>
-	</nav>
+
+	
+    <!--유진스 페이징바 영역  -->
+    <div class="pagingArea">
+		
+		<%if(currentPage!=1) {%>
+		<button onclick="location.href='<%=request.getContextPath()%>/list.mate?currentPage=<%= currentPage - 1%>'">
+			<img class="pagaeBtn prev" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+		</button>
+		<%}else{ %>
+		<button disabled>
+			<img class="pagaeBtn prev" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+		</button>
+		<%} %>
+		
+		<% for(int i = startPage; i<=endPage; i++) { %>
+			
+			<% if(i != currentPage) { %>
+				<button onclick="location.href='<%=request.getContextPath()%>/list.mate?currentPage=<%= i %>';"><%= i %></button>
+			<% } else {%>
+				<button disabled><%= i %></button>
+			<% } %>
+		<% } %>
+		
+		<%if(currentPage!=maxPage){ %>
+		<button onclick="location.href='<%= request.getContextPath()%>/list.mate?currentPage=<%= currentPage + 1%>'">
+			<img class="pagaeBtn next" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+		</button>
+		<%}else{ %>
+		<button disabled>
+			<img class="pagaeBtn next" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
+		</button>
+		<%} %>
+	</div>
+	
+	
+	
+	
+	
+	
 	<script>
          	 $(function(){
          		$(".card-thumb").click(function(){
@@ -285,9 +316,12 @@
 	                        state.appendChild(opt);
 	                    }
 	        }
+	        
+	       
         </script>
 
-
+	
+	<%@ include file="../../common/footer.jsp" %>
 
 
 

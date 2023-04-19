@@ -122,12 +122,12 @@ html, body {height: 100%;}
 					<tr>
 						<td rowspan="3" width="100px">
 							<%if(loginUser.getFileName() != null) { %>
-			            		<img id="profile_img" src="<%= request.getContextPath() %>/<%= loginUser.getFileName() %>">
+			            		<img id="profile_img" src="<%= request.getContextPath()%>/<%=loginUser.getFileName()%>">
 		            		<% } else {  %>
 		            			<img id="profile_img" src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/profile_basic.png">
 		            		<% } %>	
 						</td>
-						<td colspan="2" width="50px" style="font-weight: bold; color: #FFD133;"><%= loginUser.getUserNickname() %>님</td>
+						<td colspan="2" width="50px" style="font-weight: bold; color: #FFD133;"><%=loginUser.getUserNickname()%>님</td>
 					</tr>
 					<tr>
 						<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
