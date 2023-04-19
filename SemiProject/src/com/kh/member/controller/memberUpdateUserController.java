@@ -69,7 +69,7 @@ public class memberUpdateUserController extends HttpServlet {
 		if (updateUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", updateUser);
-			session.setAttribute("alertMsg", "수정에 성공했개냥");
+			request.getSession().setAttribute("alertMsg", "수정에 성공했개냥");
 			response.sendRedirect(request.getContextPath() + "/Mypage.me");
 		} else {
 			request.setAttribute("errorMsg", "수정 실패");

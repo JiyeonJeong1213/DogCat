@@ -7,9 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.kh.chat.model.vo.Chatroom;
 import com.kh.member.model.dao.MemberDao;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -60,6 +62,7 @@ public class CountDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(bCount);
 		return bCount;
 	}
 	
@@ -107,7 +110,6 @@ public class CountDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, userNo);
-			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -120,6 +122,7 @@ public class CountDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(cCount);
 		return cCount;
 	}
 	
@@ -153,24 +156,60 @@ public class CountDao {
 	return mCount;
 }
 	
+	public ArrayList<Chatroom> selectChatList(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Chatroom> chatList = new ArrayList<>();
+		String sql = prop.getProperty("selectChatList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Chatroom croom = new Chatroom();
+				croom.setChatroomNo(rset.getInt("CR_NO"));
+				croom.setCreateDate(rset.getDate("CREATE_DATE"));
+				croom.setSeller(rset.getString("SELLER"));
+				croom.setBuyer(rset.getString("BUYER"));
+				
+				chatList.add(croom);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return chatList;
+	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public String selectRecentMsg2(Connection conn, int crNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String recentMsg = null;
+		String sql = prop.getProperty("selectRecentMsg2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, crNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				recentMsg = rset.getString("M_CONTENT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return recentMsg;
+	}
 	
 	
 	

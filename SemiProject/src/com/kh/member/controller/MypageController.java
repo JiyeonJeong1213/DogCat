@@ -1,6 +1,6 @@
 package com.kh.member.controller;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
+import com.kh.chat.model.service.ChatService;
 import com.kh.chat.model.vo.Chatroom;
 import com.kh.count.model.service.CountService;
 import com.kh.count.model.vo.Count;
@@ -42,17 +43,33 @@ public class MypageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		/*
+		 * int bno = Integer.parseInt(request.getParameter("bno")); int reader =
+		 * Integer.parseInt(request.getParameter("reader")); int byuer =
+		 * Integer.parseInt(request.getParameter("byuer"));
+		 */
+		
 		HttpSession session = request.getSession();
 		
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		
 		Attachment at = new MemberService().memberListImg(loginUser.getUserId());
 		ArrayList<Board> list = new MemberService().selectBoardList(loginUser.getUserNo());
-		ArrayList<Board> mlist = new MemberService().selectMBoardList(loginUser.getUserNo());
+		ArrayList<Board> Mlist = new MemberService().selectMBoardList(loginUser.getUserNo());
 		
-		ArrayList<Chatroom> clist = new MemberService().selectChatroomList(loginUser.getUserNo());
 		ArrayList<Save> slist = new MemberService().selectSaveList(loginUser.getUserNo());
 		ArrayList<Reply> rlist = new MemberService().selectReplyList(loginUser.getUserNo());
+		
+		ArrayList<Chatroom> chatList = new CountService().selectChatroomList(loginUser.getUserNo());
+		ArrayList<Integer> crNoList = new ArrayList<>();
+		ArrayList<String> recentMsgs = new ArrayList<>();
+		for(Chatroom cr : chatList) {
+			int crNo = cr.getChatroomNo();
+			String recentMsg = new CountService().selectRecentMsg2(crNo);
+			recentMsgs.add(recentMsg);
+		}
+		
+
 		
 		//회원이 등록한 데이터 갯수
 		Count count = new CountService().selectCount(loginUser.getUserNo());
@@ -62,11 +79,12 @@ public class MypageController extends HttpServlet {
 		}
 		
 		request.setAttribute("list", list);
-		request.setAttribute("mlist", mlist);
-		request.setAttribute("clist", clist);
+		request.setAttribute("Mlist", Mlist);
+		request.setAttribute("chatList", chatList);
 		request.setAttribute("slist", slist);
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("count", count);
+		request.setAttribute("recentMsgs", recentMsgs);
 
 		request.getRequestDispatcher("views/member/Mypage.jsp").forward(request, response);
 		

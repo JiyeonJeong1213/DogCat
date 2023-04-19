@@ -3,8 +3,8 @@ package com.kh.count.model.vo;
 public class Count {
 	
 	private int userNo;
-	private int sCount;
 	private int bCount;
+	private int sCount;
 	private int cCount;
 	private int mCount;
 	
@@ -12,11 +12,11 @@ public class Count {
 		super();
 	}
 
-	public Count(int userNo, int sCount, int bCount, int cCount, int mCount) {
+	public Count(int userNo, int bCount,int sCount,  int cCount, int mCount) {
 		super();
 		this.userNo = userNo;
-		this.sCount = sCount;
 		this.bCount = bCount;
+		this.sCount = sCount;
 		this.cCount = cCount;
 		this.mCount = mCount;
 	}
@@ -63,8 +63,10 @@ public class Count {
 
 	@Override
 	public String toString() {
-		return "Count [userNo=" + userNo + ", sCount=" + sCount + ", bCount=" + bCount + ", cCount=" + cCount
+		return "Count [userNo=" + userNo + ", bCount=" + bCount + ", sCount=" + sCount + ", cCount=" + cCount
 				+ ", mCount=" + mCount + "]";
 	}
+
+	
 	
 }

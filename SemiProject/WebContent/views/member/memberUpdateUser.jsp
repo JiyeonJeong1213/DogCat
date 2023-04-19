@@ -364,7 +364,7 @@ button:hover {
    
 
 
-   <!--<%@ include file= "../common/footer.jsp" %>-->
+   <%-- <%@ include file= "../common/footer.jsp" %> --%>
    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
    <script>
       //비밀번호 유효성 검사

@@ -149,12 +149,12 @@ public class MemberService {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Board> mlist = new MemberDao().selectMBoardList(conn, boardWriter);
+		ArrayList<Board> Mlist = new MemberDao().selectMBoardList(conn, boardWriter);
 		
 		close(conn);
 		
 		
-		return mlist;
+		return Mlist;
 			
 	}
 	
