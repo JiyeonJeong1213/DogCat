@@ -5,8 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	Board b = (Board) request.getAttribute("b");
-//Attachment at = (Attachment)request.getAttribute("at"); 
-ArrayList<Attachment> atList = (ArrayList) request.getAttribute("atList");
+ArrayList<Attachment> atList = (ArrayList<Attachment>) request.getAttribute("atList");
 ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 %>
 <!DOCTYPE html>
@@ -20,11 +19,10 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
 <link href="resources/css/board/mateboard/03_mateDetail.css?after" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
 <style>
-.btn {
+.bt {
 	width: 100px;
 	height: 40px;
 	border-radius: 10px;
@@ -32,27 +30,22 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 	font-weight: 900;
 	background-color: white;
 }
-
 .reupload {
 	border: 2px solid rgb(106, 171, 240);
 }
-
 .list, .delete-reply {
 	border: 2px solid gray;
 }
-
 .apply {
 	border: 2px solid #FF8AAE;
 	color: #FF8AAE;
 }
-
 .moadl-container {
 	display: flex;
 	justify-content: space-evenly;
 	align-items: flex-start;
 	padding: 10px;
 }
-
 #modal.modal-overlay {
 	width: 100%;
 	height: 100%;
@@ -151,7 +144,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 
 				<img src="resources/소개글보기-.png" height="60">
 				<div class="write-content">
-					<textarea cols="166" rows="13" style="resize: none;" name="content"
+					<textarea cols="146" rows="30" style="resize: none;" name="content"
 						class="content" readonly="readonly"><%=b.getBoardContent()%></textarea>
 				</div>
 
@@ -166,98 +159,82 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 						<div class="items">
 							<div class="item active">
 								<div class="picture">
-									<%
-										if (atList == null) {
-									%>
-									<p>아직 활동사진이 등록되지 않았습니당</p>
-									<%
-										} else {
-									%>
-									<%
-										for (Attachment a : atList) {
-									%>
-									<img
-										src="<%=contextPath + a.getFilePath() + a.getChangeName()%>">
-									<%
-										}
-									%>
-									<%
-										}
-									%>
+									<%-- <%if (atList == null) {%>
+										<p>아직 활동사진이 등록되지 않았습니당</p>
+									<%} else {%>
+										<%for (Attachment atImg : atList) {%>
+											<img src="<%=contextPath + atImg.getFilePath() + atImg.getChangeName()%>">
+										<%}%>
+									<%}%> --%>
+									
+								<c:if test="${!empty requestScope.atList }">
+					 				<c:forEach var="atImg" items="${requestScope.atList }" varStatus="status">
+					 					<img src="<%=contextPath %>${atImg.filePath}${atImg.changeName}">
+					 				</c:forEach>
+								</c:if>
 								</div>
 							</div>
 						</div>
 						<div class="next btn-pic"></div>
 					</div>
 				</div>
-
-
 				<br>
 				<div class="reply-area">
 					<img src="<%=contextPath%>/resources/댓글.png" height="60">
 					<div class="reply">
 						<table>
 							<thead>
-					<%if(list == null){ %>
-						<p>아직 댓글이 없개냥!</p>
-					
-					<%}else{ %>
-						<%for(Reply r : list) {%>
-							<tr>
-							<div class="user-reply">
-								<div class="reply-box" vlaue="123">
-									<img src="resources/image2/bono.jpg" class="reply-profile">
-									<div class="reply-content">
-										<p id="user-nick" ><%=r.getUserNickname()%></p>
-										<span id="user-reply"><%=r.getReplyContent() %></span>
-									</div>
-								</div>
-								<%if(r.getUserId().equals(loginUser.getUserId())) {%>
-								<button class="delete-reply btn" onclick="deletereply();">
-									<input type="hidden" name="bno" value="<%=b.getBoardNo()%>">
-								<a href="<%=contextPath%>/deletereply?rno=<%=r.getReplyNo()%>">삭제</a></button>
-								<%} %>
-							</div>
-							</tr>
-							
-						<%} %> 
-					<%} %>  
+								<%if(list == null){ %>
+									<p>아직 댓글이 없개냥!</p>
+								<%}else{ %>
+									<%for(Reply r : list) {%>
+										<tr>
+										<div class="user-reply">
+											<div class="reply-box" vlaue="123">
+												<img src="resources/댓글프사.png" class="reply-profile">
+												
+												<div class="reply-content">
+													<p id="user-nick" ><%=r.getUserNickname()%></p>
+													<span id="user-reply"><%=r.getReplyContent() %></span>
+												</div>
+											</div>
+											<%if(r.getUserId().equals(loginUser.getUserId())) {%>
+											<button class="delete-reply btn" onclick="deletereply();">
+												<input type="hidden" name="bno" value="<%=b.getBoardNo()%>">
+											<a href="<%=contextPath%>/deletereply?rno=<%=r.getReplyNo()%>">삭제</a></button>
+											<%} %>
+										</div>
+										</tr>
+									<%} %> 
+								<%} %>  
 							</thead>
 							<tbody>
-
-								<%
-									if (loginUser != null) {
-								%>
-								<tr>
-									<div class="reply-write">
-										<div class="reply-user">
-											<img src="resources/image2/flower4.jpg" class="reply-profile">
-											<p id="user-nick" style="font-size: small;"><%=loginUser.getUserNickname()%></p>
+								<%if (loginUser != null) {%>
+									<tr>
+										<div class="reply-write">
+											<div class="reply-user">
+												<img src="resources/image2/flower4.jpg" class="reply-profile">
+												<p id="user-nick" style="font-size: small;"><%=loginUser.getUserNickname()%></p>
+											</div>
+											<textarea id="replyContent" cols="160" rows="5"
+												style="resize: none;"></textarea>
+											<button class="reply-btn" onclick="insertReply();">등록하기</button>
 										</div>
-										<textarea id="replyContent" cols="160" rows="5"
-											style="resize: none;"></textarea>
-										<button class="reply-btn" onclick="insertReply();">등록하기</button>
-									</div>
-								</tr>
-								<%
-									} else {
-								%>
-								<tr>
-									<div class="reply-write">
-										<div class="reply-user">
-											<img src="resources/image2/flower4.jpg" class="reply-profile">
-											<p id="user-nick">사용자닉넴</p>
+									</tr>
+								<%} else {%>
+									<tr>
+										<div class="reply-write">
+											<div class="reply-user">
+												<img src="resources/image2/flower4.jpg" class="reply-profile">
+												<p id="user-nick">사용자닉넴</p>
+											</div>
+											<textarea class="replytextara" cols="165" rows="3"
+												style="resize: none;" readonly>
+												로그인 후 이용가능한 서비스입니다.
+											</textarea>
 										</div>
-										<textarea class="replytextara" cols="165" rows="3"
-											style="resize: none;" readonly>
-											로그인 후 이용가능한 서비스입니다.
-										</textarea>
-									</div>
-								</tr>
-								<%
-									}
-								%>
-
+									</tr>
+								<%}%>
 							</tbody>
 						</table>
 					</div>
@@ -267,12 +244,12 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 
 			<div class="btn-div">
 				<%if (loginUser != null && loginUser.getUserNickname().equals(b.getBoardWriter())) {%>
-					<button class="btn reupload ">
+					<button class="btn reupload btn-outline-warning">
 						<a href="<%=contextPath%>/update.mate?bno=<%=b.getBoardNo()%>" style="text-decoration: none; color: rgb(106, 171, 240);">수정하기</a>
 					</button>
-					<button class="btn deleteboard">삭제하기</button>
+					<button class="btn deleteboard bt">삭제하기</button>
 				<%} else {%>
-					<button class="btn apply" onclick="apply();">신청하기</button>
+					<button class="btn apply bt" onclick="apply();">신청하기</button>
 				<%}%>
 
 				<button type="reset " class="btn list">
@@ -293,8 +270,8 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
                 <div class="item">
                     <span>게시글을 삭제하시겠습니까?</span>
                     <div class="btn-area">
-                        <button class="btn btn-primary btn-sm" onclick="deleteMate()">삭제</button>
-                        <button  class="btn btn-primary btn-sm close">취소</button>
+                        <button class="btn btn-outline-dark" onclick="deleteMate()">삭제</button>
+                        <button  class="btn close btn-outline-secondary">취소</button>
                     </div>
                  </div>
             </div>
@@ -394,6 +371,6 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
         })
     </script>
 
-<%@ include file="../../common/footer.jsp" %>
+<%-- <%@ include file="../../common/footer.jsp" %> --%>
 </body>
 </html>
