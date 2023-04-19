@@ -67,9 +67,9 @@
     
         <div class="footer2">
             <div>
-                <li><a href="">개인정보취급방침</a></li>
-                <li><a href="">청소년보호정책</a></li>   
-                <li><a href="">이용약관</a></li>               
+                <li><a href="views/common/policyPerson.jsp">개인정보취급방침</a></li>
+                <li><a href="views/common/teenager.jsp">청소년보호정책</a></li>   
+                <li><a href="views/common/service.jsp">이용약관</a></li>               
             </div>
             <div>
                 문의 : ddoogaenang.naver.com            

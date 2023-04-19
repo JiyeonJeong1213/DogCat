@@ -159,7 +159,6 @@
 								<th scope="col">문의자</th>
 								<th scope="col">최근메시지</th>
 								<th scope="col">문의날짜</th>
-							<!-- 	<th scope="col">상태</th> -->
 							</tr>
 						</thead>
 						<tbody>
