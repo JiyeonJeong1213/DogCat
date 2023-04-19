@@ -17,6 +17,7 @@
 <%@ include file="../../common/menubar.jsp"%>
 <link href="<%= contextPath %>/resources/css/board/free/update.css" rel="stylesheet" type="text/css">
 <script src="<%= contextPath %>/resources/js/board/free/thumbnail.js"></script>
+<script src="<%= contextPath %>/resources/js/board/free/update.js"></script>
 </head>
 <body class="free_submit_all">
 	<div class="free_header" align="center">
@@ -129,12 +130,5 @@ function addInput(){
 function upCount() {
 	count +=1;
 }
-
-$(function(){	
-	$("#update-form option").each(function(){
-		if($(this).text() == "<%= b.getBoardCategory() %>"){
-		}	
-	});
-});
 </script>
 </html>

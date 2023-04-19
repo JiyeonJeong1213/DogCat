@@ -32,6 +32,7 @@ public class ChattingServer {
 		
 		clients.add(session);
 //		System.out.println(hSession.getAttribute("loginUser")); // 세션 안의 키를 통해 값을 꺼낸다.
+		
 	}
 	
 	@OnMessage
@@ -46,7 +47,6 @@ public class ChattingServer {
 				for(Session client : clients) {
 					
 					if((int)client.getUserProperties().get("crNo") == crNo) {
-						
 						JsonObject data = new JsonObject();
 						data.addProperty("sender", loginUserNo);
 						data.addProperty("msg", message);

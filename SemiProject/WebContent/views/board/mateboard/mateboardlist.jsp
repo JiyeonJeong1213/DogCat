@@ -36,7 +36,6 @@
 }
 
 .list {
-	border: 1px solid black;
 	flex-wrap: wrap;
 	width: 1700px;
 	display: flex;

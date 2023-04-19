@@ -115,7 +115,5 @@ function addInput(){
 function upCount() {
 	count +=1;
 }
-	
-	
 </script>
 </html>

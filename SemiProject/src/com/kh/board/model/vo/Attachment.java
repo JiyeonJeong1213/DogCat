@@ -14,6 +14,8 @@ public class Attachment {
 	private int fileLevel; //	FILE_LEVEL
 	private String status; //	STATUS
 	private int boardNo;
+	private String fileName;
+	
 	
 	public Attachment() {
 		super();
@@ -32,6 +34,15 @@ public class Attachment {
 		this.status = status;
 	}
 	
+	
+	
+	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	public int getFileNo() {
 		return fileNo;
 	}

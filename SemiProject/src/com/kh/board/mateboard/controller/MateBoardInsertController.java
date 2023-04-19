@@ -68,15 +68,13 @@ public class MateBoardInsertController extends HttpServlet {
 			b.setAddress(multi.getParameter("address1")+","+multi.getParameter("address2"));
 			if(multi.getParameter("latitude") != null) {
 				b.setLatitude(Double.parseDouble(multi.getParameter("latitude")));
-			}else {
-				
 			}
 			if(multi.getParameter("longitude") != null) {
 				b.setLongitude(Double.parseDouble(multi.getParameter("longitude")));
 			}
 			
-			ArrayList<Attachment> atList = new ArrayList();
-			Enumeration e = multi.getFileNames();
+			ArrayList<Attachment> atList = new ArrayList<>();
+			Enumeration e = multi.getFileNames();//전달된 파일들의 key값만 뽑아오기.
 			int fileLevel = Integer.parseInt(multi.getParameter("fileLength"));
 			while(e.hasMoreElements()) {
 				String fileName =  (String)e.nextElement();
@@ -90,17 +88,21 @@ public class MateBoardInsertController extends HttpServlet {
 				atImg.setFileLevel(fileLevel--);
 				
 				atList.add(atImg);
+				
 			}
 			
 			int result = new mateBoardService().insertMateBoard(b, atList);
 			
 			if(result > 0) {
+				System.out.println("게시글 업로드 성공");
 			}else {
 				if(!atList.isEmpty()) {
-					for(Attachment a : atList) {
-						new File(savePath+a.getChangeName()).delete();
+					for(Attachment atImg : atList) {
+						new File(savePath+atImg.getChangeName()).delete();
 					}
 				}
+				request.setAttribute("errorMsg", "게시글 작성 실패");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}
 	}		

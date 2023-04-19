@@ -133,7 +133,6 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
 	</div>
 
 	<script>
-		
 		function deleteBoard(){
 			if(!confirm("정말 삭제하시겠습니까?")){
 				return;
@@ -155,7 +154,7 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
 									 	+"<td class='main_td'>"								
 										+"<span><b>" + result[i].replyContent +"</b></span><br>"
 										+"<pre><b id='replyTd_" + result[i].replyNo + "'>" + result[i].replyWriter + "</b></pre>"
-	                    				+"<span  class='td_date'>" + result[i].createDate +"</span>"
+	                    				+"<span class='td_date'>" + result[i].createDate +"</span>"
 	                    				+"</td>"
                     			
                    			if( '<%= loginUser.getUserId() %>' != null && '<%=loginUser.getUserId()%>' === result[i].replyContent ) {
@@ -180,6 +179,7 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
 		}
 	
 		function insertReply(){
+			
 			$.ajax({
 				url : "<%= contextPath%>/rinsert.bf",
 				data :{
@@ -188,7 +188,8 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
 				}, 
 				success : function(result){
 					if(result > 0){
-						location.href = '<%= contextPath%>/detail.bf?bno=<%= b.getBoardNo() %>';
+						selectReply();
+						$("#replyContent").val("");
 					}
 				}, error : function(){
 					console.log("댓글작성실패")
@@ -213,9 +214,7 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
 		        success: function(result){
 		        	if(result > 0){
 		        		alert("수정되었습니다.");
-		        		/* $("#replyTd_"+replyNo).html(newContent); */
 		        		selectReply();
-		        		<%-- location.href = '<%= contextPath%>/detail.bf?bno=<%= b.getBoardNo() %>'; --%>
 		            } else{
 		                alert("댓글수정실패");
 		            }
