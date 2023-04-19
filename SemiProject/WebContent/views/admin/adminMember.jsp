@@ -178,7 +178,7 @@
 	        				if(result.fileName != null){
 	        					$("#modal_profile_img").attr('src',"<%= request.getContextPath() %>/"+result.fileName);
 	        				}else{
-	        					$("#modal_profile_img").attr('src',"resources/profile_basic.png");
+	        					$("#modal_profile_img").attr('src',"https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/profile_basic.png");
 	        				}
 	        				$("#listUserName").val(result.userName);
 	        				if((result.status) == 1){

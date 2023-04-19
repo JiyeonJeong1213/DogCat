@@ -83,7 +83,7 @@
             <img src="<%=contextPath %>/resources/메이트소개글쓰기.png" height="65">
             <div class="write-content">
              <div class="write-info"><span> 한 줄 소개글 : </span> <input type="text" placeholder="산책메이트를 위한 한 줄 소개글을 입력해주세요" size="140" name="content1"></div>
-             <textarea class="walk" cols="168" rows="15" style="resize:none;" name="content" ><%=b.getBoardContent() %></textarea>
+             <textarea class="walk content" cols="168" rows="15" style="resize:none;" name="content" ><%=b.getBoardContent() %></textarea>
             </div>
            
             <img src="<%=contextPath %>/resources/메이트 위치 정하기.png" height="68">
@@ -98,27 +98,37 @@
                 <div class="items">
                   <div class="item active">
                     <div class="picture">
-               <%--      	<%if(atList != null){ %>
+                 	<%-- <%if(atList != null){ %>
 							<%for(Attachment a : atList){ %>
 								<img src="<%=contextPath +a.getFilePath()+a.getChangeName()%>">
 							<%} %>
-						<%} %>
-						 --%>
-						<c:if test="${!empty requestScope.atList }">
-						 	<c:forEach var="a" items="${requestScope.atList }" varStatus="status">
-						 		<img src="<%=contextPath %>${a.changeName}${a.filePath }">
+						<%} %> --%>
+						 
+						 <c:if test="${!empty requestScope.atList }">
+						 	<c:forEach var="atImg" items="${requestScope.atList }" varStatus="status">
+						 		<img src="<%=contextPath %>${atImg.filePath}${atImg.changeName}">
 						 	</c:forEach>
-						</c:if>
+						</c:if> 
                     </div>
                   </div>
                 </div>
                <div class="next btn-pic"></div>
             </div>
-            <input type="file" id="file" accept="image/*" onchange="loadImg(this);" name="file" multiple/>
-           <c:if test="${!empty requestScope.atList }"> <!-- 원래 파일이 있었을 경우 -->
-            	<c:forEach var="a" items="${requestScope.atList }" varStatus="status">
-            		<input type="hidden" name="originFileNo${status.index }" value="${a.fileNo}">
-            		<input type="hidden" name="changeFileName${status.index }" value="${a.changeName}" multiple>
+            <input type="file" id="file" accept="image/*" onchange="loadImg(this);" name="file" multiple required/>
+         <%--   	<%if(atList != null){ %>
+    			<%for(Attachment a : atList){ %>
+	           		<%for(int i=0; i<atList.size(); i++){ %>
+           				<input type="hidden" name="originFileNo<%=i%>" value="<%=a.getFileNo()%>">
+           				<input type="hidden" name="changeFileName<%=i%>" value="<%=a.getChangeName()%>" multiple>
+           			<%} %>
+           		<%} %>
+           	<%} %>
+            --%>
+           
+          <c:if test="${!empty requestScope.atList }"> <!-- 원래 파일이 있었을 경우 -->
+            	<c:forEach var="atImg" items="${requestScope.atList}" varStatus="status">
+            		<input type="hidden" name="originFileNo${status.index}" value="${atImg.fileNo}">
+            		<input type="hidden" name="changeFileName${status.index}" value="${atImg.changeName}" multiple>
             	</c:forEach>
             </c:if>
            
@@ -237,7 +247,6 @@
 	        function loadImg(inputFile) {
 	          	// inputFile : 현재 변화가 생긴 input type="file"요소
 	          	//console.log(inputFile.files.length);
-		        	  	
 	        	$(".picture").empty();     
 	    	
 	          	if(inputFile.files.length != 0){
@@ -252,14 +261,10 @@
 	          				let url = e.target.result;
 	          				$("<img id='contentImg"+i+"' width='150' height='120' name='contentImg"+i+"'>").appendTo(".picture");
 	          				$("#contentImg"+i).attr("src", url);
-	          				
-	          				
 	          			}
 	          		}
-	          		
 	          	}else{
 	          		$(".picture").empty();
-	          	
 	          	}
 	    	  }
 	        
@@ -278,17 +283,19 @@
 				
 				let originFileNos = document.querySelectorAll("input[name^=originFileNo]");
 				for(let i=0; i<originFileNos.length; i++){
-					form.append("originFileNo"+i, originFileNos[i].value);
-				}
+            		form.append("originFileNo"+i, originFileNos[i].value);
+            	}
 				
-				let changeFileNames=document.querySelectorAll("input[name^=changeFileName]");
-            	for(let i=0; i<changeFileNames.length; i++){
+				
+				let changeFileNames = document.querySelectorAll("input[name^=changeFileName]"); 
+				for(let i=0; i<changeFileNames.length; i++){
             		form.append("changeFileName"+i, changeFileNames[i].value);
             	}
             	
+            	
 				$.each($("#file")[0].files, function(index, item){
-					form.append("file"+index, item);
-				});
+            		form.append("file"+index, item);
+            	});
 				
 				form.append("title",title);
 				form.append("content", content);

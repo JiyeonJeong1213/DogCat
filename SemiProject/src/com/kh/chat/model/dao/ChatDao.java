@@ -236,12 +236,235 @@ public class ChatDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, crNo);
 			pstmt.setInt(2, reader);
+	// 챗봇용	
+	public int selectChatroom(Connection conn, int buyerNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectChatroom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, buyerNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("CR_NO");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public int insertChatBot(Connection conn, int buyerNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertChatBot");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, buyerNo);
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(conn);
+			close(pstmt);
 		}
 		return result;
 	}
+	
+	public ArrayList<Message> readChatbot(Connection conn, int reader){
+		ArrayList<Message> mList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("readChatbot");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reader);
+			pstmt.setInt(2, reader);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Message m = new Message(rset.getInt("SENDER"), 
+										rset.getInt("RECEIVER"), 
+										rset.getString("M_CONTENT"));
+				mList.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mList;
+		
+	}
+	
+	public int insertChatMessage(Connection conn, int senderNo, String msg) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertChatMessage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, senderNo);
+			pstmt.setInt(2, senderNo);
+			pstmt.setString(3, msg);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	public ArrayList<Chatroom> adminChatList(Connection conn){
+		
+		ArrayList<Chatroom> chatList = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("adminChatList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Chatroom ct = new Chatroom();
+				ct.setChatroomNo(rset.getInt("CR_NO"));
+				ct.setCreateDate(rset.getDate("CREATE_DATE"));
+				ct.setSeller(rset.getString("SELLER"));
+				ct.setBuyer(rset.getString("BUYER"));
+				
+				chatList.add(ct);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return chatList;
+		
+		
+		
+	}
+	
+	public String selectAdminMsg(Connection conn, int crNo) {
+		
+		String recentMsg = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAdminMsg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, crNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				recentMsg = rset.getString("M_CONTENT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return recentMsg;
+	}
+	
+	public int insertChatMessage2(Connection conn, int crNo, int senderNo, String msg) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertChatMessage2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, crNo);
+			pstmt.setInt(2, senderNo);
+			pstmt.setInt(3, senderNo);
+			pstmt.setInt(4, senderNo);
+			pstmt.setInt(5, crNo);
+			pstmt.setString(6, msg);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public ArrayList<Message> readChatbot2(Connection conn, int crNo, int reader){
+		ArrayList<Message> mList = new ArrayList<Message>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("readChatbot2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, crNo);
+			pstmt.setInt(2, reader);
+			pstmt.setInt(3, reader);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Message m = new Message();
+				m.setMessageContent(rset.getString("M_CONTENT"));
+				m.setSender(rset.getInt("SENDER"));
+				m.setReceiver(rset.getInt("RECEIVER"));
+				
+				mList.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mList;
+		
+		
+		
+		
+	}
+	
 }
