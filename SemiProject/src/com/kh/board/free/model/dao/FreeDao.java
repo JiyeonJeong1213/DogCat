@@ -190,21 +190,26 @@ public class FreeDao {
 		return result;
 	}
 	
-	public int insertAttachment(Connection conn, Attachment at) {
+	public int insertAttachmentList(Connection conn, ArrayList<Attachment> fileList) {
 		
-		int result = 0;
+		int result = 1;
 		
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("insertAttachment");
+		String sql = prop.getProperty("insertAttachmentList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
 			
-			result = pstmt.executeUpdate();
+			for(Attachment at : fileList) {
+				
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
+				pstmt.setInt(4, at.getFileLevel());
+				
+				result *= pstmt.executeUpdate();
+			}
 			
 		} catch (SQLException e) { 
 			e.printStackTrace();
@@ -214,6 +219,42 @@ public class FreeDao {
 		
 		return result;
 		
+	}
+	
+	public ArrayList<Attachment> selectAttachmentList(Connection conn, int boardNo){
+		
+		ArrayList<Attachment> list2 = new ArrayList();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAttachment");
+		 
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setFileLevel(rset.getInt("FILE_LEVEL"));
+				
+				list2.add(at);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list2;
 	}
 	
 	public int increaseCount(Connection conn , int boardNo) {
@@ -296,7 +337,6 @@ public class FreeDao {
 				at.setOriginName(rset.getString("ORIGIN_NAME"));
 				at.setChangeName(rset.getString("CHANGE_NAME"));
 				at.setFilePath(rset.getString("FILE_PATH"));
-				
 				at.setFileLevel(rset.getInt("FILE_LEVEL"));
 			}
 			
@@ -337,49 +377,56 @@ public class FreeDao {
 		return result;
 	}
 	
-	public int updateAttachment(Connection conn, Attachment at) {
-		
-		int result = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("updateAttachment");
-		
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, at.getOriginName());
-			pstmt.setString(2, at.getChangeName());
-			pstmt.setString(3, at.getFilePath());
-			pstmt.setInt(4, at.getFileNo());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
+//	public int updateAttachment(Connection conn, ArrayList<Attachment> fileList) {
+//		
+//		int result = 0;
+//		
+//		PreparedStatement pstmt = null;
+//		
+//		String sql = prop.getProperty("updateAttachment");
+//		
+//		
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, at.getOriginName());
+//			pstmt.setString(2, at.getChangeName());
+//			pstmt.setString(3, at.getFilePath());
+//			pstmt.setInt(4, at.getFileNo());
+//			
+//			result = pstmt.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//		}
+//		
+//		return result;
+//	}
 	
-	public int insertNewAttachment(Connection conn , Attachment at) {
+	public int updateAttachment(Connection conn , ArrayList<Attachment> fileList) {
 		
 		int result = 0;
 		
 		PreparedStatement pstmt =null;
 		
-		String sql = prop.getProperty("insertNewAttachment");
+		String sql = prop.getProperty("updateAttachment");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, at.getRefBno());
-			pstmt.setString(2, at.getOriginName());
-			pstmt.setString(3, at.getChangeName());
-			pstmt.setString(4, at.getFilePath());
 			
-			result = pstmt.executeUpdate();
+			for(Attachment at : fileList) {
+			
+				pstmt.setInt(1, at.getRefBno());
+				pstmt.setString(2, at.getOriginName());
+				pstmt.setString(3, at.getChangeName());
+				pstmt.setString(4, at.getFilePath());
+				pstmt.setInt(5, at.getFileLevel());
+				
+				result = pstmt.executeUpdate();
+			}
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -539,8 +586,8 @@ public class FreeDao {
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
+		
 	}
 	
 	public int searchListCount(Connection conn) {

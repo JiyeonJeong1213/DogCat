@@ -36,19 +36,20 @@ public class ViewController extends HttpServlet {
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
 		FreeService fService = new FreeService();
-		
-		
+			
 		int result = fService.increaseCount(boardNo);
 		
 		if(result > 0 ) { 
 			
 			Board b = fService.selectBoard(boardNo);
-			Attachment at = fService.selectAttachment(boardNo);
+			
 			ArrayList<Reply> list = fService.selectReplyList(boardNo);
 			
+			ArrayList<Attachment> list2 = fService.selectAttachmentList(boardNo);
+			
 			request.setAttribute("b", b);
-			request.setAttribute("at", at);
 			request.setAttribute("list", list);
+			request.setAttribute("list2", list2);
 			
 			request.getRequestDispatcher("views/board/free/freeDetailView.jsp").forward(request, response);
 			
