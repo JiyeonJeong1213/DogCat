@@ -80,4 +80,16 @@ public class ChatService {
 		return result;
 	}
 	
+	public int checkMessage(int crNo, int reader) {
+		Connection conn = getConnection();
+		int result = new ChatDao().checkMessage(conn, crNo, reader);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
 }

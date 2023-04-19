@@ -451,6 +451,7 @@ public Member selectUser(Connection conn, String userId) {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, seller);
+			pstmt.setInt(2, seller);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {

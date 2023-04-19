@@ -86,4 +86,11 @@
                                                     FROM CHATROOM
                                                    WHERE CR_NO = ?), ?)
 	</entry>
+	
+	<entry key="checkMessage">
+		UPDATE MESSAGE
+	    SET M_CHECK = 'Y'
+	    WHERE CR_NO = ?
+	      AND RECEIVER = ?
+	</entry>
 </properties>
