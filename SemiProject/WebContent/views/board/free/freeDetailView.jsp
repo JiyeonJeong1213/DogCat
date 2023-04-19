@@ -2,8 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 Board b = (Board) request.getAttribute("b");
-Attachment at = (Attachment) request.getAttribute("at");
 ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
+ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list2");
 %>
 <!DOCTYPE html>
 <html>
@@ -37,27 +37,30 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
             <input type="text" name="free_content_header2" id="free_content_header2" value="<%=b.getBoardWriter() %> || <%=b.getCreateDate() %> || <%= b.getCount()%>" readonly>
         </div>
 
-<% if(at == null ) { %>
+<% 	if( list2.size() == 0 )  { %>
         <div class="free_content_main">
             <p><%= b.getBoardContent() %></p>
         </div>
         <div class="free_content_file">
-	        <p style="color: rgb(94, 94, 94);">사진 파일 : 	
-					첨부파일이 없습니다	
-			</p>
+	        <p style="color: rgb(94, 94, 94);">사진 파일 : 첨부파일이 없습니다.</p>
 		</div>
-<% } else { %>
+<% 
+} 
+	else { %>
 		<div class="free_content_main">
             <p><%= b.getBoardContent() %></p>
-            <img src= "<%=contextPath %>/<%= at.getFilePath()+at.getChangeName() %>" width="450" height="auto">
-            
+            <% for(int i = 0; i<= list2.size()-1; i++) { %>
+				<img src="<%= contextPath %>/<%= list2.get(i).getFilePath()%><%= list2.get(i).getChangeName() %>" width="450" height="auto">
+			<% } %>
         </div>        
         <div class="free_content_file">
 	        <p style="color: rgb(94, 94, 94);">사진 파일 : 
-					<a download="<%=at.getOriginName() %>" href="<%=contextPath %>/<%= at.getFilePath()+at.getChangeName() %>" style="text-decoration: none; color: rgb(255, 209, 51);"><%=at.getOriginName() %> </a>
+	        <% for(int i = 0; i<= list2.size()-1; i++) { %>
+			<a download="<%= list2.get(i).getOriginName() %>" href="<%=contextPath %>/<%= list2.get(i).getFilePath() + list2.get(i).getChangeName() %>" style="text-decoration: none; color: rgb(255, 209, 51);"><%= list2.get(i).getOriginName() %> | </a>
+			<% } %>
 			</p>
 		</div>
-<% } %>
+<% 	} %>
 		
 		</table>
         <div class="free_buttons1" align="center">
@@ -130,6 +133,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 	</div>
 
 	<script>
+		
 		function deleteBoard(){
 			if(!confirm("정말 삭제하시겠습니까?")){
 				return;
@@ -137,6 +141,43 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 			location.href = "<%= contextPath %>/delete.bf?bno=<%= b.getBoardNo() %>";
 		}
 	
+		function selectReply(){
+			$.ajax({
+				url : "<%= contextPath%>/rlist.bf",
+				data :{
+					bno     : "<%= b.getBoardNo() %>"
+				}, 
+				success : function(result){
+					if(result != null){
+						 var html = null;
+						 for (var i = 0; i < result.length -1; i++) {
+							 html+= "<tr id='replyTr_" + result[i].replyNo + "'>"
+									 	+"<td class='main_td'>"								
+										+"<span><b>" + result[i].replyContent +"</b></span><br>"
+										+"<pre><b id='replyTd_" + result[i].replyNo + "'>" + result[i].replyWriter + "</b></pre>"
+	                    				+"<span  class='td_date'>" + result[i].createDate +"</span>"
+	                    				+"</td>"
+                    			
+                   			if( '<%= loginUser.getUserId() %>' != null && '<%=loginUser.getUserId()%>' === result[i].replyContent ) {
+                    					
+                    			  html+= "<td class='button_td' valign='top' align='right' style='border: 2px solid #ccc; border-left: none;'>"
+	                    				+"<button class='reply_update' onclick='rewriteReply(" + result[i].replyNo + ");'>수정</button>"
+	                    				+"<button class='reply_delete' onclick='deleteReply(" + result[i].replyNo + ");'>삭제</button>"
+										+"</td>"
+                    	   }
+                 			else {
+                    			  	html+= "<td class='button_td' valign='top' align='right' style='border: 2px solid #ccc; border-left: none;'>"
+            							+"</td>"
+                    			 }
+									+"</tr>"
+						 }
+						 $("#reply-area>table>tbody").html(html);
+					}
+				}, error : function(){
+					console.log("댓글작성실패")
+				}
+			})
+		}
 	
 		function insertReply(){
 			$.ajax({
@@ -157,7 +198,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 		
 		function rewriteReply(replyNo){
 			$("#replyTd_"+replyNo).contents().remove();
-			$("#replyTd_"+replyNo).append('<textarea name="rewriteContent" rows="2" cols=55"></textarea>');
+			$("#replyTd_"+replyNo).append('<textarea name="rewriteContent" rows="2" cols=55" style="resize: none;"></textarea>');
 			$(".reply_update").attr('id', 'updateBtn').attr('onclick', 'updateReply(' + replyNo + ')');
 		}
 		
@@ -168,12 +209,13 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 		        url: "<%= contextPath %>/rupdate.bf",
 		        data: { replyNo : replyNo,
 		        		content : newContent
-		        		
 		        },
 		        success: function(result){
 		        	if(result > 0){
 		        		alert("수정되었습니다.");
-		        		location.href = '<%= contextPath%>/detail.bf?bno=<%= b.getBoardNo() %>';
+		        		/* $("#replyTd_"+replyNo).html(newContent); */
+		        		selectReply();
+		        		<%-- location.href = '<%= contextPath%>/detail.bf?bno=<%= b.getBoardNo() %>'; --%>
 		            } else{
 		                alert("댓글수정실패");
 		            }
