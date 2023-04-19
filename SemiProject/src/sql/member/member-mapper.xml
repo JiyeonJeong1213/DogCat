@@ -45,16 +45,84 @@
 		WHERE USER_ID = ?
 		 AND STATUS = 1
 	</entry>
+	
+	<entry key="idCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="nickCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_NICKNAME = ?
+	</entry>
+	
+	<entry key="emailCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE EMAIL = ?
+	</entry>
+	
+	<entry key="insertMember">
+	INSERT INTO MEMBER(USER_NO,
+				USER_ID,
+				USER_NAME,
+                USER_NICKNAME,
+				USER_PWD,
+				EMAIL,
+				PHONE,
+				ADDRESS,
+				HOBBY,
+                STATUS)
+					VALUES(SEQ_UNO.NEXTVAL ,
+				?,
+				?,
+                ?,
+				?,
+				?,
+				?,
+				?,
+				?,
+                1
+                )
+	</entry>
+	
+    <entry key="insertPet">
+	INSERT INTO PET(USER_NO,
+			 SPECIES,
+			 GENDER,
+			 PET_NAME)
+			 	VALUES (SEQ_UNO.CURRVAL ,
+				?,
+                ?,
+                ?
+				)
+	</entry>   
+	
+	<entry key="searchMemberId">
+	SELECT USER_ID
+	FROM MEMBER
+	WHERE USER_NAME = ? AND EMAIL = ?
+	</entry>
+	
+	<entry key="searchMemberEmail">
+	SELECT EMAIL
+	FROM MEMBER
+	WHERE USER_ID = ? AND USER_NAME = ?
+	</entry>
+
+	<entry key="UpdateMemberPwd">
+	UPDATE MEMBER 
+	SET USER_PWD = ? 
+	WHERE USER_ID = ? AND USER_NAME = ?
+	</entry> 
+	
 	<entry key="selectUser">
 		SELECT M.*, SPECIES FROM MEMBER M
 		JOIN PET P ON(M.USER_NO = P.USER_NO)
 		WHERE USER_ID = ?
 		 AND STATUS = 1
-	</entry>
-	<entry key="idCheck">
-		SELECT COUNT(*)
-		FROM MEMBER
-		WHERE USER_ID = ?
 	</entry>
 	
 	<entry key="insertProfileImg">

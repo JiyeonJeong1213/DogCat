@@ -47,16 +47,16 @@ public class IdSearchController extends HttpServlet {
 		String inputEmail = request.getParameter("email");
 		
 		String result = new MemberService().searchMemberId(inputName, inputEmail);
+		request.setAttribute("userId", result);
 		
 		if( !(result == "NNNNNN") ) {
 			request.setAttribute("alertMsg", "아이디 찾기에 성공했습니다.");
-			request.setAttribute("userId", result);
 			
 			request.getRequestDispatcher("views/member/memberIdSearch1.jsp").forward(request,response);
 			return;
 		}
 		
-		request.setAttribute("errorMsg", "아이디 찾기에 실패했습니다.");
+		request.setAttribute("errorMsg", "아이디 찾기에 실패했습니다.");	
 		request.getRequestDispatcher("views/member/memberIdSearch1.jsp").forward(request, response);
 	}
 
