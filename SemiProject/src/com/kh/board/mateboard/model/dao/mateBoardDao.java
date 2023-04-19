@@ -99,6 +99,7 @@ public class mateBoardDao {
 						b.setCreateDate(rset.getDate("CREATE_DATE"));
 						b.setAddress(rset.getString("ADDRESS"));
 						b.setLcount(rset.getInt("B_LIKE"));
+						b.setApplyCount(rset.getInt("APPLY"));
 				list.add(b);
 			}
 		

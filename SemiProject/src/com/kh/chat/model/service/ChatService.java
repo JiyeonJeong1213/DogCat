@@ -80,4 +80,87 @@ public class ChatService {
 		return result;
 	}
 	
+	// 문의하기(챗봇) 채팅	
+	public int selectChatroom (int buyerNo) {
+		Connection conn = getConnection();
+		int result = new ChatDao().selectChatroom(conn, buyerNo);
+		close(conn);
+		return result;
+		
+	}
+	
+	public int insertChatBot (int buyerNo) {
+		Connection conn = getConnection();
+		int result = new ChatDao().insertChatBot(conn, buyerNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
+	public ArrayList<Message> readChatbot(int reader){
+		
+		Connection conn = getConnection();
+		ArrayList<Message> mList = new ChatDao().readChatbot(conn, reader);
+		close(conn);
+		return mList;
+	}
+	
+	public int insertChatMessage(int senderNo, String msg) {
+		Connection conn = getConnection();
+		int result = new ChatDao().insertChatMessage(conn, senderNo, msg);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public ArrayList<Chatroom> adminChatList(){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Chatroom> chatList = new ChatDao().adminChatList(conn);
+		close(conn);
+		return chatList;
+	}
+	
+	public String selectAdminMsg(int crNo) {
+		Connection conn = getConnection();
+		String recentMsg = new ChatDao().selectAdminMsg(conn, crNo);
+		close(conn);
+		return recentMsg;
+		
+	}
+	
+	public int insertChatMessage2(int crNo, int senderNo, String msg) {
+		Connection conn = getConnection();
+		
+		int result = new ChatDao().insertChatMessage2(conn, crNo, senderNo, msg);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	public ArrayList<Message> readChatbot2(int crNo, int reader){
+		Connection conn = getConnection();
+		
+		ArrayList<Message> mList = new ChatDao().readChatbot2(conn, crNo, reader);
+		
+		close(conn);
+		return mList;
+		
+	}
+	
+	
+	
 }

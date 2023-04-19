@@ -300,11 +300,12 @@
                   <th id="board">게시글</th>
                   <th id="likelist">찜목록</th>
                   <th id="chatting">채팅</th>
-                  <th id="walk mate" style="text-align: center; color: rgba(52, 152, 219, 0.52);" width="">산책메이트</th>
+                  <th id="walk mate" style="text-align: center; color: rgba(52, 152, 219, 0.52);">산책메이트</th>
                </tr>
                <tr>
                   <td><button type="button" id="changebutton" style="width: 150px;">
                   <a href="<%=contextPath%>/updateuser.me" style= "text-decoration: none;">회원정보 수정</a></button></td>
+                  
                   <td style="text-align: center;"><%= count.getbCount()%></td>
                   <td style="text-align: center;"><%= count.getsCount()%></td>
                   <td style="text-align: center;"><%= count.getcCount()%></td>
@@ -313,7 +314,8 @@
             </table>
          </div>
       </div>
-      <div class="content_category">
+   <div class="content_4">
+      <div class="content4_category">
          <div class="category_swiper">
             <button id="btn1" class="category_button">작성글</button>
          </div>

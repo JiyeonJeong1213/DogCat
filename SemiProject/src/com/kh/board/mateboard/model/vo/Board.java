@@ -6,10 +6,10 @@ public class Board {
 
 	private int boardNo; //	BOARD_NO
 	private int boardType; //	BOARD_TYPE
-	private String boardCategory; //	BOARD_CATEGORY °Ô½Ã±Û ÀÛ¼º½Ã ¹øÈ£(category_no)¸¦ ±×´ë·Î ¹Þ´Â °æ¿ì¿Í Á¶È¸½Ã Ä«Å×°í¸®¸í(category_name)À¸·Î Á¶È¸ÇÏ´Â °æ¿ì
+	private String boardCategory; //	BOARD_CATEGORY ï¿½Ô½Ã±ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½È£(category_no)ï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½(category_name)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 	private String boardTitle; //	BOARD_TITLE
 	private String boardContent; //	BOARD_CONTENT
-	private String boardWriter; //	BOARD_WRITER ÀÛ¼º½Ã È¸¿ø¹øÈ£(user_no), Á¶È¸½Ã È¸¿ø¾ÆÀÌµð(user_id)·Î Á¶È¸
+	private String boardWriter; //	BOARD_WRITER ï¿½Û¼ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½È£(user_no), ï¿½ï¿½È¸ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½(user_id)ï¿½ï¿½ ï¿½ï¿½È¸
 	private int count; //	COUNT
 	private Date createDate;//	CREATE_DATE
 	private String sale; //	SALE
@@ -17,9 +17,10 @@ public class Board {
 	private double latitude; //	LATITUDE
 	private double longitude; //	LONGITUDE
 	private String status; //	STATUS
-	private String pet; // ¹Ý·Á°ß Á¤º¸
-	private int Lcount;//ÃßÃµ °¹¼ö
+	private String pet; // ï¿½Ý·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private int Lcount;//ï¿½ï¿½Ãµ ï¿½ï¿½ï¿½ï¿½
 	private String fileName;
+	private int applyCount;
 	
 	
 	
@@ -47,7 +48,7 @@ public class Board {
 	}
 	
 	
-	/*»êÃ¥¸ÞÀÌÆ® °Ô½ÃÆÇ ÇÊ¿äÁ¤º¸*/
+	/*ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	public Board(int boardNo, int boardType, String boardTitle, String boardContent, String boardWriter, int count,
 			Date createDate, String address, double latitude, double longitude, String status) {
 		super();
@@ -64,8 +65,6 @@ public class Board {
 		this.status = status;
 	}
 	
-	//»êÃ¥¸ÞÀÌÆ® °Ô½ÃÆÇ Á¶È¸
-	//boardType = '1' ÀÌ°í status°¡ yÀÏ¶§
 	public Board(int boardNo, String boardTitle, String boardContent, String boardWriter, int count,
 			Date createDate, String address, String status, String pet) {
 		super();
@@ -248,6 +247,14 @@ public class Board {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	
+	public int getApplyCount() {
+		return applyCount;
+	}
+
+	public void setApplyCount(int applyCount) {
+		this.applyCount = applyCount;
 	}
 
 	@Override

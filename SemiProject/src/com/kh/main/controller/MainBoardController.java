@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.notice.model.service.NoticeService;
 
@@ -34,7 +35,7 @@ public class MainBoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		ArrayList<Board> list = new NoticeService().selectMainBoard();
+		ArrayList<Attachment> list = new NoticeService().selectMainBoard();
 		
 		response.setContentType("application/json; charset=UTF-8");
 		

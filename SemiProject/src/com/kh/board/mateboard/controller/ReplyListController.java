@@ -35,6 +35,8 @@ public class ReplyListController extends HttpServlet {
 		
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		ArrayList<Reply>list = new mateBoardService().selectReplyList(boardNo);
+	
+	
 		response.setContentType("application/json; charset=UTF-8");
 	
 		new Gson().toJson(list, response.getWriter());

@@ -55,13 +55,65 @@
 				
 			</div>
 
-			<div class="free_filebox">
-				<label for="image" style="font-size: 13px;">파일선택</label>
-				<input type="file" id="image" name="upfile" accept="image/*" onchange="setThumbnail(event);" multiple/>
+			<div class="free_filebox" id="free_filebox">
+				<input type="hidden" name="numberOfFile" id="numberOfFile">			
+				<label for="addFile" style="font-size: 13px;">업로드추가</label>
+				<input type="button" id="addFile" name="addFile" onClick="addInput();">
+
 			</div>
 			<div id="abcd" align="center"></div>
 		</form>
 	</div>
 	<%@ include file="../../common/footer.jsp"%>
 </body>
+<script>
+$(document).ready( function() {
+	
+	var form = $('#enroll-form')[0]; 
+		
+	form.addEventListener('submit', function(event){
+	  	
+		event.preventDefault(); // 기본 동작인 submit 중단
+		
+	  	var imgCount = $('#abcd>img').length;
+		$('input[name=numberOfFile]').val(imgCount);
+		
+		form.submit();	//이벤트 수행 후, form submit 진행
+	  
+	});
+		
+});
+
+var count = 0 ;
+
+function addInput(){
+	
+	if(count==3){
+		return alert("파일첨부는 3장까지 가능합니다.");
+	}
+	
+	var div = document.getElementById("free_filebox");
+	
+	var newLabel = document.createElement("label");
+	newLabel.setAttribute("for","upfile" + count);
+	newLabel.setAttribute("style","font-size: 13px");
+	newLabel.innerHTML = "파일선택"
+	
+	var input = document.createElement("input");
+	input.setAttribute("type","file");
+	input.setAttribute("id","upfile" + count);
+	input.setAttribute("name","upfile" + count);
+	input.setAttribute("accept","image/*");
+	input.setAttribute("onchange","setThumbnail(event)");
+	
+	div.appendChild(newLabel);
+	div.appendChild(input);
+	
+	upCount();
+}
+
+function upCount() {
+	count +=1;
+}
+</script>
 </html>

@@ -90,11 +90,12 @@
 	
 	
 	<entry key="selectMainBoard">
-	    SELECT BOARD_NO, BOARD_TITLE, USER_NICKNAME 
-	    FROM BOARD B
-	          JOIN MEMBER M ON(B.BOARD_WRITER = M.USER_NO)
-	    WHERE BOARD_TYPE = 1 AND B.STATUS='Y'
-	    ORDER BY CREATE_DATE DESC
+	   	SELECT *
+		FROM ATTACHMENT
+		WHERE REF_BNO = (SELECT BOARD_NO
+		                FROM BOARD
+		                WHERE BOARD_TYPE = 1)
+		ORDER BY UPLOAD_DATE DESC
 	</entry>
 		
 
