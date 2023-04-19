@@ -102,7 +102,7 @@ public class mateBoardService {
 		
 		if(atList.size()>0) {
 			result2 = new mateBoardDao().updateAttachment(conn, atList);
-			if(!originFileNos.isEmpty()) {
+			if(originFileNos!=null) {
 				result3 = new mateBoardDao().updateAttachmentDelete(conn, originFileNos);
 			}
 		}

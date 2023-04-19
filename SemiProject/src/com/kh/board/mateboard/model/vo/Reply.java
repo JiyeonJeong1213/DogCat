@@ -12,6 +12,7 @@ public class Reply {
 	private String status;
 	private String userNickname;
 	private String userId;
+	private int userNo;
 	
 	public Reply() {
 		super();
@@ -139,6 +140,20 @@ public class Reply {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+
+	
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+
+
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 

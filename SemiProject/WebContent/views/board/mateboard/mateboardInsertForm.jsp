@@ -12,36 +12,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <!-- <link href="resources/css/02_mateWrite.css?afterlike" rel="stylesheet"> -->
 <style>
-.wrap{
-    /* position: relative; */
-    width: 100%;
-    height: 100%;
-  }
-  .content_name{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .content2{
-    line-height: 2;
-    text-align: center;
-  }
-  .walk-write{
-    /* position: absolute; */
-    margin: 0 auto;
-    border: 1px solid gray;
-    width: 70%;
-  
-    left: 13.5%;
-  }
-  .walk-name{
-    width: 95%;
-    display: inline-flex;
-    margin : 8px 0px 0px 12px;
-  }
-  .content3{
-    display: flex;
-    justify-content: space-around;
+.wrap {
+	/* position: relative; */
+	width: 100%;
+	height: 100%;
 }
 .content_name {
 	display: flex;
@@ -275,7 +249,7 @@ img {
 
             <img src="<%=contextPath %>/resources/메이트소개글쓰기.png" height="65">
             <div class="write-content">
-             <textarea class="walk-content" cols="147.5" rows="10" style="resize:none;" name="content" placeholder="산책을 함께 하는 반려견을 소개하거나, 유의사항을 작성해주세요"></textarea>
+             <textarea class="walk-content content" cols="147.5" rows="10" style="resize:none;" name="content" placeholder="산책을 함께 하는 반려견을 소개하거나, 유의사항을 작성해주세요"></textarea>
             </div>
            
             <img src="<%=contextPath %>/resources/메이트 위치 정하기.png" height="68">
@@ -485,6 +459,6 @@ img {
 			
 		}
 	</script>
-  <%@ include file="../../common/footer.jsp" %>
+<%--   <%@ include file="../../common/footer.jsp" %> --%>
 </body>
 </html>
