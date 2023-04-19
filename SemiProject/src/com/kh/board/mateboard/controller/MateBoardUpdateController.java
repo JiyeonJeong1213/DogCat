@@ -65,9 +65,9 @@ public class MateBoardUpdateController extends HttpServlet {
 		MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 		
 		Board b = new Board();
+		b.setBoardNo(Integer.parseInt(multi.getParameter("bno")));
 		b.setBoardTitle(multi.getParameter("title"));
 		b.setBoardContent(multi.getParameter("content"));
-		b.setBoardWriter(((Member)request.getSession().getAttribute("loginUser")).getUserNo()+"");
 		b.setAddress(multi.getParameter("address1")+","+multi.getParameter("address2"));
 		if(multi.getParameter("latitude") != null) {
 			b.setLatitude(Double.parseDouble(multi.getParameter("latitude")));
@@ -76,10 +76,11 @@ public class MateBoardUpdateController extends HttpServlet {
 			b.setLongitude(Double.parseDouble(multi.getParameter("longitude")));
 		}
 		
-		//System.out.println(b);
+		
 		
 		ArrayList<Attachment> atList = new ArrayList<>();
 		if(multi.getFileNames() != null) {
+			
 			Enumeration e = multi.getFileNames();
 			int fileLevel=1;
 			while(e.hasMoreElements()) {
@@ -90,16 +91,16 @@ public class MateBoardUpdateController extends HttpServlet {
 				Attachment atImg = new Attachment();
 				atImg.setOriginName(originName);
 				atImg.setChangeName(changeName);
-				atImg.setFilePath("resources/mateboard_upfiles");
+				atImg.setFilePath("/resources/mateboard_upfiles/");
 				atImg.setFileLevel(fileLevel++);
 				atImg.setRefBno(Integer.parseInt(multi.getParameter("bno")));
 				
 				atList.add(atImg);
 			}
 			
-			int index  =0;
+			int index =0;
 			while(true) {
-				String changeFileName = multi.getParameter("changeFileName"+index++);
+				String changeFileName = multi.getParameter("changeFileName"+ index++);
 				//System.out.println(changeFileName);
 				if(changeFileName == null) {
 					break;
@@ -112,10 +113,9 @@ public class MateBoardUpdateController extends HttpServlet {
 		ArrayList<Integer> originFileNos = new ArrayList<>();
 		int index2 = 0;
 		while(true) {
-			String originFileNo = multi.getParameter("originFileNo"+index2++);
-			System.out.println(originFileNo);
-			
-			if(originFileNo == null) {
+			String originFileNo = multi.getParameter("originFileNo"+ index2++);
+						
+			if(originFileNo==null) {
 				break;
 			}else {
 				originFileNos.add(Integer.parseInt(originFileNo));
@@ -123,8 +123,7 @@ public class MateBoardUpdateController extends HttpServlet {
 		}
 		
 		int result = new mateBoardService().updateMate(b, atList, originFileNos);
-		System.out.println(result);
-		
+				
 		if(result > 0) {
 			System.out.println("업뎃성공");
 		}else {
