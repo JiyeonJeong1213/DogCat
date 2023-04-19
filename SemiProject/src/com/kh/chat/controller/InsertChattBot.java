@@ -1,30 +1,25 @@
-package com.kh.main.controller;
+package com.kh.chat.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.board.model.vo.Attachment;
-import com.kh.board.model.vo.Board;
-import com.kh.board.notice.model.service.NoticeService;
+import com.kh.chat.model.service.ChatService;
 
 /**
- * Servlet implementation class MainBoardController
+ * Servlet implementation class InsertChattBot
  */
-@WebServlet("/main.bo")
-public class MainBoardController extends HttpServlet {
+@WebServlet("/InsertChattBot")
+public class InsertChattBot extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainBoardController() {
+    public InsertChattBot() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,13 +28,28 @@ public class MainBoardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+
+		int buyerNo = Integer.parseInt(request.getParameter("buyer"));
+		int check = new ChatService().selectChatroom(buyerNo);
+		String checkResult = null;
 		
-		ArrayList<Attachment> list = new NoticeService().selectMainBoard();
+		if(check<=0) {
+			checkResult = "N";
+			int result = new ChatService().insertChatBot(buyerNo);
+			int crNo = new ChatService().selectChatroom(buyerNo);
+			request.getSession().setAttribute("crNo", crNo);
+			
+			if(result<=0) {
+				request.setAttribute("errorMsg", "채팅방생성실패");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
+			
+		}else {
+			checkResult = "Y";
+			request.getSession().setAttribute("crNo", check);
+		}
 		
-		response.setContentType("application/json; charset=UTF-8");
-		
-		new Gson().toJson(list, response.getWriter());
+		response.getWriter().print(checkResult);
 		
 		
 	}

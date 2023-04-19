@@ -1,8 +1,6 @@
 package com.kh.main.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,21 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.board.model.vo.Attachment;
-import com.kh.board.model.vo.Board;
-import com.kh.board.notice.model.service.NoticeService;
+import com.kh.count.model.vo.Count;
+import com.kh.main.model.service.MainService;
 
 /**
- * Servlet implementation class MainBoardController
+ * Servlet implementation class UserCount
  */
-@WebServlet("/main.bo")
-public class MainBoardController extends HttpServlet {
+@WebServlet("/countUser")
+public class UserCount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainBoardController() {
+    public UserCount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,14 +30,15 @@ public class MainBoardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		
-		ArrayList<Attachment> list = new NoticeService().selectMainBoard();
 		
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		
+		Count userCount = new MainService().userCount(userNo);
+
 		response.setContentType("application/json; charset=UTF-8");
 		
-		new Gson().toJson(list, response.getWriter());
-		
+		new Gson().toJson(userCount, response.getWriter());
 		
 	}
 

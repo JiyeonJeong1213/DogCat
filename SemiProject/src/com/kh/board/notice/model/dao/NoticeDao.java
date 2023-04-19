@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 import static com.kh.common.JDBCTemplate.*;
+
+import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.common.model.vo.PageInfo;
 
@@ -295,9 +297,9 @@ public class NoticeDao {
 		return list;
 	}
 	
-	public ArrayList<Board> selectMainBoard(Connection conn){
+	public ArrayList<Attachment> selectMainBoard(Connection conn){
 		
-		ArrayList<Board> list = new ArrayList<>();
+		ArrayList<Attachment> list = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
 		
@@ -311,12 +313,13 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Board b = new Board();
-				b.setBoardNo(rset.getInt("BOARD_NO"));
-				b.setBoardTitle(rset.getString("BOARD_TITLE"));
-				b.setBoardWriter(rset.getString("USER_NICKNAME"));
+				Attachment at = new Attachment();
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setRefBno(rset.getInt("REF_BNO"));
 				
-				list.add(b);
+				list.add(at);
 			}
 			
 		} catch (SQLException e) {
