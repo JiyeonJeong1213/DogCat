@@ -101,6 +101,9 @@
             <li class="nav-item">
               <a class="nav-link" id="nav" href="<%= request.getContextPath() %>/list.no">공지사항관리</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav" href="<%= request.getContextPath() %>/adminChatList">1:1문의</a>
+            </li>
         </ul>
     </div>
 	

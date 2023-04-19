@@ -3,6 +3,7 @@ package com.kh.board.notice.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.notice.model.dao.NoticeDao;
 import com.kh.common.model.vo.PageInfo;
@@ -128,11 +129,11 @@ public class NoticeService {
 	}
 	
 
-	public ArrayList<Board> selectMainBoard(){
+	public ArrayList<Attachment> selectMainBoard(){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new NoticeDao().selectMainBoard(conn);
+		ArrayList<Attachment> list = new NoticeDao().selectMainBoard(conn);
 		
 		close(conn);
 		

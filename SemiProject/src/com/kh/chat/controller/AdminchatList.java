@@ -1,4 +1,4 @@
-package com.kh.main.controller;
+package com.kh.chat.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.board.model.vo.Attachment;
-import com.kh.board.model.vo.Board;
-import com.kh.board.notice.model.service.NoticeService;
+import com.kh.chat.model.service.ChatService;
+import com.kh.chat.model.vo.Chatroom;
 
 /**
- * Servlet implementation class MainBoardController
+ * Servlet implementation class AdminchatList
  */
-@WebServlet("/main.bo")
-public class MainBoardController extends HttpServlet {
+@WebServlet("/adminChatList")
+public class AdminchatList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainBoardController() {
+    public AdminchatList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,13 +31,22 @@ public class MainBoardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+
+		ArrayList<Chatroom> chatList = new ChatService().adminChatList();
+		ArrayList<Integer> crNoList = new ArrayList<>();
+		ArrayList<String> recentMsgs = new ArrayList<>();
 		
-		ArrayList<Attachment> list = new NoticeService().selectMainBoard();
+		for(Chatroom cr : chatList){
+			int crNo = cr.getChatroomNo();
+			String recentMsg = new ChatService().selectAdminMsg(crNo);
+			recentMsgs.add(recentMsg);
+		}
 		
-		response.setContentType("application/json; charset=UTF-8");
+		request.setAttribute("chatList", chatList);
+		request.setAttribute("recentMsgs", recentMsgs);
+		request.getRequestDispatcher("views/admin/adminChatList.jsp").forward(request, response);
 		
-		new Gson().toJson(list, response.getWriter());
+		
 		
 		
 	}
