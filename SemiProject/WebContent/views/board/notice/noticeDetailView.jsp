@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
 	.item{
 		width: 1000px;
 		margin: auto;
@@ -106,6 +107,6 @@
 	
 	</div>
 	
-<%-- <jsp:include page="../../common/footer.jsp"/> --%>
+<jsp:include page="../../common/footer.jsp"/>
 </body>
 </html>

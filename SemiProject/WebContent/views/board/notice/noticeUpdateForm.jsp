@@ -92,23 +92,6 @@
             <h2 class="master_notice_title">공지사항 수정하기</h2>
             <form action="<%= request.getContextPath() %>/update.no" method="post" style="border: 1px solid gray;">
                 <input type="hidden" name="bno" value="<%= b.getBoardNo() %>">
-                <%-- <table class="notice_update">
-                    <tr>
-                        <td width="80px">제목</td>
-                        <td width="280px"><input type="text" name="title" required value="<%= b.getBoardTitle()%>"></td>
-                    </tr>
-                    <tr>
-                        <td>글내용</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <textarea class="notice-content" name="content" rows="10" style="resize:none;" required ><%= b.getBoardContent() %></textarea>
-                        </td>
-                    </tr>
-                </table> --%>
-                
-                
                 <div>
 	                <div class="noticeWrap">
 	                    <div class="noticeContentTitle">
@@ -130,6 +113,6 @@
         </div>
     </div>
 
-
+<jsp:include page="../../common/footer.jsp"/>
 </body>
 </html>

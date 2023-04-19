@@ -572,15 +572,15 @@ a {
 	            </div>
 	        </div>
 	
-	        <div class="chat-buttons">
-	            <button class="chat-button">회원가입</button>
-	            <button class="chat-button">회원탈퇴</button>
-	            <button class="chat-button">나눔&거래 방식</button>
-	            <button class="chat-button">산책메이트 신청하기</button>
-	            <button class="chat-button">산책메이트 취소하기</button>
-	            <button class="chat-button">이용약관</button>
-	        </div>
-	
+		   <div class="chat-buttons">
+		            <button class="chat-button">회원가입</button>
+		            <button class="chat-button">회원탈퇴</button>
+		            <button class="chat-button">나눔&거래 방식</button>
+		            <button class="chat-button">산책메이트 신청하기</button>
+		            <button class="chat-button">산책메이트 취소하기</button>
+		            <button class="chat-button">이용약관</button>
+		    </div>
+
 	        <div class="chat-question">
 	            <input type="text" id="msg-content" placeholder="메세지를 입력하세요" >
 	            <button onclick="sendMsg()">전송</button>
