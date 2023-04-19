@@ -247,4 +247,10 @@
 		ORDER BY CREATE_DATE DESC
 	</entry>
 	
+	<entry key="selectDetailMember">
+		SELECT M.*, SPECIES FROM MEMBER M
+		LEFT JOIN PET P ON(M.USER_NO = P.USER_NO)
+		WHERE USER_ID = ?
+	</entry>
+	
 </properties>
