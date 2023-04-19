@@ -472,7 +472,7 @@
        
        function websocket(){
     		// 웹소켓 서버에 연결하기
-           socket = new WebSocket("ws://192.168.30.167:8081<%= contextPath %>/chattingServer");
+           socket = new WebSocket("ws://localhost:8081<%= contextPath %>/chattingServer");
         	
        	   // socket 설정하기
            // 1. 접속 후 실행되는 이벤트 핸들러
