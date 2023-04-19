@@ -44,7 +44,6 @@ public class ViewController extends HttpServlet {
 			Board b = fService.selectBoard(boardNo);
 			
 			ArrayList<Reply> list = fService.selectReplyList(boardNo);
-			
 			ArrayList<Attachment> list2 = fService.selectAttachmentList(boardNo);
 			
 			request.setAttribute("b", b);
