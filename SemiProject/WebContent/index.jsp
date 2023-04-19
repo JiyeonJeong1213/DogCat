@@ -336,7 +336,7 @@ a {
 	
 	</script>
 	
-	<script>
+<%-- 	<script>
 		$(function(){
 			$.ajax({
 				type:"get",
@@ -350,7 +350,7 @@ a {
 			});
 		});
 	
-	</script>
+	</script> --%>
 
 
 	<div class="main-content">
@@ -440,7 +440,7 @@ a {
 					 $(".chat-area").css("display","block");
 					 $(".chat_icon").css("display","none")
 					 
-					<%--  $.ajax({
+					$.ajax({
 						 url:'<%= contextPath%>/InsertChattBot',
 						 type:'get',
 						 data:{buyer : ${loginUser.userNo}},
@@ -484,7 +484,7 @@ a {
 							console.log("ajax통신실패");
 						}
 					 });
-					 websocket(); --%>
+					 websocket();
 				});
 				
 			     $(".btn-close").click(function(){
@@ -494,10 +494,10 @@ a {
 	            
 			});
 			
-			<%-- let socket;
+			let socket;
 			
 			function websocket(){
-				socket = new WebScocket("ws://192.168.30.167:8081<%= contextPath %>/chattingServer")
+				socket = new WebSocket("ws://192.168.30.166:8081<%= contextPath %>/chattingServer")
 				
 				socket.onopen = function(e){
 					console.log("접속성공");
@@ -549,7 +549,7 @@ a {
 					}
 				});
 				$("#msg-content").val("");
-			} --%>
+			} 
 		</script>
 		
 		

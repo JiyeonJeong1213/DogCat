@@ -118,6 +118,22 @@ public class ChatService {
 		}
 		close(conn);
 		return result;
+	}
+	
+	public ArrayList<Chatroom> adminChatList(){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Chatroom> chatList = new ChatDao().adminChatList(conn);
+		close(conn);
+		return chatList;
+	}
+	
+	public String selectAdminMsg(int crNo) {
+		Connection conn = getConnection();
+		String recentMsg = new ChatDao().selectAdminMsg(conn, crNo);
+		close(conn);
+		return recentMsg;
 		
 	}
 	

@@ -261,7 +261,6 @@ public class ChatDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, buyerNo);
-			pstmt.setInt(2, buyerNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -282,7 +281,6 @@ public class ChatDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, reader);
 			pstmt.setInt(2, reader);
-			pstmt.setInt(3, reader);
 			
 			rset = pstmt.executeQuery();
 			
@@ -313,8 +311,7 @@ public class ChatDao {
 			
 			pstmt.setInt(1, senderNo);
 			pstmt.setInt(2, senderNo);
-			pstmt.setInt(3, senderNo);
-			pstmt.setString(4, msg);
+			pstmt.setString(3, msg);
 			
 			result = pstmt.executeUpdate();
 			
@@ -325,5 +322,73 @@ public class ChatDao {
 		}
 		return result;
 	}
+	
+	
+	public ArrayList<Chatroom> adminChatList(Connection conn){
+		
+		ArrayList<Chatroom> chatList = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("adminChatList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Chatroom ct = new Chatroom();
+				ct.setChatroomNo(rset.getInt("CR_NO"));
+				ct.setCreateDate(rset.getDate("CREATE_DATE"));
+				ct.setSeller(rset.getString("SELLER"));
+				ct.setBuyer(rset.getString("BUYER"));
+				
+				chatList.add(ct);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return chatList;
+		
+		
+		
+	}
+	
+	public String selectAdminMsg(Connection conn, int crNo) {
+		
+		String recentMsg = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAdminMsg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, crNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				recentMsg = rset.getString("M_CONTENT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return recentMsg;
+	}
+	
 	
 }

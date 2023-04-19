@@ -60,4 +60,10 @@ public class Chatroom {
 	public void setBuyer(String buyer) {
 		this.buyer = buyer;
 	}
+	@Override
+	public String toString() {
+		return "Chatroom [chatroomNo=" + chatroomNo + ", chatroomName=" + chatroomName + ", createDate=" + createDate
+				+ ", status=" + status + ", seller=" + seller + ", buyer=" + buyer + "]";
+	}
+	
 }

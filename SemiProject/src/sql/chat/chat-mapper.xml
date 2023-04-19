@@ -90,7 +90,7 @@
 	<entry key="selectChatroom">
 		SELECT CR_NO
 		FROM CHATROOM
-		WHERE (BUYER = ? OR SELLER = ?) AND (BUYER = 2 OR SELLER = 2)
+		WHERE BUYER = ? AND SELLER = 2
 	</entry>
 	
 	<entry key="insertChatBot">
@@ -103,15 +103,32 @@
 		FROM MESSAGE
 		WHERE CR_NO = (SELECT CR_NO
 		               FROM CHATROOM
-		               WHERE (SELLER = ? AND BUYER = ?)OR (SELLER = 2 AND BUYER = 2))
-                         AND (SENDER = ? OR RECEIVER = 2)
+		               WHERE BUYER = ? AND SELLER = 2)
+                         AND (SENDER = ? AND RECEIVER = 2)
 		ORDER BY CREATE_DATE
 	</entry>
 	<entry key="insertChatMessage">
 		INSERT INTO MESSAGE(MESSAGE_NO, CREATE_DATE, CR_NO, SENDER, RECEIVER, M_CONTENT)
 		VALUES (SEQ_MNO.NEXTVAL, SYSDATE, (SELECT CR_NO 
 		                                   FROM CHATROOM
-		                                   WHERE (SELLER =  ? AND BUYER = ?)
-		                                      OR (SELLER = 2 AND BUYER = 2)), ?, 2, ?)
+		                                   WHERE BUYER = ?
+		                                      AND SELLER = 2), ?, 2, ?)
+	</entry>
+	
+	<entry key="adminChatList">
+		SELECT CR_NO, CREATE_DATE, M1.USER_NICKNAME AS SELLER , M2.USER_NICKNAME AS BUYER
+		FROM CHATROOM C
+		JOIN MEMBER M1 ON (SELLER = M1.USER_NO)
+		JOIN MEMBER M2 ON (BUYER = M2.USER_NO)
+		WHERE SELLER = 2
+	      AND C.STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectAdminMsg">
+		SELECT M_CONTENT
+		FROM (SELECT M_CONTENT, ROW_NUMBER() OVER(PARTITION BY CR_NO ORDER BY CREATE_DATE DESC) AS RN
+		        FROM MESSAGE
+		      WHERE CR_NO = ?)
+		WHERE RN = 1
 	</entry>
 </properties>
