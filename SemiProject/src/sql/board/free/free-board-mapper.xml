@@ -90,18 +90,24 @@
 		WHERE BOARD_NO = ?
 	</entry>
 	
-	<entry key="updateAttachment">
+	<!-- <entry key="updateAttachment">
 		UPDATE ATTACHMENT
 		SET ORIGIN_NAME = ? ,
 		    CHANGE_NAME = ? ,
 		    FILE_PATH   = ? ,
 			UPLOAD_DATE = SYSDATE
 		WHERE FILE_NO = ?
+	</entry> -->
+	
+	<entry key="updateAttachment">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
+		VALUES
+		(SEQ_FNO.NEXTVAL , ? , ? , ?, ?, ? )
 	</entry>
 	
-	<entry key="insertNewAttachment">
-		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME,FILE_PATH)
-		VALUES(SEQ_FNO.NEXTVAL , ? , ? , ?, ? )
+	<entry key="insertAttachmentList">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME,CHANGE_NAME, FILE_PATH, FILE_LEVEL)
+		VALUES (SEQ_FNO.NEXTVAL, SEQ_BNO.CURRVAL , ?, ? , ?, ?)
 	</entry>
 	
 	<entry key="deleteBoard">

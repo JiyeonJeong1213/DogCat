@@ -249,44 +249,44 @@ thead {
                value="<%= loginUser.getUserNo() %>">
             <div class="img">
                <%if(loginUser.getFileName()!= null){ %>
-               	<img id="profileImg" src="<%=request.getContextPath() %>/<%=loginUser.getFileName() %>">
+                  <img id="profileImg" src="<%=request.getContextPath() %>/<%=loginUser.getFileName() %>">
                <%}else{ %>
                <img id="profileImg" src="resources/profile_basic.png">
                <%} %>
             </div>
             
-	         </div>
-	         <div class="myprofile">
-	            <input type="file" name="file" id="file" >
-	            <label for="file" class="btn-upload" >프로필 선택</label> 
-	            
-	            <input type="submit" name="reset-file" id="reset-file" onchange="" > 
-	            <label for="reset-file" class="btn-reset">변경하기</label>
-	         </div>
-	      </div>
-	   </form>
-	   <div class="content_3">
-	      <div class="info">
-	         <table id="table">
-	            <tr id="mymenu">
-	               <th id="username" style="color: #FFD133;"><%= loginUser.getUserNickname()%>님</th>
-	               <th id="board">게시글</th>
-	               <th id="likelist">찜목록</th>
-	               <th id="chatting">채팅</th>
-	               <th id="walk mate" style="text-align: center; color: rgba(52, 152, 219, 0.52);">산책메이트</th>
-	            </tr>
-	            <tr>
-	               <td><button type="button" id="changebutton" style="width: 150px;">
-	               <a href="<%=contextPath%>/updateuser.me" style= "text-decoration: none;">회원정보 수정</a></button></td>
-	               
-	               <td style="text-align: center;"><%= count.getbCount()%></td>
-	               <td style="text-align: center;"><%= count.getsCount()%></td>
-	               <td style="text-align: center;"><%= count.getcCount()%></td>
-	               <td style="text-align: center;"><%= count.getmCount()%></td>
-	            </tr>
-	         </table>
-	      </div>
-	   </div>
+            </div>
+            <div class="myprofile">
+               <input type="file" name="file" id="file" >
+               <label for="file" class="btn-upload" >프로필 선택</label> 
+               
+               <input type="submit" name="reset-file" id="reset-file" onchange="" > 
+               <label for="reset-file" class="btn-reset">변경하기</label>
+            </div>
+         </div>
+      </form>
+      <div class="content_3">
+         <div class="info">
+            <table id="table">
+               <tr id="mymenu">
+                  <th id="username" style="color: #FFD133;"><%= loginUser.getUserNickname()%>님</th>
+                  <th id="board">게시글</th>
+                  <th id="likelist">찜목록</th>
+                  <th id="chatting">채팅</th>
+                  <th id="walk mate" style="text-align: center; color: rgba(52, 152, 219, 0.52);">산책메이트</th>
+               </tr>
+               <tr>
+                  <td><button type="button" id="changebutton" style="width: 150px;">
+                  <a href="<%=contextPath%>/updateuser.me" style= "text-decoration: none;">회원정보 수정</a></button></td>
+                  
+                  <td style="text-align: center;"><%= count.getbCount()%></td>
+                  <td style="text-align: center;"><%= count.getsCount()%></td>
+                  <td style="text-align: center;"><%= count.getcCount()%></td>
+                  <td style="text-align: center;"><%= count.getmCount()%></td>
+               </tr>
+            </table>
+         </div>
+      </div>
    <div class="content_4">
       <div class="content4_category">
          <div class="category_swiper">

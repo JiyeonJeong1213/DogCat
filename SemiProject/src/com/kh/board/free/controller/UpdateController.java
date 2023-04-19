@@ -58,57 +58,66 @@ public class UpdateController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				if(ServletFileUpload.isMultipartContent(request)) {
+			
+		request.setCharacterEncoding("UTF-8");
+		
+			if(ServletFileUpload.isMultipartContent(request)) {
+				
+				int maxSize = 10 * 1024 * 1024;
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/free_board_upfiles/");
+				
+				MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+				
+				int boardNo = Integer.parseInt(multi.getParameter("bno").trim());
+				String category = multi.getParameter("category");
+				String title = multi.getParameter("title");
+				String content = multi.getParameter("content");
+				int numberOfFile = Integer.parseInt(multi.getParameter("numberOfFile")); //업로드 파일 개수 
+
+				Board b = new Board();
+				b.setBoardContent(content);
+				b.setBoardTitle(title);
+				b.setBoardNo(boardNo);
+				b.setBoardCategory(category);
+				
+				ArrayList<Attachment> fileList = new ArrayList(); // 파일 저장할 객체
+				
+				for (int i = 0; i <= numberOfFile -1; i++) {
 					
-					int maxSize = 10 * 1024 * 1024;
-					String savePath = request.getSession().getServletContext().getRealPath("/resources/free_board_upfiles/");
+					String fileName = "upfile" + i;
 					
-					MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-					
-					int boardNo = Integer.parseInt(multi.getParameter("bno").trim());
-					String category = multi.getParameter("category");
-					String title = multi.getParameter("title");
-					String content = multi.getParameter("content");
-					
-					Board b = new Board();
-					b.setBoardContent(content);
-					b.setBoardTitle(title);
-					b.setBoardNo(boardNo);
-					b.setBoardCategory(category);
-					
-					
-					Attachment at = null;
-					
-					if(multi.getOriginalFileName("upfile") != null) {
+					if(multi.getOriginalFileName(fileName) != null) {
 						
-						at= new Attachment();
-						at.setOriginName(multi.getOriginalFileName("upfile"));
-						at.setChangeName(multi.getFilesystemName("upfile"));
+						Attachment at= new Attachment();
+						at.setRefBno(boardNo);
+						at.setOriginName(multi.getOriginalFileName(fileName));
+						at.setChangeName(multi.getFilesystemName(fileName));
 						at.setFilePath("resources/free_board_upfiles/");
+						at.setFileLevel(i);
 						
-						if(multi.getParameter("originFileNo") != null) {
-							
+						if(multi.getParameter("originFileNo") != null) {							
 							at.setFileNo( Integer.parseInt(multi.getParameter("originFileNo")));
-							
-							 new File(savePath+ multi.getParameter("changeFileName") ).delete();
-						}else { 
-							at.setRefBno( boardNo );
+							new File(savePath+ multi.getParameter("changeFileName") ).delete();
 						}
+						
+						fileList.add(at);
 					}
-					int result = new FreeService().updateBoard(b, at);
-					
-					if(result > 0) {
-						request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다");
-						response.sendRedirect(request.getContextPath()+"/detail.bf?bno="+boardNo);
-					}else { 
-						request.setAttribute("errorMsg", "게시글 수정에 실패했습니다");
-						request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-					}
-					
-				} else {
-					request.setAttribute("errorMsg","전송방식이 잘못되었습니다");
+				}
+				
+				int result = new FreeService().updateBoard(b, fileList);
+				
+				if(result > 0) {
+					request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다");
+					response.sendRedirect(request.getContextPath()+"/detail.bf?bno="+boardNo);
+				}else { 
+					request.setAttribute("errorMsg", "게시글 수정에 실패했습니다");
 					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 				}
+				
+			} else {
+				request.setAttribute("errorMsg","전송방식이 잘못되었습니다");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
 	}
 
 }

@@ -134,6 +134,12 @@
 	height: 1px;
 }
 
+.free_filebox input[type="button"] {
+	border: 0;
+	outline: 0;
+	background-color: white;
+}
+
 #abcd img{
 	width: 443px;
     height: auto;
