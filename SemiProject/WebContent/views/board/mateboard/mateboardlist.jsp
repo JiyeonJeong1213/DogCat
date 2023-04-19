@@ -182,8 +182,12 @@
 						<img class="card-thumb" src="<%=contextPath %>/resources/빈 추천.png" onclick="recommend();">
 						<input type="hidden" class="bno" name="bno" value="<%=b.getBoardNo() %>">
 						<span class="thumb-number"><%=b.getLcount() %></span> 
-						<img class="card-heart" src="<%=contextPath %>/resources/빈하트.png" onclick="people();">
-						<span class="heart-number">참여자수</span>
+						<%if(b.getApplyCount()==0){ %>
+						<img class="card-heart" src="<%=contextPath %>/resources/빈하트.png">
+						<%}else{ %>
+						<img class="card-heart" src="<%=contextPath %>/resources/꽉찬하트.png">
+						<%} %>
+						<span class="heart-number"><%=b.getApplyCount()%></span>
 					</div>
 					<span class="count" style="font-size: small;"><%=b.getCount() %></span>
 					<span class="create-date" style="font-size: small;"><%=b.getCreateDate() %></span>
@@ -193,13 +197,13 @@
 		</div>
 	</div>
 	<script>
-				$(function(){
-					$(".card-body").click(function(){
-						let bno = $(this).children().eq(0).text();
-						location.href='<%=contextPath%>/detail.mate?bno='+bno;
-						
-					})
-				})
+		$(function(){
+			$(".card-body").click(function(){
+				let bno = $(this).children().eq(0).text();
+				location.href='<%=contextPath%>/detail.mate?bno='+bno;
+			})
+		})
+			
 	</script>
 
 	
@@ -242,14 +246,41 @@
 	
 	
 	<script>
-         	 $(function(){
-         		$(".card-thumb").click(function(){
-	       			let bno=$(this).next(".bno").val();
-	       			location.href="<%=contextPath%>/recommend?bno="+bno;
-	       		
-	   
-         		});
-         	 });
+	$(function(){
+	    // 선택한 이미지에 대한 정보를 localStorage에서 읽어와서 교체
+	    $(".card-thumb").each(function() {
+	        let bno=$(this).next(".bno").val();
+	        let recommended = localStorage.getItem("recommended_" + bno);
+	        if (recommended === "true") {
+	            $(this).attr("src", "<%=contextPath%>/resources/꽉찬 추천.png"); // 꽉찬추천.png로 이미지 변경
+	            $(this).addClass("recommended"); // 꽉찬추천 이미지를 유지하기 위한 클래스 추가
+	        }
+	    });
+	    
+	    // 이미지 클릭 시 localStorage에 선택한 이미지에 대한 정보 저장
+	    $(".card-thumb").click(function(){
+	        let bno=$(this).next(".bno").val();
+	        let recommended = localStorage.getItem("recommended_" + bno);
+	        if (recommended === "true") {
+	            localStorage.removeItem("recommended_" + bno);
+	            $(this).attr("src", "<%=contextPath%>/resources/꽉찬 추천.png"); // 빈하트.png로 이미지 변경
+	            $(this).removeClass("recommended"); // 꽉찬추천 이미지를 제거
+	        } else {
+	            localStorage.setItem("recommended_" + bno, "true");
+	            $(this).attr("src", "<%=contextPath%>/resources/꽉찬 추천.png"); // 꽉찬추천.png로 이미지 변경
+	            $(this).addClass("recommended"); // 꽉찬추천 이미지를 유지하기 위한 클래스 추가
+	        }
+	        location.href="<%=contextPath%>/recommend?bno="+bno;
+	    });
+	});
+   	 <%-- $(function(){
+   		$(".card-thumb").click(function(){
+  			let bno=$(this).next(".bno").val();
+  			location.href="<%=contextPath%>/recommend?bno="+bno;
+  		 	})
+   		});
+  		 
+   	 }); --%>
          	 
          	 
         </script>
