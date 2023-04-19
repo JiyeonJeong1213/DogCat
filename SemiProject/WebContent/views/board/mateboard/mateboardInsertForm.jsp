@@ -12,82 +12,83 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <!-- <link href="resources/css/02_mateWrite.css?afterlike" rel="stylesheet"> -->
 <style>
-.wrap{
-    /* position: relative; */
-    width: 100%;
-    height: 100%;
-  }
-  .content_name{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .content2{
-    line-height: 2;
-    text-align: center;
-  }
-  .walk-write{
-    /* position: absolute; */
-    margin: 0 auto;
-    border: 1px solid gray;
-    width: 70%;
-  
-    left: 13.5%;
-  }
-  .walk-name{
-    width: 95%;
-    display: inline-flex;
-    margin : 8px 0px 0px 12px;
-  }
-  .content3{
-    display: flex;
-    justify-content: space-around;
+.wrap {
+	width: 100%;
+	height: 100%;
 }
-.location{
-    display: flex;
+
+.content_name {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.address1, .address2{
-   height: 2rem;
-   width : 8rem;
-   border-radius: 7px;
-   border: 1px solid lightblue;
+
+.content2 {
+	line-height: 2;
+	text-align: center;
 }
-  .write-content, #map{
-    border: 3px solid rgb(106, 171, 240);
-    border-radius: 15px;
-    background-color:  rgb(230, 242, 255);
-    width: 95%;
-    height: 20rem;
-    margin: 0 auto;
-  }
-  
-  #container{
-    border: 3px solid rgb(106, 171, 240);
-    border-radius: 15px;
-    background-color:  rgb(230, 242, 255);
-    width: 95%;
-    height: 28rem;
-    margin: 0 auto;
-  }
 
-  .walk-content{
-    border-radius: 15px;
-    margin-left: 10px;
-    padding : 20px 20px;
-    
-  }
+.walk-write {
+	margin: 0 auto;
+	border: 1px solid gray;
+	width: 70%;
+	left: 13.5%;
+}
 
-  img{
-    margin-top: 20px;
-  }
-  
- .btn-div{
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
- }
+.walk-name {
+	width: 95%;
+	display: inline-flex;
+	margin: 15px 0px 0px 12px;
+}
 
- .btn-upload, .btn-reset {
+.content3 {
+	display: flex;
+	justify-content: space-around;
+}
+
+.location {
+	display: flex;
+}
+.address1, .address2 {
+	height: 2rem;
+	width: 8rem;
+	border-radius: 7px;
+	border: 1px solid lightblue;
+}
+.write-content, #map {
+	border: 3px solid rgb(106, 171, 240);
+	border-radius: 15px;
+	background-color: rgb(230, 242, 255);
+	width: 95%;
+	height: 20rem;
+	margin: 0 auto;
+}
+#container {
+	border: 3px solid rgb(106, 171, 240);
+	border-radius: 15px;
+	background-color: rgb(230, 242, 255);
+	width: 95%;
+	height: 28rem;
+	margin: 0 auto;
+}
+
+.walk-content {
+	border-radius: 15px;
+	margin-left: 10px;
+	padding: 20px 20px;
+}
+
+img {
+	margin-top: 20px;
+}
+
+.btn-div {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+.btn-upload, .btn-reset {
 	width: 100px;
 	height: 40px;
 	border-radius: 10px;
@@ -106,109 +107,102 @@
 	border: 2px solid gray;
 }
 
-
-
- /*사진보여주기 style*/
- .items {
-  /* border: 1px solid red; */
-  margin: 0 auto;
-  width: 85%;
-  height: 450px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/*사진보여주기 style*/
+.items {
+	/* border: 1px solid red; */
+	margin: 0 auto;
+	width: 85%;
+	height: 450px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .item {
-  height: 600px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  display: none;
+	height: 600px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: none;
 }
 
 .active {
-  display: flex;
-  height: 400px;
-  width: 1600px;
-  color: white;
-  position: relative;
-  border: 1px solid blue;
+	display: flex;
+	height: 400px;
+	width: 1600px;
+	color: white;
+	position: relative;
+	border: 1px solid blue;
 }
 
-.btn-pic,
-.prev:active,
-.prev:focus,
-.next:active,
-.next:focus{
-  position: absolute;
-  top: 45%;
-  transform: translateY(-50%);
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  border: none;
-  background-color: white;
-  box-shadow: 0px 0px 3px rgb(209, 202, 202);
-  outline: none;
-  cursor: pointer;
+.btn-pic, .prev:active, .prev:focus, .next:active, .next:focus {
+	position: absolute;
+	top: 45%;
+	transform: translateY(-50%);
+	border: none;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	border: none;
+	background-color: white;
+	box-shadow: 0px 0px 3px rgb(209, 202, 202);
+	outline: none;
+	cursor: pointer;
 }
 
 .next {
-  right: 150px;
-  background-image: url(resources/KakaoTalk_20230320_141959451.png);
-  background-size: 20px;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  
+	right: 150px;
+	background-image: url(resources/KakaoTalk_20230320_141959451.png);
+	background-size: 20px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
 }
-.prev{
-  left: 150px;
-  background-image: url(resources/KakaoTalk_20230320_141959518.png);
-  background-size: 20px;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+
+.prev {
+	left: 150px;
+	background-image: url(resources/KakaoTalk_20230320_141959518.png);
+	background-size: 20px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
 }
+
 .stepper {
-  margin-top: 15px;
-  display: flex;
-  justify-content: center;
+	margin-top: 15px;
+	display: flex;
+	justify-content: center;
 }
 
 .step {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: rgb(218, 214, 214);
-  margin: 0 6px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: rgb(218, 214, 214);
+	margin: 0 6px;
 }
 
 .active-step {
-  background-color: darkgray;
+	background-color: darkgray;
 }
 
 .active>div {
-  width: 1300px;
-  height: 100%;
-  margin: 15px
+	width: 1300px;
+	height: 100%;
+	margin: 15px
 }
 
-.picture{
+.picture {
 	display: flex;
 	justify-content: space-evenly;
-	flex-wrap:nowrap;
+	flex-wrap: nowrap;
 	border: 1px solid black;
 }
 
-.picture img{
+.picture img {
 	border: 1px solid red;
 	border-radius: 30px;
 	width: 250px;
-	height:300px;
-
+	height: 300px;
 }
-
 </style>
 </head>
 <body>
@@ -264,7 +258,7 @@
                     <option>군/구 선택</option>
                 </select>
             </div>
-              <input type="text" class="title" name="title" placeholder="게시글 제목을 입력하세요" size="120" required >
+              <input type="text" class="title" name="title" placeholder="게시글 제목을 입력하세요" size="123" required >
             </div>
             
             <hr>
