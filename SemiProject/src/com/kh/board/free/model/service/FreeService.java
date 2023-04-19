@@ -45,27 +45,23 @@ public class FreeService {
 		return categoryList;
 	}
 
-	public int insertBoard(Board b, Attachment at) {
+	public int insertBoard(Board b, ArrayList<Attachment> fileList) {
 
 		Connection conn = getConnection();
 
 		int result1 = new FreeDao().insertBoard(conn, b);
-
-		int result2 = 1;
-
-		if (at != null) {
-			result2 = new FreeDao().insertAttachment(conn, at);
-		}
-
-		if (result1 > 0 && result2 > 0) {
+		
+		int result2 = new FreeDao().insertAttachmentList(conn, fileList);
+		
+		if(result1 > 0 && result2 > 0) {
 			commit(conn);
-		} else {
+		}else {
 			rollback(conn);
 		}
-
+		
 		close(conn);
-
-		return result1 * result2;
+		
+		return result1*result2;
 
 	}
 
@@ -104,8 +100,18 @@ public class FreeService {
 
 		return at;
 	}
+	
+	public ArrayList<Attachment> selectAttachmentList(int boardNo){
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> list2 = new FreeDao().selectAttachmentList(conn, boardNo);
+		
+		close(conn);
+		
+		return list2;
+	}
 
-	public int updateBoard(Board b, Attachment at) {
+	public int updateBoard(Board b, ArrayList<Attachment> fileList) {
 
 		Connection conn = getConnection();
 
@@ -113,14 +119,13 @@ public class FreeService {
 
 		int result2 = 1;
 
-		if (at != null) {
-			if (at.getFileNo() != 0) {
-				result2 = new FreeDao().updateAttachment(conn, at);
-			} else {
-				result2 = new FreeDao().insertNewAttachment(conn, at);
-			}
+		if (fileList.size() != 0) { //파일이 잇을 때 	
+			if (fileList.get(0).getFileNo() != 0) { //기존파일이 있을 때 
+				result2 = new FreeDao().deleteAttachment(conn, fileList.get(0).getRefBno());
+			} 
+				result2 = new FreeDao().updateAttachment(conn, fileList);
 		}
-
+		
 		if (result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {
