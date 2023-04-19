@@ -1,13 +1,17 @@
 package com.kh.board.free.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.board.free.model.service.FreeService;
+import com.kh.board.free.model.vo.Reply;
 import com.kh.member.model.service.MemberService;
 
 /**
