@@ -202,7 +202,7 @@ public class MemberService {
 	public Member memberListDetail(String userId) {
 		Connection conn = getConnection();
 		
-		Member m = new MemberDao().selectMember(conn, userId);
+		Member m = new MemberDao().selectDetailMember(conn, userId);
 		
 		close(conn);
 		
