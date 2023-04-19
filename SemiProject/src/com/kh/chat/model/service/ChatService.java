@@ -137,6 +137,30 @@ public class ChatService {
 		
 	}
 	
+	public int insertChatMessage2(int crNo, int senderNo, String msg) {
+		Connection conn = getConnection();
+		
+		int result = new ChatDao().insertChatMessage2(conn, crNo, senderNo, msg);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	public ArrayList<Message> readChatbot2(int crNo, int reader){
+		Connection conn = getConnection();
+		
+		ArrayList<Message> mList = new ChatDao().readChatbot2(conn, crNo, reader);
+		
+		close(conn);
+		return mList;
+		
+	}
+	
 	
 	
 }

@@ -144,7 +144,7 @@ html, body {height: 100%;}
 						</td>
 						<td>
 							<a href="<%= contextPath %>/chatList.chat?userNo=${loginUser.userNo}">
-								<img id="chatAlarmImg" src="https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/chat-balloon.png" width="15px">
+								<img id="chatAlarmImg" src="" width="20px">
 							</a>
 						</td>
 					</tr>
@@ -161,10 +161,18 @@ html, body {height: 100%;}
 					type:'get',
 					data:{userNo : <%= loginUser.getUserNo()%>},
 					success:(result) =>{
-						if(result>0){
+						console.log(result);
+						console.log(result.mCount);
+						if(result.mCount>0){
 							$("#notiImg").attr('src','resources/notificationA.png');
 						}else{
 							$("#notiImg").attr('src','resources/notification.png');
+						} 
+						
+						if(result.cCount >0){
+							$("#chatAlarmImg").attr('src','resources/unread-message.png');
+						}else{
+							$("#chatAlarmImg").attr('src','resources/chat.png');
 						}
 					}
 				});	

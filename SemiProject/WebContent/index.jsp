@@ -84,7 +84,7 @@
 	align-items: center;
 	position: relative;
 }
-
+/* 
 .main2_title::before {
 	content: "NEWS";
 	position: absolute;
@@ -96,7 +96,7 @@
 	line-height: 15px;
 	color: rgb(51, 51, 51);
 }
-
+ */
 .notice_lists {
 	display: flex;
 	flex-direction: column;
@@ -497,7 +497,7 @@ a {
 			let socket;
 			
 			function websocket(){
-				socket = new WebSocket("ws://192.168.30.166:8081<%= contextPath %>/chattingServer")
+				socket = new WebSocket("ws://localhost:8081<%= contextPath %>/chattingServer")
 				
 				socket.onopen = function(e){
 					console.log("접속성공");

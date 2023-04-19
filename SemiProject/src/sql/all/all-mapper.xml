@@ -46,10 +46,19 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
-	<entry key="countMate">
-		SELECT COUNT(USER_NO) AS COUNT
-		FROM MATE
-		WHERE USER_NO = ?
+	<entry key="messageCount">
+		SELECT  COUNT(*) MCOUNT
+		FROM MESSAGE M
+		WHERE RECEIVER = ? AND M_CHECK = 'N'
 	</entry>
 	
+	
+	<entry key="mateCount">
+	
+		SELECT COUNT(USER_NO) BCOUNT
+		FROM BOARD B
+		LEFT JOIN MATE M USING(BOARD_NO)
+		WHERE BOARD_WRITER = ? AND BOARD_TYPE= 1 AND M.STATUS = 1
+	
+	</entry>
 </properties>

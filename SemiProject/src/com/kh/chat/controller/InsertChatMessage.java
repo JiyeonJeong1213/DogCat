@@ -39,17 +39,25 @@ public class InsertChatMessage extends HttpServlet {
 		}
 		
 		
-		
-		
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		request.setCharacterEncoding("UTF-8");
+		
+		int crNo = Integer.parseInt(request.getParameter("crNo"));
+		int senderNo = Integer.parseInt(request.getParameter("buyer"));
+		String msg = request.getParameter("msg");
+		
+		int result = new ChatService().insertChatMessage2(crNo, senderNo, msg);
+		
+		if(result<=0) {
+			request.setAttribute("errorMsg", "메시지 저장 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 }

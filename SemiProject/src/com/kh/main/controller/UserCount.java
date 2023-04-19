@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.count.model.vo.Count;
 import com.kh.main.model.service.MainService;
 
 /**
@@ -33,11 +34,11 @@ public class UserCount extends HttpServlet {
 		
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		
-		int notiCount = new MainService().countMate(userNo);
+		Count userCount = new MainService().userCount(userNo);
 
 		response.setContentType("application/json; charset=UTF-8");
 		
-		new Gson().toJson(notiCount, response.getWriter());
+		new Gson().toJson(userCount, response.getWriter());
 		
 	}
 

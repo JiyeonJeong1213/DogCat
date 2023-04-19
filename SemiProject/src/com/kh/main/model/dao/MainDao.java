@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.kh.count.model.vo.Count;
 import com.kh.member.model.dao.MemberDao;
 import static com.kh.common.JDBCTemplate.*;
 
@@ -32,34 +33,62 @@ public class MainDao {
 		}
 	}
 	
-	public int countMate(Connection conn, int userNo) {
+	public int messageCount(Connection conn, int userNo) {
 		
-		int notiCount = 0;
-		
-		ResultSet rset = null;
+		int messageCount = 0;
 		
 		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("countMate");
+		ResultSet rset = null;
+		String sql = prop.getProperty("messageCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
 			pstmt.setInt(1, userNo);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				notiCount = rset.getInt("COUNT");
+				messageCount = rset.getInt("MCOUNT");
 			}
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
-		return notiCount;
-		
+		return messageCount;
 		
 	}
+	
+	public int mateCount(Connection conn, int userNo) {
+		int mateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("mateCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mateCount = rset.getInt("BCOUNT");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mateCount;
+	
+		
+	}
+	
 }

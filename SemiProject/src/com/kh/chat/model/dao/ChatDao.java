@@ -390,5 +390,72 @@ public class ChatDao {
 		return recentMsg;
 	}
 	
+	public int insertChatMessage2(Connection conn, int crNo, int senderNo, String msg) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertChatMessage2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, crNo);
+			pstmt.setInt(2, senderNo);
+			pstmt.setInt(3, senderNo);
+			pstmt.setInt(4, senderNo);
+			pstmt.setInt(5, crNo);
+			pstmt.setString(6, msg);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public ArrayList<Message> readChatbot2(Connection conn, int crNo, int reader){
+		ArrayList<Message> mList = new ArrayList<Message>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("readChatbot2");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, crNo);
+			pstmt.setInt(2, reader);
+			pstmt.setInt(3, reader);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Message m = new Message();
+				m.setMessageContent(rset.getString("M_CONTENT"));
+				m.setSender(rset.getInt("SENDER"));
+				m.setReceiver(rset.getInt("RECEIVER"));
+				
+				mList.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mList;
+		
+		
+		
+		
+	}
 	
 }

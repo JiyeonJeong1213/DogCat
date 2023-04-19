@@ -214,11 +214,11 @@
 					$(".chat-area").css("display", "block");
 					crNo = $(this).children().eq(0).val();
 					$.ajax({
-						url:"<%=request.getContextPath()%>/",
+						url:"<%=request.getContextPath()%>/ReadChatbot",
 						type:"post",
 						data:{crNo : crNo, reader : ${loginUser.userNo}},
 						success: function(mList){
-							consol.log("메시지 읽어오기 성공");
+							console.log("메시지 읽어오기 성공");
 							if(mList != null){
 								let str = "";
 								for(let i = 0; i<mList.length; i++){
@@ -245,7 +245,7 @@
 					websocket();
 					
 					$(".btn-close").click(function(){
-						$(".chat-area").css("display". "none");
+						$(".chat-area").css("display", "none");
 						socket.close();
 					});
 				});
@@ -254,7 +254,7 @@
 			let socket;
 			
 			function websocket(){
-				socket = new WebSocket("ws://192.168.30.166:8081<%= contextPath %>/chattingServer");
+				socket = new WebSocket("ws://localhost:8081<%= request.getContextPath() %>/chattingServer");
 				
 				socket.onopen = function(e){
 					console.log("접속성공")
@@ -262,10 +262,53 @@
 				
 				socket.onmessage = function(e){
 					let data = JSON.parse(e.data);
-					for(let i = 0; i<data.length)
-					
+					for(let i = 0; i<data.length; i++){
+						if('${loginUser.userNo}' == data[i].sender){
+							let msg = $("<div class='chat-request'>");
+	         				let img = $("<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>");
+	         				let msgContent = $("<div class='chat-bubble2'>");
+	         				
+	         				msgContent.append(data[i].msg);
+	         				msg.append(msgContent);
+	         				msg.append(img);
+	         				$(".chat-content").append(msg);
+						} else{
+							let msg = $("<div class='chat-response'>");
+	         				let img = $("<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-cat-2195875.png' width='50px' height='50px'>");
+	         				let msgContent = $("<div class='chat-bubble'>");
+	         				
+	         				msgContent.append(data[i].msg);
+	         				msg.append(img);
+	         				msg.append(msgContent);
+	         				$(".chatContent").append(msg);
+						}
+ 					}
+				}
+				socket.onclose = function(e){
+					console.log("접속해제");
 				}
 			}
+			
+			$("#sendMsg").click(function(){
+				let msg = $("#msg-content").val();
+				socket.send(msg);
+				
+				console.log(crNo);
+				
+				$.ajax({
+					url:'<%= request.getContextPath()%>/insertChatMessage',
+					type:'post',
+					data:{crNo : crNo, buyer:${loginUser.userNo}, msg : msg},
+					success : function(){
+						console.log("메시지 전송 ajax 통신 성공");
+					},
+					error: function(){
+						console.log("메시지 전송 ajax 통신 실패");
+					}
+				});
+				
+				$("#msg-content").val("");
+			});
 			
 		</script>
 
