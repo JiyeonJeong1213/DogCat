@@ -274,7 +274,7 @@
          				msgContent.append(data[i].msg);
          				msg.append(img);
          				msg.append(msgContent);
-         				$(".chatContent").append(msg);
+         				$(".chat-content").append(msg);
          					
          			}
          		}
