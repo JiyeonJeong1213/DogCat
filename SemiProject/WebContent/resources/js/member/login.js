@@ -1,6 +1,34 @@
 /**
  * 
  */
+//[자동 로그인]
+   const autoLogin = localStorage.getItem("autoLogin");
+   if(autoLogin != null){ // 로컬에 자동로그인 남아있는 경우
+      location.href = getContextPath()+"login.me"; //바로 광장으로 자동로그인 처리
+   }
+
+	// [자동로그인] 체크박스
+          let userId = document.getElementById("userId").value;
+	
+       if($("input:checkbox[id='keepLogin']").prop("checked")){
+         // local storage에 boolean값 저장해줘야함
+           localStorage.setItem('autoLogin', userId );
+         console.log("로컬스토리지 담긴 값 : "+localStorage.getItem("autoLogin"));
+       }
+      else { // 자동로그인 체크 안했다면
+         localStorage.removeItem('autoLogin');    // 로컬 삭제
+       }
+
+function getContextPath() {
+	let hostIndex = location.href.indexOf(location.host) + location.host.length;
+	let contextPath = location.href.substring(
+		hostIndex,
+		location.href.indexOf('/', hostIndex + 1)
+	);
+	console.log('getContextPath 불림');
+	return contextPath;
+}
+
 function submitLogin(){
    let userId = $("#login-form input[name=userId]").val();
    if($("#remember-check").is(":checked") ) {
@@ -32,3 +60,5 @@ function getCookie(){
 $(function(){
    getCookie();
 });
+
+
