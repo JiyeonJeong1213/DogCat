@@ -214,7 +214,7 @@
 		});
     
     	$(function(){
-    		let pet = "<%= userPet == null ? "" : userPet%>";
+    		let pet = "<%= userPet == null ? "none" : userPet%>";
     		
     		$("input[name='pet']").each(function(){
     			
