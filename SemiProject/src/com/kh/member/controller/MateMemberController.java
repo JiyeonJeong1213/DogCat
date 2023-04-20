@@ -38,6 +38,7 @@ public class MateMemberController extends HttpServlet {
 
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
 		Mate mem = new mateBoardService().selectMateMember(userNo,boardNo);
 		
 		response.setContentType("apllication/json; charset=UTF-8");
