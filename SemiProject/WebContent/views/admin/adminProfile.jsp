@@ -20,6 +20,13 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
+	.footer {
+		width: 100%;
+		height: 100px;
+		position: absolute;
+		bottom: 0;
+	}
+
 	.container>form{
      	display: flex;
         justify-content: space-evenly;
@@ -109,11 +116,13 @@
 	        <div class="item profile">
 	        	<div class="master_profile_img" >
 		            <input type="hidden" name="userNo" value="<%= userNo %>">
+		            <input type="hidden" name="fileName" value="<%= fileName %>">
+		            <input type="hidden" name="userPet" value="<%= userPet %>">
 		            <div class="profile_img" style="background-color: gray;">
 		            	<%if(fileName != null) { %>
-			            	<img id="profile_img" src="<%= request.getContextPath() %>/<%= fileName %>">
+			            	<img name="fileName" id="profile_img" src="<%= request.getContextPath() %>/<%= fileName %>">
 		            	<% } else {  %>
-		            		<img id="profile_img" src="resources/profile_basic.png">
+		            		<img name="fileName" id="profile_img" src="resources/profile_basic.png">
 		            	<% } %>
 		            </div>
 		            <div style="font-weight: bold;">관리자님</div>
@@ -141,7 +150,7 @@
 	                        <td>아이디</td>
 	                        <td><input type="text" name="userId" value="<%= userId %>" readonly></td>
 	                    </tr>
-	                     <tr>
+	                     <tr style="display:none;">
 	                        <td>현재 비밀번호</td>
 	                        <td><input class="pwd" type="password" id="originPwd" name="originPwd" value="<%= userPwd %>"></td>
 	                    </tr>
@@ -162,19 +171,6 @@
 	                    <tr>
 	                        <td>주소</td>
 	                       	<td><input type="text" name="address" value="<%= address == null ? "" : address %>"></td>
-	                    </tr>
-	                    <tr>
-	                        <td>반려동물</td>
-	                        <td>
-	                            <input type="radio" name="pet" id="dog" value="dog">
-	                            <label for="dog">강아지</label>
-	                            <input type="radio" name="pet" id="cat" value="cat">
-	                            <label for="cat">고양이</label>
-	                            <input type="radio" name="pet" id="etc" value="etc">
-	                            <label for="etc">기타</label>
-	                            <input type="radio" name="pet" id="none" value="none">
-	                            <label for="none">없음</label>
-	                        </td>
 	                    </tr>
 	                </table>
 	                <br>
@@ -212,8 +208,8 @@
 		});
     
     	$(function(){
-    		let pet = "<%= userPet == null ? "" : userPet%>";
-    		
+    		let pet = "<%= userPet == null ? "none" : userPet%>";
+    		console.log(pet);
     		$("input[name='pet']").each(function(){
     			
     			if(pet.search($(this).val()) >= 0 ){

@@ -40,7 +40,7 @@ public class PetDao {
 		PreparedStatement pstmt = null;
 		
 		String sql = prop.getProperty("updatePet");
-		
+		System.out.println("dao"+p);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -54,7 +54,33 @@ public class PetDao {
 		} finally {
 			JDBCTemplate.close(pstmt);
 		}
+		System.out.println(result);
+		return result;
 		
+		
+	}
+	
+	public int insertPet(Connection conn, Pet p) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPet");
+		System.out.println("dao삽입"+p);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, p.getSpecies());
+			pstmt.setInt(2, p.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		System.out.println(result);
 		return result;
 		
 		
@@ -89,6 +115,7 @@ public class PetDao {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
 		}
+		System.out.println("펫디에이오"+p);
 		return p;
 		
 		
