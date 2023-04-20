@@ -7,6 +7,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+.footer {
+	width: 100%;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
      body{
          justify-content: center;
      }
@@ -222,6 +229,15 @@
                 		console.log("메세지 읽어오기 실패");
                 	}
                 });
+            	
+            	$.ajax({
+            		url : '<%= contextPath %>/checkMessage',
+            		type : 'get',
+            		data : {crNo : crNo, reader : ${loginUser.userNo}},
+            		success : function(){
+            			console.log("메세지 체크 완료");
+            		}
+            	});
             	
              	websocket();
              	

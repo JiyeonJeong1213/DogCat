@@ -32,9 +32,7 @@ public class MemberDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+			
 	}
 
 	/**
@@ -52,20 +50,15 @@ public class MemberDeleteController extends HttpServlet {
 		
 		if(result > 0) { 
 			
-			session.setAttribute("alertMsg","성공적으로 회원탈퇴 되었개냥. 그 동안 만나서 반가웠개냥! 다음에 또 보개냥!");
-			
+			request.getSession().setAttribute("alertMsg","성공적으로 회원탈퇴 됐다 냥. ");
 			session.removeAttribute("loginUser");
-			
-			//RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			
-			response.sendRedirect(request.getContextPath());
-			
-			
+			response.sendRedirect(request.getContextPath());			
 		}else { 
 			
 			session.setAttribute("alertMsg","회원탈퇴에 실패했습니다.");
 			response.sendRedirect( request.getContextPath()+"/updateuser.me");
 		}
+	
 	}
 
 	

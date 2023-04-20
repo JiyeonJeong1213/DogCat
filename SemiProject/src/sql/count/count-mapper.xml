@@ -20,13 +20,25 @@
 		FROM CHATROOM
 		WHERE SELLER = ?
 		GROUP BY SELLER
+	</entry> 
+	<!-- 
+	<entry key="selectCCount">
+	SELECT CR_NO
+		FROM CHATROOM
+		WHERE (BUYER = ? OR SELLER = ?)
+		  AND (SELLER = (SELECT BOARD_WRITER
+		       FROM BOARD
+		       WHERE BOARD_NO = ?) OR BUYER = (SELECT BOARD_WRITER
+		       FROM BOARD
+		       WHERE BOARD_NO = ?))
 	</entry>
-	
+	 -->
 	<entry key="selectMCount">
-		SELECT COUNT(USER_NO) AS MCOUNT
-		FROM MATE
-		WHERE USER_NO = ?
-		GROUP BY USER_NO
+		SELECT COUNT(M.USER_NO) AS MCOUNT
+        FROM BOARD B
+        LEFT JOIN MATE M USING(BOARD_NO)
+        WHERE BOARD_WRITER =?
+        AND BOARD_TYPE=1 AND M.STATUS=1 
 	</entry>
 	
 

@@ -37,6 +37,9 @@ public class MainBoardController extends HttpServlet {
 		
 		ArrayList<Attachment> list = new NoticeService().selectMainBoard();
 		
+
+		System.out.println(list);
+		
 		response.setContentType("application/json; charset=UTF-8");
 		
 		new Gson().toJson(list, response.getWriter());
