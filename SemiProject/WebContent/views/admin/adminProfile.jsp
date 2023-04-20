@@ -211,7 +211,6 @@
     
     	$(function(){
     		let pet = "<%= userPet == null ? "none" : userPet%>";
-    		
     		$("input[name='pet']").each(function(){
     			
     			if(pet.search($(this).val()) >= 0 ){
