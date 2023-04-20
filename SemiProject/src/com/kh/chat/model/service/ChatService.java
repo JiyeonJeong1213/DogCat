@@ -147,7 +147,9 @@ public class ChatService {
 		Connection conn = getConnection();
 		
 		ArrayList<Chatroom> chatList = new ChatDao().userChatList(conn, userNo);
+		
 		close(conn);
+		
 		return chatList;
 	}
 	
