@@ -245,7 +245,6 @@ button:hover {
       String phone = loginUser.getPhone();
       String email = loginUser.getEmail();
       String address = loginUser.getAddress();
-      /* email = AEScryptor.descrypt(email); */
       int userNo =  loginUser.getUserNo();
       String userPet = loginUser.getPet();
 %>
@@ -343,7 +342,7 @@ button:hover {
    <div class="alert">
       <p>회원탈퇴를 하시겠습니까?</p>
       <button class="deleteMemer alert-btn" >확인</button>
-      <button class="cansleMember alert-btn" >취소</button>
+      <button type="button" class="cansleMember alert-btn" ><a href="<%=contextPath%>/updateuser.me" style= "text-decoration: none;">취소</a></button>
    </div>
    
    <!-- 최종알림창 -->

@@ -220,7 +220,6 @@
 .content_category{ 
    display: flex;
    
-   
 }
 #thead {
   position: sticky;
@@ -271,9 +270,9 @@
             <input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
             <div class="img">
                <%if(loginUser.getFileName()!= null){ %>
-                  <img id="profileImg" src="<%=request.getContextPath() %>/<%=loginUser.getFileName() %>">
+                <img id="profileImg" src="<%=request.getContextPath() %>/<%=loginUser.getFileName() %>">
                <%}else{ %>
-               <img id="profileImg" src="resources/profile_basic.png">
+               <img id="profileImg" src="<%=request.getContextPath() %>/resources/profile_basic.png">
                <%} %>
             </div>
             
@@ -479,7 +478,7 @@
                   <% } %>
                   <%} else{ %>
                   <tr align="center">
-                     <td colspan="5">조회된 댓글이 없습니다.</td>
+                     <td colspan="5">수락한 산책메이트가 없습니다.</td>
                   </tr>
                   <% } %>
                     </tbody>
