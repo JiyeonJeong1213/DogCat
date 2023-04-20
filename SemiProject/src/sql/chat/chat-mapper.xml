@@ -87,6 +87,14 @@
                                                    WHERE CR_NO = ?), ?)
 	</entry>
 	
+	<entry key="checkMessage">
+		UPDATE MESSAGE
+	    SET M_CHECK = 'Y'
+	    WHERE CR_NO = ?
+	      AND RECEIVER = ?
+	</entry>
+	
+	<!-- 챗봇용 -->
 	<entry key="selectChatroom">
 		SELECT CR_NO
 		FROM CHATROOM
