@@ -2,8 +2,11 @@
     pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
- 	request.setCharacterEncoding("UTF-8");
-    String userId = request.getAttribute("userId").toString();
+	request.setCharacterEncoding("UTF-8");
+	String userId = request.getAttribute("userId").toString();
+
+	System.out.println("============memberIdSearch1.jsp==============" );
+	System.out.println("userId" + userId );
 %>
 <!DOCTYPE html>
 <html>

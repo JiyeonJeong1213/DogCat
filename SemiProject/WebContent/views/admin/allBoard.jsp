@@ -25,107 +25,124 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
-        .container {
-            display: flex;
-            justify-content: space-evenly;
-        }
+.footer {
+	width: 100%;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
 
-        .allBoard_title {
-            width: 250px;
-            font-weight: bold;
-            text-align: left;
-        }
+.container {
+	display: flex;
+	justify-content: space-evenly;
+}
 
-        .allBoard_list {
-            width: 650px;
-            padding: 0px 10px 0px 10px;
-            margin-top: 20px;
-            border-top: 2px solid rgb(83, 193, 243);
-        }
-       	.pagaeBtn{
-   		    overflow-clip-margin: content-box;
-   			overflow: clip;
-   			width: 26px;
-		    height: 26px;
-		    background-color: transparent;
-		    border:none;
-       	}
-       	.prev{
-       		transform: rotate(180deg);
-       	}
-       	.pagingArea{
-       		margin: 25px auto 0px;
-   		    display: flex;
-		    -webkit-box-align: center;
-		    align-items: center;
-		    column-gap: 30px;
-		    justify-content: center;
-       	}
-       	.pagingArea>button{
-       	    border: 0;
-		    padding: 0;
-		    margin: 0;
-		    background-color: transparent;
-    	}
-    	.category_swipperWrap{
-    		display: flex;
-    		justify-content: center;
-    	}
-    	.category_swipper{
-   		    width: 100%;
-   			margin: 0px;
-			box-sizing: content-box;
-    	}
-    	.category_button{
-    		padding: 9px;
-		    background: rgb(226, 226, 226);
-		    border: 1.5px solid rgb(255, 255, 255);
-		    border-radius: 10px 10px 0px 0px;
-		    font-style: normal;
-		    font-weight: 900;
-		    font-size: 18px;
-		    line-height: 23px;
-		    text-align: center;
-		    color: rgb(102, 102, 102);
-		    white-space: nowrap;
-		    width: 250px;
-    		max-width: 100%;
-    		
-    	}
-    	.category_button:hover{
-    		background-color: rgb(83, 193, 243);
-    		color: white;
-    	}
-    	.current{
-    		background-color: rgb(83, 193, 243);
-    		color: white;
-    	}
-    	.allBoard_list>tbody>tr:hover{
-  			cursor:pointer;
-  		}
+.allBoard_title {
+	width: 250px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.allBoard_list {
+	width: 650px;
+	padding: 0px 10px 0px 10px;
+	margin-top: 20px;
+	border-top: 2px solid rgb(83, 193, 243);
+}
+
+.pagaeBtn {
+	overflow-clip-margin: content-box;
+	overflow: clip;
+	width: 26px;
+	height: 26px;
+	background-color: transparent;
+	border: none;
+}
+
+.prev {
+	transform: rotate(180deg);
+}
+
+.pagingArea {
+	margin: 25px auto 0px;
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	column-gap: 30px;
+	justify-content: center;
+}
+
+.pagingArea>button {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+}
+
+.category_swipperWrap {
+	display: flex;
+	justify-content: center;
+}
+
+.category_swipper {
+	width: 100%;
+	margin: 0px;
+	box-sizing: content-box;
+}
+
+.category_button {
+	padding: 9px;
+	background: rgb(226, 226, 226);
+	border: 1.5px solid rgb(255, 255, 255);
+	border-radius: 10px 10px 0px 0px;
+	font-style: normal;
+	font-weight: 900;
+	font-size: 18px;
+	line-height: 23px;
+	text-align: center;
+	color: rgb(102, 102, 102);
+	white-space: nowrap;
+	width: 250px;
+	max-width: 100%;
+}
+
+.category_button:hover {
+	background-color: rgb(83, 193, 243);
+	color: white;
+}
+
+.current {
+	background-color: rgb(83, 193, 243);
+	color: white;
+}
+
+.allBoard_list>tbody>tr:hover {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
 
 <%@ include file= "adminMenubar.jsp" %>
+
 	<script>
 	    $(document).ready(function() {
 	        if(location.href.indexOf('<%=request.getContextPath()%>/typeB?type=3') > -1){ 
 	            $('#categorySell').addClass('current');
 	        }
-	        if(location.href.indexOf('<%=request.getContextPath()%>/typeB?type=2') > -1){ 
-	            $('#categoryFree').addClass('current');
-	        }   
-	        if(location.href.indexOf('<%=request.getContextPath()%>/typeB?type=1') > -1){ 
+	        if(location.href.indexOf('<%=request.getContextPath()%>/typeB?type=2') > -1) {
+				$('#categoryFree').addClass('current');
+			}
+			if (location.href.indexOf('<%=request.getContextPath()%>/typeB?type=1') > -1){ 
 	        	$('#categoryMate').addClass('current');
 	        }   
 	        if(location.href.indexOf('<%=request.getContextPath()%>/allB') > -1){
 	            $('#categoryAll').addClass('current');
 	        }   
 	    });
-    </script>		
-	
-  <div class="container">
+    </script>
+
+	<div class="container">
         <div class="item mt-3">
 	        <div class="serach_area">
 	            <h2 class="allBoard_title">게시판 관리</h2>
@@ -263,9 +280,9 @@
 				<img class="pagaeBtn next" src="https://sscampus.kr/images/notice/page-indicator-caret.png">
 			</button>
 		<% } %>
-		
-		
 	</div>
-
+	
+	
+<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

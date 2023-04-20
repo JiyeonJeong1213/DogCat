@@ -314,13 +314,12 @@ public class NoticeDao {
 			
 			while(rset.next()) {
 				Attachment at = new Attachment();
-				at.setOriginName(rset.getString("ORIGIN_NAME"));
-				at.setChangeName(rset.getString("CHANGE_NAME"));
-				at.setFilePath(rset.getString("FILE_PATH"));
-				at.setRefBno(rset.getInt("REF_BNO"));
+				at.setFileName(rset.getString("FILENAME"));
+				at.setRefBno(rset.getInt("BOARD_NO"));
 				
 				list.add(at);
 			}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -328,7 +327,6 @@ public class NoticeDao {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return list;
 	}
 	
