@@ -18,7 +18,8 @@ public class Member {
 	private String status;
 	private String pet;
 	private String fileName;
-	
+
+
 	
 
 	public Member() {

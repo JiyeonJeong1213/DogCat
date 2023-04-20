@@ -36,17 +36,18 @@ public class MateApplyController extends HttpServlet {
 		
 		int result = new mateBoardService().applyMate(userNo, boardNo);
 		
-		if(result>0) {
-			Board b = new mateBoardService().selectBoard(boardNo);
-			request.setAttribute("b", b);
-			request.getRequestDispatcher("views/board/mateboard/mateboardDetail.jsp").forward(request, response);
-			
-		}else {
-			request.setAttribute("errorMsg", "신청실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		/*
+		 * if(result>0) { Board b = new mateBoardService().selectBoard(boardNo);
+		 * request.setAttribute("b", b);
+		 * request.getRequestDispatcher("views/board/mateboard/mateboardDetail.jsp").
+		 * forward(request, response);
+		 * 
+		 * }else { request.setAttribute("errorMsg", "신청실패");
+		 * request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,
+		 * response); }
+		 */
 		
-		
+		response.getWriter().print(result);
 	}
 
 	/**

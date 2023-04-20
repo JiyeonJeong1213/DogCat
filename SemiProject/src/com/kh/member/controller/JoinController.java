@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.common.AEScryptor;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 import com.kh.pet.model.vo.Pet;
@@ -51,6 +52,8 @@ public class JoinController extends HttpServlet {
 		String species = request.getParameter("species");
 		String gender = request.getParameter("gender");
 		String petName = request.getParameter("petName");
+		
+		email = AEScryptor.encrypt(email);
 		
 		Member m = new Member();
 		m.setUserId(userId);

@@ -227,6 +227,26 @@ public class ChatDao {
 		return result;
 	}
 	
+	public int checkMessage(Connection conn, int crNo, int reader) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkMessage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, crNo);
+			pstmt.setInt(2, reader);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+			
+			
+			
 	// 챗봇용	
 	public int selectChatroom(Connection conn, int buyerNo) {
 		int result = 0;
