@@ -297,7 +297,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 				type : "get",
 				success : function(data){
 					 console.log("신청성공?");
-					
+
 				}
 			})
 		}

@@ -1,4 +1,4 @@
-<%@   page import="com.kh.member.model.vo.Member"%>
+<%@   page import="com.kh.member.model.vo.Member, com.kh.common.AEScryptor"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%
@@ -249,6 +249,7 @@ button:hover {
       String userPwd = loginUser.getUserPwd();
       String phone = loginUser.getPhone();
       String email = loginUser.getEmail();
+      email = AEScryptor.decrypt(email);
       String address = loginUser.getAddress();
       int userNo =  loginUser.getUserNo();
       String userPet = loginUser.getPet();
