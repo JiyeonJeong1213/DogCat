@@ -527,6 +527,7 @@ public class FreeDao {
 			while(rset.next()) {
 				list.add(new Reply(
 						rset.getInt("REPLY_NO"),
+						rset.getInt("REF_BNO"),
 						rset.getString("REPLY_CONTENT"),
 						rset.getString("USER_ID"),
 						rset.getString("CREATE_DATE")

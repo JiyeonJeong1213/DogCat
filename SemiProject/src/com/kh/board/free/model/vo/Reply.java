@@ -31,6 +31,15 @@ public class Reply {
 		this.createDate = createDate;
 	}
 
+	public Reply(int replyNo, int refBno, String replyContent, String replyWriter, String createDate) {
+		super();
+		this.replyNo = replyNo;
+		this.refBno = refBno;
+		this.replyWriter = replyContent;
+		this.replyContent = replyWriter;
+		this.createDate = createDate;
+	}
+
 	public int getReplyNo() {
 		return replyNo;
 	}
