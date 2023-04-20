@@ -223,6 +223,15 @@
                 	}
                 });
             	
+            	$.ajax({
+            		url : '<%= contextPath %>/checkMessage',
+            		type : 'get',
+            		data : {crNo : crNo, reader : ${loginUser.userNo}},
+            		success : function(){
+            			console.log("메세지 체크 완료");
+            		}
+            	});
+            	
              	websocket();
              	
              	$(".btn-close").click(function(){

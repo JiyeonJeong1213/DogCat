@@ -87,6 +87,14 @@
                                                    WHERE CR_NO = ?), ?)
 	</entry>
 	
+	<entry key="checkMessage">
+		UPDATE MESSAGE
+	    SET M_CHECK = 'Y'
+	    WHERE CR_NO = ?
+	      AND RECEIVER = ?
+	</entry>
+	
+	<!-- 챗봇용 -->
 	<entry key="selectChatroom">
 		SELECT CR_NO
 		FROM CHATROOM
@@ -151,4 +159,21 @@
 		ORDER BY CREATE_DATE
 	
 	</entry>
+	
+	<entry key="userChatList">
+		SELECT CR_NO, CREATE_DATE, M1.USER_NICKNAME AS SELLER , M2.USER_NICKNAME AS BUYER
+		FROM CHATROOM C
+		JOIN MEMBER M1 ON (SELLER = M1.USER_NO)
+		JOIN MEMBER M2 ON (BUYER = M2.USER_NO)
+		WHERE SELLER = ?
+	      AND C.STATUS = 'Y'	
+	</entry>
+	<entry key="selectRecentMsg3">
+			SELECT M_CONTENT
+		FROM (SELECT M_CONTENT, ROW_NUMBER() OVER(PARTITION BY CR_NO ORDER BY CREATE_DATE DESC) AS RN
+		      FROM MESSAGE
+		      WHERE CR_NO = ?)
+		WHERE RN = 1
+	</entry>
+	
 </properties>

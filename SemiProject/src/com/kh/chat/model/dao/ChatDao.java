@@ -227,6 +227,26 @@ public class ChatDao {
 		return result;
 	}
 	
+	public int checkMessage(Connection conn, int crNo, int reader) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkMessage");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, crNo);
+			pstmt.setInt(2, reader);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+			
+			
+			
 	// 챗봇용	
 	public int selectChatroom(Connection conn, int buyerNo) {
 		int result = 0;
@@ -358,9 +378,46 @@ public class ChatDao {
 		}
 		return chatList;
 		
+	}
+	
+	public ArrayList<Chatroom> userChatList(Connection conn, int userNo){
 		
+		ArrayList<Chatroom> chatList = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("userChatList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Chatroom ct = new Chatroom();
+				ct.setChatroomNo(rset.getInt("CR_NO"));
+				ct.setCreateDate(rset.getDate("CREATE_DATE"));
+				ct.setSeller(rset.getString("SELLER"));
+				ct.setBuyer(rset.getString("BUYER"));
+				
+				chatList.add(ct);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return chatList;
 		
 	}
+	
+	
 	
 	public String selectAdminMsg(Connection conn, int crNo) {
 		
@@ -453,9 +510,29 @@ public class ChatDao {
 		
 		return mList;
 		
+	}	
+
+public String selectRecentMsg3(Connection conn, int crNo) {
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String recentMsg = null;
+	String sql = prop.getProperty("selectRecentMsg3");
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, crNo);
+		rset = pstmt.executeQuery();
 		
-		
-		
+		if(rset.next()) {
+			recentMsg = rset.getString("M_CONTENT");
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rset);
+		close(pstmt);
 	}
+	return recentMsg;
+}
 	
 }
