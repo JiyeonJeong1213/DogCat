@@ -516,6 +516,8 @@
       <form id="free_main6" action="" method="post">
            <table class="mate_table">
             <thead id="thead">
+
+                       
                <tr align="center">
                    <th style="width: 200px;">게시글 번호</th>
                    <th style="width: 600px;">내용</th>
@@ -560,7 +562,6 @@
          </form>
        </div> 
      </div>
-      
    </div>
       <%@ include file="../common/footer.jsp" %>
 
