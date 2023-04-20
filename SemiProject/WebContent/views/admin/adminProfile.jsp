@@ -111,6 +111,7 @@
 		int userNo =  loginUser.getUserNo();
 		String userPet = loginUser.getPet();
 		String fileName = loginUser.getFileName();
+		System.out.println("email============="+email);
 %>
 
 	<div class="container">
