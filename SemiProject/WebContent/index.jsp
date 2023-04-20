@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>또오개냥 메인페이지</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 @font-face {
 	font-family: 'yg-jalnan';
@@ -47,8 +49,7 @@
 
 .main1_img {
 	width: 100%;
-	background-image:
-		url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/%EA%B0%95%EC%95%84%EC%A7%80%EB%93%A4.png");
+	background-image:url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/%EA%B0%95%EC%95%84%EC%A7%80%EB%93%A4.png");
 	height: 500px;
 	background-position: center;
 	background-size: cover;
@@ -549,65 +550,6 @@ a {
 			</div>
 		</div>
 		<div class="dog_land"></div>
-		<div class="main3" data-aos="fade-up">
-			<div class="slideBoard">
-				<div class="slideTitle">같이걷개</div>
-				<div class="slideContent">
-					<ul class="slides">
-						<li>
-							<div class="cardWrap">
-								<div class="cards">
-									<div class="imgWrap mt-3">
-										<img src="resources/산책.jpg" class="cardImg"> <a href="#"
-											class="btn btn-outline-warning btn-sm my-3">같이걷개</a>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="cardWrap">
-								<div class="cards">
-									<div class="imgWrap mt-3">
-										<img src="resources/산책.jpg" class="cardImg"> <a href="#"
-											class="btn btn-outline-warning btn-sm my-3">같이걷개</a>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="cardWrap">
-								<div class="cards">
-									<div class="imgWrap mt-3">
-										<img src="resources/산책.jpg" class="cardImg"> <a href="#"
-											class="btn btn-outline-warning btn-sm my-3">같이걷개</a>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="cardWrap">
-								<div class="cards">
-									<div class="imgWrap mt-3">
-										<img src="resources/산책.jpg" class="cardImg"> <a href="#"
-											class="btn btn-outline-warning btn-sm my-3">같이걷개</a>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="cardWrap">
-								<div class="cards">
-									<div class="imgWrap mt-3">
-										<img src="resources/산책.jpg" class="cardImg"> <a href="#"
-											class="btn btn-outline-warning btn-sm my-3">같이걷개</a>
-									</div>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
 		<div class="main4" data-aos="fade-up">
 			<div class="main4Wrap" data-aos="fade-up">
 				<div class="main4Title">
@@ -686,7 +628,8 @@ a {
 				
 			     $(".btn-close").click(function(){
 	                $(".chat-area").css("display","none");
-	                $(".chat_icon").css("display","block")
+	                $(".chat_icon").css("display","block");
+	                $(".chat-content").empty();
 	            });
 	            
 			});
@@ -817,91 +760,6 @@ a {
 	</script>
 
 
-	<script>
-		var slides = document.querySelector(".slides"), slide = document
-				.querySelectorAll(".slides li"), currentIndx = 0, slideCount = slide.length, slideWidth = 250, slideMargin = 10;
-
-		makeClone();
-
-		function makeClone() {
-			for (var i = 0; i < slideCount; i++) {
-				//a.cloneNode(), a.cloneNode(true) => a의 자식까지 복사
-				var cloneSlide = slide[i].cloneNode(true);
-				cloneSlide.classList.add('clone');
-				//a.appendChind(b)
-				slides.appendChild(cloneSlide);
-			}
-
-			for (var i = slideCount - 1; i >= 0; i--) {
-				//a.cloneNode(), a.cloneNode(true) => a의 자식까지 복사
-				var cloneSlide = slide[i].cloneNode(true);
-				cloneSlide.classList.add('clone');
-				//a.prepend(b)
-				slides.prepend(cloneSlide);
-			}
-			updateWidth();
-			setInitialPos();
-			setTimeout(function() {
-				slides.classList.add('animated');
-			}, 100);
-
-		}
-
-		function updateWidth() {
-			var currenSlides = document.querySelectorAll(".slides li");
-			var newSlideCount = currenSlides.length;
-
-			var newWidth = (slideWidth + slideMargin) * newSlideCount
-					- slideMargin + 'px';
-			slides.style.width = newWidth;
-		}
-
-		function setInitialPos() {
-			var initialTranslateValue = -(slideWidth + slideMargin)
-					* slideCount;
-			// slides {transform:translateX(-1000px);}
-			slides.style.transform = 'translateX(' + initialTranslateValue
-					+ 'px)';
-		}
-
-		function moveSlide(num) {
-			slides.style.left = -num * (slideWidth + slideMargin) + 'px';
-			currentIndx = num;
-			
-			if (currentIndx == slideCount || currentIndx == -slideCount) {
-
-				setTimeout(function() {
-					slides.classList.remove('animated');
-					slides.style.left = '0px';
-					currentIndx = 0;
-				}, 500);
-				setTimeout(function() {
-					slides.classList.add('animated');
-				}, 600);
-			}
-		};
-
-		var timer = undefined;
-
-		function autoSlide() {
-			if (timer == undefined) {
-				timer = setInterval(function() {
-					moveSlide(currentIndx + 1);
-				}, 3000);
-			}
-		}
-		autoSlide();
-		function stopSlide() {
-			clearInterval(timer);
-			timer = undefined;
-		}
-		slides.addEventListener('mouseenter', function() {
-			stopSlide();
-		});
-		slides.addEventListener('mouseleave', function() {
-			autoSlide();
-		});
-	</script>
 
 	<%@ include file="views/common/footer.jsp"%>
 </body>
