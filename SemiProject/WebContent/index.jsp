@@ -500,6 +500,34 @@ a {
 		});
 	
 	</script>
+	
+<	<script>
+		$(function(){
+			$.ajax({
+				type:"get",
+				async:false,
+				url:"<%=request.getContextPath()%>/main.bo",
+				success:function(result){
+				console.log(result);
+					let str="";
+					let url="";
+					let bno=0;
+					for(let i=0; i<result.length; i++){
+						url = result[i].fileName;
+						bno = result[i].refBno;
+						str += "<li>" +"<div class='cardWrap'>"+"<div class='cards'>"+"<div class='imgWrap mt-3'>"
+							+ "<img src="+url+" class='cardImg'>"
+							+"<a href="+'<%=request.getContextPath()%>/detail.mate?bno=bno'+" class='btn btn-outline-warning btn-sm my-3'>같이걷개</a>"
+							+"</div>"+"</div>"+"</div>"+"</li>"
+							
+					}
+					$(".slides").html(str);	
+				}
+			});
+		});
+	
+	</script> 
+
 
 	<div class="main-content">
 		<div class="main1">
