@@ -45,7 +45,6 @@ public class AdminMemberUpdate extends HttpServlet {
 		
 		String updateStatus = new MemberService().updateStatusM(status, userId);
 		
-		System.out.println(updateStatus);
 		if(updateStatus != null) {
 			request.setAttribute("updateStatus", updateStatus);
 			response.sendRedirect(request.getContextPath()+"/admin_member");

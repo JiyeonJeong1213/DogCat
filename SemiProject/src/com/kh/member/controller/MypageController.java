@@ -60,6 +60,7 @@ public class MypageController extends HttpServlet {
 		ArrayList<Integer> crNoList = new ArrayList<>();
 		ArrayList<String> recentMsgs = new ArrayList<>();
 		
+		
 		System.out.println("c"+chatList);
 		for(Chatroom cr : chatList) {
 			int crNo = cr.getChatroomNo();
