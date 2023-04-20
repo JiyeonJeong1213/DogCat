@@ -86,7 +86,7 @@ if(loginUser == null){
 						<!--  로그인이 되어있을 경우 -->
 						<tr>
 							<td colspan="1" style="border: 2px solid #ccc;">
-                        		<textarea id="replyContent" cols="50" rows="3" style="resize:none;"></textarea>
+                        		<textarea id="replyContent" cols="90" rows="3" style="resize:none;"></textarea>
                     		</td>
                     		<th style="text-align: center; border: none;">
                     		<button style="width: 150px; height: 83px;" onclick="insertReply();"><b>댓글등록</b></button>
@@ -95,7 +95,7 @@ if(loginUser == null){
 					<% } else { %>
 						<tr>
 							<td style="border: 2px solid #ccc;">
-                        		<textarea id="replyContent" cols="50" rows="3" style="resize:none;" readonly>로그인후 이용가능한 서비스입니다.</textarea>
+                        		<textarea id="replyContent" cols="90" rows="3" style="resize:none;" readonly>로그인후 이용가능한 서비스입니다.</textarea>
                     		</td>
                     		<th style="text-align: center; border: none;">
                     		<button style="width: 100%; height: 60px;" onclick="insertReply();" disabled><b>댓글등록</b></button>
@@ -196,8 +196,8 @@ if(loginUser == null){
 				success : function(result){
 					if(result > 0){
 						selectReply();
-						$("#replyContent").val("");
 						location.href = "<%= contextPath %>/detail.bf?bno=<%= b.getBoardNo() %>";
+						$("#replyContent").val("");
 						$("#replyContent").focus();
 					}
 				}, error : function(){
@@ -208,7 +208,7 @@ if(loginUser == null){
 		
 		function rewriteReply(replyNo){
 			$("#replyTd_"+replyNo).contents().remove();
-			$("#replyTd_"+replyNo).append('<textarea name="rewriteContent" rows="2" cols=55" style="resize: none;"></textarea>');
+			$("#replyTd_"+replyNo).append('<textarea name="rewriteContent" rows="2" cols=90" style="resize: none;"></textarea>');
 			$(".reply_update").attr('id', 'updateBtn').attr('onclick', 'updateReply(' + replyNo + ')');
 		}
 		

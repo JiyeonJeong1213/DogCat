@@ -142,6 +142,16 @@ public class ChatService {
 		return chatList;
 	}
 	
+	public ArrayList<Chatroom> userChatList(int userNo){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Chatroom> chatList = new ChatDao().userChatList(conn, userNo);
+		close(conn);
+		return chatList;
+	}
+	
+	
 	public String selectAdminMsg(int crNo) {
 		Connection conn = getConnection();
 		String recentMsg = new ChatDao().selectAdminMsg(conn, crNo);
@@ -175,5 +185,10 @@ public class ChatService {
 	}
 	
 	
-	
+	public String selectRecentMsg3(int crNo) {
+		Connection conn = getConnection();
+		String recentMsg = new ChatDao().selectRecentMsg3(conn, crNo);
+		close(conn);
+		return recentMsg;
+	}
 }
