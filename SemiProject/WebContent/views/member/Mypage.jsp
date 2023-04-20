@@ -219,9 +219,11 @@
 }
 
 /*카테고리버튼*/
-.content_category {
-	display: flex;
-}
+
+.content_category{ 
+   display: flex;
+   
+
 
 #thead {
 	position: sticky;
@@ -327,14 +329,11 @@
          <div class="myprofile_img">
             <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
             <div class="img">
-               <%
-               	if (loginUser.getFileName() != null) {
-               %>
-                  <img id="profileImg" src="<%=request.getContextPath()%>/<%=loginUser.getFileName()%>">
-               <%
-               	} else {
-               %>
-               <img id="profileImg" src="resources/profile_basic.png">
+
+               <%if(loginUser.getFileName()!= null){ %>
+                <img id="profileImg" src="<%=request.getContextPath() %>/<%=loginUser.getFileName() %>">
+               <%}else{ %>
+               <img id="profileImg" src="<%=request.getContextPath() %>/resources/profile_basic.png">
                <%} %>
             </div>
             
@@ -436,7 +435,7 @@
                   <%for(Chatroom c: chatList) { %>
                   <tr align="center">
                      <td><%= c.getChatroomNo()%></td>
-                     <td><a href="#"><%=recentMsgs.get(0)%></a></td>
+                     <td><a href="#"><%=recentMsgs.get(chatList.indexOf(c))%></a></td>
                      <td><%= c.getBuyer() %></td>
                      <td><%= c.getSeller() %></td> 
                      <td><%= c.getCreateDate() %></td>
@@ -519,6 +518,8 @@
       <form id="free_main6" action="" method="post">
            <table class="mate_table">
             <thead id="thead">
+
+                       
                <tr align="center">
                    <th style="width: 200px;">게시글 번호</th>
                    <th style="width: 600px;">내용</th>
@@ -563,7 +564,7 @@
          </form>
        </div> 
      </div>
-      
+
    </div>
       <%@ include file="../common/footer.jsp" %>
 
