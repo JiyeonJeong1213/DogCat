@@ -269,7 +269,6 @@ public Member selectUser(Connection conn, String userId) {
 		int result = 1;
 		
 		PreparedStatement pstmt = null;
-		
 		String sql = prop.getProperty("insertProfileImg");
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -285,6 +284,7 @@ public Member selectUser(Connection conn, String userId) {
 		}finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}	
 	
@@ -405,7 +405,7 @@ public Member selectUser(Connection conn, String userId) {
 	//산책메이트
 		public ArrayList<Board> selectMBoardList(Connection conn, int boardWriter){
 			
-			ArrayList<Board> mlist = new ArrayList<>();
+			ArrayList<Board> Mlist = new ArrayList<>();
 			
 			PreparedStatement pstmt = null;
 			
@@ -420,13 +420,13 @@ public Member selectUser(Connection conn, String userId) {
 				
 				rset = pstmt.executeQuery();
 				while(rset.next()) {
-					Board m = new Board();
-					m.setBoardNo(rset.getInt("BOARD_NO"));
-					m.setBoardTitle(rset.getString("BOARD_TITLE"));		              
-					m.setBoardWriter(rset.getString("USER_NICKNAME"));					  				
-					m.setCreateDate(rset.getDate("CREATE_DATE"));		              	              
+					Board M = new Board();
+					M.setBoardNo(rset.getInt("BOARD_NO"));
+					M.setBoardTitle(rset.getString("BOARD_TITLE"));		              
+					M.setBoardWriter(rset.getString("USER_NICKNAME"));					  				
+					M.setCreateDate(rset.getDate("CREATE_DATE"));		              	              
 					
-					mlist.add(m);
+					Mlist.add(M);
 				}
 				
 			} catch (SQLException e) {
@@ -435,7 +435,7 @@ public Member selectUser(Connection conn, String userId) {
 				close(rset);
 				close(pstmt);
 			}
-			return mlist;
+			return Mlist;
 		}
 	
 	public ArrayList<Chatroom> selectChatroomList(Connection conn, int seller){
@@ -452,6 +452,7 @@ public Member selectUser(Connection conn, String userId) {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, seller);
+			pstmt.setInt(2, seller);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {

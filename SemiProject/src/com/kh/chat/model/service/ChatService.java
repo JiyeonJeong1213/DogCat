@@ -80,6 +80,19 @@ public class ChatService {
 		return result;
 	}
 	
+	public int checkMessage(int crNo, int reader) {
+		Connection conn = getConnection();
+		int result = new ChatDao().checkMessage(conn, crNo, reader);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	
 	// 문의하기(챗봇) 채팅	
 	public int selectChatroom (int buyerNo) {
 		Connection conn = getConnection();
@@ -129,6 +142,16 @@ public class ChatService {
 		return chatList;
 	}
 	
+	public ArrayList<Chatroom> userChatList(int userNo){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Chatroom> chatList = new ChatDao().userChatList(conn, userNo);
+		close(conn);
+		return chatList;
+	}
+	
+	
 	public String selectAdminMsg(int crNo) {
 		Connection conn = getConnection();
 		String recentMsg = new ChatDao().selectAdminMsg(conn, crNo);
@@ -162,5 +185,10 @@ public class ChatService {
 	}
 	
 	
-	
+	public String selectRecentMsg3(int crNo) {
+		Connection conn = getConnection();
+		String recentMsg = new ChatDao().selectRecentMsg3(conn, crNo);
+		close(conn);
+		return recentMsg;
+	}
 }
