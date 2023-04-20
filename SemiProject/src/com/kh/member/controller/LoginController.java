@@ -50,6 +50,7 @@ public class LoginController extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		
+		
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		Attachment at = new MemberService().memberListImg(userId);
 		

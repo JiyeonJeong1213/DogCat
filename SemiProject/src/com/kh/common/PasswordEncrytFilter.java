@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class PasswordEncrytFilter
  */
-@WebFilter({"/login.me","/insert.me","/updatePwd.me"})
+@WebFilter({"/login.me","/insert.me","/updateuser.me","/adminProfile"})
 public class PasswordEncrytFilter implements Filter {
 
     /**

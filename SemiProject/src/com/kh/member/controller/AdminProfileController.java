@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.board.model.vo.Attachment;
+import com.kh.common.AEScryptor;
 import com.kh.common.MyFileRenamePolicy;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
@@ -71,10 +72,12 @@ public class AdminProfileController extends HttpServlet {
 			String userNickname = multi.getParameter("userNickname");
 			String userId = multi.getParameter("userId");
 			String email = multi.getParameter("email");
+			email = AEScryptor.encrypt(email);
 			String address = multi.getParameter("address");
 			String pet = multi.getParameter("pet");
 			String fileName = multi.getParameter("fileName");
 			String userPwd = "";
+			
 			if(multi.getParameter("newPwd").equals("")) {
 				userPwd = multi.getParameter("originPwd");
 			}else {
