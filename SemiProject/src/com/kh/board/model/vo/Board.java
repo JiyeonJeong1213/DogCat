@@ -19,6 +19,8 @@ public class Board {
 	private String status; //	STATUS
 	private int likeCount;
 	private Attachment at;
+	private int mateuseNo;
+	private String mateStatus;
 	
 	public Board() {
 		super();
@@ -154,4 +156,20 @@ public class Board {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public int getMateuseNo() {
+		return mateuseNo;
+	}
+	public void setUseNo(int mateuseNo) {
+		this.mateuseNo = mateuseNo;
+	}
+	public String getMateStatus() {
+		return mateStatus;
+	}
+	public void setMateStatus(String mateStatus) {
+		this.mateStatus = mateStatus;
+	}
+	public void setMateuseNo(int mateuseNo) {
+		this.mateuseNo = mateuseNo;
+	}
+	
 }

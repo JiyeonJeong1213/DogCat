@@ -1,6 +1,6 @@
 package com.kh.member.model.service;
 
-import static com.kh.common.JDBCTemplate.*;
+import static com.kh.common.JDBCTemplate.*; 
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
+import com.kh.board.mateboard.model.vo.Mate;
 import com.kh.chat.model.vo.Chatroom;
 import com.kh.common.JDBCTemplate;
 
@@ -17,7 +18,7 @@ import com.kh.member.model.vo.Member;
 import com.kh.pet.model.vo.Pet;
 import com.kh.reply.model.vo.Reply;
 import com.kh.save.model.vo.Save;
-
+ 
 public class MemberService {
 	
 	public Member loginMember(String userId, String userPwd) {
@@ -49,7 +50,7 @@ public class MemberService {
 		}
 
 		close(conn);
-
+		
 		return updateMem;
 		
 	}
@@ -316,5 +317,8 @@ public class MemberService {
 	public int UpdateMemberPwd(Member member) { 
 		return dao.UpdateMemberPwd(member);
 	}
-		
+	
+	//메이트리스트
+	
+	
 }

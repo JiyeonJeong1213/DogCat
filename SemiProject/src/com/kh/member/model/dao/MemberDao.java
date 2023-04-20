@@ -419,12 +419,15 @@ public Member selectUser(Connection conn, String userId) {
 				pstmt.setInt(1, boardWriter);
 				
 				rset = pstmt.executeQuery();
+				
 				while(rset.next()) {
 					Board M = new Board();
 					M.setBoardNo(rset.getInt("BOARD_NO"));
 					M.setBoardTitle(rset.getString("BOARD_TITLE"));		              
 					M.setBoardWriter(rset.getString("USER_NICKNAME"));					  				
-					M.setCreateDate(rset.getDate("CREATE_DATE"));		              	              
+					M.setCreateDate(rset.getDate("CREATE_DATE"));
+					M.setMateuseNo(rset.getInt("MATEUSERNO"));
+					M.setMateStatus(rset.getString("MATESTATUS"));
 					
 					Mlist.add(M);
 				}
@@ -452,6 +455,7 @@ public Member selectUser(Connection conn, String userId) {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, seller);
+			pstmt.setInt(2, seller);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {

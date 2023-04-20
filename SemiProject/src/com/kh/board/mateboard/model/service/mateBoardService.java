@@ -10,6 +10,7 @@ import com.kh.board.mateboard.model.dao.mateBoardDao;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.mateboard.model.vo.Board;
 import com.kh.board.mateboard.model.vo.BoardLike;
+import com.kh.board.mateboard.model.vo.Mate;
 import com.kh.board.mateboard.model.vo.Reply;
 
 public class mateBoardService {
@@ -233,5 +234,12 @@ public class mateBoardService {
 		close(conn);
 		return list;
 		
+	}
+	
+	public Mate selectMateMember(int userNo, int boardNo) {
+		Connection conn = getConnection();
+		Mate mem = new mateBoardDao().selectMateMember(conn, userNo, boardNo);
+		close(conn);
+		return mem;
 	}
 }
