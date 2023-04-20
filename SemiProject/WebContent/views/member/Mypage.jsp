@@ -219,11 +219,10 @@
 }
 
 /*카테고리버튼*/
-
 .content_category{ 
    display: flex;
    
-
+}
 
 #thead {
 	position: sticky;
@@ -329,7 +328,6 @@
          <div class="myprofile_img">
             <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
             <div class="img">
-
                <%if(loginUser.getFileName()!= null){ %>
                 <img id="profileImg" src="<%=request.getContextPath() %>/<%=loginUser.getFileName() %>">
                <%}else{ %>
@@ -538,8 +536,8 @@
           			</c:when>
           			<c:otherwise>
           				<c:forEach var="m" items="${Mlist }">
-							<tr>
-								<td>${m.boardNo }</td>
+							<tr align="center">
+								<td >${m.boardNo }</td>
 								<td>${m.boardTitle }</td>
 								<td>${m.boardWriter }</td>
 								<td>${m.createDate }</td>
@@ -564,7 +562,6 @@
          </form>
        </div> 
      </div>
-
    </div>
       <%@ include file="../common/footer.jsp" %>
 
@@ -691,6 +688,7 @@ $(function(){
 			success :function(result){
 				$("#madal-name").val(result.userNickname);
 				$("#madal-date").val(result.boardNo);
+				$("#modal-userNo").val(result.userNo);
 				if((result.status)==1){
 				
 				}else if((result.status)==2){
@@ -727,7 +725,7 @@ $(function(){
         <div class="modal-window">
             <div class="modal-header">
                 <h3 class="modal-title" style="font-weight: bold;">산책메이트 신청자 &nbsp;</h3>
-                <img src="<%=request.getContextPath() %>/resources/요청 아이콘.png" width="30" height="30">
+                <img src="<%=request.getContextPath()%>/resources/산책메이트요청.png" width="30" height="30">
                 <div type="button" class="close">X</div>
             </div>
             <hr>
@@ -742,6 +740,7 @@ $(function(){
 	                                <th class="modal-th">수락 여부</th>
 	                             </tr>
 	                            <tr class="modal-tr">
+	                            	<input id="modal-userNo" type="hidden" name="userNo">
 	                                <td class="modal-td madal-name"><input id="madal-name" type="text" name="userNickname" style="width:40px; border:none;"></td>
 	                                <td class="modal-td madal-date"><input id="madal-date" type="text" name="boardNo" style="width:40px; border:none;"></td>
 	                                <td class="modal-td">

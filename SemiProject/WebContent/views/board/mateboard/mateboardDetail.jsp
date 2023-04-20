@@ -18,10 +18,15 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
-<link href="resources/css/board/mateboard/03_mateDetail.css?after" rel="stylesheet">
+<link href="resources/css/board/mateboard/03_mateDetail.css?afsdster" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-
 <style>
+.footer {
+	width: 100%;
+	height: 100px;
+	/* position: absolute; */
+	bottom: 0;
+}
 .bt {
 	width: 100px;
 	height: 40px;
@@ -48,7 +53,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 }
 #modal.modal-overlay {
 	width: 100%;
-	height: 100%;
+	height: 2500px;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -74,9 +79,10 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 	border: 1px solid rgba(255, 255, 255, 0.18);
 	width: 500px;
 	height: 200px;
-	position: relative;
+	/* position: relative; */
 	top: -100px;
 	padding: 10px;
+	margin:500px;
 }
 
 .btn-area {
@@ -191,8 +197,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 										<tr>
 										<div class="user-reply">
 											<div class="reply-box" vlaue="123">
-												<img src="resources/댓글프사.png" class="reply-profile">
-												
+												<img src="<%=contextPath%>/resources/댓글프사.png" class="reply-profile">
 												<div class="reply-content">
 													<p id="user-nick" ><%=r.getUserNickname()%></p>
 													<span id="user-reply"><%=r.getReplyContent() %></span>
@@ -213,7 +218,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 									<tr>
 										<div class="reply-write">
 											<div class="reply-user">
-												<img src="resources/image2/flower4.jpg" class="reply-profile">
+												<img src="resources/댓글프사.png" class="reply-profile">
 												<p id="user-nick" style="font-size: small;"><%=loginUser.getUserNickname()%></p>
 											</div>
 											<textarea id="replyContent" cols="160" rows="5"
@@ -242,15 +247,15 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 			</div>
 			<div class="btn-div">
 				<%if (loginUser != null && loginUser.getUserNickname().equals(b.getBoardWriter())) {%>
-					<button class="btn reupload btn-outline-warning">
+					<button class="btn reupload btn-outline-primary">
 						<a href="<%=contextPath%>/update.mate?bno=<%=b.getBoardNo()%>" style="text-decoration: none; color: rgb(106, 171, 240);">수정하기</a>
 					</button>
-					<button class="btn deleteboard bt">삭제하기</button>
+					<button class="btn deleteboard bt btn-outline-dark">삭제하기</button>
 				<%} else {%>
-					<button class="btn apply bt" onclick="apply();">신청하기</button>
+					<button class="btn apply bt btn-outline-primary" onclick="apply();">신청하기</button>
 				<%}%>
-					<button type="reset " class="btn list">
-					<a href="<%=contextPath%>/list.mate?currentPage=1" style="text-decoration: none; color: gray;">목록가기</a>
+					<button type="reset " class="btn list btn-outline-secondary">
+					<a href="<%=contextPath%>/list.mate?currentPage=1" style="text-decoration: none; color: gray; ">목록가기</a>
 					</button>
 			</div>
 		</div>
@@ -267,7 +272,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
                     <span>게시글을 삭제하시겠습니까?</span>
                     <div class="btn-area">
                         <button class="btn btn-outline-dark" onclick="deleteMate()">삭제</button>
-                        <button  class="btn close btn-outline-secondary">취소</button>
+                        <button  class="btn close btn-outline-dark">취소</button>
                     </div>
                  </div>
             </div>
@@ -290,15 +295,26 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 			//산책메이트 신청하기
 			<%-- location.href="<%=contextPath%>/applyMate?bno=<%=b.getBoardNo()%>";
 			alert("신청완료했개"); --%>
+			var appliedList = JSON.parse(localStorage.getItem('appliedList')) || [];
 			
 			$.ajax({
 				url:"<%=contextPath%>/applyMate?bno=<%=b.getBoardNo()%>",
-				data : {bno :"<%=b.getBoardNo()%>" },
+				data : {
+					bno :"<%=b.getBoardNo()%>",	
+					appliedList:appliedList
+				},
 				type : "get",
 				success : function(data){
-					 console.log("신청성공?");
-
-				}
+					alert("신청 완료했개!");
+					console.log(data);
+					if(data==1){
+						$(".apply").attr("disabled","disabled");
+						$(".apply").text("신청완료");
+						appliedList.push("<%=b.getBoardNo()%>");
+						localStorage.setItem('appliedList',JSON.stringify(appliedList));
+					}
+				},
+			
 			})
 		}
 		function insertReply(){
@@ -333,7 +349,6 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 				async :false,
 				success : function(list){
 						let result="";
-						
 						for(let i of list){
 									result += "<tr>"+"<div class='reply-box'>"+
 									 "<img src='resources/image2/bono.jpg' class='reply-profile'>"+
@@ -379,6 +394,6 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
         })
     </script>
 
-<%-- <%@ include file="../../common/footer.jsp" %> --%>
+ <%@ include file="../../common/footer.jsp" %> 
 </body>
 </html>

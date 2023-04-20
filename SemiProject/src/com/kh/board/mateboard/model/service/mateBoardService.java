@@ -242,4 +242,28 @@ public class mateBoardService {
 		close(conn);
 		return mem;
 	}
-}
+	
+	public String updateStatus(String userNickname, int boardNo, String status, int userNo) {
+		Connection conn = getConnection();
+		String updateStatus = null;
+		
+		int result = new mateBoardDao().updateStatus(conn, userNickname,boardNo,status, userNo);
+		
+		if(result>0) {
+			commit(conn);
+			updateStatus = new mateBoardDao().selectStatus(conn ,userNo, boardNo);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return updateStatus;
+	}
+	
+	public ArrayList<Mate> applyMateList(int boardNo, int userNo){
+		Connection conn = getConnection();
+		ArrayList<Mate> applyMateList = new mateBoardDao().applyMateList(conn, boardNo, userNo);
+		close(conn);
+		return applyMateList;
+	}
+} 
