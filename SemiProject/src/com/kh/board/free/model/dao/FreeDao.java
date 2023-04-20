@@ -377,33 +377,6 @@ public class FreeDao {
 		return result;
 	}
 	
-//	public int updateAttachment(Connection conn, ArrayList<Attachment> fileList) {
-//		
-//		int result = 0;
-//		
-//		PreparedStatement pstmt = null;
-//		
-//		String sql = prop.getProperty("updateAttachment");
-//		
-//		
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, at.getOriginName());
-//			pstmt.setString(2, at.getChangeName());
-//			pstmt.setString(3, at.getFilePath());
-//			pstmt.setInt(4, at.getFileNo());
-//			
-//			result = pstmt.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(pstmt);
-//		}
-//		
-//		return result;
-//	}
-	
 	public int updateAttachment(Connection conn , ArrayList<Attachment> fileList) {
 		
 		int result = 0;
@@ -527,6 +500,7 @@ public class FreeDao {
 			while(rset.next()) {
 				list.add(new Reply(
 						rset.getInt("REPLY_NO"),
+						rset.getInt("REF_BNO"),
 						rset.getString("REPLY_CONTENT"),
 						rset.getString("USER_ID"),
 						rset.getString("CREATE_DATE")

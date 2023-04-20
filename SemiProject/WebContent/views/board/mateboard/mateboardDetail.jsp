@@ -239,9 +239,7 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 						</table>
 					</div>
 				</div>
-
 			</div>
-
 			<div class="btn-div">
 				<%if (loginUser != null && loginUser.getUserNickname().equals(b.getBoardWriter())) {%>
 					<button class="btn reupload btn-outline-warning">
@@ -251,14 +249,12 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 				<%} else {%>
 					<button class="btn apply bt" onclick="apply();">신청하기</button>
 				<%}%>
-
-				<button type="reset " class="btn list">
+					<button type="reset " class="btn list">
 					<a href="<%=contextPath%>/list.mate?currentPage=1" style="text-decoration: none; color: gray;">목록가기</a>
-				</button>
+					</button>
 			</div>
 		</div>
 	</div>
-	
 	<!-- 모달창 -->
 	<div class="modal-overlay" id="modal">
         <div class="modal-window">
@@ -289,9 +285,21 @@ ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 			//게시글 삭제하기
 			location.href="<%=contextPath%>/deleteMate?bno=<%=b.getBoardNo()%>"; 
 		}
+		
 		function apply() {
 			//산책메이트 신청하기
-			location.href="<%=contextPath%>/applyMate?bno=<%=b.getBoardNo()%>";
+			<%-- location.href="<%=contextPath%>/applyMate?bno=<%=b.getBoardNo()%>";
+			alert("신청완료했개"); --%>
+			
+			$.ajax({
+				url:"<%=contextPath%>/applyMate?bno=<%=b.getBoardNo()%>",
+				data : {bno :"<%=b.getBoardNo()%>" },
+				type : "get",
+				success : function(data){
+					 console.log("신청성공?");
+
+				}
+			})
 		}
 		function insertReply(){
 			$.ajax({

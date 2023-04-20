@@ -4,6 +4,7 @@
 Board b = (Board) request.getAttribute("b");
 ArrayList<Reply> list = (ArrayList<Reply>) request.getAttribute("list");
 ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list2");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,11 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="<%= contextPath %>/resources/css/board/free/detail.css" rel="stylesheet" type="text/css">
 </head>
-
+<%
+if(loginUser == null){
+ 	loginUser = new Member("NNNNN", "NNNNN", "NNNNN", "NNNNN", "NNNNN", "NNNNN", "NNNNN", "NNNNN", "NNNNN");
+}
+%>
 <body class="free_detail_all">
     <div class="free_header" align="center">
         <div class="free_img1">
@@ -66,7 +71,7 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
         <div class="free_buttons1" align="center">
             <a href="<%=contextPath %>/list.bf?currentPage=1" class="free_back" style="text-decoration: none; color: rgb(0, 123, 255);">목록으로</a>
             
-			<% if(loginUser != null && loginUser.getUserId().equals( b.getBoardWriter())) {%>
+			<% if( !loginUser.getUserId().equals("NNNNN") && loginUser.getUserId().equals( b.getBoardWriter())) {%>
 				<a href="<%= contextPath %>/update.bf?bno=<%=b.getBoardNo() %>" class="free_retouch" style="text-decoration: none; color: rgb(0, 123, 255);">수정하기</a>
 				<button onclick="deleteBoard();" class="free_delete" >삭제하기</button>
 			<% } %>	
@@ -77,11 +82,11 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
     	<div id="reply-area">
 			<table class="free_table" border="1" align="center">
 				<thead>
-					<% if(loginUser != null) { %>
+					<% if( !loginUser.getUserId().equals("NNNNN")) { %>
 						<!--  로그인이 되어있을 경우 -->
 						<tr>
 							<td colspan="1" style="border: 2px solid #ccc;">
-                        		<textarea id="replyContent" cols="50" rows="3" style="resize:none;"></textarea>
+                        		<textarea id="replyContent" cols="90" rows="3" style="resize:none;"></textarea>
                     		</td>
                     		<th style="text-align: center; border: none;">
                     		<button style="width: 150px; height: 83px;" onclick="insertReply();"><b>댓글등록</b></button>
@@ -90,7 +95,7 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
 					<% } else { %>
 						<tr>
 							<td style="border: 2px solid #ccc;">
-                        		<textarea id="replyContent" cols="50" rows="3" style="resize:none;" readonly>로그인후 이용가능한 서비스입니다.</textarea>
+                        		<textarea id="replyContent" cols="90" rows="3" style="resize:none;" readonly>로그인후 이용가능한 서비스입니다.</textarea>
                     		</td>
                     		<th style="text-align: center; border: none;">
                     		<button style="width: 100%; height: 60px;" onclick="insertReply();" disabled><b>댓글등록</b></button>
@@ -114,7 +119,9 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
                     		
 							</td>
 							
-							<% if(loginUser != null && loginUser.getUserId().equals( r.getReplyContent())) {%>
+							<% if(!loginUser.getUserId().equals("NNNNN") && loginUser.getUserId().equals( r.getReplyContent())) {
+								
+							%>
 							<td class="button_td" valign="top" align="right" style="border: 2px solid #ccc; border-left: none;">
 							<button class="reply_update" onclick="rewriteReply(<%= replyNo %>);">수정</button>
                         	
@@ -157,7 +164,7 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
 	                    				+"<span class='td_date'>" + result[i].createDate +"</span>"
 	                    				+"</td>"
                     			
-                   			if( '<%= loginUser.getUserId() %>' != null && '<%=loginUser.getUserId()%>' === result[i].replyContent ) {
+                   			if( '<%= loginUser.getUserId() %>' != "NNNNN" && '<%= loginUser.getUserId()%>' === result[i].replyContent ) {
                     					
                     			  html+= "<td class='button_td' valign='top' align='right' style='border: 2px solid #ccc; border-left: none;'>"
 	                    				+"<button class='reply_update' onclick='rewriteReply(" + result[i].replyNo + ");'>수정</button>"
@@ -175,7 +182,7 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
 				}, error : function(){
 					console.log("댓글작성실패")
 				}
-			})
+			});
 		}
 	
 		function insertReply(){
@@ -189,17 +196,19 @@ ArrayList<Attachment> list2 = (ArrayList<Attachment>) request.getAttribute("list
 				success : function(result){
 					if(result > 0){
 						selectReply();
+						location.href = "<%= contextPath %>/detail.bf?bno=<%= b.getBoardNo() %>";
 						$("#replyContent").val("");
+						$("#replyContent").focus();
 					}
 				}, error : function(){
 					console.log("댓글작성실패")
 				}
-			})
+			});
 		}
 		
 		function rewriteReply(replyNo){
 			$("#replyTd_"+replyNo).contents().remove();
-			$("#replyTd_"+replyNo).append('<textarea name="rewriteContent" rows="2" cols=55" style="resize: none;"></textarea>');
+			$("#replyTd_"+replyNo).append('<textarea name="rewriteContent" rows="2" cols=90" style="resize: none;"></textarea>');
 			$(".reply_update").attr('id', 'updateBtn').attr('onclick', 'updateReply(' + replyNo + ')');
 		}
 		

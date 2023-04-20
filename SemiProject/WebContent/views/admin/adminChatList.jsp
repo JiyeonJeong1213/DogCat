@@ -13,6 +13,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+.footer {
+	width: 100%;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
+
 .container {
 	display: flex;
 	justify-content: space-evenly;
@@ -152,7 +159,6 @@
 								<th scope="col">문의자</th>
 								<th scope="col">최근메시지</th>
 								<th scope="col">문의날짜</th>
-							<!-- 	<th scope="col">상태</th> -->
 							</tr>
 						</thead>
 						<tbody>

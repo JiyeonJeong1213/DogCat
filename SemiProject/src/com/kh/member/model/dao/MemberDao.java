@@ -188,6 +188,7 @@ public class MemberDao {
 			close(pstmt);
 		}
 
+		System.out.println(m);
 		return m;
 		
 	}
@@ -268,7 +269,6 @@ public Member selectUser(Connection conn, String userId) {
 		int result = 1;
 		
 		PreparedStatement pstmt = null;
-		
 		String sql = prop.getProperty("insertProfileImg");
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -284,6 +284,7 @@ public Member selectUser(Connection conn, String userId) {
 		}finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}	
 	
@@ -404,7 +405,7 @@ public Member selectUser(Connection conn, String userId) {
 	//산책메이트
 		public ArrayList<Board> selectMBoardList(Connection conn, int boardWriter){
 			
-			ArrayList<Board> mlist = new ArrayList<>();
+			ArrayList<Board> Mlist = new ArrayList<>();
 			
 			PreparedStatement pstmt = null;
 			
@@ -418,14 +419,17 @@ public Member selectUser(Connection conn, String userId) {
 				pstmt.setInt(1, boardWriter);
 				
 				rset = pstmt.executeQuery();
+				
 				while(rset.next()) {
-					Board m = new Board();
-					m.setBoardNo(rset.getInt("BOARD_NO"));
-					m.setBoardTitle(rset.getString("BOARD_TITLE"));		              
-					m.setBoardWriter(rset.getString("USER_NICKNAME"));					  				
-					m.setCreateDate(rset.getDate("CREATE_DATE"));		              	              
+					Board M = new Board();
+					M.setBoardNo(rset.getInt("BOARD_NO"));
+					M.setBoardTitle(rset.getString("BOARD_TITLE"));		              
+					M.setBoardWriter(rset.getString("USER_NICKNAME"));					  				
+					M.setCreateDate(rset.getDate("CREATE_DATE"));
+					M.setMateuseNo(rset.getInt("MATEUSERNO"));
+					M.setMateStatus(rset.getString("MATESTATUS"));
 					
-					mlist.add(m);
+					Mlist.add(M);
 				}
 				
 			} catch (SQLException e) {
@@ -434,7 +438,7 @@ public Member selectUser(Connection conn, String userId) {
 				close(rset);
 				close(pstmt);
 			}
-			return mlist;
+			return Mlist;
 		}
 	
 	public ArrayList<Chatroom> selectChatroomList(Connection conn, int seller){
@@ -451,6 +455,7 @@ public Member selectUser(Connection conn, String userId) {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, seller);
+			pstmt.setInt(2, seller);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
@@ -914,5 +919,50 @@ public Member selectUser(Connection conn, String userId) {
 		
 		
 	}
+	
+	public Member selectDetailMember(Connection conn, String userId) {
+		
+		Member m = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectDetailMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("USER_NO"),
+						rset.getString("USER_ID"),
+						rset.getString("USER_PWD"),
+						rset.getString("USER_NAME"),
+						rset.getString("USER_NICKNAME"),
+						rset.getString("PHONE"),
+						rset.getString("EMAIL"),
+						rset.getString("ADDRESS"),
+						rset.getString("HOBBY"),
+						rset.getDate("ENROLL_DATE"),
+						rset.getString("STATUS"),
+						rset.getString("SPECIES"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+		
+	}
+	
+	
 	
 }

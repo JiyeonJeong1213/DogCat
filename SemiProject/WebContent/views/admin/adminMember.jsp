@@ -11,95 +11,108 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-  	.container {
-           display: flex;
-           justify-content: space-evenly;
-           margin-top: 10px;
-     }
-	.master_member_title {
-         width: 250px;
-         font-weight: bold;
-         text-align: left;
-     }
+.footer {
+	width: 100%;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+}
 
-     .member_table {
-        width: 1200px;
-        padding: 0px 10px 0px 10px;
-        margin-top: 20px;
-        border-top: 2px solid rgb(83, 193, 243);
+.container {
+	display: flex;
+	justify-content: space-evenly;
+	margin-top: 10px;
+}
 
-      }
-      .modal_container{
-          background-color: rgb(251, 246, 240);
-          display: flex;
-          justify-content: space-evenly;
-          align-items: flex-start;
-          padding: 10px;
-        
-      }
-      .modal_profile{
-          text-align: center;
-      }
-      .modal_profile_img{
-          width: 60px;
-          height: 60px;
-          border-radius: 100%;
-          margin: 0 auto;
-          overflow: hidden;
-      }
-      #modal.modal-overlay {
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          left: 0;
-          top: 0;
-          display: none;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          background: rgba(255, 255, 255, 0.25);
-          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-          backdrop-filter: blur(1.5px);
-          -webkit-backdrop-filter: blur(1.5px);
-          border-radius: 10px;
-          border: 1px solid rgba(255, 255, 255, 0.18);
-      }
-      #modal .modal-window {
-          background:   rgb(251, 246, 240);
-          box-shadow: 0 8px 32px 0 rgba(133, 133, 134, 0.37);
-          backdrop-filter: blur( 13.5px );
-          -webkit-backdrop-filter: blur( 13.5px );
-          border-radius: 10px;
-          border: 1px solid rgba( 255, 255, 255, 0.18 );
-          width: 500px;
-          height: 350px;
-          position: relative;
-          top: -100px;
-          padding: 10px;
-      }
-      .modal_btn-area{
-          text-align: center;
-          padding-right: 25px;
-      }
-     
-    .profile_table input{
-         width: 150px;
-         margin-left: 50px;
-     }
-      
-    #modal_profile_img{
-	   	width: 100%;
-	   	height: 100%;
-  		object-fit: cover;
-  		margin: 0 auto;
-  	}
-  	.member_table>tbody>tr:hover{
-  		cursor:pointer;
-  	}
-  	.close:hover{
-  		cursor:pointer;
-  	}
+.master_member_title {
+	width: 250px;
+	font-weight: bold;
+	text-align: left;
+}
 
+.member_table {
+	width: 1200px;
+	padding: 0px 10px 0px 10px;
+	margin-top: 20px;
+	border-top: 2px solid rgb(83, 193, 243);
+}
+
+.modal_container {
+	background-color: rgb(251, 246, 240);
+	display: flex;
+	justify-content: space-evenly;
+	align-items: flex-start;
+	padding: 10px;
+}
+
+.modal_profile {
+	text-align: center;
+}
+
+.modal_profile_img {
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+#modal.modal-overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255, 255, 255, 0.25);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(1.5px);
+	-webkit-backdrop-filter: blur(1.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#modal .modal-window {
+	background: rgb(251, 246, 240);
+	box-shadow: 0 8px 32px 0 rgba(133, 133, 134, 0.37);
+	backdrop-filter: blur(13.5px);
+	-webkit-backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	width: 500px;
+	height: 350px;
+	position: relative;
+	top: -100px;
+	padding: 10px;
+}
+
+.modal_btn-area {
+	text-align: center;
+	padding-right: 25px;
+}
+
+.profile_table input {
+	width: 150px;
+	margin-left: 50px;
+}
+
+#modal_profile_img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	margin: 0 auto;
+}
+
+.member_table>tbody>tr:hover {
+	cursor: pointer;
+}
+
+.close:hover {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -153,7 +166,6 @@
 	                            			</c:choose>
 	                            		</tr>
                         			</c:forEach>
-                        		
                         		</c:otherwise>
                         	</c:choose>
                         </tbody>

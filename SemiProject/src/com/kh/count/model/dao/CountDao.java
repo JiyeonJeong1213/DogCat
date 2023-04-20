@@ -7,9 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import com.kh.chat.model.vo.Chatroom;
 import com.kh.member.model.dao.MemberDao;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -60,6 +62,7 @@ public class CountDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(bCount);
 		return bCount;
 	}
 	
@@ -107,7 +110,6 @@ public class CountDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, userNo);
-			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -120,6 +122,7 @@ public class CountDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(cCount);
 		return cCount;
 	}
 	
@@ -153,26 +156,7 @@ public class CountDao {
 	return mCount;
 }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 }

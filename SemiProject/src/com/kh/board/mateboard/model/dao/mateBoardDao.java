@@ -15,6 +15,7 @@ import com.kh.common.model.vo.PageInfo;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.mateboard.model.vo.Board;
 import com.kh.board.mateboard.model.vo.BoardLike;
+import com.kh.board.mateboard.model.vo.Mate;
 import com.kh.board.mateboard.model.vo.Reply;
 
 import static com.kh.common.JDBCTemplate.close;
@@ -592,6 +593,38 @@ public class mateBoardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public Mate selectMateMember(Connection conn, int userNo, int boardNo) {
+		Mate mem = new Mate();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mem = new Mate();
+				mem.setUserNo(rset.getInt("USER_NO"));
+				mem.setBoardNo(rset.getInt("BOARD_NO"));
+				mem.setStatus(rset.getString("STATUS"));
+				mem.setUserNickname(rset.getString("USER_NICKNAME"));
+				
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}return mem;
+		
 	}
 }
 
