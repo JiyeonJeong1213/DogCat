@@ -268,7 +268,6 @@ public Member selectUser(Connection conn, String userId) {
 		int result = 1;
 		
 		PreparedStatement pstmt = null;
-		
 		String sql = prop.getProperty("insertProfileImg");
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -284,6 +283,7 @@ public Member selectUser(Connection conn, String userId) {
 		}finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}	
 	

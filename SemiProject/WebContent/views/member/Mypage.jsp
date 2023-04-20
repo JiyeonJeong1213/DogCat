@@ -46,18 +46,24 @@
 
 .profile_img {
    width: 70px;
-   /*height: 60px;*/
    border-radius: 70%;
    margin: 0 auto;
    overflow: hidden;
+} 
+
+.img {
+   width: 200px;
+   height: 195px;
+   border-radius: 50%;
+   border:3px solid black;
+   margin-left: 900px;
+   margin-top: -35px;
 }
 
-#profileImg {
-   width: 80%;
-    height: 90%;
-    object-fit: cover;
-    margin-left: 17px;
-    margin-top: 10px;
+#profileImg{
+    width: 145px;
+    margin-left: 23px;
+    margin-top: 20px;
 }
 
 .mypage>h1 {
@@ -92,6 +98,9 @@
    overflow: scroll;
    overflow-x:hidden;
 }
+.content4_category{
+	display: flex;
+}
 .content_4::-webkit-scrollbar{
    width:10px;
    
@@ -114,17 +123,15 @@
    width: 200px;
    height: 195px;
    border-radius: 50%;
-   background-color: rgba(52, 152, 219, 0.52);
-   /*margin: 20px 0px 15px 0px;*/
-   margin-top: -50px;
-   margin-left: 150px;
+   border:3px solid black;
+   margin-left: 200px;
 }
 
 .myprofile {
    display: flex;
    justify-content: center;
    margin-top: 50px;
-   margin-left: 190px;
+   margin-left: 225px;
 }
 
 #file, #reset-file {
@@ -206,7 +213,7 @@
    cursor: pointer;
    border-radius: 0px;
    border-color: lightgray;
-   width: 14.44rem;
+   width: 14.6rem;
 }
 
 #thead {
@@ -226,12 +233,6 @@
   background-color: white;  
   border: 1px solid black;
 } 
-
-
-/* .category_swipperWrap {
-   display: flex;
-   justify-content: center;
-} */
 
 .category_swipper {
    width: 150px;
@@ -314,7 +315,7 @@
             </table>
          </div>
       </div>
-   <div class="content_4">
+  
       <div class="content4_category">
          <div class="category_swiper">
             <button id="btn1" class="category_button">작성글</button>
@@ -380,7 +381,7 @@
                   <%for(Chatroom c: chatList) { %>
                   <tr align="center">
                      <td><%= c.getChatroomNo()%></td>
-                     <td><a href="#"><%=recentMsgs %></a></td>
+                     <td><a href="#"><%=recentMsgs.get(0)%></a></td>
                      <td><%= c.getBuyer() %></td>
                      <td><%= c.getSeller() %></td> 
                      <td><%= c.getCreateDate() %></td>

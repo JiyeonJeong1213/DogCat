@@ -79,7 +79,7 @@
    width: 200px;
    height: 195px;
    border-radius: 50%;
-   background-color: rgba(52, 152, 219, 0.52);
+   border:3px solid black;
    margin-left: 900px;
 }
 
@@ -101,7 +101,10 @@ button:hover {
    width: 350px;
    margin: 0px 0px 0px 115px; 
 }
-
+.userId{
+	border:none;
+	width: 40px;
+}
 #tt {
    background-color:  rgb(230, 242, 255);
 }
@@ -218,10 +221,9 @@ button:hover {
 
 #profileImg {
    width: 80%;
-    height: 90%;
-    object-fit: cover;
-    margin-left: 17px;
-    margin-top: 10px;
+    height: 80%;
+    margin-left: 20px;
+    margin-top: 20px;
 }
 
 #userIdlabel{
@@ -283,7 +285,7 @@ button:hover {
                      <tbody id="tt">
                         <tr>
                            <td align="center" width="345">ID</td>
-                           <td id="bb" ><input type="text" name="userId" value="<%=userId %>" readonly>
+                           <td id="bb" ><input type="text" name="userId" class="userId" value="<%=userId %>" readonly>
                            <label style="font-size: x-small;" id="userIdlabel">※ 아이디 변경 불가</label></td>
                         </tr>
                         <tr>

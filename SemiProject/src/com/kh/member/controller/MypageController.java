@@ -43,11 +43,7 @@ public class MypageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		/*
-		 * int bno = Integer.parseInt(request.getParameter("bno")); int reader =
-		 * Integer.parseInt(request.getParameter("reader")); int byuer =
-		 * Integer.parseInt(request.getParameter("byuer"));
-		 */
+		
 		
 		HttpSession session = request.getSession();
 		
@@ -60,17 +56,16 @@ public class MypageController extends HttpServlet {
 		ArrayList<Save> slist = new MemberService().selectSaveList(loginUser.getUserNo());
 		ArrayList<Reply> rlist = new MemberService().selectReplyList(loginUser.getUserNo());
 		
-		ArrayList<Chatroom> chatList = new CountService().selectChatroomList(loginUser.getUserNo());
+		ArrayList<Chatroom> chatList = new ChatService().userChatList(loginUser.getUserNo());
 		ArrayList<Integer> crNoList = new ArrayList<>();
 		ArrayList<String> recentMsgs = new ArrayList<>();
 		for(Chatroom cr : chatList) {
 			int crNo = cr.getChatroomNo();
-			String recentMsg = new CountService().selectRecentMsg2(crNo);
+			String recentMsg = new ChatService().selectRecentMsg3(crNo);
 			recentMsgs.add(recentMsg);
 		}
 		
 
-		
 		//회원이 등록한 데이터 갯수
 		Count count = new CountService().selectCount(loginUser.getUserNo());
 	

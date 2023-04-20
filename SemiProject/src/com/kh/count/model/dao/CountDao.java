@@ -156,62 +156,7 @@ public class CountDao {
 	return mCount;
 }
 	
-	public ArrayList<Chatroom> selectChatList(Connection conn, int userNo) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Chatroom> chatList = new ArrayList<>();
-		String sql = prop.getProperty("selectChatList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userNo);
-			pstmt.setInt(2, userNo);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Chatroom croom = new Chatroom();
-				croom.setChatroomNo(rset.getInt("CR_NO"));
-				croom.setCreateDate(rset.getDate("CREATE_DATE"));
-				croom.setSeller(rset.getString("SELLER"));
-				croom.setBuyer(rset.getString("BUYER"));
-				
-				chatList.add(croom);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return chatList;
-	}
-	
-	
-	
-	public String selectRecentMsg2(Connection conn, int crNo) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String recentMsg = null;
-		String sql = prop.getProperty("selectRecentMsg2");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, crNo);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				recentMsg = rset.getString("M_CONTENT");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return recentMsg;
-	}
-	
-	
+
 	
 
 }
