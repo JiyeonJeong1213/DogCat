@@ -216,11 +216,6 @@
    width: 14.6rem;
 }
 
-#thead {
-   border: 1px solid black;
-   
-}
-
 /*카테고리버튼*/
 .content_category{ 
    display: flex;
@@ -231,7 +226,7 @@
   position: sticky;
   top: 0;
   background-color: white;  
-  border: 1px solid black;
+  border: 0px solid black;
 } 
 
 .category_swipper {
@@ -273,8 +268,7 @@
    <form action="<%= contextPath%>/userprofileupdate" method="post" enctype="multipart/form-data">
       <div class="content_2">
          <div class="myprofile_img">
-            <input type="hidden" name="userNo"
-               value="<%= loginUser.getUserNo() %>">
+            <input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
             <div class="img">
                <%if(loginUser.getFileName()!= null){ %>
                   <img id="profileImg" src="<%=request.getContextPath() %>/<%=loginUser.getFileName() %>">
@@ -468,7 +462,8 @@
                             <th style="width: 200px;">게시글 번호</th>
                             <th style="width: 600px;">내용</th>
                             <th style="width: 180px;">작성자</th>
-                            <th style="width: 200px;">상태</th>
+                            <th style="width: 180px;">날짜</th>
+                            <th style="width: 200px;">수락여부</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -479,6 +474,7 @@
                      <td><a href="#"><%= m.getBoardTitle()%></a></td>
                      <td><%= m.getBoardWriter()%></td>
                      <td><%= m.getCreateDate()%></td>      
+                     <td><%= m.getStatus()%></td>
                   </tr>
                   <% } %>
                   <%} else{ %>
@@ -491,7 +487,9 @@
             </form>
           </div> 
       </div>
+      
    </div>
+      <%@ include file="../common/footer.jsp" %>
 
 
 
