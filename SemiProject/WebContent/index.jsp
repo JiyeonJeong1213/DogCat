@@ -1,16 +1,20 @@
-<%@ page import="java.util.ArrayList, com.kh.board.model.vo.*, com.kh.chat.model.vo.*" %>
+<%@ page
+	import="java.util.ArrayList, com.kh.board.model.vo.*, com.kh.chat.model.vo.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>또오개냥 메인페이지</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
-
 @font-face {
 	font-family: 'yg-jalnan';
-	src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff')
+		format('woff');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -29,21 +33,23 @@
 	width: 100%;
 }
 
-.main1, .main4 {
+.main1{
 	width: 100%;
 	text-align: center;
 	padding-top: 40px;
 }
 
-.main1-text, .main4-text {
+.main1-text {
 	font-size: 45px;
 	font-family: 'yg-jalnan', verdana, tahoma;
 	color: #F7E3A5;
-	text-shadow: -2px 0 #4758A8, 0 2px #4758A8, 2px 0 #4758A8, 0 -2px #4758A8;
+	text-shadow: -2px 0 #4758A8, 0 2px #4758A8, 2px 0 #4758A8, 0 -2px
+		#4758A8;
 }
+
 .main1_img {
 	width: 100%;
-	background-image: url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/%EA%B0%95%EC%95%84%EC%A7%80%EB%93%A4.png");
+	background-image:url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/%EA%B0%95%EC%95%84%EC%A7%80%EB%93%A4.png");
 	height: 500px;
 	background-position: center;
 	background-size: cover;
@@ -66,7 +72,7 @@
 .main2_wrap {
 	display: flex;
 	max-width: 1200px;
-    margin-left: 400px;
+	margin-left: 400px;
 	margin-right: auto;
 	column-gap: 30px;
 }
@@ -84,19 +90,7 @@
 	align-items: center;
 	position: relative;
 }
-/* 
-.main2_title::before {
-	content: "NEWS";
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	font-style: normal;
-	font-weight: 400;
-	font-size: 20px;
-	line-height: 15px;
-	color: rgb(51, 51, 51);
-}
- */
+
 .notice_lists {
 	display: flex;
 	flex-direction: column;
@@ -126,19 +120,60 @@ li {
 	list-style: none;
 }
 
-.slide_wrapper {
+.main3 {
+	padding: 5px 20px;
+}
+
+.slideBoard {
+	max-width: 1200px;
+	margin: auto;
+}
+
+.slideTitle {
+	margin-bottom: 32px;
+	display: flex;
+	align-items: center;
+	font-weight: 700;
+	font-size: 36px;
+	line-height: 38px;
+	font-family: 'yg-jalnan', verdana, tahoma;
+	color: #F7E3A5;
+	text-shadow: -2px 0 #4758A8, 0 2px #4758A8, 2px 0 #4758A8, 0 -2px
+		#4758A8;
+}
+
+.slideTitle::before {
+	content: "";
+	background-image: url(resources/강아지발바닥.png);
+	display: inline-block;
+	background-size: cover;
+	margin-right: 14px;
+	width: 35px;
+	height: 35px;
+	flex: 0 0 auto;
+}
+
+.slideContent {
+	/* background-image: url("https://sscampus.kr/images/components/board-frame.png"); */
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	padding: 49px 75px 73px;
 	position: relative;
+	overflow: hidden;
 	width: 1050px;
 	margin: 0 auto;
 	height: 500px;
-	overflow: hidden;
 }
 
 .slides {
 	position: absolute;
 	left: 0;
-	top: 0;
+	top: 30px;
 	padding-left: 10px;
+}
+
+.slides>li {
+	list-style: none;
 }
 
 .slides.animated {
@@ -189,132 +224,262 @@ li {
 	overflow: hidden;
 }
 
+.main4 {
+	padding: 120px 0px 123px;
+	background-image: url(resources/back.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	/* background-position: right center; */
+	position: relative;
+}
+
+.main4::after {
+	content: "";
+	background-image: url(resources/Big.png);
+	background-position: right bottom;
+	background-size: auto 82.9876%;
+	background-repeat: no-repeat;
+	width: 1200px;
+	left: 50%;
+	transform: translate(-50%);
+	position: absolute;
+	bottom: 0px;
+	top: 0px;
+	pointer-events: none;
+}
+
+.main4Wrap {
+	max-width: 1200px;
+	margin: auto;
+	padding: 0px 20px;
+}
+
+.main4Title {
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	margin-bottom: 36px;
+	font-weight: 700;
+	font-size: 36px;
+	line-height: 38px;
+	font-family: 'yg-jalnan', verdana, tahoma;
+	color: #F7E3A5;
+	text-shadow: -2px 0 #4758A8, 0 2px #4758A8, 2px 0 #4758A8, 0 -2px
+		#4758A8;
+}
+
+.main4Title::before {
+	content: "";
+	background-image: url(resources/강아지발바닥.png);
+	display: inline-block;
+	background-size: cover;
+	margin-right: 14px;
+	width: 35px;
+	height: 35px;
+	flex: 0 0 auto;
+}
+
+.main4Content {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 30px;
+	color: F7E3A5;
+}
+
+.testGo {
+	margin-top: 50px;
+	background: rgb(83, 193, 243);
+	border: 1px solid rgb(83, 193, 243);
+	border-radius: 50px;
+	padding: 12px 45px;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 30px;
+	text-align: center;
+	color: rgb(255, 255, 255);
+	cursor: pointer;
+	transition: all 0.3s ease-in-out 0s;
+}
+
 a {
 	text-decoration: none;
 	color: black;
 }
-.chat-area{
-    border-radius: 20px;
-    border: 1px solid gray;
-    width: 500px;
-   	display: none;
-   position: absolute;
-   top:60%; left:85%; transform:translate(-50%, -50%); 
+
+.chat-area {
+	border-radius: 20px;
+	border: 1px solid gray;
+	width: 500px;
+	display: none;
+	position: absolute;
+	top: 60%;
+	left: 85%;
+	transform: translate(-50%, -50%);
 }
+
 .chat-title {
-    background-color: white;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+	background-color: white;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
 }
-.btn-close{
+
+.btn-close {
 	border: none;
 	background-color: white;
 }
-.btn-close:focus{
+
+.btn-close:focus {
 	outline: none;
 }
-.chat-content{
-  background-color: rgb(251, 246, 240);
-  height: 400px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  overflow-y:scroll;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  width: 100%;
+
+.chat-content {
+	background-color: rgb(251, 246, 240);
+	height: 400px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	overflow-y: scroll;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	width: 100%;
 }
-.chat-response{
-    width: 70%;
-    display: flex;
-    padding-top: 20px;
+
+.chat-content1 {
+	background-color: rgb(251, 246, 240);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	width: 100%;
 }
-.chat-request{
-    display: flex;
-    padding-top: 20px;
-    justify-content: right;
+
+.chat-content2 {
+	background-color: rgb(251, 246, 240);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	overflow-y: scroll;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	width: 100%;
 }
+
+.chat-response {
+	width: 70%;
+	display: flex;
+	padding-top: 20px;
+}
+
+.chat-request {
+	display: flex;
+	padding-top: 20px;
+	justify-content: right;
+}
+
 .chat-request>img {
-    margin-left: 10px;
+	margin-left: 10px;
 }
-.chat-bubble{
-    width: 100%;
-    background-color: rgb(255, 218, 119);
-    margin-left: 15px;
-    padding: 5px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+
+.chat-bubble {
+	width: 100%;
+	background-color: rgb(255, 218, 119);
+	margin-left: 15px;
+	padding: 5px;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
 }
-.chat-bubble2{
-    width: 70%;
-    background-color: rgb(255, 218, 119);
-    margin-left: 15px;
-    padding: 5px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+
+.chat-bubble2 {
+	width: 70%;
+	background-color: rgb(255, 218, 119);
+	margin-left: 15px;
+	padding: 5px;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
 }
+
 .chat-question {
-    display: flex;
-    justify-content: space-between;
-    height: 60px;
+	display: flex;
+	justify-content: space-between;
+	height: 60px;
 }
-.chat-question>input{
-    width:100%; 
-    height: 60px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border: none;
+
+.chat-question>input {
+	width: 100%;
+	height: 60px;
+	border-bottom-left-radius: 20px;
+	border: none;
 }
+
 .chat-question>input:focus {
-    outline: none;
-}
-.chat-question>button {
-    border: none;
-    border-radius: 20px;
-    width: 100px;
-    background-color: rgb(230, 242, 255);
-    color: rgb(0, 123, 255);
-}
-.chat-question>button:focus{
 	outline: none;
 }
-.chat-buttons{
-    align-items: center;
-    padding: 30px;
-    background-color: rgb(251, 246, 240);
-}
-.chat-button{
-    background-color: rgb(230, 242, 255);
-    border: none;
-    border-radius: 10px;
-    width: 200px;
-    margin: 5px;
-}
- .chat-question {
-    display: flex;
-    justify-content: space-between;
-    height: 60px;
-}
-.chat-question>input:focus {
-    outline: none;
-}
+
 .chat-question>button {
-    border: none;
-    border-radius: 20px;
-    width: 100px;
-    background-color: rgb(230, 242, 255);
-    color: rgb(0, 123, 255);
+	border: none;
+	border-bottom-right-radius: 20px;
+	width: 100px;
+	background-color: rgb(230, 242, 255);
+	color: rgb(0, 123, 255);
 }
-.chat-question>button:focus{
+
+.chat-question>button:focus {
 	outline: none;
 }
-#chatImg:hover{
-	cursor:pointer;
+
+.chat-buttons {
+	align-items: center;
+	padding: 30px;
+	background-color: rgb(251, 246, 240);
+}
+
+.chat-button {
+	background-color: rgb(230, 242, 255);
+	border: none;
+	border-radius: 10px;
+	width: 200px;
+	margin: 5px;
+}
+
+.chat-question {
+	display: flex;
+	justify-content: space-between;
+	height: 60px;
+}
+
+.chat-question>input:focus {
+	outline: none;
+}
+
+.chat-question>button {
+	border: none;
+	border-right-radius: 20px;
+	width: 100px;
+	background-color: rgb(230, 242, 255);
+	color: rgb(0, 123, 255);
+}
+
+.chat-question>button:focus {
+	outline: none;
+}
+
+#chatImg:hover {
+	cursor: pointer;
+}
+
+.firstChat {
+	width: 70%;
+	display: flex;
+	padding-top: 20px;
+}
+
+#msg-content {
+	padding-left: 20px;
 }
 </style>
 </head>
 <body>
-<%@ include file="views/common/menubar.jsp"%>
-
+	<%@ include file="views/common/menubar.jsp"%>
 	<script>
 		$(function(){
 			$.ajax({
@@ -336,21 +501,37 @@ a {
 	
 	</script>
 	
-<%-- 	<script>
+	<script>
 		$(function(){
-			$.ajax({
-				type:"get",
-				async:false,
-				url:"<%=request.getContextPath()%>/main.bo",
-				success:function(result){
-					console.log(result);
-					
-					return result;		
-				}
-			});
-		});
+		    $.ajax({
+		       type:"get",
+		       async:false,
+		       url:"<%=request.getContextPath()%>/main.bo",
+		       success:function(result){
+		       console.log(result);
+		          let str="";
+		          let url="";
+		          let bno=0;
+		          for(let i=0; i<result.length; i++){
+		             url = result[i].fileName;
+		             bno = result[i].refBno;
+		             str += "<li>" +
+		                     "<div class='cardWrap'>" +
+		                      "<div class='cards'>" +
+		                      "<div class='imgWrap mt-3'>" +
+		                      "<img src='" + url + "' class='cardImg'>" +
+		                     "<a href='<%=request.getContextPath()%>/detail.mate?bno="+bno+"' class='btn btn-outline-warning btn-sm my-3'>같이걷개</a>" +
+		                     "</div>" +
+		                     "</div>" +
+		                     "</div>" +
+		                     "</li>";
+		          }
+		          $(".slides").html(str);   
+		       }
+		    });
+		 });
 	
-	</script> --%>
+	</script> 
 
 
 	<div class="main-content">
@@ -370,76 +551,34 @@ a {
 		</div>
 		<div class="dog_land"></div>
 		<div class="main4" data-aos="fade-up">
-			<div class="main4-text mb-3">
-				실시간 메이트들의<br>활동을<br>확인해보세요.
+			<div class="main4Wrap" data-aos="fade-up">
+				<div class="main4Title">
+					우리집 뽀삐<br> 대체 뭔 생각을 하는가
+				</div>
+				<div class="main4Content">DBTI를 통해 강아지 성격을 확인해보세요!</div>
+				<a href="<%=request.getContextPath()%>/dbti">
+					<button class="testGo">테스트하러가기</button>
+				</a>
 			</div>
-			<div class="slide_wrapper">
-				<ul class="slides">
-					<li>
-						<div class="cardWrap">
-							<div class="cards">
-								<div class="imgWrap mt-3">
-									<img src="resources/산책.jpg" class="cardImg">
-									<a href="#" class="btn btn-outline-warning btn-sm my-3">같이걷개</a>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="cardWrap">
-							<div class="cards">
-								<div class="imgWrap mt-3">
-									<img src="resources/산책.jpg" class="cardImg">
-									<a href="#" class="btn btn-outline-warning btn-sm my-3">같이걷개</a>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="cardWrap">
-							<div class="cards">
-								<div class="imgWrap mt-3">
-									<img src="resources/산책.jpg" class="cardImg">
-									<a href="#" class="btn btn-outline-warning btn-sm my-3">같이걷개</a>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="cardWrap">
-							<div class="cards">
-								<div class="imgWrap mt-3">
-									<img src="resources/산책.jpg" class="cardImg">
-									<a href="#" class="btn btn-outline-warning btn-sm my-3">같이걷개</a>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="cardWrap">
-							<div class="cards">
-								<div class="imgWrap mt-3">
-									<img src="resources/산책.jpg" class="cardImg">
-									<a href="#" class="btn btn-outline-warning btn-sm my-3">같이걷개</a>
-								</div>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
+
 		</div>
-		<div class="chat_icon">
-			<img id="chatImg" src="resources/chat_icon.png" width="50px">
-		</div>
-		
-		
-		
-		<script>
+	</div>
+	<div class="chat_icon">
+		<img id="chatImg" src="resources/chat_icon.png" width="50px">
+	</div>
+
+
+
+	<script>
 			$(function(){
 				$("#chatImg").click(function(){
 					 $(".chat-area").css("display","block");
 					 $(".chat_icon").css("display","none")
-					 
+					 let infor = "<div class='firstChat'>"
+						 	+"<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png'width='50px' height='50px'>"
+					 		+"<div class='chat-bubble'>안녕하세요! 또오개냥에 방문해주셔서 감사합니다:) 무엇을 도와 드릴까요?</div>"
+					 		 +"</div>";
+			 		$(".chat-content").append(infor);
 					$.ajax({
 						 url:'<%= contextPath%>/InsertChattBot',
 						 type:'get',
@@ -471,7 +610,7 @@ a {
 		                                        		  +"</div>"; 
 												 }
 											 }
-											 $(".chat-content").html(str);
+											 $(".chat-content").append(str);
 										 }
 									 },
 									 error:function(){
@@ -489,7 +628,8 @@ a {
 				
 			     $(".btn-close").click(function(){
 	                $(".chat-area").css("display","none");
-	                $(".chat_icon").css("display","block")
+	                $(".chat_icon").css("display","block");
+	                $(".chat-content").empty();
 	            });
 	            
 			});
@@ -551,43 +691,64 @@ a {
 				$("#msg-content").val("");
 			} 
 		</script>
-		
-		
-		
-		<!-- 채팅/문의영역  -->
-		<div class="chat-area">
-	        <div class="chat-title">
-	            <img src="resources/돋보기.png" width="50px">
-	            <span style="font-size: 29px; font-weight: bold;">또오개냥 문의하기</span>
-	            <button type="button" class="btn-close" aria-label="Close" style="font-size:23px; float: right; margin-right: 20px; margin-top: 8px;">X</button>
-	        </div>
-	
-	        <div class="chat-content" >
-	            <div class="chat-response">
-	                <img src="resources/chatbot.png" width="50px">
-	                <div class="chat-response-master">
-	                    안녕하세요! 또오개냥에 방문해주셔서 감사합니다:) 무엇을 도와 드릴까요?
-	                </div>
-	                
-	            </div>
-	        </div>
-	
-	        <div class="chat-buttons">
-	            <button class="chat-button">회원가입</button>
-	            <button class="chat-button">회원탈퇴</button>
-	            <button class="chat-button">나눔&거래 방식</button>
-	            <button class="chat-button">산책메이트 신청하기</button>
-	            <button class="chat-button">산책메이트 취소하기</button>
-	            <button class="chat-button">이용약관</button>
-	        </div>
-	
-	        <div class="chat-question">
-	            <input type="text" id="msg-content" placeholder="메세지를 입력하세요" >
-	            <button onclick="sendMsg()">전송</button>
-	        </div>
-	    </div>
+
+
+
+	<!-- 채팅/문의영역  -->
+	<div class="chat-area">
+		<div class="chat-title">
+			<img src="resources/돋보기.png" width="50px"> <span
+				style="font-size: 29px; font-weight: bold;">또오개냥 문의하기</span>
+			<button type="button" class="btn-close" aria-label="Close"
+				style="font-size: 23px; float: right; margin-right: 20px; margin-top: 8px;">X</button>
+		</div>
+
+		<div class="chat-content"></div>
+
+		<div class="chat-buttons">
+			<button class="chat-button" name='1'>회원탈퇴</button>
+			<button class="chat-button" name='2'>이용약관</button>
+			<button class="chat-button" name='3'>나눔&거래 방식</button>
+			<button class="chat-button" name='4'>산책메이트 신청하기</button>
+		</div>
+
+		<div class="chat-question">
+			<input type="text" id="msg-content" placeholder="관리자에게 문의해보세요.">
+			<button onclick="sendMsg()">전송</button>
+		</div>
 	</div>
-	
+	<script>
+        $(document).ready(function () {
+            $("button[name='1']").click(function () {
+                $(".chat-content").append("<div class='chat-response'>"
+                                    +"<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png'width='50px' height='50px'>"
+                                    +"<div class='chat-bubble'>마이페이지에서 회원탈퇴를 진행해주시기 바랍니다.</div>"
+                                    +"</div>");
+            });
+            $("button[name='2']").click(function () {
+                $(".chat-content").append("<div class='chat-response'>"
+                                    +"<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png'width='50px' height='50px'>"
+                                    +"<div class='chat-bubble'>쓸말이 읎엉</div>"
+                                    +"</div>");
+            });
+            $("button[name='3']").click(function () {
+                $(".chat-content").append("<div class='chat-response'>"
+                                    +"<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png'width='50px' height='50px'>"
+                                    +"<div class='chat-bubble'>쓸말이 읎엉</div>"
+                                    +"</div>");
+            });
+            $("button[name='4']").click(function () {
+                $(".chat-content").append("<div class='chat-response'>"
+                                    +"<img src='https://semiproject.s3.ap-northeast-2.amazonaws.com/%ED%95%9C%EB%8F%99%ED%9C%98/free-icon-dog-2396837.png'width='50px' height='50px'>"
+                                    +"<div class='chat-bubble'>쓸말이 읎엉</div>"
+                                    +"</div>");
+            });
+        });
+    </script>
+
+
+
+
 	<script>
 		AOS.init();
 
@@ -599,91 +760,6 @@ a {
 	</script>
 
 
-	<script>
-		var slides = document.querySelector(".slides"), slide = document
-				.querySelectorAll(".slides li"), currentIndx = 0, slideCount = slide.length, slideWidth = 250, slideMargin = 10;
-
-		makeClone();
-
-		function makeClone() {
-			for (var i = 0; i < slideCount; i++) {
-				//a.cloneNode(), a.cloneNode(true) => a의 자식까지 복사
-				var cloneSlide = slide[i].cloneNode(true);
-				cloneSlide.classList.add('clone');
-				//a.appendChind(b)
-				slides.appendChild(cloneSlide);
-			}
-
-			for (var i = slideCount - 1; i >= 0; i--) {
-				//a.cloneNode(), a.cloneNode(true) => a의 자식까지 복사
-				var cloneSlide = slide[i].cloneNode(true);
-				cloneSlide.classList.add('clone');
-				//a.prepend(b)
-				slides.prepend(cloneSlide);
-			}
-			updateWidth();
-			setInitialPos();
-			setTimeout(function() {
-				slides.classList.add('animated');
-			}, 100);
-
-		}
-
-		function updateWidth() {
-			var currenSlides = document.querySelectorAll(".slides li");
-			var newSlideCount = currenSlides.length;
-
-			var newWidth = (slideWidth + slideMargin) * newSlideCount
-					- slideMargin + 'px';
-			slides.style.width = newWidth;
-		}
-
-		function setInitialPos() {
-			var initialTranslateValue = -(slideWidth + slideMargin)
-					* slideCount;
-			// slides {transform:translateX(-1000px);}
-			slides.style.transform = 'translateX(' + initialTranslateValue
-					+ 'px)';
-		}
-
-		function moveSlide(num) {
-			slides.style.left = -num * (slideWidth + slideMargin) + 'px';
-			currentIndx = num;
-			
-			if (currentIndx == slideCount || currentIndx == -slideCount) {
-
-				setTimeout(function() {
-					slides.classList.remove('animated');
-					slides.style.left = '0px';
-					currentIndx = 0;
-				}, 500);
-				setTimeout(function() {
-					slides.classList.add('animated');
-				}, 600);
-			}
-		};
-
-		var timer = undefined;
-
-		function autoSlide() {
-			if (timer == undefined) {
-				timer = setInterval(function() {
-					moveSlide(currentIndx + 1);
-				}, 3000);
-			}
-		}
-		autoSlide();
-		function stopSlide() {
-			clearInterval(timer);
-			timer = undefined;
-		}
-		slides.addEventListener('mouseenter', function() {
-			stopSlide();
-		});
-		slides.addEventListener('mouseleave', function() {
-			autoSlide();
-		});
-	</script>
 
 	<%@ include file="views/common/footer.jsp"%>
 </body>

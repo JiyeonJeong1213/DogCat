@@ -42,6 +42,7 @@ public class AdminchatList extends HttpServlet {
 			recentMsgs.add(recentMsg);
 		}
 		
+		System.out.println(chatList);
 		request.setAttribute("chatList", chatList);
 		request.setAttribute("recentMsgs", recentMsgs);
 		request.getRequestDispatcher("views/admin/adminChatList.jsp").forward(request, response);
