@@ -460,8 +460,7 @@ public Member selectUser(Connection conn, String userId) {
 				c.setChatroomName(rset.getString("CR_NAME"));		              
 				c.setBuyer(rset.getString("USER_NICKNAME"));					  				
 				c.setCreateDate(rset.getDate("CREATE_DATE"));		              
-						              
-				
+					
 				clist.add(c);
 			}
 			

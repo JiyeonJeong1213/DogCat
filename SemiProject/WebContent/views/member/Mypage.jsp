@@ -375,7 +375,7 @@
                   <%for(Chatroom c: chatList) { %>
                   <tr align="center">
                      <td><%= c.getChatroomNo()%></td>
-                     <td><a href="#"><%=recentMsgs.get(0)%></a></td>
+                     <td><a href="#"><%=recentMsgs.get(chatList.indexOf(c))%></a></td>
                      <td><%= c.getBuyer() %></td>
                      <td><%= c.getSeller() %></td> 
                      <td><%= c.getCreateDate() %></td>

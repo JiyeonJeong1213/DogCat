@@ -59,11 +59,14 @@ public class MypageController extends HttpServlet {
 		ArrayList<Chatroom> chatList = new ChatService().userChatList(loginUser.getUserNo());
 		ArrayList<Integer> crNoList = new ArrayList<>();
 		ArrayList<String> recentMsgs = new ArrayList<>();
+		
+		System.out.println("c"+chatList);
 		for(Chatroom cr : chatList) {
 			int crNo = cr.getChatroomNo();
 			String recentMsg = new ChatService().selectRecentMsg3(crNo);
 			recentMsgs.add(recentMsg);
 		}
+		System.out.println("최종"+recentMsgs);
 		
 
 		//회원이 등록한 데이터 갯수
