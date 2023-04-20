@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>또오개냥 메인페이지</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 @font-face {
 	font-family: 'yg-jalnan';
@@ -47,8 +49,7 @@
 
 .main1_img {
 	width: 100%;
-	background-image:
-		url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/%EA%B0%95%EC%95%84%EC%A7%80%EB%93%A4.png");
+	background-image:url("https://semiproject.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EC%9C%A0%EC%A7%84/%EA%B0%95%EC%95%84%EC%A7%80%EB%93%A4.png");
 	height: 500px;
 	background-position: center;
 	background-size: cover;
@@ -653,7 +654,8 @@ a {
 				
 			     $(".btn-close").click(function(){
 	                $(".chat-area").css("display","none");
-	                $(".chat_icon").css("display","block")
+	                $(".chat_icon").css("display","block");
+	                $(".chat-content").empty();
 	            });
 	            
 			});
