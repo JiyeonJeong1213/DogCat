@@ -249,10 +249,10 @@ button:hover {
       String userPwd = loginUser.getUserPwd();
       String phone = loginUser.getPhone();
       String email = loginUser.getEmail();
-      email = AEScryptor.decrypt(email);
       String address = loginUser.getAddress();
       int userNo =  loginUser.getUserNo();
       String userPet = loginUser.getPet();
+      email = AEScryptor.decrypt(email);
 %>
   <div class="Updateuser">
      <h1 style="color: cornflowerblue; font-size: 60px;" onclick="">바꾸개냥?</h1>
