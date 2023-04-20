@@ -83,7 +83,6 @@ public class AdminProfileController extends HttpServlet {
 			}else {
 				userPwd = multi.getParameter("newPwd");
 			}
-			
 			Member m = new Member();
 			m.setUserName(userName);
 			m.setUserNickname(userNickname);
@@ -92,14 +91,8 @@ public class AdminProfileController extends HttpServlet {
 			m.setAddress(address);
 			m.setUserPwd(userPwd);
 			m.setPet(pet);
-			
-			if(pet != null) {
-				Pet p = new Pet();
-				p.setUserNo(userNo);
-				p.setSpecies(pet);
-				Pet updatePet = new PetService().updatePet(p);
-			}
-			
+			m.setFileName(fileName);
+		
 			Member updateMem = new MemberService().updateMember(m);
 			
 			int result = 1;
@@ -108,9 +101,10 @@ public class AdminProfileController extends HttpServlet {
 			at.setChangeName(multi.getFilesystemName(key));
 			at.setFilePath("/resources/profile_upfiles/");
 			
-			if(multi.getOriginalFileName(key) != null) {
+			if(at.getOriginName() != null) {
 				result = new MemberService().insertProfileImg(userNo, at);
 				updateMem.setFileName(at.getFilePath()+at.getChangeName());
+				
 			} else {
 				updateMem.setFileName(fileName);
 			}
@@ -119,7 +113,6 @@ public class AdminProfileController extends HttpServlet {
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", updateMem);
-				
 				request.getRequestDispatcher("views/admin/adminProfile.jsp").forward(request, response);
 				
 			} else {
