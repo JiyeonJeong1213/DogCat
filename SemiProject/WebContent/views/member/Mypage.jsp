@@ -12,6 +12,7 @@
    ArrayList<Message> mList = (ArrayList<Message>)request.getAttribute("mList");
    ArrayList<String>  recentMsgs =(ArrayList<String>)request.getAttribute("recentMsgs");
    Count count = (Count) request.getAttribute("count");
+   
 %>
 
 <!DOCTYPE html>

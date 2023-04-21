@@ -162,7 +162,9 @@
 	<entry key="selectStatus">
 		SELECT STATUS
 		FROM MATE
-		WHERE USER_NO =? AND BOARD_NO=?
+
+		WHERE BOARD_NO=? AND USER_NO =? 
+
 	</entry>
 	<entry key="applyMateList">
 		SELECT MATE.*

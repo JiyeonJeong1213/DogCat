@@ -2,8 +2,8 @@ package com.kh.board.mateboard.model.vo;
 
 public class Mate {
 	
-	private int userNo;
 	private int boardNo;
+	private int userNo;
 	private String status;
 	private String userNickname;
 	
@@ -11,10 +11,10 @@ public class Mate {
 		super();
 	}
 
-	public Mate(int userNo, int boardNo, String status, String userNickname) {
+	public Mate( int boardNo, int userNo, String status, String userNickname) {
 		super();
+		this.boardNo = boardNo ;
 		this.userNo = userNo;
-		this.boardNo = boardNo;
 		this.status = status;
 		this.userNickname=userNickname;
 	}
