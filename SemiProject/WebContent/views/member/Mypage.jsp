@@ -59,6 +59,7 @@
 	border: 3px solid black;
 	margin-left: 900px;
 	margin-top: -35px;
+	overflow: hidden;
 }
 
 #profileImg {
@@ -126,6 +127,7 @@
 	border-radius: 50%;
 	border: 3px solid black;
 	margin-left: 200px;
+	overflow: hidden;
 }
 
 .myprofile {
@@ -563,7 +565,7 @@
        </div> 
      </div>
    </div>
-      <%@ include file="../common/footer.jsp" %>
+    <%@ include file="../common/footer.jsp" %>
 
 <script>
 $('input[name="file"]').change(function(){
