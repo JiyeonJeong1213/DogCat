@@ -42,7 +42,6 @@ public class ChattingServer {
 			int crNo = (int)hSession.getAttribute("crNo");
 			Member loginUser = (Member) hSession.getAttribute("loginUser");
 			int loginUserNo = loginUser.getUserNo();
-			System.out.println(loginUser.getUserNo());
 				
 			try {
 				for(Session client : clients) {
