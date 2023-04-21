@@ -243,6 +243,7 @@ public class mateBoardService {
 		return mem;
 	}
 	
+
 	public String updateStatus(String status,int boardNo, int userNo) {
 		Connection conn = getConnection();
 		String updateStatus = null;
@@ -253,13 +254,16 @@ public class mateBoardService {
 			
 			commit(conn);
 			updateStatus = new mateBoardDao().selectStatus(conn , boardNo,userNo);
+
 			
 		}else {
 			rollback(conn);
 		}
+
 		
 		close(conn);
 		System.out.println(updateStatus);
+
 		return updateStatus;
 	}
 	
