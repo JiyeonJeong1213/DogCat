@@ -12,10 +12,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <!-- <link href="resources/css/02_mateWrite.css?afterlike" rel="stylesheet"> -->
 <style>
-.wrap {
-	/* position: relative; */
+.footer {
 	width: 100%;
-	height: 100%;
+	height: 100px;
+	/*  position: absolute; */
+	bottom: 0;
+}
+.wrap {
+	/*  position: relative; */
+	width: 100%;
+	/* height: 100%; */
 }
 .content_name {
 	display: flex;
@@ -169,14 +175,14 @@ img {
 }
 
 .active>div {
-	width: 1300px;
+	width: 1000px;
 	height: 100%;
 	margin: 15px
 }
 .picture {
 	display: flex;
 	justify-content: space-evenly;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	border: 0px solid black;
 }
 .picture img {
@@ -184,6 +190,9 @@ img {
 	border-radius: 30px;
 	width: 250px;
 	height: 300px;
+}
+.container .picture{
+	height :100%;
 }
 </style>
 </head>
@@ -459,6 +468,6 @@ img {
 			
 		}
 	</script>
-<%--   <%@ include file="../../common/footer.jsp" %> --%>
+	   <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

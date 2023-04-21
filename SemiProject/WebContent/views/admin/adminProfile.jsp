@@ -106,12 +106,12 @@
 		String userPwd = loginUser.getUserPwd();
 		String phone = loginUser.getPhone();
 		String email = loginUser.getEmail();
-		email = AEScryptor.decrypt(email);
 		String address = loginUser.getAddress();
 		int userNo =  loginUser.getUserNo();
 		String userPet = loginUser.getPet();
 		String fileName = loginUser.getFileName();
-		System.out.println("email============="+email);
+		email = AEScryptor.decrypt(email);
+		userPwd = AEScryptor.decrypt(userPwd);
 %>
 
 	<div class="container">
@@ -157,6 +157,7 @@
 	                        <td>현재 비밀번호</td>
 	                        <td><input class="pwd" type="password" id="originPwd" name="originPwd" value="<%= userPwd %>"></td>
 	                    </tr>
+	                    
 	                    <tr>
 	                        <td>신규 비밀번호</td>
 	                        <td><input class="pwd" type="password" id="newPwd" name="newPwd"></td>

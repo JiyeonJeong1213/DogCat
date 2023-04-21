@@ -148,4 +148,25 @@
        WHERE BOARD_TYPE=1 AND B.STATUS='Y' AND B.ADDRESS=?
       ORDER BY CREATE_DATE DESC
 	</entry>
+	<entry key="selectMateMember">
+		SELECT A.USER_NO AS USER_NO, A.BOARD_NO AS BOARD_NO ,A.STATUS AS STATUS ,M.USER_NICKNAME AS USER_NICKNAME
+		FROM MATE A
+		JOIN MEMBER M ON(A.USER_NO = M.USER_NO)
+		WHERE A.USER_NO=? AND BOARD_NO =?
+	</entry>
+	<entry key="updateStatus">
+	UPDATE MATE
+	SET STATUS=?
+	WHERE BOARD_NO=? AND USER_NO = ?
+	</entry>
+	<entry key="selectStatus">
+		SELECT STATUS
+		FROM MATE
+		WHERE USER_NO =? AND BOARD_NO=?
+	</entry>
+	<entry key="applyMateList">
+		SELECT MATE.*
+		FROM MATE
+		WHERE USER_NO = ? AND BOARD_NO=?
+	</entry>
 </properties>

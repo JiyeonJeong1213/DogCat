@@ -29,10 +29,16 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<link href="<%=request.getContextPath()%>/resources/css/board/mateboard/01.css?a=<%=System.currentTimeMillis() %>" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/board/mateboard/01.css?axcx" rel="stylesheet">
 <style>
 .boardNo, .count, .create-date {
 	display: none;
+}
+.footer {
+	width: 100%;
+	height: 100px;
+	/* position: absolute; */
+	bottom: 0;
 }
 
 .list {

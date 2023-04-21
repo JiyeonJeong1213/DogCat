@@ -27,9 +27,7 @@
    rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-   href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
-   rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
    
 </head>
 <style>
@@ -62,7 +60,6 @@
    height: 15rem;
    border: 0px solid black;
 }
-
 
 .myprofile_img {
    border: 0px solid black;
@@ -133,8 +130,6 @@ button:hover {
    font-size: 5px;
    margin-top: 10px;
 }
-
-
 
 .table td, .table th {
     padding: .75rem;
@@ -227,7 +222,7 @@ button:hover {
 }
 
 #userIdlabel{
-   margin-left:145px;
+   margin-left:134px;
 }
 
 #userNicknamelabel{
@@ -249,10 +244,10 @@ button:hover {
       String userPwd = loginUser.getUserPwd();
       String phone = loginUser.getPhone();
       String email = loginUser.getEmail();
-      email = AEScryptor.decrypt(email);
       String address = loginUser.getAddress();
       int userNo =  loginUser.getUserNo();
       String userPet = loginUser.getPet();
+      email = AEScryptor.decrypt(email);
 %>
   <div class="Updateuser">
      <h1 style="color: cornflowerblue; font-size: 60px;" onclick="">바꾸개냥?</h1>
@@ -266,8 +261,7 @@ button:hover {
 
       <div class="content_2">
          <div class="myprofile_img">
-            <input type="hidden" name="userNo"
-               value="<%= loginUser.getUserNo() %>">
+            <input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
             <div class="img">
                <%if(loginUser.getFileName() != null){ %>
                <img id="profileImg" src="<%=request.getContextPath() %>/<%=loginUser.getFileName() %>">
@@ -340,15 +334,16 @@ button:hover {
             <button class="delete" id="deletebtn">회원탈퇴</button>
             </div>
          </form>
-      </div>
-   
+      </div> 
    </div>
+   
+  
    
     <!-- 알림창 -->
    <div class="alert">
       <p>회원탈퇴를 하시겠습니까?</p>
       <button class="deleteMemer alert-btn" >확인</button>
-      <button class="cansleMember alert-btn" >취소</button>
+      <button type="button" class="cansleMember alert-btn" ><a href="<%=contextPath%>/updateuser.me" style= "text-decoration: none;">취소</a></button>
    </div>
    
    <!-- 최종알림창 -->
@@ -365,7 +360,6 @@ button:hover {
       </form>
    </div>
    
-
 
    <%-- <%@ include file= "../common/footer.jsp" %> --%>
    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -413,8 +407,7 @@ button:hover {
       })
    })
    
-   //주소 가져오기
-   
+   //주소 가져오기  
    function sample6_execDaumPostcode() { // 다음 API 상세주소
       new daum.Postcode(
             {
