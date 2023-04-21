@@ -126,9 +126,9 @@ img {
 	width: 1600px;
 	color: white;
 	position: relative;
-	border: 1px solid blue;
+	border: 0px solid blue;
 }
-.btn-pic, .prev:active, .prev:focus, .next:active, .next:focus {
+/* .btn-pic, .prev:active, .prev:focus, .next:active, .next:focus {
 	position: absolute;
 	top: 45%;
 	transform: translateY(-50%);
@@ -155,7 +155,7 @@ img {
 	background-size: 20px;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
-}
+} */
 .stepper {
 	margin-top: 15px;
 	display: flex;
@@ -249,7 +249,7 @@ img {
                     <option>군/구 선택</option>
                 </select>
             </div>
-              <input type="text" class="title" name="title" placeholder="게시글 제목을 입력하세요" size="123" required >
+              <input type="text" class="title" name="title" placeholder="게시글 제목을 입력하세요" size="125" required >
             </div>
             
             <hr>
@@ -270,7 +270,6 @@ img {
             <img src="<%=contextPath %>/resources/사진첨부하기.png" height="70">
            	
             <div id="container">
-              <div class="prev btn-pic"></div>
                 <div class="items">
                   <div class="item active">
                     <div class="picture">
@@ -279,7 +278,6 @@ img {
                     </div>
                   </div>
                 </div>
-               <div class="next btn-pic"></div>
             </div>
             <input type="file" id="file" accept="image/*" onchange="loadImg(this);" name="file" multiple/>
             <br>

@@ -62,9 +62,10 @@
  	margin : 15px 0px 10px 10px;
  }
 
-  textarea{
+  .content{
     border-radius: 15px;
     margin-left: 10px;
+    margin-top : 11px;
     padding : 20px 20px;
     
   }
@@ -106,7 +107,7 @@
   width: 1600px;
   color: white;
   position: relative;
-  border: 1px solid blue;
+  border: 0px solid blue;
 }
 
 .btn-pic,
@@ -171,11 +172,11 @@
 	display: flex;
 	justify-content: space-evenly;
 	flex-wrap:nowrap;
-	border: 1px solid black;
-}
+	border: 0px solid black;
+} 
 
 .picture img{
-	border: 1px solid red;
+	border: 1px solid black;
 	border-radius: 30px;
 	width: 250px;
 	height:300px;

@@ -243,20 +243,23 @@ public class mateBoardService {
 		return mem;
 	}
 	
-	public String updateStatus(String userNickname, int boardNo, String status, int userNo) {
+	public String updateStatus(String status,int boardNo, int userNo) {
 		Connection conn = getConnection();
 		String updateStatus = null;
 		
-		int result = new mateBoardDao().updateStatus(conn, userNickname,boardNo,status, userNo);
+		int result = new mateBoardDao().updateStatus(conn,status,boardNo,userNo);
 		
 		if(result>0) {
+			
 			commit(conn);
-			updateStatus = new mateBoardDao().selectStatus(conn ,userNo, boardNo);
+			updateStatus = new mateBoardDao().selectStatus(conn , boardNo,userNo);
 			
 		}else {
 			rollback(conn);
 		}
+		
 		close(conn);
+		System.out.println(updateStatus);
 		return updateStatus;
 	}
 	

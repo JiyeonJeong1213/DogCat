@@ -41,12 +41,12 @@ public class MateMemberUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-		
+//		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//	
 	
-
+	
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,16 +54,17 @@ public class MateMemberUpdateController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		String userNickname = request.getParameter("userNickname");
+		//String userNickname = request.getParameter("userNickname");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String status = request.getParameter("status");
-		
-		String updateStatus = new mateBoardService().updateStatus(userNickname,boardNo,status, userNo );
+		String updateStatus = new mateBoardService().updateStatus(status,boardNo,userNo );
 		
 		if(updateStatus!=null) {
+			System.out.println(updateStatus);
 			request.setAttribute("updateStatus", updateStatus);
-			response.sendRedirect(request.getContextPath()+"/mateMember");
+//			request.getRequestDispatcher(request.getContextPath()+"/Mypage.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/mate.me");
 		}
 		
 	}

@@ -627,7 +627,7 @@ public class mateBoardDao {
 		
 	}
 	
-	public int updateStatus(Connection conn, String userNickname, int boardNo, String status, int userNo) {
+	public int updateStatus(Connection conn,String status,int boardNo,  int userNo) {
 		 
 		int result =0;
 		PreparedStatement pstmt = null;
@@ -657,10 +657,11 @@ public class mateBoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, userNo);
-			pstmt.setInt(2, boardNo);
+			pstmt.setInt(1, boardNo);
+			pstmt.setInt(2, userNo);
 			
 			rset =pstmt.executeQuery();
+			
 			if(rset.next()) {
 				updateStatus =rset.getString("STATUS");
 			}
@@ -669,7 +670,9 @@ public class mateBoardDao {
 		}finally {
 			close(rset);
 			close(pstmt);
-		}return updateStatus;
+		}
+		
+		return updateStatus;
 	}
 	public ArrayList<Mate> applyMateList(Connection conn, int boardNo, int userNo){
 		ArrayList<Mate> applyMateList = new ArrayList();

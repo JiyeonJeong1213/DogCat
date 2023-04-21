@@ -1,16 +1,14 @@
-package com.kh.member.controller;
+package com.kh.board.mateboard.controller;
 
-import java.util.ArrayList; 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
@@ -24,16 +22,16 @@ import com.kh.reply.model.vo.Reply;
 import com.kh.save.model.vo.Save;
 
 /**
- * Servlet implementation class MypageController
+ * Servlet implementation class MateMypageController
  */
-@WebServlet("/Mypage.me")
-public class MypageController extends HttpServlet {
+@WebServlet("/mate.me")
+public class MateMypageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageController() {
+    public MateMypageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,6 +42,8 @@ public class MypageController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		
+
 		
 		HttpSession session = request.getSession();
 		
@@ -84,11 +84,11 @@ public class MypageController extends HttpServlet {
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("count", count);
 		request.setAttribute("recentMsgs", recentMsgs);
-
+		
 		request.getRequestDispatcher("views/member/Mypage.jsp").forward(request, response);
 		
+		
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -96,8 +96,6 @@ public class MypageController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
-		
 	}
 
 }
