@@ -428,7 +428,7 @@ public class SellBoardDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			if(s2.equals("")) {
+			if(s2.equals("") || s2 == null) {
 				pstmt.setString(1, s1);
 			}else {
 				pstmt.setString(1, s1+","+s2);
