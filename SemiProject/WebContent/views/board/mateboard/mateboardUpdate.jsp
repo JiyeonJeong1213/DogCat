@@ -5,19 +5,17 @@
 <%
 	Board b = (Board)request.getAttribute("b");
 	ArrayList<Attachment> atList = (ArrayList<Attachment>)request.getAttribute("atList");
-
 	String address= b.getAddress();
 	int index = address.indexOf(",");
 	String address1 = address.substring(0, index);
 	String address2 = address.substring(index+1);
-
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>메이트 게시판 수정하기</title>
-<link href="resources/css/board/mateboard/04_mateUpdate.css?afterlike" rel="stylesheet">
+<link href="resources/css/board/mateboard/04_mateUpdate.css?afterlikedd" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
@@ -82,8 +80,7 @@
 
             <img src="<%=contextPath %>/resources/메이트소개글쓰기.png" height="65">
             <div class="write-content">
-             <div class="write-info"><span> 한 줄 소개글 : </span> <input type="text" placeholder="산책메이트를 위한 한 줄 소개글을 입력해주세요" size="140" name="content1"></div>
-             <textarea class="walk content" cols="168" rows="15" style="resize:none;" name="content" ><%=b.getBoardContent() %></textarea>
+             <textarea class="walk content"  cols="147.5" rows="10" style="resize:none;" name="content" ><%=b.getBoardContent() %></textarea>
             </div>
            
             <img src="<%=contextPath %>/resources/메이트 위치 정하기.png" height="68">
@@ -137,8 +134,8 @@
             
           </div>
           <div class="btn-div">
-            <button type="button" class="btn btn-upload" onclick="reupload();" style="color: rgb(106, 171, 240);">수정하기</button>
-            <button type="reset" class="btn btn-list"><a href="<%=contextPath%>/list.mate?currentPage=1" style="text-decoration:none; color:gray;">목록가기</a></button>
+            <button type="button" class="btn btn-upload btn-outline-primary" onclick="reupload();" style="color: rgb(106, 171, 240);">수정하기</button>
+            <button type="reset" class="btn btn-list btn-outline-secondary"><a href="<%=contextPath%>/list.mate?currentPage=1" style="text-decoration:none; color:gray;">목록가기</a></button>
           </div>
         <!-- </form> -->
       </div>
