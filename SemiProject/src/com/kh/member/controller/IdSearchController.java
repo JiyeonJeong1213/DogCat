@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.common.AEScryptor;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 import com.kh.pet.model.vo.Pet;
@@ -45,6 +46,7 @@ public class IdSearchController extends HttpServlet {
 		
 		String inputName = request.getParameter("userName");
 		String inputEmail = request.getParameter("email");
+		inputEmail = AEScryptor.encrypt(inputEmail);
 		
 		String result = new MemberService().searchMemberId(inputName, inputEmail);
 		request.setAttribute("userId", result);
