@@ -18,7 +18,7 @@
 	<entry key="selectCCount">
 		SELECT COUNT(SELLER) AS CCOUNT
 		FROM CHATROOM
-		WHERE SELLER = ?
+		WHERE SELLER = ? OR BUYER = ?
 		GROUP BY SELLER
 	</entry> 
 	<!-- 

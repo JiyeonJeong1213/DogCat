@@ -78,6 +78,7 @@
    border-radius: 50%;
    border:3px solid black;
    margin-left: 900px;
+   overflow: hidden;
 }
 
 #profilechange, #rset {

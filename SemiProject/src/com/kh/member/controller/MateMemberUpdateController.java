@@ -47,6 +47,9 @@ public class MateMemberUpdateController extends HttpServlet {
 	
 	
 	}
+		
+	
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -58,13 +61,17 @@ public class MateMemberUpdateController extends HttpServlet {
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String status = request.getParameter("status");
+
 		String updateStatus = new mateBoardService().updateStatus(status,boardNo,userNo );
+
 		
 		if(updateStatus!=null) {
 			System.out.println(updateStatus);
 			request.setAttribute("updateStatus", updateStatus);
+
 //			request.getRequestDispatcher(request.getContextPath()+"/Mypage.jsp").forward(request, response);
 			response.sendRedirect(request.getContextPath()+"/mate.me");
+
 		}
 		
 	}

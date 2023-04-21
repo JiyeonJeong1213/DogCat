@@ -393,6 +393,7 @@ public class ChatDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
 			
 			rset = pstmt.executeQuery();
 			
