@@ -10,6 +10,7 @@ import com.kh.board.mateboard.model.dao.mateBoardDao;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.mateboard.model.vo.Board;
 import com.kh.board.mateboard.model.vo.BoardLike;
+import com.kh.board.mateboard.model.vo.Mate;
 import com.kh.board.mateboard.model.vo.Reply;
 
 public class mateBoardService {
@@ -234,4 +235,42 @@ public class mateBoardService {
 		return list;
 		
 	}
-}
+	
+	public Mate selectMateMember(int userNo, int boardNo) {
+		Connection conn = getConnection();
+		Mate mem = new mateBoardDao().selectMateMember(conn, userNo, boardNo);
+		close(conn);
+		return mem;
+	}
+	
+
+	public String updateStatus(String status,int boardNo, int userNo) {
+		Connection conn = getConnection();
+		String updateStatus = null;
+		
+		int result = new mateBoardDao().updateStatus(conn,status,boardNo,userNo);
+		
+		if(result>0) {
+			
+			commit(conn);
+			updateStatus = new mateBoardDao().selectStatus(conn , boardNo,userNo);
+
+			
+		}else {
+			rollback(conn);
+		}
+
+		
+		close(conn);
+		System.out.println(updateStatus);
+
+		return updateStatus;
+	}
+	
+	public ArrayList<Mate> applyMateList(int boardNo, int userNo){
+		Connection conn = getConnection();
+		ArrayList<Mate> applyMateList = new mateBoardDao().applyMateList(conn, boardNo, userNo);
+		close(conn);
+		return applyMateList;
+	}
+} 

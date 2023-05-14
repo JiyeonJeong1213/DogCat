@@ -110,6 +110,7 @@ public class CountDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {

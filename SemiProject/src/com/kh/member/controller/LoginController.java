@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.vo.Attachment;
+import com.kh.common.AEScryptor;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
@@ -49,7 +50,8 @@ public class LoginController extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
-		
+		userPwd = AEScryptor.encrypt(userPwd);
+		System.out.println("userPwd============"+userPwd);
 		
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		Attachment at = new MemberService().memberListImg(userId);

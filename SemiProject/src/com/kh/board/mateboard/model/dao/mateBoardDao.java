@@ -15,6 +15,7 @@ import com.kh.common.model.vo.PageInfo;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.mateboard.model.vo.Board;
 import com.kh.board.mateboard.model.vo.BoardLike;
+import com.kh.board.mateboard.model.vo.Mate;
 import com.kh.board.mateboard.model.vo.Reply;
 
 import static com.kh.common.JDBCTemplate.close;
@@ -592,6 +593,117 @@ public class mateBoardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public Mate selectMateMember(Connection conn, int userNo, int boardNo) {
+		Mate mem = new Mate();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mem = new Mate();
+				mem.setUserNo(rset.getInt("USER_NO"));
+				mem.setBoardNo(rset.getInt("BOARD_NO"));
+				mem.setStatus(rset.getString("STATUS"));
+				mem.setUserNickname(rset.getString("USER_NICKNAME"));
+				
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}return mem;
+		
+	}
+	
+	public int updateStatus(Connection conn,String status,int boardNo,  int userNo) {
+
+		 
+		int result =0;
+		PreparedStatement pstmt = null;
+		String sql=prop.getProperty("updateStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, status);
+			pstmt.setInt(2, boardNo);
+			pstmt.setInt(3, userNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public String selectStatus(Connection conn, int boardNo, int userNo ) {
+		String updateStatus = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+
+			pstmt.setInt(1, boardNo);
+			pstmt.setInt(2, userNo);
+			
+			rset =pstmt.executeQuery();
+			
+
+			if(rset.next()) {
+				updateStatus =rset.getString("STATUS");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+
+		}
+		
+		return updateStatus;
+
+	}
+	public ArrayList<Mate> applyMateList(Connection conn, int boardNo, int userNo){
+		ArrayList<Mate> applyMateList = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("applyMateList");
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				pstmt.setInt(2, boardNo);
+				rset=pstmt.executeQuery();
+				while(rset.next()) {
+					Mate m = new Mate();
+					m.setBoardNo(rset.getInt("BOARD_NO"));
+					m.setUserNo(rset.getInt("USER_NO"));
+					m.setStatus(rset.getString("STATUS"));
+					applyMateList.add(m);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return applyMateList;
+		
 	}
 }
 

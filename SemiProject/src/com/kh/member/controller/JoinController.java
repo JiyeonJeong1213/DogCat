@@ -54,6 +54,7 @@ public class JoinController extends HttpServlet {
 		String petName = request.getParameter("petName");
 		
 		email = AEScryptor.encrypt(email);
+		userPwd = AEScryptor.encrypt(userPwd);
 		
 		Member m = new Member();
 		m.setUserId(userId);

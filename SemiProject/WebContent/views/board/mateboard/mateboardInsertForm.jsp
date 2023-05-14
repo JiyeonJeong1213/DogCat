@@ -12,10 +12,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <!-- <link href="resources/css/02_mateWrite.css?afterlike" rel="stylesheet"> -->
 <style>
-.wrap {
-	/* position: relative; */
+.footer {
 	width: 100%;
-	height: 100%;
+	height: 100px;
+	/*  position: absolute; */
+	bottom: 0;
+}
+.wrap {
+	/*  position: relative; */
+	width: 100%;
+	/* height: 100%; */
 }
 .content_name {
 	display: flex;
@@ -120,9 +126,9 @@ img {
 	width: 1600px;
 	color: white;
 	position: relative;
-	border: 1px solid blue;
+	border: 0px solid blue;
 }
-.btn-pic, .prev:active, .prev:focus, .next:active, .next:focus {
+/* .btn-pic, .prev:active, .prev:focus, .next:active, .next:focus {
 	position: absolute;
 	top: 45%;
 	transform: translateY(-50%);
@@ -149,7 +155,7 @@ img {
 	background-size: 20px;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
-}
+} */
 .stepper {
 	margin-top: 15px;
 	display: flex;
@@ -169,14 +175,14 @@ img {
 }
 
 .active>div {
-	width: 1300px;
+	width: 1000px;
 	height: 100%;
 	margin: 15px
 }
 .picture {
 	display: flex;
 	justify-content: space-evenly;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	border: 0px solid black;
 }
 .picture img {
@@ -184,6 +190,9 @@ img {
 	border-radius: 30px;
 	width: 250px;
 	height: 300px;
+}
+.container .picture{
+	height :100%;
 }
 </style>
 </head>
@@ -240,7 +249,7 @@ img {
                     <option>군/구 선택</option>
                 </select>
             </div>
-              <input type="text" class="title" name="title" placeholder="게시글 제목을 입력하세요" size="123" required >
+              <input type="text" class="title" name="title" placeholder="게시글 제목을 입력하세요" size="125" required >
             </div>
             
             <hr>
@@ -261,7 +270,6 @@ img {
             <img src="<%=contextPath %>/resources/사진첨부하기.png" height="70">
            	
             <div id="container">
-              <div class="prev btn-pic"></div>
                 <div class="items">
                   <div class="item active">
                     <div class="picture">
@@ -270,7 +278,6 @@ img {
                     </div>
                   </div>
                 </div>
-               <div class="next btn-pic"></div>
             </div>
             <input type="file" id="file" accept="image/*" onchange="loadImg(this);" name="file" multiple/>
             <br>
@@ -459,6 +466,6 @@ img {
 			
 		}
 	</script>
-<%--   <%@ include file="../../common/footer.jsp" %> --%>
+	   <%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

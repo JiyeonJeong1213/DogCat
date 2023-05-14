@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.common.AEScryptor;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
@@ -56,6 +57,8 @@ public class memberUpdateUserController extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 		String userId = request.getParameter("userId");
 		// String userId = request.getParameter("userId");
+		
+		userPwd = AEScryptor.encrypt(userPwd);
 
 		Member m = new Member();
 		m.setUserId(userId);

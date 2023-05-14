@@ -58,6 +58,8 @@ public class AdminProfileController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			int maxSize = 10*1024*1024;
@@ -78,10 +80,13 @@ public class AdminProfileController extends HttpServlet {
 			String fileName = multi.getParameter("fileName");
 			String userPwd = "";
 			
+			
 			if(multi.getParameter("newPwd").equals("")) {
 				userPwd = multi.getParameter("originPwd");
+				userPwd = AEScryptor.encrypt(userPwd);
 			}else {
 				userPwd = multi.getParameter("newPwd");
+				userPwd = AEScryptor.encrypt(userPwd);
 			}
 			Member m = new Member();
 			m.setUserName(userName);
